@@ -1,0 +1,615 @@
+/* ========================================================
+   HOME MAIN - FULLY RESPONSIVE SLIDER CSS
+======================================================== */
+
+.HomeMain {
+  --HomeMain-red: #d7192d;
+  --HomeMain-dark: #292a2c;
+
+  position: relative;
+  isolation: isolate;
+  width: 100%;
+  height: clamp(520px, 78svh, 720px);
+  min-height: 520px;
+  overflow: hidden;
+  background: #111315;
+  color: var(--HomeMain-dark);
+  font-family: "Inter", "Segoe UI", Arial, sans-serif;
+  box-sizing: border-box;
+}
+
+.HomeMain *,
+.HomeMain *::before,
+.HomeMain *::after {
+  box-sizing: border-box;
+}
+
+/* ========================================================
+   HORIZONTAL SLIDER TRACK
+======================================================== */
+
+.HomeMain__track {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  transition: transform 0.85s cubic-bezier(0.25, 1, 0.5, 1);
+  will-change: transform;
+}
+
+.HomeMain__slide {
+  position: relative;
+  flex: 0 0 100%;
+  width: 100%;
+  height: 100%;
+  min-width: 0;
+  overflow: hidden;
+  background: #1a1c1e;
+}
+
+/* ========================================================
+   BACKGROUND IMAGE
+======================================================== */
+
+.HomeMain__background {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background-color: #1a1c1e;
+}
+
+.HomeMain__backgroundImage {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transform: scale(1.04);
+  transition: transform 4s ease-out;
+}
+
+.HomeMain__slide[aria-hidden="false"] .HomeMain__backgroundImage {
+  transform: scale(1);
+}
+
+.HomeMain__imageShade {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(
+    90deg,
+    rgba(17, 19, 21, 0.25) 0%,
+    transparent 50%,
+    rgba(17, 19, 21, 0.45) 100%
+  );
+}
+
+/* ========================================================
+   ANGLED CONTENT PANEL
+======================================================== */
+
+.HomeMain__leftPanel {
+  position: absolute;
+  z-index: 2;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: min(58%, 1050px);
+  overflow: hidden;
+  background: rgba(247, 248, 248, 0.98);
+  clip-path: polygon(0 0, 92% 0, 100% 100%, 0 100%);
+  display: flex;
+  align-items: center;
+}
+
+.HomeMain__panelTexture {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(circle at 12% 18%, rgba(215, 25, 45, 0.035), transparent 45%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.8) 0%, rgba(240, 242, 244, 0.95) 100%);
+  z-index: -1;
+}
+
+/* ========================================================
+   TEXT CONTENT
+======================================================== */
+
+.HomeMain__content {
+  position: relative;
+  z-index: 1;
+  padding-left: clamp(35px, 6.5vw, 120px);
+  padding-right: 40px;
+  width: min(90%, 540px);
+}
+
+.HomeMain__eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 16px;
+  color: #66696d;
+  font-size: 10.5px;
+  font-weight: 700;
+  line-height: 1.6;
+  letter-spacing: 2.2px;
+}
+
+.HomeMain__eyebrowLine {
+  flex-shrink: 0;
+  width: 26px;
+  height: 3px;
+  background: var(--HomeMain-red);
+  border-radius: 2px;
+}
+
+.HomeMain__title {
+  max-width: 520px;
+  margin: 0;
+  color: #2b2c2e;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(34px, 3.8vw, 56px);
+  font-weight: 700;
+  line-height: 1.08;
+  letter-spacing: -1.8px;
+  word-break: break-word;
+}
+
+.HomeMain__description {
+  max-width: 420px;
+  margin: 14px 0 0;
+  color: #4f5256;
+  font-size: clamp(14px, 1.05vw, 17px);
+  line-height: 1.65;
+  font-weight: 400;
+}
+
+.HomeMain__contentBottom {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px;
+  margin-top: 24px;
+}
+
+.HomeMain__category {
+  color: var(--HomeMain-red);
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 1.9px;
+}
+
+.HomeMain__categoryLine {
+  width: 28px;
+  height: 1px;
+  background: #b7b9bb;
+}
+
+.HomeMain__tagline {
+  color: #76797c;
+  font-size: 11px;
+  letter-spacing: 0.4px;
+}
+
+/* Large Watermark Number */
+.HomeMain__watermark {
+  position: absolute;
+  right: 12%;
+  bottom: 0%;
+  color: rgba(40, 43, 45, 0.045);
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(100px, 14vw, 210px);
+  font-weight: 700;
+  line-height: 0.9;
+  pointer-events: none;
+  user-select: none;
+  z-index: 0;
+}
+
+/* ========================================================
+   FLOATING IMAGE LABEL
+======================================================== */
+
+.HomeMain__imageLabel {
+  position: absolute;
+  z-index: 3;
+  right: clamp(25px, 4vw, 70px);
+  bottom: clamp(90px, 14vh, 120px);
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 16px;
+  color: #fff;
+  background: rgba(18, 20, 23, 0.65);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 3px;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  font-size: 9.5px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  white-space: nowrap;
+}
+
+.HomeMain__imageLabelDot {
+  width: 6px;
+  height: 6px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  background: #f52d43;
+  box-shadow: 0 0 10px rgba(245, 45, 67, 0.7);
+}
+
+.HomeMain__imageLabelDivider {
+  width: 1px;
+  height: 13px;
+  background: rgba(255, 255, 255, 0.35);
+  flex-shrink: 0;
+}
+
+/* ========================================================
+   PERSISTENT BOTTOM CONTROLS
+======================================================== */
+
+.HomeMain__controls {
+  position: absolute;
+  z-index: 5;
+  right: clamp(25px, 4vw, 70px);
+  bottom: clamp(22px, 3.8vh, 36px);
+  left: clamp(35px, 6.5vw, 120px);
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.HomeMain__slideInfo {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 52px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+
+.HomeMain__slideCurrent {
+  color: var(--HomeMain-red);
+}
+
+.HomeMain__slideDivider {
+  width: 18px;
+  height: 1px;
+  background: #b6b8ba;
+}
+
+.HomeMain__slideTotal {
+  color: #898b8d;
+}
+
+/* Progress Bar */
+.HomeMain__progressTrack {
+  position: relative;
+  flex: 1;
+  max-width: 140px;
+  height: 2px;
+  overflow: hidden;
+  background: rgba(50, 52, 54, 0.18);
+  border-radius: 2px;
+}
+
+.HomeMain__progressBar {
+  display: block;
+  width: 100%;
+  height: 100%;
+  background: var(--HomeMain-red);
+  transform: scaleX(0);
+  transform-origin: left center;
+  animation-name: HomeMainProgress;
+  animation-timing-function: linear;
+  animation-fill-mode: forwards;
+}
+
+.HomeMain__progressBar.is-paused {
+  animation-play-state: paused;
+}
+
+@keyframes HomeMainProgress {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+
+/* Dots */
+.HomeMain__dots {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-left: auto;
+}
+
+.HomeMain__dot {
+  width: 7px;
+  height: 7px;
+  flex-shrink: 0;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: rgba(55, 57, 59, 0.3);
+  cursor: pointer;
+  transition:
+    width 0.3s ease,
+    background 0.3s ease,
+    border-radius 0.3s ease;
+}
+
+.HomeMain__dot.is-active {
+  width: 24px;
+  border-radius: 5px;
+  background: var(--HomeMain-red);
+}
+
+.HomeMain__dot:focus-visible,
+.HomeMain__arrow:focus-visible {
+  outline: 2px solid var(--HomeMain-red);
+  outline-offset: 4px;
+}
+
+/* Arrows */
+.HomeMain__arrows {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.HomeMain__arrow {
+  display: grid;
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  place-items: center;
+  color: #343638;
+  background: rgba(255, 255, 255, 0.85);
+  border: 1px solid rgba(55, 57, 59, 0.16);
+  border-radius: 50%;
+  cursor: pointer;
+  transition:
+    color 0.25s ease,
+    background 0.25s ease,
+    border-color 0.25s ease,
+    transform 0.25s ease;
+}
+
+.HomeMain__arrow svg {
+  width: 18px;
+  height: 18px;
+}
+
+.HomeMain__arrow:hover {
+  color: #fff;
+  background: var(--HomeMain-red);
+  border-color: var(--HomeMain-red);
+  transform: translateY(-2px);
+}
+
+/* Right Edge Trim */
+.HomeMain__edge {
+  position: absolute;
+  z-index: 6;
+  top: 0;
+  right: 0;
+  width: 3px;
+  height: 100%;
+  background: var(--HomeMain-red);
+  opacity: 0.75;
+  pointer-events: none;
+}
+
+/* ========================================================
+   RESPONSIVE DESIGN (ALL BREAKPOINTS)
+======================================================== */
+
+/* Ultrawide Displays */
+@media (min-width: 1920px) {
+  .HomeMain {
+    height: 740px;
+  }
+
+  .HomeMain__leftPanel {
+    width: 54%;
+    clip-path: polygon(0 0, 93% 0, 100% 100%, 0 100%);
+  }
+
+  .HomeMain__content {
+    padding-left: clamp(100px, 10vw, 240px);
+  }
+}
+
+/* Standard Laptops & Tablets Landscape */
+@media (max-width: 1080px) {
+  .HomeMain {
+    height: 80svh;
+    min-height: 520px;
+  }
+
+  .HomeMain__leftPanel {
+    width: 64%;
+    clip-path: polygon(0 0, 90% 0, 100% 100%, 0 100%);
+  }
+
+  .HomeMain__content {
+    width: 90%;
+  }
+
+  .HomeMain__title {
+    font-size: clamp(32px, 4.2vw, 48px);
+  }
+
+  .HomeMain__imageLabel {
+    right: 24px;
+    bottom: 95px;
+  }
+
+  .HomeMain__controls {
+    right: 24px;
+    gap: 14px;
+  }
+}
+
+/* Portrait Tablets & Large Phones */
+@media (max-width: 860px) {
+  .HomeMain {
+    height: 100svh;
+    min-height: 640px;
+    max-height: 900px;
+  }
+
+  .HomeMain__background {
+    height: 48%;
+  }
+
+  .HomeMain__backgroundImage {
+    object-position: center;
+  }
+
+  .HomeMain__imageShade {
+    background: linear-gradient(
+      180deg,
+      rgba(15, 17, 19, 0.05) 0%,
+      rgba(15, 17, 19, 0.55) 100%
+    );
+  }
+
+  .HomeMain__leftPanel {
+    top: auto;
+    bottom: 0;
+    width: 100%;
+    height: 58%;
+    min-height: 370px;
+    clip-path: polygon(0 8%, 100% 0, 100% 100%, 0 100%);
+    border-radius: 0;
+  }
+
+  .HomeMain__content {
+    padding-left: 24px;
+    padding-right: 24px;
+    width: 100%;
+    max-width: 480px;
+  }
+
+  .HomeMain__watermark {
+    right: 5%;
+    bottom: 2%;
+    font-size: 130px;
+  }
+
+  .HomeMain__imageLabel {
+    top: 20px;
+    bottom: auto;
+    right: 20px;
+    font-size: 8.5px;
+    padding: 8px 12px;
+  }
+
+  .HomeMain__controls {
+    right: 20px;
+    bottom: 20px;
+    left: 24px;
+    gap: 12px;
+  }
+
+  .HomeMain__progressTrack {
+    max-width: 70px;
+  }
+
+  .HomeMain__arrow {
+    width: 36px;
+    height: 36px;
+  }
+}
+
+/* Compact Mobile Devices (Phones 320px - 480px) */
+@media (max-width: 480px) {
+  .HomeMain {
+    min-height: 600px;
+  }
+
+  .HomeMain__leftPanel {
+    height: 62%;
+    min-height: 375px;
+    clip-path: polygon(0 6%, 100% 0, 100% 100%, 0 100%);
+  }
+
+  .HomeMain__content {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+
+  .HomeMain__title {
+    font-size: 30px;
+    letter-spacing: -1.2px;
+  }
+
+  .HomeMain__description {
+    font-size: 13.5px;
+    margin-top: 10px;
+  }
+
+  .HomeMain__contentBottom {
+    margin-top: 18px;
+    gap: 8px;
+  }
+
+  .HomeMain__tagline {
+    font-size: 9.5px;
+  }
+
+  .HomeMain__controls {
+    left: 20px;
+    right: 16px;
+    bottom: 16px;
+    gap: 8px;
+  }
+
+  .HomeMain__slideInfo {
+    font-size: 10px;
+    min-width: 42px;
+  }
+
+  .HomeMain__slideDivider {
+    width: 12px;
+  }
+
+  .HomeMain__progressTrack {
+    max-width: 45px;
+  }
+
+  .HomeMain__arrow {
+    width: 32px;
+    height: 32px;
+  }
+
+  .HomeMain__arrow svg {
+    width: 15px;
+    height: 15px;
+  }
+}
+
+/* Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+  .HomeMain__track,
+  .HomeMain__backgroundImage,
+  .HomeMain__arrow,
+  .HomeMain__dot {
+    transition: none !important;
+  }
+
+  .HomeMain__progressBar {
+    animation: none !important;
+    transform: scaleX(1);
+  }
+}   

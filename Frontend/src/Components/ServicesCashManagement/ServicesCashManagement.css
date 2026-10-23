@@ -1,0 +1,482 @@
+/* ========================================================
+   SERVICES CASH MANAGEMENT - SPLIT ROTATING HERO SECTION
+======================================================== */
+
+.ServicesCashManagement {
+  --ServicesCashManagement-red: #d7192d;
+  --ServicesCashManagement-red-hover: #b51223;
+  --ServicesCashManagement-dark: #1f2124;
+  --ServicesCashManagement-charcoal: #2c2f33;
+  --ServicesCashManagement-gray: #585c63;
+  --ServicesCashManagement-border: #dde1e5;
+  --ServicesCashManagement-bg: #ffffff;
+  --ServicesCashManagement-ease: cubic-bezier(0.16, 1, 0.3, 1);
+
+  position: relative;
+  width: 100%;
+  padding: 50px 0 90px;
+  background-color: var(--ServicesCashManagement-bg);
+  font-family: "Inter", "Segoe UI", Arial, sans-serif;
+  color: var(--ServicesCashManagement-dark);
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+.ServicesCashManagement *,
+.ServicesCashManagement *::before,
+.ServicesCashManagement *::after {
+  box-sizing: border-box;
+}
+
+.ServicesCashManagement__container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 0 40px;
+  gap: 65px;
+}
+
+/* ========================================================
+   LEFT MEDIA: ANGLED SLANTED CLIP & IMAGE FADE
+======================================================== */
+
+.ServicesCashManagement__media {
+  position: relative;
+  flex: 1 1 52%;
+  height: 560px;
+}
+
+.ServicesCashManagement__imageClip {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  /* Slanting diagonal matching the reference design */
+  clip-path: polygon(0% 0%, 100% 0%, 75% 100%, 0% 100%);
+  background-color: #1a1c1e;
+  box-shadow: 15px 25px 50px rgba(0, 0, 0, 0.12);
+}
+
+.ServicesCashManagement__image {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  opacity: 0;
+  transform: scale(1.08);
+  transition: opacity 0.8s ease-in-out, transform 2.2s ease-out;
+  display: block;
+}
+
+.ServicesCashManagement__image--active {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.ServicesCashManagement__imageShade {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    135deg,
+    rgba(215, 25, 45, 0.08) 0%,
+    transparent 50%,
+    rgba(20, 22, 25, 0.35) 100%
+  );
+  pointer-events: none;
+}
+
+/* Floating Status Badge */
+.ServicesCashManagement__badge {
+  position: absolute;
+  top: 24px;
+  left: 24px;
+  z-index: 3;
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 18px;
+  background: rgba(255, 255, 255, 0.94);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(255, 255, 255, 0.8);
+  border-radius: 6px;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.1);
+  animation: badgeFadeIn 0.6s var(--ServicesCashManagement-ease) forwards;
+}
+
+@keyframes badgeFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.ServicesCashManagement__badgeDot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: var(--ServicesCashManagement-red);
+  box-shadow: 0 0 10px rgba(215, 25, 45, 0.6);
+  flex-shrink: 0;
+}
+
+.ServicesCashManagement__badgeText {
+  display: flex;
+  flex-direction: column;
+}
+
+.ServicesCashManagement__badgeText strong {
+  font-size: 11.5px;
+  font-weight: 800;
+  letter-spacing: 0.6px;
+  color: var(--ServicesCashManagement-dark);
+}
+
+.ServicesCashManagement__badgeText span {
+  font-size: 10px;
+  color: var(--ServicesCashManagement-gray);
+}
+
+/* Square Dark Navigation Buttons (Bottom-Left from Referral) */
+.ServicesCashManagement__nav {
+  position: absolute;
+  bottom: 24px;
+  left: 24px;
+  z-index: 4;
+  display: flex;
+  gap: 2px;
+  background: rgba(25, 27, 29, 0.65);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-radius: 4px;
+  overflow: hidden;
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.25);
+}
+
+.ServicesCashManagement__navBtn {
+  display: inline-grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: #ffffff;
+  cursor: pointer;
+  transition: background-color 0.25s ease, color 0.25s ease;
+}
+
+.ServicesCashManagement__navBtn:hover {
+  background-color: var(--ServicesCashManagement-red);
+  color: #ffffff;
+}
+
+.ServicesCashManagement__navBtn svg {
+  width: 18px;
+  height: 18px;
+}
+
+/* ========================================================
+   RIGHT CONTENT: STAGGERED TEXT ANIMATIONS
+======================================================== */
+
+.ServicesCashManagement__content {
+  flex: 1 1 48%;
+  max-width: 580px;
+  z-index: 2;
+}
+
+/* Eyebrow */
+.ServicesCashManagement__eyebrowWrap {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 14px;
+  animation: contentSlideIn 0.5s var(--ServicesCashManagement-ease) forwards;
+}
+
+.ServicesCashManagement__eyebrowLine {
+  width: 28px;
+  height: 3px;
+  background-color: var(--ServicesCashManagement-red);
+  border-radius: 2px;
+  flex-shrink: 0;
+}
+
+.ServicesCashManagement__eyebrow {
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 2.6px;
+  color: #63676c;
+}
+
+/* Title */
+.ServicesCashManagement__title {
+  margin: 0 0 16px;
+  font-size: clamp(34px, 3.8vw, 52px);
+  font-weight: 700;
+  line-height: 1.12;
+  letter-spacing: -1.4px;
+  animation: contentSlideIn 0.6s var(--ServicesCashManagement-ease) forwards;
+}
+
+.ServicesCashManagement__titlePrimary {
+  color: var(--ServicesCashManagement-red);
+  font-family: Georgia, "Times New Roman", serif;
+  font-weight: 600;
+}
+
+.ServicesCashManagement__titleAccent {
+  color: var(--ServicesCashManagement-red);
+  font-family: Georgia, "Times New Roman", serif;
+  font-weight: 600;
+}
+
+/* Description */
+.ServicesCashManagement__description {
+  margin: 0 0 28px;
+  font-size: 15.5px;
+  line-height: 1.75;
+  color: var(--ServicesCashManagement-gray);
+  max-width: 520px;
+  animation: contentSlideIn 0.7s var(--ServicesCashManagement-ease) forwards;
+}
+
+/* Features List */
+.ServicesCashManagement__features {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 32px;
+  animation: contentSlideIn 0.8s var(--ServicesCashManagement-ease) forwards;
+}
+
+.ServicesCashManagement__featureItem {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 13.5px;
+  font-weight: 600;
+  color: var(--ServicesCashManagement-charcoal);
+}
+
+.ServicesCashManagement__featureDot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background-color: var(--ServicesCashManagement-red);
+  flex-shrink: 0;
+}
+
+/* Animation Keyframes */
+@keyframes contentSlideIn {
+  from {
+    opacity: 0;
+    transform: translateX(25px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* Action CTA & Progress Bar */
+.ServicesCashManagement__actionRow {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  animation: contentSlideIn 0.9s var(--ServicesCashManagement-ease) forwards;
+}
+
+.ServicesCashManagement__btnPrimary {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background-color: var(--ServicesCashManagement-red);
+  color: #ffffff;
+  padding: 13px 26px;
+  border-radius: 3px;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  text-decoration: none;
+  box-shadow: 0 10px 24px rgba(215, 25, 45, 0.28);
+  transition: background-color 0.25s ease, transform 0.2s ease, box-shadow 0.25s ease;
+  white-space: nowrap;
+}
+
+.ServicesCashManagement__btnPrimary svg {
+  width: 16px;
+  height: 16px;
+  transition: transform 0.25s ease;
+}
+
+.ServicesCashManagement__btnPrimary:hover {
+  background-color: var(--ServicesCashManagement-red-hover);
+  transform: translateY(-2px);
+  box-shadow: 0 14px 28px rgba(215, 25, 45, 0.36);
+}
+
+.ServicesCashManagement__btnPrimary:hover svg {
+  transform: translateX(4px);
+}
+
+/* Synchronized Progress Track */
+.ServicesCashManagement__progressTrack {
+  position: relative;
+  flex: 1;
+  max-width: 150px;
+  height: 3px;
+  background-color: var(--ServicesCashManagement-border);
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.ServicesCashManagement__progressBar {
+  width: 100%;
+  height: 100%;
+  background-color: var(--ServicesCashManagement-red);
+  transform: scaleX(0);
+  transform-origin: left center;
+  animation-name: CashProgressBar;
+  animation-timing-function: linear;
+  animation-fill-mode: forwards;
+}
+
+.ServicesCashManagement__progressBar.is-paused {
+  animation-play-state: paused;
+}
+
+@keyframes CashProgressBar {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+
+/* ========================================================
+   RESPONSIVE DESIGN (ALL DEVICES)
+======================================================== */
+
+@media (max-width: 1200px) {
+  .ServicesCashManagement__container {
+    gap: 40px;
+    padding: 0 30px;
+  }
+
+  .ServicesCashManagement__media {
+    height: 480px;
+  }
+
+  .ServicesCashManagement__imageClip {
+    clip-path: polygon(0% 0%, 100% 0%, 82% 100%, 0% 100%);
+  }
+}
+
+@media (max-width: 900px) {
+  .ServicesCashManagement {
+    padding: 70px 0 80px;
+  }
+
+  .ServicesCashManagement__container {
+    flex-direction: column-reverse;
+    gap: 45px;
+  }
+
+  .ServicesCashManagement__media,
+  .ServicesCashManagement__content {
+    width: 100%;
+    max-width: 100%;
+    flex: none;
+  }
+
+  .ServicesCashManagement__media {
+    height: 380px;
+  }
+
+  .ServicesCashManagement__imageClip {
+    clip-path: none;
+    border-radius: 12px;
+  }
+
+  .ServicesCashManagement__nav {
+    bottom: 16px;
+    left: 16px;
+  }
+}
+
+@media (max-width: 560px) {
+  .ServicesCashManagement {
+    padding: 50px 0 60px;
+  }
+
+  .ServicesCashManagement__container {
+    padding: 0 20px;
+  }
+
+  .ServicesCashManagement__title {
+    font-size: 30px;
+    letter-spacing: -1.2px;
+  }
+
+  .ServicesCashManagement__description {
+    font-size: 14.5px;
+    margin-bottom: 20px;
+  }
+
+  .ServicesCashManagement__media {
+    height: 270px;
+  }
+
+  .ServicesCashManagement__actionRow {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 16px;
+  }
+
+  .ServicesCashManagement__btnPrimary {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .ServicesCashManagement__progressTrack {
+    max-width: 100%;
+  }
+
+  .ServicesCashManagement__badge {
+    top: 14px;
+    left: 14px;
+    padding: 8px 12px;
+  }
+}
+
+/* Accessibility */
+@media (prefers-reduced-motion: reduce) {
+  .ServicesCashManagement__image,
+  .ServicesCashManagement__eyebrowWrap,
+  .ServicesCashManagement__title,
+  .ServicesCashManagement__description,
+  .ServicesCashManagement__features,
+  .ServicesCashManagement__actionRow,
+  .ServicesCashManagement__badge {
+    transition: none !important;
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+
+  .ServicesCashManagement__progressBar {
+    animation: none !important;
+    transform: scaleX(1);
+  }
+}

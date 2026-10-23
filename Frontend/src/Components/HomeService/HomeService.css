@@ -1,0 +1,712 @@
+
+/* ==========================================
+   HOME SERVICE - NO HORIZONTAL OVERFLOW
+========================================== */
+
+.HomeService {
+  --HomeService-red: #e31e2f;
+  --HomeService-navy: #202b43;
+  --HomeService-text: #34373c;
+  --HomeService-muted: #737780;
+  --HomeService-border: #e9eaed;
+
+  position: relative;
+  isolation: isolate;
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  padding: 80px clamp(16px, 4vw, 64px);
+  overflow-x: clip;
+  background:
+    radial-gradient(
+      circle at 100% 0%,
+      rgba(227, 30, 47, 0.035),
+      transparent 28%
+    ),
+    #fff;
+  color: var(--HomeService-text);
+  font-family: "Inter", "Segoe UI", Arial, sans-serif;
+}
+
+.HomeService *,
+.HomeService *::before,
+.HomeService *::after {
+  box-sizing: border-box;
+}
+
+.HomeService__container {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.18fr);
+  align-items: start;
+  gap: clamp(28px, 4vw, 64px);
+  width: 100%;
+  max-width: 1450px;
+  min-width: 0;
+  margin-inline: auto;
+}
+
+/* LEFT GRID */
+
+.HomeService__grid {
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  overflow: hidden;
+  border: 1px solid var(--HomeService-border);
+  background: #fff;
+  box-shadow: 0 12px 45px rgba(29, 38, 54, 0.035);
+  animation: HomeServiceReveal 0.7s ease both;
+}
+
+.HomeService__gridHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  min-width: 0;
+  min-height: 54px;
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--HomeService-border);
+  background: #fdfdfd;
+}
+
+.HomeService__sectionEyebrow {
+  color: var(--HomeService-navy);
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 2px;
+}
+
+.HomeService__gridCount {
+  flex-shrink: 0;
+  color: #9699a0;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.7px;
+}
+
+/* Four-column grid */
+
+.HomeService__gridItems {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  width: 100%;
+  min-width: 0;
+}
+
+/* Individual service card */
+
+.HomeService__card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  width: 100%;
+  min-width: 0;
+  min-height: 164px;
+  padding: 24px 5px 16px;
+  overflow: hidden;
+  color: var(--HomeService-text);
+  background: #fff;
+  border: 0;
+  border-right: 1px solid var(--HomeService-border);
+  border-bottom: 1px solid var(--HomeService-border);
+  text-align: center;
+  cursor: pointer;
+  isolation: isolate;
+  transition:
+    background 0.3s ease,
+    box-shadow 0.3s ease,
+    color 0.3s ease;
+}
+
+.HomeService__card:nth-child(4n) {
+  border-right: 0;
+}
+
+.HomeService__card:nth-last-child(-n + 4) {
+  border-bottom: 0;
+}
+
+.HomeService__card::before {
+  position: absolute;
+  z-index: -1;
+  inset: 0;
+  background: linear-gradient(
+    145deg,
+    rgba(227, 30, 47, 0.055),
+    rgba(32, 43, 67, 0.025)
+  );
+  content: "";
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.HomeService__card:hover::before,
+.HomeService__card.is-active::before {
+  opacity: 1;
+}
+
+.HomeService__card:hover,
+.HomeService__card.is-active {
+  color: var(--HomeService-navy);
+  box-shadow: inset 0 -2px 0 var(--HomeService-red);
+}
+
+.HomeService__cardIcon {
+  display: grid;
+  width: 38px;
+  height: 38px;
+  flex-shrink: 0;
+  margin-bottom: 12px;
+  place-items: center;
+  color: #44484e;
+  transition:
+    color 0.3s ease,
+    transform 0.3s ease;
+}
+
+.HomeService__cardIcon svg {
+  display: block;
+  width: 31px;
+  height: 31px;
+  max-width: 100%;
+}
+
+.HomeService__card:hover .HomeService__cardIcon,
+.HomeService__card.is-active .HomeService__cardIcon {
+  color: var(--HomeService-red);
+  transform: translateY(-3px);
+}
+
+.HomeService__cardTitle {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 1.55;
+  overflow-wrap: anywhere;
+  word-break: normal;
+}
+
+.HomeService__cardUnderline {
+  width: 0;
+  height: 3px;
+  flex-shrink: 0;
+  margin-top: 12px;
+  background: var(--HomeService-red);
+  transition: width 0.3s ease;
+}
+
+.HomeService__card.is-active .HomeService__cardUnderline {
+  width: 34px;
+}
+
+.HomeService__cardArrow {
+  position: absolute;
+  top: 8px;
+  right: 7px;
+  width: 14px;
+  height: 14px;
+  color: var(--HomeService-red);
+  opacity: 0;
+  transform: translate(-3px, 3px);
+  transition:
+    opacity 0.3s ease,
+    transform 0.3s ease;
+}
+
+.HomeService__card:hover .HomeService__cardArrow {
+  opacity: 1;
+  transform: translate(0, 0);
+}
+
+.HomeService__gridFooter {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  min-width: 0;
+  min-height: 46px;
+  padding: 10px 13px;
+  color: var(--HomeService-muted);
+  border-top: 1px solid var(--HomeService-border);
+  font-size: 10px;
+  line-height: 1.5;
+}
+
+.HomeService__gridFooterDot {
+  width: 7px;
+  height: 7px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  background: var(--HomeService-red);
+}
+
+/* RIGHT DETAIL PANEL */
+
+.HomeService__details {
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  padding-top: 6px;
+  overflow-wrap: anywhere;
+  animation: HomeServiceDetailsReveal 0.45s ease both;
+}
+
+@keyframes HomeServiceDetailsReveal {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.HomeService__detailsTop {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-width: 0;
+  margin-bottom: 9px;
+}
+
+.HomeService__detailsLine {
+  width: 34px;
+  height: 3px;
+  flex-shrink: 0;
+  background: var(--HomeService-red);
+}
+
+.HomeService__detailsEyebrow {
+  color: #454850;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 4px;
+}
+
+.HomeService__detailsNumber {
+  margin-left: auto;
+  color: #a0a2a7;
+  font-size: 10px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.HomeService__heading {
+  margin: 0 0 13px;
+  padding-left: 12px;
+  border-left: 5px solid var(--HomeService-navy);
+  color: #282b31;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(28px, 2.8vw, 43px);
+  font-weight: 600;
+  line-height: 1.22;
+  letter-spacing: -0.8px;
+  overflow-wrap: anywhere;
+}
+
+.HomeService__heading span {
+  color: var(--HomeService-red);
+}
+
+.HomeService__subheading {
+  margin: 0 0 12px;
+  color: #2d3035;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(19px, 1.8vw, 26px);
+  font-weight: 600;
+  line-height: 1.4;
+  overflow-wrap: anywhere;
+}
+
+.HomeService__description {
+  max-width: 100%;
+  margin: 0;
+  color: #50545b;
+  font-size: 14px;
+  line-height: 1.85;
+  overflow-wrap: anywhere;
+}
+
+/* FEATURE GRID */
+
+.HomeService__features {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 8px;
+  width: 100%;
+  min-width: 0;
+  margin-top: 23px;
+}
+
+.HomeService__feature {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 8px;
+  min-width: 0;
+  padding: 10px 3px;
+  border-radius: 5px;
+  text-align: center;
+  transition:
+    background 0.3s ease,
+    transform 0.3s ease;
+}
+
+.HomeService__feature:hover {
+  background: #fafafb;
+  transform: translateY(-3px);
+}
+
+.HomeService__featureIcon {
+  display: grid;
+  width: 38px;
+  height: 38px;
+  place-items: center;
+  color: var(--HomeService-navy);
+}
+
+.HomeService__featureIcon svg {
+  display: block;
+  width: 29px;
+  height: 29px;
+  max-width: 100%;
+}
+
+.HomeService__featureLabel {
+  max-width: 100%;
+  color: #45484e;
+  font-size: 10px;
+  line-height: 1.55;
+  overflow-wrap: anywhere;
+}
+
+/* HIGHLIGHTS */
+
+.HomeService__highlights {
+  width: 100%;
+  min-width: 0;
+  margin-top: 22px;
+  padding-top: 17px;
+  border-top: 1px solid var(--HomeService-border);
+}
+
+.HomeService__highlightsTitle {
+  display: block;
+  margin-bottom: 13px;
+  color: #7a7d84;
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 1.8px;
+}
+
+.HomeService__highlightsList {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 11px 14px;
+}
+
+.HomeService__highlight {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  min-width: 0;
+  color: #484c53;
+  font-size: 11px;
+  line-height: 1.6;
+  overflow-wrap: anywhere;
+}
+
+.HomeService__highlight svg {
+  width: 15px;
+  height: 15px;
+  flex-shrink: 0;
+  margin-top: 2px;
+  color: var(--HomeService-red);
+}
+
+/* READ MORE */
+
+.HomeService__readMore {
+  display: inline-flex;
+  align-items: center;
+  gap: 13px;
+  max-width: 100%;
+  margin-top: 24px;
+  color: var(--HomeService-red);
+  font-size: 14px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: gap 0.3s ease;
+}
+
+.HomeService__readMore:hover {
+  gap: 19px;
+}
+
+.HomeService__readMoreIcon {
+  display: grid;
+  width: 32px;
+  height: 32px;
+  flex-shrink: 0;
+  place-items: center;
+  border: 1px solid rgba(227, 30, 47, 0.28);
+  border-radius: 50%;
+  transition:
+    color 0.3s ease,
+    background 0.3s ease;
+}
+
+.HomeService__readMoreIcon svg {
+  width: 16px;
+  height: 16px;
+}
+
+.HomeService__readMore:hover .HomeService__readMoreIcon {
+  color: #fff;
+  background: var(--HomeService-red);
+}
+
+/* ANIMATIONS */
+
+@keyframes HomeServiceReveal {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* TABLET */
+
+@media (max-width: 1000px) {
+  .HomeService {
+    padding: 60px 24px;
+  }
+
+  .HomeService__container {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: 24px;
+  }
+
+  .HomeService__card {
+    min-height: 140px;
+    padding: 21px 4px 13px;
+  }
+
+  .HomeService__cardTitle {
+    font-size: 11px;
+  }
+
+  .HomeService__heading {
+    font-size: clamp(27px, 3.3vw, 36px);
+  }
+
+  .HomeService__subheading {
+    font-size: 21px;
+  }
+
+  .HomeService__description {
+    font-size: 13px;
+  }
+
+  .HomeService__features {
+    gap: 3px;
+  }
+
+  .HomeService__featureLabel {
+    font-size: 9px;
+  }
+}
+
+/* MOBILE / SMALL TABLET */
+
+@media (max-width: 760px) {
+  .HomeService {
+    padding: 48px 20px;
+  }
+
+  .HomeService__container {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 32px;
+  }
+
+  .HomeService__grid,
+  .HomeService__details {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .HomeService__card {
+    min-height: 145px;
+  }
+
+  .HomeService__cardTitle {
+    font-size: 12px;
+  }
+
+  .HomeService__heading {
+    font-size: clamp(31px, 6vw, 40px);
+  }
+
+  .HomeService__subheading {
+    font-size: 23px;
+  }
+
+  .HomeService__description {
+    font-size: 14px;
+  }
+
+  .HomeService__featureLabel {
+    font-size: 11px;
+  }
+}
+
+/* SMALL PHONES */
+
+@media (max-width: 480px) {
+  .HomeService {
+    padding: 38px 14px;
+  }
+
+  .HomeService__container {
+    gap: 28px;
+  }
+
+  .HomeService__gridHeader {
+    min-height: 45px;
+    padding: 10px;
+  }
+
+  .HomeService__sectionEyebrow {
+    font-size: 9px;
+    letter-spacing: 1.2px;
+  }
+
+  .HomeService__gridCount {
+    font-size: 8px;
+  }
+
+  .HomeService__card {
+    min-height: 122px;
+    padding: 17px 3px 10px;
+  }
+
+  .HomeService__cardIcon {
+    width: 32px;
+    height: 32px;
+    margin-bottom: 8px;
+  }
+
+  .HomeService__cardIcon svg {
+    width: 25px;
+    height: 25px;
+  }
+
+  .HomeService__cardTitle {
+    font-size: 10px;
+    line-height: 1.45;
+  }
+
+  .HomeService__cardUnderline {
+    margin-top: 8px;
+  }
+
+  .HomeService__card.is-active .HomeService__cardUnderline {
+    width: 25px;
+  }
+
+  .HomeService__gridFooter {
+    min-height: 40px;
+    padding: 8px;
+    font-size: 9px;
+  }
+
+  .HomeService__detailsTop {
+    gap: 8px;
+  }
+
+  .HomeService__detailsLine {
+    width: 25px;
+  }
+
+  .HomeService__detailsEyebrow {
+    font-size: 9px;
+    letter-spacing: 2.5px;
+  }
+
+  .HomeService__heading {
+    padding-left: 9px;
+    border-left-width: 4px;
+    font-size: clamp(27px, 7.5vw, 34px);
+  }
+
+  .HomeService__subheading {
+    font-size: 20px;
+  }
+
+  .HomeService__description {
+    font-size: 13px;
+    line-height: 1.8;
+  }
+
+  .HomeService__features {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 8px;
+    margin-top: 18px;
+  }
+
+  .HomeService__feature {
+    min-height: 100px;
+    justify-content: center;
+    padding: 10px 7px;
+    border: 1px solid #eeeeef;
+  }
+
+  .HomeService__featureIcon {
+    width: 34px;
+    height: 34px;
+  }
+
+  .HomeService__featureIcon svg {
+    width: 26px;
+    height: 26px;
+  }
+
+  .HomeService__featureLabel {
+    font-size: 11px;
+  }
+
+  .HomeService__highlightsList {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 9px;
+  }
+
+  .HomeService__highlight {
+    font-size: 11px;
+  }
+}
+
+/* ACCESSIBILITY */
+
+@media (prefers-reduced-motion: reduce) {
+  .HomeService *,
+  .HomeService *::before,
+  .HomeService *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

@@ -1,0 +1,400 @@
+/* ========================================================
+   HOME RESPONSIBILITY - PREMIUM CSR COMPONENT
+======================================================== */
+
+:root {
+  --HomeResponsbility-red: #d7192d;
+  --HomeResponsbility-red-rgb: 215, 25, 45;
+  --HomeResponsbility-dark: #1b1c1e;
+  --HomeResponsbility-gray: #55595e;
+  --HomeResponsbility-border: #eceef0;
+  --HomeResponsbility-ease: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.HomeResponsbility {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  background-color: #ffffff;
+  padding: 100px 0;
+  font-family: "Inter", "Segoe UI", Arial, sans-serif;
+  color: var(--HomeResponsbility-dark);
+}
+
+.HomeResponsbility__container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 0 40px;
+  gap: 60px;
+}
+
+/* ========================================================
+   LEFT CONTENT: ENTRANCE ANIMATION (LEFT TO RIGHT)
+======================================================== */
+
+.HomeResponsbility__content {
+  flex: 1 1 50%;
+  max-width: 620px;
+  opacity: 0;
+  transform: translateX(-90px);
+  transition: transform 1.25s var(--HomeResponsbility-ease),
+              opacity 1.25s var(--HomeResponsbility-ease);
+  will-change: transform, opacity;
+}
+
+.HomeResponsbility--animated .HomeResponsbility__content {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* Eyebrow badge */
+.HomeResponsbility__eyebrowWrapper {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 18px;
+}
+
+.HomeResponsbility__eyebrowLine {
+  width: 32px;
+  height: 3px;
+  background-color: var(--HomeResponsbility-red);
+  border-radius: 2px;
+}
+
+.HomeResponsbility__eyebrow {
+  font-size: 13px;
+  font-weight: 800;
+  letter-spacing: 2.8px;
+  text-transform: uppercase;
+  color: var(--HomeResponsbility-red);
+}
+
+/* Titles & descriptions */
+.HomeResponsbility__title {
+  margin: 0 0 20px 0;
+  font-size: clamp(34px, 3.8vw, 54px);
+  line-height: 1.15;
+  font-weight: 700;
+  color: var(--HomeResponsbility-dark);
+  letter-spacing: -1.2px;
+}
+
+.HomeResponsbility__titleHighlight {
+  color: var(--HomeResponsbility-red);
+  display: inline-block;
+  font-family: Georgia, "Times New Roman", serif;
+  font-weight: 600;
+}
+
+.HomeResponsbility__description {
+  margin: 0 0 40px 0;
+  font-size: 16px;
+  line-height: 1.8;
+  color: var(--HomeResponsbility-gray);
+  max-width: 540px;
+}
+
+/* 3-Column Grid of Icons & Labels */
+.HomeResponsbility__grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 28px 18px;
+  margin-bottom: 45px;
+}
+
+.HomeResponsbility__card {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 12px;
+  transition: transform 0.3s ease;
+}
+
+.HomeResponsbility__card:hover {
+  transform: translateY(-4px);
+}
+
+.HomeResponsbility__cardIconWrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  border-radius: 12px;
+  background-color: rgba(var(--HomeResponsbility-red-rgb), 0.07);
+  color: var(--HomeResponsbility-red);
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.HomeResponsbility__cardIconWrap svg {
+  width: 24px;
+  height: 24px;
+}
+
+.HomeResponsbility__card:hover .HomeResponsbility__cardIconWrap {
+  background-color: var(--HomeResponsbility-red);
+  color: #ffffff;
+}
+
+.HomeResponsbility__cardTitle {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.4;
+  color: #313337;
+}
+
+/* Read more link */
+.HomeResponsbility__actionWrap {
+  display: inline-block;
+}
+
+.HomeResponsbility__link {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--HomeResponsbility-red);
+  text-decoration: none;
+  position: relative;
+  padding-bottom: 4px;
+}
+
+.HomeResponsbility__link::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0%;
+  height: 2px;
+  background-color: var(--HomeResponsbility-red);
+  transition: width 0.3s ease;
+}
+
+.HomeResponsbility__link:hover::after {
+  width: 100%;
+}
+
+.HomeResponsbility__link svg {
+  width: 17px;
+  height: 17px;
+  transition: transform 0.3s ease;
+}
+
+.HomeResponsbility__link:hover svg {
+  transform: translateX(5px);
+}
+
+/* ========================================================
+   RIGHT MEDIA: ENTRANCE ANIMATION (RIGHT TO LEFT)
+======================================================== */
+
+.HomeResponsbility__media {
+  position: relative;
+  flex: 1 1 50%;
+  height: 620px;
+  opacity: 0;
+  transform: translateX(90px);
+  transition: transform 1.25s var(--HomeResponsbility-ease),
+              opacity 1.25s var(--HomeResponsbility-ease);
+  will-change: transform, opacity;
+}
+
+.HomeResponsbility--animated .HomeResponsbility__media {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.HomeResponsbility__imageClip {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  border-radius: 28px;
+  overflow: hidden;
+  clip-path: polygon(14% 0%, 100% 0%, 100% 100%, 0% 100%);
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.18);
+}
+
+.HomeResponsbility__image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transform: scale(1.06);
+  transition: transform 5s ease;
+}
+
+.HomeResponsbility--animated .HomeResponsbility__image {
+  transform: scale(1);
+}
+
+.HomeResponsbility__imageOverlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    135deg,
+    rgba(215, 25, 45, 0.12) 0%,
+    transparent 60%,
+    rgba(27, 28, 30, 0.45) 100%
+  );
+  pointer-events: none;
+}
+
+/* Floating overlay badge */
+.HomeResponsbility__floatingBadge {
+  position: absolute;
+  bottom: 45px;
+  left: 10px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 16px 22px;
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.7);
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.12);
+  z-index: 2;
+}
+
+.HomeResponsbility__floatingBadgeDot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--HomeResponsbility-red);
+  box-shadow: 0 0 10px rgba(var(--HomeResponsbility-red-rgb), 0.7);
+  animation: pulseDot 2s infinite ease-in-out;
+}
+
+@keyframes pulseDot {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.35);
+    opacity: 0.65;
+  }
+}
+
+.HomeResponsbility__floatingBadgeText {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.HomeResponsbility__floatingBadgeText strong {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--HomeResponsbility-dark);
+}
+
+.HomeResponsbility__floatingBadgeText span {
+  font-size: 11px;
+  color: var(--HomeResponsbility-gray);
+  letter-spacing: 0.3px;
+}
+
+/* ========================================================
+   RESPONSIVE BREAKPOINTS
+======================================================== */
+
+@media (max-width: 1120px) {
+  .HomeResponsbility {
+    padding: 70px 0;
+  }
+
+  .HomeResponsbility__container {
+    gap: 40px;
+    padding: 0 28px;
+  }
+
+  .HomeResponsbility__grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .HomeResponsbility__media {
+    height: 520px;
+  }
+}
+
+@media (max-width: 900px) {
+  .HomeResponsbility__container {
+    flex-direction: column;
+    gap: 50px;
+  }
+
+  .HomeResponsbility__content,
+  .HomeResponsbility__media {
+    max-width: 100%;
+    width: 100%;
+    flex: none;
+  }
+
+  .HomeResponsbility__media {
+    height: 440px;
+  }
+
+  .HomeResponsbility__imageClip {
+    clip-path: none;
+    border-radius: 20px;
+  }
+
+  .HomeResponsbility__floatingBadge {
+    left: 20px;
+    bottom: 25px;
+  }
+}
+
+@media (max-width: 580px) {
+  .HomeResponsbility {
+    padding: 50px 0;
+  }
+
+  .HomeResponsbility__container {
+    padding: 0 20px;
+  }
+
+  .HomeResponsbility__grid {
+    grid-template-columns: 1fr;
+    gap: 18px;
+  }
+
+  .HomeResponsbility__media {
+    height: 320px;
+  }
+
+  .HomeResponsbility__floatingBadge {
+    padding: 12px 16px;
+    border-radius: 12px;
+  }
+
+  .HomeResponsbility__floatingBadgeText strong {
+    font-size: 12px;
+  }
+
+  .HomeResponsbility__floatingBadgeText span {
+    font-size: 10px;
+  }
+}
+
+/* Accessibility: respect user prefers-reduced-motion */
+@media (prefers-reduced-motion: reduce) {
+  .HomeResponsbility__content,
+  .HomeResponsbility__media {
+    transform: none !important;
+    transition: none !important;
+    opacity: 1 !important;
+  }
+
+  .HomeResponsbility__image,
+  .HomeResponsbility__floatingBadgeDot {
+    animation: none !important;
+    transition: none !important;
+  }
+}

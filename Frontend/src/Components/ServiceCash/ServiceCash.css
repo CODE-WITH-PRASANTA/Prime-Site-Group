@@ -1,0 +1,474 @@
+/* ========================================================
+   SERVICE CASH - 55% CONTENT / 45% IMAGE VIEWPORT (FIXED)
+======================================================== */
+
+.ServiceCash {
+  --ServiceCash-red: #d7192d;
+  --ServiceCash-red-hover: #b81323;
+  --ServiceCash-dark: #1b1c1e;
+  --ServiceCash-charcoal: #2d3035;
+  --ServiceCash-gray: #5e6268;
+  --ServiceCash-border: rgba(40, 44, 48, 0.09);
+  --ServiceCash-white: #ffffff;
+  --ServiceCash-ease: cubic-bezier(0.16, 1, 0.3, 1);
+
+  position: relative;
+  width: 100%;
+  min-height: 580px;
+  height: auto; /* Replaced rigid clamp with auto-growth to prevent button cut-off */
+  overflow: hidden;
+  background-color: #0d0f11;
+  color: var(--ServiceCash-dark);
+  font-family: "Inter", "Segoe UI", Arial, sans-serif;
+  isolation: isolate;
+  display: flex;
+  align-items: stretch;
+  box-sizing: border-box;
+}
+
+.ServiceCash *,
+.ServiceCash *::before,
+.ServiceCash *::after {
+  box-sizing: border-box;
+}
+
+/* ========================================================
+   45% VISUAL RIGHT MEDIA
+======================================================== */
+
+.ServiceCash__mediaWrap {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 48%; /* Seamlessly overlaps behind diagonal cut */
+  height: 100%;
+  z-index: 1;
+  overflow: hidden;
+}
+
+.ServiceCash__mediaImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center left;
+  transform: scale(1.06);
+  transition: transform 3.5s ease-out;
+  display: block;
+}
+
+.ServiceCash--loaded .ServiceCash__mediaImage {
+  transform: scale(1);
+}
+
+.ServiceCash__mediaShade {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    90deg,
+    rgba(13, 15, 17, 0.2) 0%,
+    transparent 45%,
+    rgba(13, 15, 17, 0.5) 100%
+  );
+  pointer-events: none;
+}
+
+/* Floating Status Badge on Image */
+.ServiceCash__heroTag {
+  position: absolute;
+  right: clamp(20px, 3.5vw, 48px);
+  bottom: clamp(24px, 4.5vh, 44px);
+  z-index: 3;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 16px;
+  background: rgba(18, 20, 23, 0.76);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 3px;
+  color: #ffffff;
+  font-size: 9.5px;
+  font-weight: 700;
+  letter-spacing: 1.4px;
+  white-space: nowrap;
+}
+
+.ServiceCash__heroTagDot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--ServiceCash-red);
+  box-shadow: 0 0 10px var(--ServiceCash-red);
+  flex-shrink: 0;
+}
+
+.ServiceCash__heroTagDivider {
+  width: 1px;
+  height: 13px;
+  background: rgba(255, 255, 255, 0.3);
+  flex-shrink: 0;
+}
+
+.ServiceCash__heroTagSubtitle {
+  color: rgba(255, 255, 255, 0.75);
+}
+
+/* ========================================================
+   55% ANGLED EXECUTIVE LEFT PANEL
+======================================================== */
+
+.ServiceCash__leftPanel {
+  position: relative;
+  z-index: 2;
+  width: 58%;
+  min-height: 100%;
+  background: rgba(250, 251, 252, 0.99);
+  clip-path: polygon(0 0, 93% 0, 100% 100%, 0 100%);
+  display: flex;
+  align-items: center;
+  padding: clamp(45px, 6vh, 70px) clamp(40px, 6vw, 90px) clamp(45px, 6vh, 70px) clamp(35px, 6vw, 110px);
+  box-shadow: 18px 0 50px rgba(0, 0, 0, 0.18);
+  transform: translateX(-40px);
+  opacity: 0;
+  transition: transform 1.1s var(--ServiceCash-ease), opacity 1.1s var(--ServiceCash-ease);
+}
+
+.ServiceCash--loaded .ServiceCash__leftPanel {
+  transform: translateX(0);
+  opacity: 1;
+}
+
+.ServiceCash__panelTexture {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(circle at 10% 20%, rgba(215, 25, 45, 0.03), transparent 45%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.8) 0%, rgba(243, 245, 247, 0.95) 100%);
+  z-index: -1;
+}
+
+/* Watermark in Background */
+.ServiceCash__watermark {
+  position: absolute;
+  right: 14%;
+  bottom: -15px;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(90px, 13vw, 180px);
+  font-weight: 800;
+  color: rgba(30, 32, 35, 0.035);
+  line-height: 0.8;
+  pointer-events: none;
+  user-select: none;
+  z-index: 0;
+}
+
+/* ========================================================
+   CONTENT PRESENTATION
+======================================================== */
+
+.ServiceCash__content {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 610px;
+}
+
+/* Eyebrow */
+.ServiceCash__eyebrowWrap {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.ServiceCash__eyebrowLine {
+  width: 26px;
+  height: 3px;
+  background-color: var(--ServiceCash-red);
+  border-radius: 2px;
+  flex-shrink: 0;
+}
+
+.ServiceCash__eyebrow {
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 2.4px;
+  color: var(--ServiceCash-red);
+}
+
+/* Title */
+.ServiceCash__title {
+  margin: 0 0 14px;
+  font-size: clamp(30px, 3.2vw, 48px);
+  font-weight: 700;
+  line-height: 1.1;
+  color: var(--ServiceCash-dark);
+  letter-spacing: -1.4px;
+  word-break: break-word;
+}
+
+.ServiceCash__titleAccent {
+  font-family: Georgia, "Times New Roman", serif;
+  color: var(--ServiceCash-red);
+  font-weight: 600;
+  font-style: italic;
+}
+
+/* Prose Text */
+.ServiceCash__lead {
+  margin: 0 0 10px;
+  font-size: clamp(13px, 1vw, 15px);
+  line-height: 1.6;
+  font-weight: 600;
+  color: var(--ServiceCash-charcoal);
+}
+
+.ServiceCash__description {
+  margin: 0 0 20px;
+  font-size: clamp(12.5px, 0.9vw, 14px);
+  line-height: 1.65;
+  color: var(--ServiceCash-gray);
+}
+
+/* Feature tags */
+.ServiceCash__features {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 10px;
+  margin-bottom: 26px;
+}
+
+.ServiceCash__featurePill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 12px;
+  background-color: rgba(255, 255, 255, 0.95);
+  border: 1px solid var(--ServiceCash-border);
+  border-radius: 20px;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--ServiceCash-charcoal);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.03);
+  white-space: nowrap;
+}
+
+.ServiceCash__featureDot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background-color: var(--ServiceCash-red);
+  flex-shrink: 0;
+}
+
+/* Action CTA Buttons */
+.ServiceCash__actionRow {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-top: 4px;
+}
+
+.ServiceCash__btnPrimary {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  background: var(--ServiceCash-red);
+  color: var(--ServiceCash-white);
+  padding: 12px 24px;
+  border-radius: 3px;
+  font-size: 12.5px;
+  font-weight: 700;
+  letter-spacing: 0.6px;
+  text-decoration: none;
+  box-shadow: 0 8px 20px rgba(215, 25, 45, 0.28);
+  transition: background-color 0.25s ease, transform 0.2s ease, box-shadow 0.25s ease;
+  white-space: nowrap;
+}
+
+.ServiceCash__btnPrimary svg {
+  width: 14px;
+  height: 14px;
+  transition: transform 0.25s ease;
+}
+
+.ServiceCash__btnPrimary:hover {
+  background: var(--ServiceCash-red-hover);
+  transform: translateY(-2px);
+  box-shadow: 0 12px 24px rgba(215, 25, 45, 0.35);
+}
+
+.ServiceCash__btnPrimary:hover svg {
+  transform: translateX(4px);
+}
+
+.ServiceCash__btnOutline {
+  display: inline-flex;
+  align-items: center;
+  padding: 11px 22px;
+  border: 1px solid var(--ServiceCash-red);
+  border-radius: 3px;
+  background: transparent;
+  color: var(--ServiceCash-red);
+  font-size: 12.5px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: background-color 0.25s ease, color 0.25s ease, transform 0.2s ease;
+}
+
+.ServiceCash__btnOutline:hover {
+  background-color: var(--ServiceCash-red);
+  color: #ffffff;
+  transform: translateY(-2px);
+}
+
+/* Right Edge Trim */
+.ServiceCash__edgeStripe {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 3px;
+  height: 100%;
+  background: var(--ServiceCash-red);
+  z-index: 4;
+}
+
+/* ========================================================
+   RESPONSIVE DESIGN (ALL BREAKPOINTS)
+======================================================== */
+
+@media (min-width: 1920px) {
+  .ServiceCash {
+    min-height: 640px;
+  }
+
+  .ServiceCash__leftPanel {
+    width: 55%;
+    padding-left: clamp(100px, 10vw, 240px);
+    clip-path: polygon(0 0, 94% 0, 100% 100%, 0 100%);
+  }
+
+  .ServiceCash__mediaWrap {
+    width: 50%;
+  }
+
+  .ServiceCash__content {
+    max-width: 680px;
+  }
+}
+
+@media (max-width: 1120px) {
+  .ServiceCash__leftPanel {
+    width: 64%;
+    clip-path: polygon(0 0, 90% 0, 100% 100%, 0 100%);
+    padding-left: 35px;
+    padding-right: 35px;
+  }
+
+  .ServiceCash__mediaWrap {
+    width: 44%;
+  }
+}
+
+@media (max-width: 860px) {
+  .ServiceCash {
+    flex-direction: column;
+    min-height: auto;
+  }
+
+  .ServiceCash__mediaWrap {
+    position: relative;
+    width: 100%;
+    height: 320px;
+  }
+
+  .ServiceCash__leftPanel {
+    width: 100%;
+    clip-path: none;
+    padding: 38px 24px 52px;
+    transform: none;
+    opacity: 1;
+    margin-top: -24px;
+    border-radius: 20px 20px 0 0;
+    box-shadow: 0 -10px 30px rgba(0, 0, 0, 0.1);
+  }
+
+  .ServiceCash__watermark {
+    display: none;
+  }
+
+  .ServiceCash__heroTag {
+    top: 18px;
+    bottom: auto;
+    right: 18px;
+  }
+
+  .ServiceCash__actionRow {
+    flex-direction: row;
+    gap: 12px;
+  }
+}
+
+@media (max-width: 520px) {
+  .ServiceCash__mediaWrap {
+    height: 240px;
+  }
+
+  .ServiceCash__leftPanel {
+    padding: 28px 18px 44px;
+  }
+
+  .ServiceCash__title {
+    font-size: 28px;
+    letter-spacing: -1.2px;
+  }
+
+  .ServiceCash__lead {
+    font-size: 13.5px;
+  }
+
+  .ServiceCash__description {
+    font-size: 12.5px;
+  }
+
+  .ServiceCash__actionRow {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+  }
+
+  .ServiceCash__btnPrimary,
+  .ServiceCash__btnOutline {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .ServiceCash__heroTag {
+    top: 14px;
+    right: 14px;
+    padding: 8px 12px;
+    font-size: 8.5px;
+  }
+
+  .ServiceCash__heroTagSubtitle,
+  .ServiceCash__heroTagDivider {
+    display: none;
+  }
+}
+
+/* Accessibility */
+@media (prefers-reduced-motion: reduce) {
+  .ServiceCash__leftPanel,
+  .ServiceCash__mediaImage,
+  .ServiceCash__btnPrimary {
+    transition: none !important;
+    transform: none !important;
+    opacity: 1 !important;
+  }
+}

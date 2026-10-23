@@ -1,0 +1,410 @@
+/* ========================================================
+   HOME NEWS - PREMIUM CAROUSEL COMPONENT
+======================================================== */
+
+.HomeNews {
+  --HomeNews-red: #d7192d;
+  --HomeNews-red-hover: #b51223;
+  --HomeNews-dark: #1f2022;
+  --HomeNews-title: #2a2b2e;
+  --HomeNews-text: #595c61;
+  --HomeNews-bg: #f8f9fa;
+  --HomeNews-border: #e6e8eb;
+  --HomeNews-transition: cubic-bezier(0.25, 1, 0.5, 1);
+
+  position: relative;
+  width: 100%;
+  padding: 85px 0 95px;
+  background-color: var(--HomeNews-bg);
+  font-family: "Inter", "Segoe UI", Arial, sans-serif;
+  color: var(--HomeNews-dark);
+  overflow: hidden;
+}
+
+.HomeNews__container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 40px;
+}
+
+/* ========================================================
+   HEADER SECTION
+======================================================== */
+
+.HomeNews__header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  margin-bottom: 38px;
+  gap: 20px;
+}
+
+.HomeNews__titleGroup {
+  display: flex;
+  flex-direction: column;
+}
+
+.HomeNews__eyebrowWrap {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.HomeNews__eyebrowBar {
+  width: 28px;
+  height: 3px;
+  background-color: var(--HomeNews-red);
+  border-radius: 2px;
+}
+
+.HomeNews__eyebrow {
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 2.6px;
+  color: #6a6e73;
+}
+
+.HomeNews__heading {
+  margin: 0;
+  font-size: clamp(34px, 4vw, 50px);
+  font-weight: 700;
+  line-height: 1.1;
+  color: var(--HomeNews-title);
+  letter-spacing: -1.2px;
+}
+
+.HomeNews__ampersand {
+  font-family: Georgia, "Times New Roman", serif;
+  font-weight: 400;
+  color: #7b7e84;
+}
+
+.HomeNews__headingAccent {
+  color: var(--HomeNews-red);
+  font-family: Georgia, "Times New Roman", serif;
+  font-weight: 600;
+}
+
+/* ========================================================
+   BUTTON CONTROLS
+======================================================== */
+
+.HomeNews__controls {
+  display: flex;
+  align-items: center;
+  gap: 1px;
+  background: var(--HomeNews-red);
+  box-shadow: 0 10px 24px rgba(215, 25, 45, 0.28);
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.HomeNews__navButton {
+  display: inline-grid;
+  place-items: center;
+  width: 54px;
+  height: 52px;
+  padding: 0;
+  border: 0;
+  background: var(--HomeNews-red);
+  color: #ffffff;
+  cursor: pointer;
+  transition: background-color 0.25s ease, transform 0.2s ease;
+  position: relative;
+}
+
+.HomeNews__navButton:first-child::after {
+  content: "";
+  position: absolute;
+  right: 0;
+  top: 20%;
+  height: 60%;
+  width: 1px;
+  background-color: rgba(255, 255, 255, 0.25);
+}
+
+.HomeNews__navButton:hover {
+  background-color: var(--HomeNews-red-hover);
+}
+
+.HomeNews__navButton:active {
+  transform: scale(0.95);
+}
+
+.HomeNews__navButton:focus-visible {
+  outline: 2px solid #ffffff;
+  outline-offset: -3px;
+}
+
+.HomeNews__navButton svg {
+  width: 20px;
+  height: 20px;
+  transition: transform 0.25s ease;
+}
+
+.HomeNews__navButton--prev:hover svg {
+  transform: translateX(-3px);
+}
+
+.HomeNews__navButton--next:hover svg {
+  transform: translateX(3px);
+}
+
+/* ========================================================
+   CAROUSEL SLIDER TRACK (RIGHT-TO-LEFT)
+======================================================== */
+
+.HomeNews__carouselWindow {
+  width: 100%;
+  overflow: hidden;
+  border-radius: 6px;
+}
+
+.HomeNews__track {
+  display: flex;
+  width: 100%;
+  transition: transform 0.65s var(--HomeNews-transition);
+  will-change: transform;
+}
+
+.HomeNews__card {
+  flex: 0 0 calc(100% / 3);
+  max-width: calc(100% / 3);
+  padding: 0 10px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+}
+
+.HomeNews__imageWrapper {
+  position: relative;
+  width: 100%;
+  height: 310px;
+  overflow: hidden;
+  border-radius: 4px;
+  background-color: #202224;
+}
+
+.HomeNews__image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.6s var(--HomeNews-transition);
+}
+
+.HomeNews__card:hover .HomeNews__image {
+  transform: scale(1.05);
+}
+
+.HomeNews__imageShade {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(15, 16, 18, 0) 45%,
+    rgba(15, 16, 18, 0.65) 100%
+  );
+  pointer-events: none;
+}
+
+.HomeNews__badge {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  background: rgba(25, 27, 29, 0.7);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  color: #ffffff;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 1.6px;
+  padding: 6px 10px;
+  border-radius: 2px;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+/* Card Content */
+.HomeNews__cardContent {
+  padding: 22px 4px 10px;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.HomeNews__meta {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.HomeNews__tag {
+  color: var(--HomeNews-red);
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 1.4px;
+}
+
+.HomeNews__dot {
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  background-color: #abb0b6;
+}
+
+.HomeNews__date {
+  color: #7a7e84;
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.HomeNews__cardTitle {
+  margin: 0 0 16px;
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 1.4;
+  color: var(--HomeNews-title);
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  transition: color 0.25s ease;
+}
+
+.HomeNews__card:hover .HomeNews__cardTitle {
+  color: var(--HomeNews-red);
+}
+
+.HomeNews__readLink {
+  margin-top: auto;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--HomeNews-title);
+  text-decoration: none;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  transition: color 0.25s ease;
+}
+
+.HomeNews__readLink svg {
+  width: 14px;
+  height: 14px;
+  transition: transform 0.25s ease;
+}
+
+.HomeNews__card:hover .HomeNews__readLink {
+  color: var(--HomeNews-red);
+}
+
+.HomeNews__card:hover .HomeNews__readLink svg {
+  transform: translateX(4px);
+}
+
+/* ========================================================
+   2-SECOND PROGRESS INDICATOR TRACK
+======================================================== */
+
+.HomeNews__indicatorTrack {
+  position: relative;
+  width: 100%;
+  height: 3px;
+  background-color: var(--HomeNews-border);
+  margin-top: 35px;
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.HomeNews__indicatorFill {
+  width: 100%;
+  height: 100%;
+  background-color: var(--HomeNews-red);
+  transform: scaleX(0);
+  transform-origin: left center;
+  animation-name: HomeNewsProgress;
+  animation-timing-function: linear;
+  animation-fill-mode: forwards;
+}
+
+.HomeNews__indicatorFill.is-paused {
+  animation-play-state: paused;
+}
+
+@keyframes HomeNewsProgress {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+
+/* ========================================================
+   RESPONSIVE DESIGN
+======================================================== */
+
+@media (max-width: 1024px) {
+  .HomeNews__card {
+    flex: 0 0 calc(100% / 2);
+    max-width: calc(100% / 2);
+  }
+
+  .HomeNews__imageWrapper {
+    height: 270px;
+  }
+}
+
+@media (max-width: 640px) {
+  .HomeNews {
+    padding: 60px 0;
+  }
+
+  .HomeNews__container {
+    padding: 0 20px;
+  }
+
+  .HomeNews__header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 18px;
+  }
+
+  .HomeNews__controls {
+    align-self: flex-start;
+  }
+
+  .HomeNews__navButton {
+    width: 46px;
+    height: 44px;
+  }
+
+  .HomeNews__card {
+    flex: 0 0 100%;
+    max-width: 100%;
+    padding: 0;
+  }
+
+  .HomeNews__imageWrapper {
+    height: 230px;
+  }
+
+  .HomeNews__cardTitle {
+    font-size: 16px;
+  }
+}
+
+/* Accessibility */
+@media (prefers-reduced-motion: reduce) {
+  .HomeNews__track,
+  .HomeNews__image {
+    transition: none !important;
+  }
+
+  .HomeNews__indicatorFill {
+    animation: none !important;
+    transform: scaleX(1);
+  }
+}

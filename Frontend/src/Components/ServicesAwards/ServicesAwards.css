@@ -1,0 +1,756 @@
+
+/* ==========================================
+   SERVICES AWARDS
+   Premium corporate recognition section
+========================================== */
+
+.ServicesAwards {
+  --ServicesAwards-red: #e51e2b;
+  --ServicesAwards-dark: #222832;
+  --ServicesAwards-muted: #656b74;
+  --ServicesAwards-card: #f4f4f4;
+
+  position: relative;
+  isolation: isolate;
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  padding: 76px 24px 55px;
+  overflow: hidden;
+  background: #fff;
+  color: var(--ServicesAwards-dark);
+  font-family: "Inter", "Segoe UI", Arial, sans-serif;
+}
+
+.ServicesAwards *,
+.ServicesAwards *::before,
+.ServicesAwards *::after {
+  box-sizing: border-box;
+}
+
+.ServicesAwards__container {
+  width: 100%;
+  max-width: 1320px;
+  min-width: 0;
+  margin: 0 auto;
+}
+
+/* ==========================================
+   SECTION HEADER
+========================================== */
+
+.ServicesAwards__header {
+  margin-bottom: 43px;
+  opacity: 0;
+  transform: translateY(22px);
+}
+
+.ServicesAwards--visible .ServicesAwards__header {
+  animation: ServicesAwardsHeaderIn 0.75s ease forwards;
+}
+
+@keyframes ServicesAwardsHeaderIn {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.ServicesAwards__eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 17px;
+  margin-bottom: 10px;
+  color: #343943;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 4.5px;
+}
+
+.ServicesAwards__eyebrowLine {
+  width: 48px;
+  height: 2px;
+  flex-shrink: 0;
+  background: var(--ServicesAwards-red);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.65s ease;
+}
+
+.ServicesAwards--visible .ServicesAwards__eyebrowLine {
+  transform: scaleX(1);
+}
+
+.ServicesAwards__title {
+  margin: 0 0 19px;
+  color: var(--ServicesAwards-dark);
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(32px, 3vw, 43px);
+  font-weight: 600;
+  line-height: 1.2;
+  letter-spacing: -0.8px;
+}
+
+.ServicesAwards__title span {
+  color: var(--ServicesAwards-red);
+}
+
+.ServicesAwards__intro {
+  max-width: 1080px;
+  margin: 0;
+  color: #414751;
+  font-size: 15px;
+  line-height: 1.9;
+}
+
+/* Header summary */
+
+.ServicesAwards__summary {
+  display: flex;
+  align-items: center;
+  gap: 25px;
+  margin-top: 25px;
+}
+
+.ServicesAwards__summaryItem {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.ServicesAwards__summaryNumber {
+  color: var(--ServicesAwards-red);
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 26px;
+  font-weight: 600;
+  line-height: 1;
+}
+
+.ServicesAwards__summaryIcon {
+  display: grid;
+  width: 36px;
+  height: 36px;
+  place-items: center;
+  color: var(--ServicesAwards-red);
+  border: 1px solid #e7e7e7;
+  border-radius: 50%;
+}
+
+.ServicesAwards__summaryLabel {
+  color: #6b7078;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+}
+
+.ServicesAwards__summaryDivider {
+  width: 1px;
+  height: 30px;
+  background: #dedfe2;
+}
+
+/* ==========================================
+   AWARDS GRID
+========================================== */
+
+.ServicesAwards__grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 22px 18px;
+  align-items: stretch;
+}
+
+.ServicesAwards__card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  min-height: 400px;
+  padding: 23px 22px 20px;
+  overflow: hidden;
+  border: 1px solid #ededed;
+  background: var(--ServicesAwards-card);
+  isolation: isolate;
+
+  opacity: 0;
+  transform: translateY(28px);
+
+  transition:
+    background 0.4s ease,
+    border-color 0.4s ease,
+    box-shadow 0.4s ease,
+    transform 0.4s ease;
+}
+
+.ServicesAwards--visible .ServicesAwards__card {
+  animation: ServicesAwardsCardIn 0.7s
+    cubic-bezier(0.2, 0.7, 0.2, 1)
+    var(--ServicesAwards-delay, 0ms) forwards;
+}
+
+@keyframes ServicesAwardsCardIn {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.ServicesAwards__card:hover,
+.ServicesAwards__card--active {
+  z-index: 2;
+  border-color: rgba(229, 30, 43, 0.2);
+  background: #fff;
+  box-shadow: 0 18px 42px rgba(30, 35, 44, 0.09);
+  transform: translateY(-5px);
+}
+
+/* Red hover accent */
+
+.ServicesAwards__card::before {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 3;
+  width: 100%;
+  height: 3px;
+  background: var(--ServicesAwards-red);
+  content: "";
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.45s ease;
+}
+
+.ServicesAwards__card:hover::before,
+.ServicesAwards__card--active::before {
+  transform: scaleX(1);
+}
+
+.ServicesAwards__cardTop {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.ServicesAwards__category {
+  color: #777c85;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 1.7px;
+}
+
+.ServicesAwards__year {
+  display: grid;
+  min-width: 46px;
+  min-height: 25px;
+  place-items: center;
+  padding: 4px 8px;
+  color: var(--ServicesAwards-red);
+  border: 1px solid #e5c8cb;
+  background: #fff;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  transition:
+    color 0.35s ease,
+    background 0.35s ease,
+    border-color 0.35s ease;
+}
+
+.ServicesAwards__card:hover .ServicesAwards__year {
+  color: #fff;
+  border-color: var(--ServicesAwards-red);
+  background: var(--ServicesAwards-red);
+}
+
+/* ==========================================
+   DECORATIVE AWARD EMBLEM
+========================================== */
+
+.ServicesAwards__emblem {
+  position: relative;
+  display: grid;
+  width: 128px;
+  height: 128px;
+  flex-shrink: 0;
+  place-items: center;
+  margin: 25px auto 20px;
+}
+
+.ServicesAwards__emblemOuter {
+  display: grid;
+  width: 112px;
+  height: 112px;
+  place-items: center;
+  border: 1px solid #d4c9ad;
+  border-radius: 50%;
+  background: linear-gradient(
+    145deg,
+    #fff 0%,
+    #f9f6ef 55%,
+    #eee4d1 100%
+  );
+  box-shadow:
+    inset 0 0 0 5px #f4eee1,
+    inset 0 0 0 6px #d9c9a5,
+    0 5px 15px rgba(38, 38, 38, 0.05);
+  transition:
+    transform 0.65s cubic-bezier(0.2, 0.7, 0.2, 1),
+    box-shadow 0.4s ease;
+}
+
+.ServicesAwards__card:hover .ServicesAwards__emblemOuter {
+  transform: rotate(-8deg) scale(1.06);
+  box-shadow:
+    inset 0 0 0 5px #f4eee1,
+    inset 0 0 0 6px #d9c9a5,
+    0 10px 25px rgba(229, 30, 43, 0.12);
+}
+
+.ServicesAwards__emblemInner {
+  display: grid;
+  width: 76px;
+  height: 76px;
+  place-items: center;
+  border: 1px solid rgba(229, 30, 43, 0.2);
+  border-radius: 50%;
+  background: #fff;
+}
+
+.ServicesAwards__awardIcon {
+  width: 39px;
+  height: 39px;
+  color: #b19a65;
+  transition:
+    color 0.4s ease,
+    transform 0.4s ease;
+}
+
+.ServicesAwards__card:hover .ServicesAwards__awardIcon {
+  color: var(--ServicesAwards-red);
+  transform: scale(1.08);
+}
+
+.ServicesAwards__emblemStar {
+  position: absolute;
+  right: 4px;
+  bottom: 9px;
+  display: grid;
+  width: 29px;
+  height: 29px;
+  place-items: center;
+  color: #fff;
+  border: 3px solid var(--ServicesAwards-card);
+  border-radius: 50%;
+  background: #b19a65;
+  transition:
+    background 0.35s ease,
+    transform 0.35s ease;
+}
+
+.ServicesAwards__card:hover .ServicesAwards__emblemStar {
+  background: var(--ServicesAwards-red);
+  transform: rotate(12deg);
+}
+
+/* ==========================================
+   CARD CONTENT
+========================================== */
+
+.ServicesAwards__cardContent {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.ServicesAwards__cardKicker {
+  margin-bottom: 10px;
+  color: #999087;
+  font-size: 8px;
+  font-weight: 700;
+  letter-spacing: 1.7px;
+}
+
+.ServicesAwards__cardTitle {
+  margin: 0 0 8px;
+  color: #252a32;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(18px, 1.5vw, 22px);
+  font-weight: 600;
+  line-height: 1.4;
+  transition: color 0.3s ease;
+}
+
+.ServicesAwards__card:hover .ServicesAwards__cardTitle {
+  color: var(--ServicesAwards-red);
+}
+
+.ServicesAwards__subtitle {
+  margin: 0 0 13px;
+  color: #545a63;
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 1.6;
+}
+
+.ServicesAwards__description {
+  max-width: 340px;
+  margin: 0;
+  color: #606670;
+  font-size: 13px;
+  line-height: 1.8;
+}
+
+/* ==========================================
+   CARD FOOTER
+========================================== */
+
+.ServicesAwards__cardFooter {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  margin-top: 24px;
+  padding-top: 13px;
+  border-top: 1px solid #e2e2e2;
+}
+
+.ServicesAwards__footerLine {
+  width: 21px;
+  height: 2px;
+  flex-shrink: 0;
+  background: var(--ServicesAwards-red);
+  transition: width 0.35s ease;
+}
+
+.ServicesAwards__card:hover .ServicesAwards__footerLine {
+  width: 34px;
+}
+
+.ServicesAwards__footerText {
+  color: #8a8e95;
+  font-size: 8px;
+  font-weight: 700;
+  letter-spacing: 1.8px;
+}
+
+.ServicesAwards__footerArrow {
+  display: grid;
+  width: 29px;
+  height: 29px;
+  flex-shrink: 0;
+  place-items: center;
+  margin-left: auto;
+  color: #666b74;
+  border: 1px solid #e1e1e1;
+  border-radius: 50%;
+  transition:
+    color 0.35s ease,
+    background 0.35s ease,
+    border-color 0.35s ease,
+    transform 0.35s ease;
+}
+
+.ServicesAwards__card:hover .ServicesAwards__footerArrow {
+  color: #fff;
+  border-color: var(--ServicesAwards-red);
+  background: var(--ServicesAwards-red);
+  transform: rotate(45deg);
+}
+
+.ServicesAwards__cardAccent {
+  position: absolute;
+  right: -35px;
+  bottom: -35px;
+  z-index: -1;
+  width: 110px;
+  height: 110px;
+  border: 1px solid rgba(229, 30, 43, 0.08);
+  border-radius: 50%;
+  transition: transform 0.5s ease;
+}
+
+.ServicesAwards__card:hover .ServicesAwards__cardAccent {
+  transform: scale(1.7);
+}
+
+/* ==========================================
+   BOTTOM STATEMENT
+========================================== */
+
+.ServicesAwards__footer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 45px;
+  padding-top: 27px;
+  border-top: 1px solid #ededed;
+  text-align: center;
+
+  opacity: 0;
+  transform: translateY(12px);
+  transition:
+    opacity 0.6s ease,
+    transform 0.6s ease;
+  transition-delay: 0.65s;
+}
+
+.ServicesAwards--visible .ServicesAwards__footer {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.ServicesAwards__footerDecoration {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  margin-bottom: 13px;
+}
+
+.ServicesAwards__footerDecoration span {
+  display: block;
+  width: 5px;
+  height: 5px;
+  border: 1px solid var(--ServicesAwards-red);
+  transform: rotate(45deg);
+}
+
+.ServicesAwards__footerDecoration span:nth-child(2) {
+  width: 8px;
+  height: 8px;
+  background: var(--ServicesAwards-red);
+}
+
+.ServicesAwards__footerStatement {
+  margin: 0 0 10px;
+  color: #343943;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(17px, 1.8vw, 23px);
+  font-weight: 500;
+  line-height: 1.6;
+}
+
+.ServicesAwards__footerCaption {
+  color: #92969d;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 2.5px;
+}
+
+/* ==========================================
+   LARGE DESKTOP
+========================================== */
+
+@media (min-width: 1500px) {
+  .ServicesAwards {
+    padding-top: 90px;
+    padding-bottom: 65px;
+  }
+
+  .ServicesAwards__grid {
+    gap: 25px;
+  }
+
+  .ServicesAwards__card {
+    min-height: 425px;
+    padding: 26px;
+  }
+
+  .ServicesAwards__description {
+    font-size: 14px;
+  }
+}
+
+/* ==========================================
+   TABLET
+========================================== */
+
+@media (max-width: 950px) {
+  .ServicesAwards {
+    padding: 58px 22px 45px;
+  }
+
+  .ServicesAwards__grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 17px;
+  }
+
+  .ServicesAwards__card {
+    min-height: 390px;
+    padding: 20px 18px;
+  }
+
+  .ServicesAwards__title {
+    font-size: clamp(30px, 4vw, 38px);
+  }
+
+  .ServicesAwards__cardTitle {
+    font-size: 20px;
+  }
+}
+
+/* ==========================================
+   MOBILE
+========================================== */
+
+@media (max-width: 600px) {
+  .ServicesAwards {
+    padding: 42px 17px 35px;
+  }
+
+  .ServicesAwards__header {
+    margin-bottom: 28px;
+  }
+
+  .ServicesAwards__eyebrow {
+    gap: 12px;
+    font-size: 9px;
+    letter-spacing: 3px;
+  }
+
+  .ServicesAwards__eyebrowLine {
+    width: 34px;
+  }
+
+  .ServicesAwards__title {
+    margin-bottom: 14px;
+    font-size: clamp(28px, 7vw, 35px);
+    line-height: 1.25;
+  }
+
+  .ServicesAwards__intro {
+    font-size: 13px;
+    line-height: 1.85;
+  }
+
+  .ServicesAwards__summary {
+    flex-wrap: wrap;
+    gap: 14px;
+    margin-top: 19px;
+  }
+
+  .ServicesAwards__summaryNumber {
+    font-size: 23px;
+  }
+
+  .ServicesAwards__summaryLabel {
+    font-size: 8px;
+  }
+
+  .ServicesAwards__summaryDivider {
+    height: 24px;
+  }
+
+  .ServicesAwards__grid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 17px;
+  }
+
+  .ServicesAwards__card {
+    min-height: 0;
+    padding: 21px 20px 17px;
+  }
+
+  .ServicesAwards__emblem {
+    width: 112px;
+    height: 112px;
+    margin: 21px auto 17px;
+  }
+
+  .ServicesAwards__emblemOuter {
+    width: 100px;
+    height: 100px;
+  }
+
+  .ServicesAwards__emblemInner {
+    width: 68px;
+    height: 68px;
+  }
+
+  .ServicesAwards__awardIcon {
+    width: 34px;
+    height: 34px;
+  }
+
+  .ServicesAwards__cardTitle {
+    max-width: 330px;
+    font-size: 21px;
+  }
+
+  .ServicesAwards__description {
+    max-width: 380px;
+    font-size: 13px;
+  }
+
+  .ServicesAwards__cardFooter {
+    margin-top: 21px;
+  }
+
+  .ServicesAwards__footer {
+    margin-top: 32px;
+    padding-top: 23px;
+  }
+
+  .ServicesAwards__footerStatement {
+    font-size: 17px;
+  }
+
+  .ServicesAwards__footerCaption {
+    font-size: 8px;
+    letter-spacing: 1.7px;
+  }
+}
+
+/* ==========================================
+   SMALL MOBILE
+========================================== */
+
+@media (max-width: 360px) {
+  .ServicesAwards {
+    padding-right: 13px;
+    padding-left: 13px;
+  }
+
+  .ServicesAwards__card {
+    padding-right: 15px;
+    padding-left: 15px;
+  }
+
+  .ServicesAwards__title {
+    font-size: 27px;
+  }
+
+  .ServicesAwards__summary {
+    gap: 10px;
+  }
+
+  .ServicesAwards__summaryLabel {
+    letter-spacing: 0.8px;
+  }
+}
+
+/* ==========================================
+   REDUCED MOTION ACCESSIBILITY
+========================================== */
+
+@media (prefers-reduced-motion: reduce) {
+  .ServicesAwards *,
+  .ServicesAwards *::before,
+  .ServicesAwards *::after {
+    animation: none !important;
+    transition: none !important;
+    scroll-behavior: auto !important;
+  }
+
+  .ServicesAwards__header,
+  .ServicesAwards__card,
+  .ServicesAwards__footer {
+    opacity: 1;
+    transform: none;
+  }
+
+  .ServicesAwards__eyebrowLine {
+    transform: scaleX(1);
+  }
+}

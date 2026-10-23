@@ -1,0 +1,525 @@
+
+/* ==========================================
+   ABOUT LEADERSHIP - PREMIUM CORPORATE
+========================================== */
+
+.AboutLeadership {
+  --AboutLeadership-red: #e51e2b;
+  --AboutLeadership-dark: #222832;
+  --AboutLeadership-muted: #404650;
+  --AboutLeadership-bg: #f0f0f0;
+
+  position: relative;
+  isolation: isolate;
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  padding: 52px 24px 58px;
+  overflow: hidden;
+  background: var(--AboutLeadership-bg);
+  color: var(--AboutLeadership-dark);
+  font-family: "Inter", "Segoe UI", Arial, sans-serif;
+}
+
+.AboutLeadership *,
+.AboutLeadership *::before,
+.AboutLeadership *::after {
+  box-sizing: border-box;
+}
+
+/* Main layout */
+
+.AboutLeadership__container {
+  display: grid;
+  grid-template-columns: minmax(0, 650px) minmax(220px, 320px);
+  align-items: start;
+  justify-content: start;
+  gap: 24px;
+  width: 100%;
+  max-width: 1320px;
+  min-width: 0;
+  margin: 0 auto;
+}
+
+/* ==========================================
+   LEFT CONTENT
+========================================== */
+
+.AboutLeadership__content {
+  min-width: 0;
+  padding-top: 3px;
+}
+
+.AboutLeadership__eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 19px;
+  margin-bottom: 7px;
+  color: #303641;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 5px;
+}
+
+.AboutLeadership__eyebrowLine {
+  width: 56px;
+  height: 2px;
+  flex-shrink: 0;
+  background: var(--AboutLeadership-red);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.7s ease;
+}
+
+.AboutLeadership--visible
+  .AboutLeadership__eyebrowLine {
+  transform: scaleX(1);
+}
+
+/* Heading */
+
+.AboutLeadership__title {
+  margin: 0 0 14px;
+  color: #222832;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(30px, 2.35vw, 40px);
+  font-weight: 600;
+  line-height: 1.2;
+  letter-spacing: -0.65px;
+}
+
+.AboutLeadership__title span {
+  color: var(--AboutLeadership-red);
+}
+
+/* Person details */
+
+.AboutLeadership__person {
+  margin-bottom: 17px;
+}
+
+.AboutLeadership__name {
+  margin: 0 0 4px;
+  color: #202833;
+  font-size: clamp(17px, 1.35vw, 23px);
+  font-weight: 700;
+  line-height: 1.45;
+}
+
+.AboutLeadership__role {
+  margin: 0;
+  color: #202833;
+  font-size: 16px;
+  line-height: 1.65;
+}
+
+/* ==========================================
+   SEQUENTIAL PARAGRAPH ANIMATION
+========================================== */
+
+.AboutLeadership__biography {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.AboutLeadership__paragraph {
+  margin: 0;
+  color: var(--AboutLeadership-muted);
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.76;
+  overflow-wrap: anywhere;
+
+  opacity: 0;
+  transform: translateY(22px);
+
+  transition:
+    opacity 0.7s ease,
+    transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+  transition-delay: 0s;
+}
+
+.AboutLeadership--visible
+  .AboutLeadership__paragraph {
+  opacity: 1;
+  transform: translateY(0);
+  transition-delay: var(--AboutLeadership-delay, 0s);
+}
+
+/* Signature */
+
+.AboutLeadership__signature {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 21px;
+
+  opacity: 0;
+  transform: translateY(10px);
+
+  transition:
+    opacity 0.6s ease,
+    transform 0.6s ease;
+  transition-delay: 1.55s;
+}
+
+.AboutLeadership--visible
+  .AboutLeadership__signature {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.AboutLeadership__signatureLine {
+  width: 30px;
+  height: 2px;
+  flex-shrink: 0;
+  background: var(--AboutLeadership-red);
+}
+
+.AboutLeadership__signatureText {
+  color: #777b83;
+  font-size: 10px;
+  letter-spacing: 0.8px;
+}
+
+.AboutLeadership__signatureIcon {
+  width: 17px;
+  height: 17px;
+  margin-left: 2px;
+  color: var(--AboutLeadership-red);
+  transition: transform 0.3s ease;
+}
+
+.AboutLeadership__signature:hover
+  .AboutLeadership__signatureIcon {
+  transform: translate(3px, -3px);
+}
+
+/* ==========================================
+   RIGHT IMAGE
+========================================== */
+
+.AboutLeadership__portraitSection {
+  position: relative;
+  width: 100%;
+  min-width: 0;
+  padding-top: 3px;
+}
+
+.AboutLeadership__portraitFrame {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  overflow: hidden;
+  background: #d7d7d7;
+  box-shadow: 0 8px 28px rgba(26, 31, 39, 0.07);
+}
+
+.AboutLeadership__portrait {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
+
+  opacity: 0;
+  transform: scale(1.08);
+
+  transition:
+    opacity 0.9s ease,
+    transform 1.2s cubic-bezier(0.22, 1, 0.36, 1),
+    filter 0.7s ease;
+  transition-delay: 0s;
+}
+
+.AboutLeadership--visible
+  .AboutLeadership__portrait {
+  opacity: 1;
+  transform: scale(1);
+  transition-delay: 0.15s;
+}
+
+.AboutLeadership__portraitFrame:hover
+  .AboutLeadership__portrait {
+  transform: scale(1.055);
+  filter: saturate(1.04);
+}
+
+.AboutLeadership__portraitOverlay {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(
+    180deg,
+    transparent 65%,
+    rgba(15, 21, 30, 0.18)
+  );
+}
+
+/* Decorative frame */
+
+.AboutLeadership__portraitAccent {
+  position: absolute;
+  z-index: 1;
+  top: -12px;
+  right: -12px;
+  width: 65%;
+  height: 65%;
+  border-top: 2px solid var(--AboutLeadership-red);
+  border-right: 2px solid var(--AboutLeadership-red);
+  opacity: 0;
+  transform: translate(-7px, 7px);
+
+  transition:
+    opacity 0.7s ease,
+    transform 0.7s ease;
+  transition-delay: 0.45s;
+}
+
+.AboutLeadership--visible
+  .AboutLeadership__portraitAccent {
+  opacity: 0.8;
+  transform: translate(0, 0);
+}
+
+/* Portrait caption */
+
+.AboutLeadership__portraitCaption {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 15px;
+
+  opacity: 0;
+  transform: translateY(8px);
+
+  transition:
+    opacity 0.6s ease,
+    transform 0.6s ease;
+  transition-delay: 0.6s;
+}
+
+.AboutLeadership--visible
+  .AboutLeadership__portraitCaption {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.AboutLeadership__captionLine {
+  width: 24px;
+  height: 2px;
+  flex-shrink: 0;
+  background: var(--AboutLeadership-red);
+}
+
+.AboutLeadership__captionText {
+  color: #727780;
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 2px;
+}
+
+/* Background watermark */
+
+.AboutLeadership__watermark {
+  position: absolute;
+  z-index: 0;
+  top: 100%;
+  right: -8px;
+  color: rgba(34, 40, 50, 0.035);
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 28px;
+  font-weight: 700;
+  letter-spacing: 4px;
+  white-space: nowrap;
+  pointer-events: none;
+}
+
+/* ==========================================
+   LARGE DESKTOP
+========================================== */
+
+@media (min-width: 1500px) {
+  .AboutLeadership {
+    padding-top: 60px;
+    padding-bottom: 65px;
+  }
+
+  .AboutLeadership__container {
+    grid-template-columns: minmax(0, 680px) 340px;
+    gap: 34px;
+  }
+
+  .AboutLeadership__paragraph {
+    font-size: 17px;
+    line-height: 1.78;
+  }
+}
+
+/* ==========================================
+   TABLET
+========================================== */
+
+@media (max-width: 900px) {
+  .AboutLeadership {
+    padding: 45px 25px;
+  }
+
+  .AboutLeadership__container {
+    grid-template-columns: minmax(0, 1fr) minmax(190px, 270px);
+    gap: 25px;
+  }
+
+  .AboutLeadership__title {
+    font-size: clamp(27px, 3.5vw, 34px);
+  }
+
+  .AboutLeadership__name {
+    font-size: 18px;
+  }
+
+  .AboutLeadership__role,
+  .AboutLeadership__paragraph {
+    font-size: 14px;
+  }
+
+  .AboutLeadership__biography {
+    gap: 12px;
+  }
+
+  .AboutLeadership__eyebrow {
+    font-size: 10px;
+    letter-spacing: 4px;
+  }
+}
+
+/* ==========================================
+   MOBILE
+========================================== */
+
+@media (max-width: 640px) {
+  .AboutLeadership {
+    padding: 38px 20px 45px;
+  }
+
+  .AboutLeadership__container {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 30px;
+  }
+
+  .AboutLeadership__content {
+    padding-top: 0;
+  }
+
+  .AboutLeadership__eyebrow {
+    gap: 12px;
+    margin-bottom: 9px;
+    font-size: 10px;
+    letter-spacing: 4px;
+  }
+
+  .AboutLeadership__eyebrowLine {
+    width: 35px;
+  }
+
+  .AboutLeadership__title {
+    margin-bottom: 14px;
+    font-size: clamp(28px, 7vw, 36px);
+    line-height: 1.25;
+  }
+
+  .AboutLeadership__name {
+    font-size: 18px;
+  }
+
+  .AboutLeadership__role {
+    font-size: 14px;
+  }
+
+  .AboutLeadership__paragraph {
+    font-size: 14px;
+    line-height: 1.8;
+  }
+
+  .AboutLeadership__biography {
+    gap: 15px;
+  }
+
+  .AboutLeadership__portraitSection {
+    width: min(100%, 360px);
+    margin: 0 auto;
+  }
+
+  .AboutLeadership__portraitFrame {
+    aspect-ratio: 4 / 4.2;
+  }
+
+  .AboutLeadership__portraitCaption {
+    margin-top: 13px;
+  }
+
+  .AboutLeadership__signature {
+    margin-top: 20px;
+  }
+
+  .AboutLeadership__signatureText {
+    font-size: 9px;
+  }
+}
+
+/* ==========================================
+   SMALL MOBILE
+========================================== */
+
+@media (max-width: 380px) {
+  .AboutLeadership {
+    padding-right: 16px;
+    padding-left: 16px;
+  }
+
+  .AboutLeadership__title {
+    font-size: 27px;
+  }
+
+  .AboutLeadership__name {
+    font-size: 16px;
+  }
+
+  .AboutLeadership__role,
+  .AboutLeadership__paragraph {
+    font-size: 13px;
+  }
+
+  .AboutLeadership__eyebrow {
+    font-size: 9px;
+    letter-spacing: 3px;
+  }
+}
+
+/* ==========================================
+   REDUCED MOTION ACCESSIBILITY
+========================================== */
+
+@media (prefers-reduced-motion: reduce) {
+  .AboutLeadership *,
+  .AboutLeadership *::before,
+  .AboutLeadership *::after {
+    transition: none !important;
+    transition-delay: 0s !important;
+  }
+
+  .AboutLeadership__paragraph,
+  .AboutLeadership__signature,
+  .AboutLeadership__portrait,
+  .AboutLeadership__portraitAccent,
+  .AboutLeadership__portraitCaption {
+    opacity: 1;
+    transform: none;
+  }
+
+  .AboutLeadership__eyebrowLine {
+    transform: scaleX(1);
+  }
+}

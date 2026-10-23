@@ -1,0 +1,521 @@
+
+/* ==========================================
+   ABOUT OUR MISSION
+   Premium corporate section
+========================================== */
+
+.AboutOurMission {
+  --AboutOurMission-red: #e51e2b;
+  --AboutOurMission-dark: #282b30;
+  --AboutOurMission-muted: #51555c;
+  --AboutOurMission-white: #ffffff;
+
+  position: relative;
+  isolation: isolate;
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  padding: 2px 0;
+  overflow: hidden;
+  background: var(--AboutOurMission-white);
+  color: var(--AboutOurMission-dark);
+  font-family: "Inter", "Segoe UI", Arial, sans-serif;
+}
+
+.AboutOurMission *,
+.AboutOurMission *::before,
+.AboutOurMission *::after {
+  box-sizing: border-box;
+}
+
+.AboutOurMission__container {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  align-items: stretch;
+  width: 100%;
+  max-width: 1920px;
+  min-width: 0;
+  min-height: 540px;
+  margin: 0 auto;
+  overflow: hidden;
+  background: var(--AboutOurMission-white);
+}
+
+/* ==========================================
+   LEFT CONTENT
+========================================== */
+
+.AboutOurMission__contentSection {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  min-width: 0;
+  min-height: 540px;
+  padding: 65px 9% 65px max(24px, calc((100vw - 1400px) / 2));
+  overflow: hidden;
+  background: #fff;
+}
+
+.AboutOurMission__content {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  max-width: 465px;
+  animation: AboutOurMissionContentReveal 1s
+    cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@keyframes AboutOurMissionContentReveal {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Eyebrow */
+
+.AboutOurMission__eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 7px;
+  color: #34373d;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 5px;
+}
+
+.AboutOurMission__eyebrowLine {
+  width: 34px;
+  height: 2px;
+  flex-shrink: 0;
+  background: var(--AboutOurMission-red);
+  transform-origin: left;
+  animation: AboutOurMissionLineReveal 0.8s ease both;
+}
+
+@keyframes AboutOurMissionLineReveal {
+  from {
+    transform: scaleX(0);
+  }
+
+  to {
+    transform: scaleX(1);
+  }
+}
+
+/* Heading */
+
+.AboutOurMission__title {
+  margin: 0;
+  color: #24272c;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(35px, 3.1vw, 48px);
+  font-weight: 600;
+  line-height: 1.2;
+  letter-spacing: -0.8px;
+}
+
+.AboutOurMission__title span {
+  color: var(--AboutOurMission-red);
+}
+
+/* Description */
+
+.AboutOurMission__description {
+  max-width: 440px;
+  margin: 14px 0 0;
+  color: #30343a;
+  font-size: clamp(15px, 1.1vw, 19px);
+  font-weight: 400;
+  line-height: 1.75;
+  letter-spacing: 0.05px;
+}
+
+/* Bottom accent */
+
+.AboutOurMission__bottom {
+  display: flex;
+  align-items: center;
+  gap: 13px;
+  margin-top: 27px;
+  opacity: 0;
+  transform: translateY(10px);
+  transition:
+    opacity 0.45s ease,
+    transform 0.45s ease;
+}
+
+.AboutOurMission__contentSection:hover
+  .AboutOurMission__bottom {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.AboutOurMission__bottomText {
+  color: #73767d;
+  font-size: 10px;
+  letter-spacing: 0.4px;
+}
+
+.AboutOurMission__bottomLine {
+  width: 34px;
+  height: 1px;
+  background: #d0d1d4;
+}
+
+.AboutOurMission__icon {
+  display: grid;
+  width: 33px;
+  height: 33px;
+  flex-shrink: 0;
+  place-items: center;
+  color: var(--AboutOurMission-red);
+  border: 1px solid rgba(229, 30, 43, 0.25);
+  border-radius: 50%;
+  transition:
+    color 0.3s ease,
+    background 0.3s ease,
+    transform 0.3s ease;
+}
+
+.AboutOurMission__icon svg {
+  width: 17px;
+  height: 17px;
+}
+
+.AboutOurMission__contentSection:hover
+  .AboutOurMission__icon {
+  color: #fff;
+  background: var(--AboutOurMission-red);
+  transform: rotate(45deg);
+}
+
+/* Subtle watermark */
+
+.AboutOurMission__watermark {
+  position: absolute;
+  z-index: 0;
+  right: -4%;
+  bottom: -5%;
+  color: rgba(40, 43, 48, 0.025);
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(75px, 10vw, 150px);
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: -5px;
+  white-space: nowrap;
+  pointer-events: none;
+  user-select: none;
+}
+
+/* ==========================================
+   RIGHT IMAGE
+========================================== */
+
+.AboutOurMission__imageSection {
+  position: relative;
+  z-index: 2;
+  min-width: 0;
+  min-height: 540px;
+  margin-left: -18%;
+  overflow: hidden;
+  clip-path: polygon(32% 0, 100% 0, 100% 100%, 0 100%);
+  background: #e4e8eb;
+}
+
+.AboutOurMission__imageWrap {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  background: #e4e8eb;
+}
+
+.AboutOurMission__image {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  transform: scale(1.08);
+  animation: AboutOurMissionImageReveal 1.4s
+    cubic-bezier(0.22, 1, 0.36, 1) both;
+  transition:
+    transform 1s cubic-bezier(0.22, 1, 0.36, 1),
+    filter 0.7s ease;
+}
+
+@keyframes AboutOurMissionImageReveal {
+  from {
+    opacity: 0.6;
+    transform: scale(1.15) translateX(18px);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1.08) translateX(0);
+  }
+}
+
+.AboutOurMission__imageSection:hover
+  .AboutOurMission__image {
+  transform: scale(1.13);
+  filter: saturate(1.07);
+}
+
+/* Image overlay */
+
+.AboutOurMission__imageOverlay {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(
+    125deg,
+    rgba(20, 31, 43, 0.02),
+    rgba(20, 31, 43, 0.13)
+  );
+  opacity: 0.6;
+  transition: opacity 0.6s ease;
+}
+
+.AboutOurMission__imageSection:hover
+  .AboutOurMission__imageOverlay {
+  opacity: 0.85;
+}
+
+/* Caption revealed on hover */
+
+.AboutOurMission__imageCaption {
+  position: absolute;
+  z-index: 3;
+  right: 8%;
+  bottom: 32px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: #fff;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  opacity: 0;
+  transform: translateY(12px);
+  transition:
+    opacity 0.45s ease,
+    transform 0.45s ease;
+}
+
+.AboutOurMission__imageSection:hover
+  .AboutOurMission__imageCaption {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.AboutOurMission__captionLine {
+  width: 26px;
+  height: 2px;
+  background: var(--AboutOurMission-red);
+}
+
+/* Decorative white accent */
+
+.AboutOurMission__imageAccent {
+  position: absolute;
+  z-index: 3;
+  top: 0;
+  left: 32%;
+  width: 1px;
+  height: 0;
+  background: rgba(255, 255, 255, 0.7);
+  opacity: 0;
+  pointer-events: none;
+  transition:
+    height 0.8s ease,
+    opacity 0.5s ease;
+}
+
+.AboutOurMission__imageSection:hover
+  .AboutOurMission__imageAccent {
+  height: 65%;
+  opacity: 1;
+}
+
+/* ==========================================
+   LARGE DESKTOP
+========================================== */
+
+@media (min-width: 1600px) {
+  .AboutOurMission__container,
+  .AboutOurMission__contentSection,
+  .AboutOurMission__imageSection {
+    min-height: 600px;
+  }
+
+  .AboutOurMission__contentSection {
+    padding-left: max(60px, calc((100vw - 1400px) / 2));
+  }
+
+  .AboutOurMission__title {
+    font-size: 52px;
+  }
+
+  .AboutOurMission__description {
+    font-size: 19px;
+  }
+}
+
+/* ==========================================
+   TABLET
+========================================== */
+
+@media (max-width: 1024px) {
+  .AboutOurMission__container,
+  .AboutOurMission__contentSection,
+  .AboutOurMission__imageSection {
+    min-height: 460px;
+  }
+
+  .AboutOurMission__contentSection {
+    padding: 45px 7% 45px 30px;
+  }
+
+  .AboutOurMission__imageSection {
+    margin-left: -12%;
+    clip-path: polygon(24% 0, 100% 0, 100% 100%, 0 100%);
+  }
+
+  .AboutOurMission__title {
+    font-size: clamp(32px, 4vw, 42px);
+  }
+
+  .AboutOurMission__description {
+    font-size: 15px;
+    line-height: 1.75;
+  }
+
+  .AboutOurMission__eyebrow {
+    font-size: 10px;
+    letter-spacing: 4px;
+  }
+}
+
+/* ==========================================
+   MOBILE
+========================================== */
+
+@media (max-width: 640px) {
+  .AboutOurMission__container {
+    display: flex;
+    flex-direction: column-reverse;
+    min-height: auto;
+  }
+
+  .AboutOurMission__contentSection {
+    width: 100%;
+    min-height: 280px;
+    padding: 38px 24px 42px;
+  }
+
+  .AboutOurMission__content {
+    max-width: 520px;
+  }
+
+  .AboutOurMission__imageSection {
+    width: 100%;
+    height: clamp(250px, 65vw, 360px);
+    min-height: 250px;
+    margin-left: 0;
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 88%);
+  }
+
+  .AboutOurMission__image {
+    object-position: center;
+  }
+
+  .AboutOurMission__imageCaption {
+    right: 20px;
+    bottom: 28px;
+    font-size: 8px;
+  }
+
+  .AboutOurMission__eyebrow {
+    gap: 11px;
+    font-size: 10px;
+    letter-spacing: 4px;
+  }
+
+  .AboutOurMission__eyebrowLine {
+    width: 28px;
+  }
+
+  .AboutOurMission__title {
+    font-size: clamp(34px, 8vw, 43px);
+  }
+
+  .AboutOurMission__description {
+    margin-top: 12px;
+    font-size: 15px;
+    line-height: 1.8;
+  }
+
+  .AboutOurMission__bottom {
+    margin-top: 20px;
+    opacity: 1;
+    transform: none;
+  }
+
+  .AboutOurMission__watermark {
+    right: -1%;
+    bottom: -1%;
+    font-size: 80px;
+  }
+}
+
+/* ==========================================
+   SMALL MOBILE
+========================================== */
+
+@media (max-width: 380px) {
+  .AboutOurMission__contentSection {
+    min-height: 270px;
+    padding: 30px 19px 35px;
+  }
+
+  .AboutOurMission__imageSection {
+    height: 245px;
+    min-height: 245px;
+  }
+
+  .AboutOurMission__title {
+    font-size: 33px;
+  }
+
+  .AboutOurMission__description {
+    font-size: 14px;
+  }
+
+  .AboutOurMission__eyebrow {
+    font-size: 9px;
+    letter-spacing: 3px;
+  }
+}
+
+/* ==========================================
+   ACCESSIBILITY
+========================================== */
+
+@media (prefers-reduced-motion: reduce) {
+  .AboutOurMission *,
+  .AboutOurMission *::before,
+  .AboutOurMission *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+}
