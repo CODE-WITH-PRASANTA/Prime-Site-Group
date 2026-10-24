@@ -1,0 +1,481 @@
+
+/* =====================================
+   CONTACT MAIN - PREMIUM HERO SECTION
+===================================== */
+
+.ContactMain {
+  position: relative;
+  isolation: isolate;
+  display: flex;
+  align-items: stretch;
+  width: 100%;
+  min-height: 520px;
+  height: min(690px, 85vh);
+  overflow: hidden;
+  background: #f3f4f4;
+  color: #142438;
+  font-family: inherit;
+}
+
+/* Background image */
+
+.ContactMain-background {
+  position: absolute;
+  z-index: -4;
+  inset: 0;
+  background-image: url("https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=2200&q=90");
+  background-size: cover;
+  background-position: center 45%;
+  background-repeat: no-repeat;
+  transform: scale(1.035);
+  animation: ContactMain-backgroundReveal 1.4s ease-out forwards;
+}
+
+/* Subtle contrast over the background */
+
+.ContactMain-overlay {
+  position: absolute;
+  z-index: -3;
+  inset: 0;
+  background: linear-gradient(
+    90deg,
+    rgba(10, 24, 39, 0.08) 0%,
+    rgba(10, 24, 39, 0.02) 48%,
+    rgba(10, 24, 39, 0.12) 100%
+  );
+  pointer-events: none;
+}
+
+/* Large geometric white panel */
+
+.ContactMain-geometricShape {
+  position: absolute;
+  z-index: -2;
+  inset: 0;
+  width: 53%;
+  background: rgba(250, 251, 251, 0.94);
+  clip-path: polygon(
+    0 0,
+    58% 0,
+    100% 100%,
+    0 100%
+  );
+  backdrop-filter: blur(2px);
+  animation: ContactMain-panelReveal 1s ease-out both;
+}
+
+/* Faint city/building-inspired texture */
+
+.ContactMain-geometricShape::before {
+  position: absolute;
+  right: -4%;
+  bottom: 0;
+  left: 0;
+  height: 48%;
+  content: "";
+  opacity: 0.12;
+  background-image:
+    linear-gradient(
+      90deg,
+      transparent 0 12%,
+      #aab6c0 12% 13%,
+      transparent 13% 26%,
+      #aab6c0 26% 27%,
+      transparent 27% 43%,
+      #aab6c0 43% 44%,
+      transparent 44% 58%,
+      #aab6c0 58% 59%,
+      transparent 59%
+    ),
+    repeating-linear-gradient(
+      0deg,
+      transparent 0 38px,
+      rgba(130, 146, 159, 0.4) 39px 40px
+    );
+  mask-image: linear-gradient(
+    to top,
+    #000 0%,
+    transparent 100%
+  );
+  pointer-events: none;
+}
+
+/* Content */
+
+.ContactMain-container {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  max-width: 1450px;
+  margin: 0 auto;
+  padding: 80px 7%;
+}
+
+.ContactMain-content {
+  width: 100%;
+  max-width: 450px;
+  padding: 28px 0;
+  animation: ContactMain-contentReveal 0.9s 0.2s ease-out both;
+}
+
+/* Small eyebrow label */
+
+.ContactMain-eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 13px;
+  margin-bottom: 22px;
+  color: #4d5a68;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 4px;
+}
+
+.ContactMain-eyebrowLine {
+  display: inline-block;
+  width: 43px;
+  height: 2px;
+  flex-shrink: 0;
+  background: #f34e2b;
+  transform-origin: left;
+  animation: ContactMain-lineReveal 0.7s 0.65s ease-out both;
+}
+
+/* Main title */
+
+.ContactMain-title {
+  margin: 0;
+  color: #17283b;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(44px, 4.2vw, 62px);
+  font-weight: 600;
+  letter-spacing: -1.8px;
+  line-height: 1.12;
+}
+
+.ContactMain-titleAccent {
+  color: #f34e2b;
+}
+
+/* Description */
+
+.ContactMain-description {
+  max-width: 430px;
+  margin: 20px 0 0;
+  color: #24374a;
+  font-size: 17px;
+  font-weight: 400;
+  line-height: 1.7;
+}
+
+/* Decorative divider */
+
+.ContactMain-divider {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 28px;
+}
+
+.ContactMain-divider span {
+  display: block;
+  width: 22px;
+  height: 3px;
+  border-radius: 3px;
+  background: #f34e2b;
+}
+
+.ContactMain-divider span:nth-child(2) {
+  width: 8px;
+  background: #e6a28f;
+}
+
+.ContactMain-divider span:nth-child(3) {
+  width: 4px;
+  background: #e6c5bb;
+}
+
+.ContactMain-subtitle {
+  margin: 14px 0 0;
+  color: #6d7b89;
+  font-size: 13px;
+  letter-spacing: 0.2px;
+  line-height: 1.7;
+}
+
+/* Bottom accent */
+
+.ContactMain-bottomAccent {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  height: 3px;
+  background: linear-gradient(
+    90deg,
+    #f34e2b 0%,
+    #f34e2b 15%,
+    rgba(243, 78, 43, 0.15) 55%,
+    transparent 100%
+  );
+  transform: scaleX(0);
+  transform-origin: left;
+  animation: ContactMain-bottomReveal 1s 0.7s ease-out forwards;
+}
+
+/* =====================================
+   ENTRANCE ANIMATIONS
+===================================== */
+
+@keyframes ContactMain-contentReveal {
+  from {
+    opacity: 0;
+    transform: translate3d(-24px, 12px, 0);
+  }
+
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@keyframes ContactMain-panelReveal {
+  from {
+    opacity: 0.4;
+    transform: translateX(-25px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes ContactMain-backgroundReveal {
+  from {
+    transform: scale(1.08);
+  }
+
+  to {
+    transform: scale(1.035);
+  }
+}
+
+@keyframes ContactMain-lineReveal {
+  from {
+    transform: scaleX(0);
+  }
+
+  to {
+    transform: scaleX(1);
+  }
+}
+
+@keyframes ContactMain-bottomReveal {
+  to {
+    transform: scaleX(1);
+  }
+}
+
+/* =====================================
+   LAPTOPS
+===================================== */
+
+@media (max-width: 1100px) {
+  .ContactMain {
+    min-height: 490px;
+    height: 72vh;
+  }
+
+  .ContactMain-geometricShape {
+    width: 61%;
+    clip-path: polygon(
+      0 0,
+      58% 0,
+      100% 100%,
+      0 100%
+    );
+  }
+
+  .ContactMain-container {
+    padding-right: 6%;
+    padding-left: 6%;
+  }
+
+  .ContactMain-content {
+    max-width: 400px;
+  }
+
+  .ContactMain-title {
+    font-size: clamp(42px, 5vw, 56px);
+  }
+
+  .ContactMain-description {
+    font-size: 16px;
+  }
+}
+
+/* =====================================
+   TABLETS
+===================================== */
+
+@media (max-width: 768px) {
+  .ContactMain {
+    min-height: 470px;
+    height: 65vh;
+    max-height: 600px;
+  }
+
+  .ContactMain-background {
+    background-position: 58% center;
+  }
+
+  .ContactMain-geometricShape {
+    width: 76%;
+    background: rgba(250, 251, 251, 0.95);
+    clip-path: polygon(
+      0 0,
+      68% 0,
+      100% 100%,
+      0 100%
+    );
+  }
+
+  .ContactMain-container {
+    padding: 60px 6%;
+  }
+
+  .ContactMain-content {
+    max-width: 360px;
+  }
+
+  .ContactMain-eyebrow {
+    margin-bottom: 17px;
+    font-size: 11px;
+    letter-spacing: 3px;
+  }
+
+  .ContactMain-title {
+    font-size: clamp(40px, 7vw, 52px);
+  }
+
+  .ContactMain-description {
+    max-width: 340px;
+    margin-top: 16px;
+    font-size: 15px;
+    line-height: 1.75;
+  }
+
+  .ContactMain-divider {
+    margin-top: 23px;
+  }
+}
+
+/* =====================================
+   MOBILE
+===================================== */
+
+@media (max-width: 480px) {
+  .ContactMain {
+    min-height: 410px;
+    height: auto;
+    max-height: none;
+  }
+
+  .ContactMain-background {
+    background-position: 60% center;
+  }
+
+  .ContactMain-overlay {
+    background: rgba(16, 32, 47, 0.08);
+  }
+
+  .ContactMain-geometricShape {
+    width: 100%;
+    background: rgba(250, 251, 251, 0.93);
+    clip-path: polygon(
+      0 0,
+      100% 0,
+      100% 100%,
+      0 100%
+    );
+  }
+
+  .ContactMain-geometricShape::before {
+    height: 35%;
+    opacity: 0.07;
+  }
+
+  .ContactMain-container {
+    align-items: center;
+    min-height: 410px;
+    padding: 65px 25px;
+  }
+
+  .ContactMain-content {
+    max-width: 100%;
+    padding: 10px 0;
+  }
+
+  .ContactMain-eyebrow {
+    gap: 10px;
+    margin-bottom: 18px;
+    font-size: 10px;
+    letter-spacing: 3px;
+  }
+
+  .ContactMain-eyebrowLine {
+    width: 32px;
+  }
+
+  .ContactMain-title {
+    font-size: clamp(40px, 11vw, 48px);
+    letter-spacing: -1px;
+  }
+
+  .ContactMain-description {
+    max-width: 360px;
+    margin-top: 17px;
+    font-size: 14px;
+    line-height: 1.8;
+  }
+
+  .ContactMain-divider {
+    margin-top: 23px;
+  }
+
+  .ContactMain-subtitle {
+    margin-top: 12px;
+    font-size: 12px;
+  }
+}
+
+/* EXTRA SMALL DEVICES */
+
+@media (max-width: 350px) {
+  .ContactMain-container {
+    padding-right: 18px;
+    padding-left: 18px;
+  }
+
+  .ContactMain-title {
+    font-size: 37px;
+  }
+
+  .ContactMain-description {
+    font-size: 13px;
+  }
+}
+
+/* ACCESSIBILITY */
+
+@media (prefers-reduced-motion: reduce) {
+  .ContactMain-background,
+  .ContactMain-geometricShape,
+  .ContactMain-content,
+  .ContactMain-eyebrowLine,
+  .ContactMain-bottomAccent {
+    animation: none;
+    transform: none;
+  }
+}
