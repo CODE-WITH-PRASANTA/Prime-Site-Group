@@ -8,7 +8,7 @@ import {
 } from "lucide-react";
 
 import "./Navbar.css";
-import logo from "../../assets/main-logo.png";
+import logo from "../../assets/PRIME SITE LOGO.png";
 
 const serviceItems = [
   {

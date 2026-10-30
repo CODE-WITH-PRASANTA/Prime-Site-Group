@@ -1,0 +1,679 @@
+
+/* =========================================
+   FLOATING FORM WRAPPER
+========================================= */
+
+.FloatingForm-wrapper {
+  font-family: inherit;
+}
+
+/* =========================================
+   FLOATING BUTTON - BOTTOM LEFT
+========================================= */
+
+.FloatingForm-trigger {
+  position: fixed;
+  left: 30px;
+  right: auto;
+  bottom: 30px;
+  z-index: 9998;
+
+  display: flex;
+  align-items: center;
+  gap: 12px;
+
+  padding: 10px 23px 10px 10px;
+
+  border: none;
+  border-radius: 50px;
+
+  background: #155eef;
+  color: #fff;
+
+  box-shadow: 0 10px 35px rgba(21, 94, 239, 0.3);
+
+  cursor: pointer;
+
+  transition:
+    transform 0.3s ease,
+    opacity 0.3s ease,
+    box-shadow 0.3s ease;
+}
+
+.FloatingForm-trigger:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 38px rgba(21, 94, 239, 0.4);
+}
+
+.FloatingForm-trigger-hidden {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transform: translateY(15px);
+}
+
+.FloatingForm-trigger-icon {
+  position: relative;
+  z-index: 1;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 45px;
+  height: 45px;
+
+  border-radius: 50%;
+
+  background: #fff;
+  color: #155eef;
+
+  font-size: 19px;
+}
+
+.FloatingForm-trigger-text {
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.2px;
+}
+
+.FloatingForm-trigger-pulse {
+  position: absolute;
+  inset: -5px;
+
+  border: 2px solid rgba(21, 94, 239, 0.45);
+  border-radius: 50px;
+
+  animation: FloatingForm-pulse 2s infinite;
+  pointer-events: none;
+}
+
+@keyframes FloatingForm-pulse {
+  0% {
+    transform: scale(1);
+    opacity: 0.8;
+  }
+
+  100% {
+    transform: scale(1.12);
+    opacity: 0;
+  }
+}
+
+/* =========================================
+   BACKDROP
+========================================= */
+
+.FloatingForm-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 9998;
+
+  background: rgba(8, 16, 35, 0.58);
+  backdrop-filter: blur(5px);
+
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+
+  transition:
+    opacity 0.35s ease,
+    visibility 0.35s ease;
+}
+
+.FloatingForm-backdrop-visible {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+
+/* =========================================
+   POPUP - BOTTOM LEFT
+========================================= */
+
+.FloatingForm-popup {
+  position: fixed;
+  left: 30px;
+  right: auto;
+  bottom: 30px;
+  z-index: 9999;
+
+  width: min(460px, calc(100vw - 40px));
+  max-height: calc(100vh - 60px);
+
+  display: flex;
+  flex-direction: column;
+
+  overflow: hidden;
+
+  border-radius: 22px;
+  background: #fff;
+
+  box-shadow: 0 25px 80px rgba(0, 0, 0, 0.25);
+
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+
+  transform: translateY(35px) scale(0.96);
+  transform-origin: bottom left;
+
+  transition:
+    opacity 0.35s ease,
+    visibility 0.35s ease,
+    transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.FloatingForm-popup-open {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+  transform: translateY(0) scale(1);
+}
+
+/* =========================================
+   HEADER
+========================================= */
+
+.FloatingForm-header {
+  position: relative;
+  flex-shrink: 0;
+  overflow: hidden;
+
+  padding: 30px 30px 27px;
+
+  background: linear-gradient(135deg, #10234b, #155eef);
+  color: #fff;
+}
+
+.FloatingForm-header-content {
+  position: relative;
+  z-index: 2;
+}
+
+.FloatingForm-header-label {
+  display: inline-block;
+  margin-bottom: 13px;
+
+  color: #bcd4ff;
+
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 1.8px;
+}
+
+.FloatingForm-header h2 {
+  max-width: 340px;
+  margin: 0 35px 10px 0;
+
+  color: #fff;
+
+  font-size: 29px;
+  font-weight: 800;
+  line-height: 1.2;
+  letter-spacing: -0.7px;
+}
+
+.FloatingForm-header h2 span {
+  display: block;
+  color: #a9c9ff;
+}
+
+.FloatingForm-header-content p {
+  max-width: 320px;
+  margin: 0;
+
+  color: rgba(255, 255, 255, 0.8);
+
+  font-size: 12px;
+  line-height: 1.7;
+}
+
+.FloatingForm-header-decoration {
+  position: absolute;
+  right: 15px;
+  bottom: -40px;
+
+  color: rgba(255, 255, 255, 0.08);
+
+  font-size: 135px;
+  transform: rotate(-15deg);
+
+  pointer-events: none;
+}
+
+/* =========================================
+   CLOSE BUTTON
+========================================= */
+
+.FloatingForm-close {
+  position: absolute;
+  top: 18px;
+  right: 18px;
+  z-index: 5;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 36px;
+  height: 36px;
+
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+
+  background: rgba(255, 255, 255, 0.12);
+  color: #fff;
+
+  font-size: 14px;
+  cursor: pointer;
+
+  transition:
+    background 0.3s ease,
+    transform 0.3s ease;
+}
+
+.FloatingForm-close:hover {
+  background: #fff;
+  color: #155eef;
+  transform: rotate(90deg);
+}
+
+/* =========================================
+   FORM BODY
+========================================= */
+
+.FloatingForm-body {
+  min-height: 0;
+  overflow-y: auto;
+
+  padding: 25px 30px 27px;
+
+  scrollbar-width: thin;
+  scrollbar-color: #cbd7ec transparent;
+}
+
+.FloatingForm-body::-webkit-scrollbar {
+  width: 5px;
+}
+
+.FloatingForm-body::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  background: #cbd7ec;
+}
+
+/* =========================================
+   FORM
+========================================= */
+
+.FloatingForm-form {
+  display: flex;
+  flex-direction: column;
+  gap: 17px;
+}
+
+.FloatingForm-field {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.FloatingForm-field label {
+  color: #1b2940;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.FloatingForm-field label span {
+  color: #ed4c5c;
+}
+
+/* INPUT WRAPPER */
+
+.FloatingForm-input-wrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.FloatingForm-input-icon {
+  position: absolute;
+  left: 15px;
+
+  color: #8998ad;
+  font-size: 13px;
+
+  pointer-events: none;
+}
+
+/* INPUTS */
+
+.FloatingForm-field input,
+.FloatingForm-field select,
+.FloatingForm-field textarea {
+  width: 100%;
+  min-width: 0;
+
+  border: 1px solid #e1e7f0;
+  border-radius: 9px;
+
+  outline: none;
+
+  background: #f8faff;
+  color: #1b2940;
+
+  font-family: inherit;
+  font-size: 12px;
+
+  transition:
+    border-color 0.25s ease,
+    box-shadow 0.25s ease,
+    background 0.25s ease;
+}
+
+.FloatingForm-field input {
+  height: 46px;
+  padding: 0 14px 0 42px;
+}
+
+.FloatingForm-field select {
+  height: 46px;
+  padding: 0 42px 0 15px;
+  appearance: none;
+  cursor: pointer;
+}
+
+.FloatingForm-field textarea {
+  min-height: 100px;
+  padding: 13px 14px;
+  resize: vertical;
+  line-height: 1.6;
+}
+
+.FloatingForm-field input::placeholder,
+.FloatingForm-field textarea::placeholder {
+  color: #a3adbd;
+}
+
+.FloatingForm-field input:focus,
+.FloatingForm-field select:focus,
+.FloatingForm-field textarea:focus {
+  border-color: #3978ef;
+  background: #fff;
+  box-shadow: 0 0 0 3px rgba(57, 120, 239, 0.1);
+}
+
+/* DROPDOWN */
+
+.FloatingForm-select-wrap select {
+  color: #1b2940;
+}
+
+.FloatingForm-select-wrap select:invalid {
+  color: #a3adbd;
+}
+
+.FloatingForm-select-icon {
+  position: absolute;
+  right: 15px;
+
+  color: #8998ad;
+  font-size: 11px;
+
+  pointer-events: none;
+}
+
+/* =========================================
+   SUBMIT BUTTON
+========================================= */
+
+.FloatingForm-submit {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+
+  width: 100%;
+  min-height: 49px;
+
+  margin-top: 3px;
+  padding: 13px 20px;
+
+  border: none;
+  border-radius: 9px;
+
+  background: linear-gradient(135deg, #155eef, #397cf4);
+  color: #fff;
+
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 800;
+
+  cursor: pointer;
+
+  box-shadow: 0 8px 18px rgba(21, 94, 239, 0.18);
+
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
+}
+
+.FloatingForm-submit:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 24px rgba(21, 94, 239, 0.28);
+}
+
+.FloatingForm-submit svg {
+  transition: transform 0.3s ease;
+}
+
+.FloatingForm-submit:hover svg {
+  transform: translateX(4px);
+}
+
+.FloatingForm-privacy {
+  margin: -5px 0 0;
+
+  color: #98a3b3;
+
+  font-size: 10px;
+  line-height: 1.6;
+  text-align: center;
+}
+
+/* =========================================
+   SUCCESS MESSAGE
+========================================= */
+
+.FloatingForm-success {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  min-height: 320px;
+  padding: 25px 10px;
+
+  text-align: center;
+
+  animation: FloatingForm-success-in 0.45s ease both;
+}
+
+@keyframes FloatingForm-success-in {
+  from {
+    opacity: 0;
+    transform: translateY(15px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.FloatingForm-success-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 75px;
+  height: 75px;
+
+  margin-bottom: 20px;
+
+  border-radius: 50%;
+  background: #e9f8ef;
+  color: #20a45b;
+
+  font-size: 36px;
+}
+
+.FloatingForm-success h3 {
+  margin: 0 0 10px;
+
+  color: #1b2940;
+
+  font-size: 27px;
+  font-weight: 800;
+}
+
+.FloatingForm-success p {
+  max-width: 300px;
+  margin: 0 0 25px;
+
+  color: #7d899b;
+
+  font-size: 13px;
+  line-height: 1.8;
+}
+
+/* =========================================
+   TABLET
+========================================= */
+
+@media (max-width: 768px) {
+  .FloatingForm-trigger {
+    left: 22px;
+    right: auto;
+    bottom: 22px;
+  }
+
+  .FloatingForm-popup {
+    left: 20px;
+    right: auto;
+    bottom: 20px;
+  }
+}
+
+/* =========================================
+   MOBILE
+========================================= */
+
+@media (max-width: 576px) {
+  .FloatingForm-trigger {
+    left: 15px;
+    right: auto;
+    bottom: 15px;
+
+    gap: 9px;
+    padding: 8px 17px 8px 8px;
+  }
+
+  .FloatingForm-trigger-icon {
+    width: 40px;
+    height: 40px;
+    font-size: 17px;
+  }
+
+  .FloatingForm-trigger-text {
+    font-size: 12px;
+  }
+
+  .FloatingForm-popup {
+    left: 10px;
+    right: auto;
+    bottom: 10px;
+
+    width: calc(100vw - 20px);
+    max-height: calc(100dvh - 20px);
+
+    border-radius: 17px;
+    transform-origin: bottom left;
+  }
+
+  .FloatingForm-header {
+    padding: 24px 22px 21px;
+  }
+
+  .FloatingForm-header h2 {
+    font-size: 25px;
+  }
+
+  .FloatingForm-header-content p {
+    max-width: 260px;
+    font-size: 11px;
+  }
+
+  .FloatingForm-close {
+    top: 13px;
+    right: 13px;
+
+    width: 33px;
+    height: 33px;
+  }
+
+  .FloatingForm-body {
+    padding: 21px 22px 23px;
+  }
+
+  .FloatingForm-form {
+    gap: 14px;
+  }
+
+  .FloatingForm-field input,
+  .FloatingForm-field select {
+    height: 44px;
+  }
+}
+
+/* =========================================
+   EXTRA SMALL MOBILE
+========================================= */
+
+@media (max-width: 360px) {
+  .FloatingForm-header {
+    padding: 21px 18px;
+  }
+
+  .FloatingForm-header h2 {
+    font-size: 22px;
+  }
+
+  .FloatingForm-body {
+    padding: 18px;
+  }
+
+  .FloatingForm-field label {
+    font-size: 11px;
+  }
+
+  .FloatingForm-field input,
+  .FloatingForm-field select,
+  .FloatingForm-field textarea {
+    font-size: 11px;
+  }
+}
+
+/* =========================================
+   ACCESSIBILITY
+========================================= */
+
+@media (prefers-reduced-motion: reduce) {
+  .FloatingForm-wrapper *,
+  .FloatingForm-wrapper *::before,
+  .FloatingForm-wrapper *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
