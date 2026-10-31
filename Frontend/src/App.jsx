@@ -1,14 +1,18 @@
+
 import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 import Navbar from "./Components/Navbar/Navbar";
 import Footer from "./Components/Footer/Footer";
+import FloatingForm from "./Components/FloatingForm/FloatingForm";
+
 import Home from "./Pages/Home/Home";
 import About from "./Pages/About/About";
 import Services from "./Pages/Services/Services";
 import Blog from "./Components/Blog/Blog";
 import BlogDetails from "./Pages/BlogDetails/BlogDetails";
 import Contact from "./Pages/Contact/Contact";
+import FloatingIcon from "./Components/FloatingIcon/FloatingIcon";
 
 const App = () => {
   return (
@@ -17,17 +21,20 @@ const App = () => {
 
       <main>
         <Routes>
-           <Route path="/" element={<Home/>} />
-           <Route path="/about" element={<About/>} />
-           <Route path="services/cash-services" element={<Services/>} />
-           <Route path="/blog" element={<Blog/>} />
-           <Route path="/blog-details" element={<BlogDetails/>} />
-           <Route path="/contact" element={<Contact/>} />
-
+          <Route path="/" element={<Home />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/services/cash-services" element={<Services />} />
+          <Route path="/blog" element={<Blog />} />
+          <Route path="/blog-details" element={<BlogDetails />} />
+          <Route path="/contact" element={<Contact />} />
         </Routes>
       </main>
 
       <Footer />
+
+      {/* GLOBAL FLOATING ENQUIRY FORM */}
+      <FloatingForm />
+      <FloatingIcon />
     </BrowserRouter>
   );
 };
