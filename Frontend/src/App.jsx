@@ -10,9 +10,9 @@ import Home from "./Pages/Home/Home";
 import About from "./Pages/About/About";
 import Services from "./Pages/Services/Services";
 import Blog from "./Components/Blog/Blog";
-import BlogDetails from "./Pages/BlogDetails/BlogDetails";
 import Contact from "./Pages/Contact/Contact";
 import FloatingIcon from "./Components/FloatingIcon/FloatingIcon";
+import BlogDetails from "./Pages/BlogDetails/BlogDetails";
 
 const App = () => {
   return (
@@ -27,6 +27,13 @@ const App = () => {
           <Route path="/blog" element={<Blog />} />
           <Route path="/blog-details" element={<BlogDetails />} />
           <Route path="/contact" element={<Contact />} />
+           <Route path="/" element={<Home/>} />
+           <Route path="/about" element={<About/>} />
+           <Route path="services/cash-services" element={<Services/>} />
+           <Route path="/blog" element={<Blog/>} />
+           <Route path="/contact" element={<Contact/>} />
+           <Route path="/blog-details" element={<BlogDetails/>} />
+
         </Routes>
       </main>
 
