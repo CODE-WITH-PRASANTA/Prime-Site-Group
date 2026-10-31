@@ -1,9 +1,7 @@
-
 import React, { useState } from "react";
 import {
   MapPin,
   Phone,
-  Mail,
   Printer,
   ArrowUpRight,
   ShieldCheck,
@@ -63,7 +61,7 @@ const ContactSection = () => {
       setStatus({
         type: "success",
         message:
-          "Your form is ready. Connect your backend API to submit this enquiry.",
+          "Your enquiry has been received. Our team will get back to you shortly.",
       });
     } catch (error) {
       setStatus({
@@ -81,7 +79,7 @@ const ContactSection = () => {
       title: "Headquarters",
       lines: [
         "Transguard Group Headquarters",
-        "P.O. Box 22630",
+        "P.O. Box 22630, Dubai, UAE",
       ],
       href: "https://www.google.com/maps/search/?api=1&query=Transguard+Group+Dubai",
       action: "View location",
@@ -173,7 +171,7 @@ const ContactSection = () => {
                       key={item.title}
                     >
                       <span className="ContactSection-contactIcon">
-                        <Icon size={18} strokeWidth={1.7} />
+                        <Icon size={20} strokeWidth={1.8} />
                       </span>
 
                       <div className="ContactSection-contactText">
@@ -204,7 +202,7 @@ const ContactSection = () => {
                             }
                           >
                             {item.action}
-                            <ArrowUpRight size={12} />
+                            <ArrowUpRight size={13} />
                           </a>
                         )}
                       </div>
@@ -215,7 +213,7 @@ const ContactSection = () => {
 
               <div className="ContactSection-trust">
                 <span className="ContactSection-trustIcon">
-                  <ShieldCheck size={19} strokeWidth={1.7} />
+                  <ShieldCheck size={22} strokeWidth={1.8} />
                 </span>
 
                 <span>
@@ -373,7 +371,7 @@ const ContactSection = () => {
                       placeholder="Tell us how we can help..."
                       value={formData.message}
                       onChange={handleChange}
-                      rows={3}
+                      rows={4}
                       required
                     />
                   </div>
@@ -394,7 +392,7 @@ const ContactSection = () => {
                     </span>
 
                     <span className="ContactSection-submitArrow">
-                      <Send size={15} />
+                      <Send size={16} />
                     </span>
                   </button>
                 </div>
@@ -410,9 +408,9 @@ const ContactSection = () => {
                     aria-live="polite"
                   >
                     {status.type === "success" ? (
-                      <CheckCircle2 size={17} />
+                      <CheckCircle2 size={19} />
                     ) : (
-                      <ShieldCheck size={17} />
+                      <ShieldCheck size={19} />
                     )}
                     <span>{status.message}</span>
                   </div>
