@@ -14,6 +14,16 @@ import BlogDetails from "./Pages/BlogDetails/BlogDetails";
 import Faq from "./Pages/Faq/Faq";
 import Blog from "./Pages/Blog/Blog";
 import Career from "./Pages/Career/Career";
+import SecurityServices from "./Pages/SecurityServices/SecurityServices";
+import ManPowerService from "./Pages/ManPowerService/ManPowerService";
+import WorkforceSoluation from "./Pages/WorkforceSoluation/WorkforceSoluation";
+import FacilityManagement from "./Pages/FacilityManagement/FacilityManagement";
+import AviationServices from "./Pages/AviationServices/AviationServices";
+import ManagedServices from "./Pages/ManagedServices/ManagedServices";
+import TasteOfHome from "./Pages/TasteOfHome/TasteOfHome";
+import TransguardLiving from "./Pages/TransguardLiving/TransguardLiving";
+import TransguardDelivery from "./Pages/TransguardDelivery/TransguardDelivery";
+import KitchenMaintenanceSolutions from "./Pages/KitchenMaintenanceSolutions/KitchenMaintenanceSolutions";
 
 // Component that listens for route changes and scrolls the window to the top
 const ScrollToTop = () => {
@@ -48,6 +58,21 @@ const App = () => {
           <Route path="/faq" element={<Faq />} />
           <Route path="/career" element={<Career />} />
           <Route path="/contact" element={<Contact />} />
+
+
+
+
+          
+          <Route path="/services/security-services" element={<SecurityServices/>} />
+          <Route path="/services/manpower-services" element={<ManPowerService/>} />
+          <Route path="/services/workforce-solutions" element={<WorkforceSoluation/>} />
+          <Route path="/services/facilities-management" element={<FacilityManagement/>} />
+          <Route path="/services/aviation-services" element={<AviationServices/>} />
+          <Route path="/services/managed-services" element={<ManagedServices/>} />
+          <Route path="/services/taste-of-home" element={<TasteOfHome/>} />
+          <Route path="/services/transguard-living" element={<TransguardLiving/>} />
+          <Route path="/services/transguard-delivery" element={<TransguardDelivery/>} />
+          <Route path="/services/kitchen-maintenance-solutions" element={<KitchenMaintenanceSolutions/>} />
         </Routes>
       </main>
 
