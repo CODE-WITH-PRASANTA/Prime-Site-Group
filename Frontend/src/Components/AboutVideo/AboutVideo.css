@@ -19,6 +19,13 @@
   color: var(--AboutVideo-dark);
   font-family: "Inter", "Segoe UI", Arial, sans-serif;
   overflow: hidden;
+  box-sizing: border-box;
+}
+
+.AboutVideo *,
+.AboutVideo *::before,
+.AboutVideo *::after {
+  box-sizing: border-box;
 }
 
 .AboutVideo__container {
@@ -363,7 +370,7 @@
 }
 
 /* ========================================================
-   RESPONSIVE DESIGN
+   RESPONSIVE DESIGN (ALL BREAKPOINTS)
 ======================================================== */
 
 @media (max-width: 1080px) {

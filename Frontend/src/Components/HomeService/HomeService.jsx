@@ -1,5 +1,4 @@
-
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import {
   Banknote,
   ShieldCheck,
@@ -24,18 +23,20 @@ import {
 } from "lucide-react";
 import "./HomeService.css";
 
+// Change the brand name here and it updates everywhere in this section.
+const BRAND_NAME = "Prime Site";
+
 const HomeServiceItems = [
   {
     title: "Cash Services",
     icon: Banknote,
-    heading: "The market leader in cash management.",
-    description:
-      "Transguard Cash Services delivers secure, reliable cash management and ATM services with complete end-to-end solutions for banks, financial institutions, major retailers, and corporate customers.",
+    heading: "Secure cash management, end to end.",
+    description: `${BRAND_NAME} Cash Services delivers secure, reliable cash management and ATM services with complete end-to-end solutions for banks, financial institutions, major retailers, and corporate customers.`,
     features: [
       { label: "Cash Deposit Centre", icon: Store },
       { label: "End-to-End Cash Management", icon: RefreshCw },
       { label: "Cash Management Centre", icon: Landmark },
-      { label: "ICCS Cheque Scanning", icon: ScanLine },
+      { label: "Cheque Scanning", icon: ScanLine },
     ],
     highlights: [
       "Secure cash collection and transportation",
@@ -197,7 +198,7 @@ const HomeServiceItems = [
     ],
   },
   {
-    title: "Transguard Living",
+    title: `${BRAND_NAME} Living`,
     icon: Building2,
     heading: "Comfort, care, and community.",
     description:
@@ -216,7 +217,7 @@ const HomeServiceItems = [
     ],
   },
   {
-    title: "Transguard Delivery",
+    title: `${BRAND_NAME} Delivery`,
     icon: Package,
     heading: "Every delivery. Every detail.",
     description:
@@ -255,9 +256,36 @@ const HomeServiceItems = [
   },
 ];
 
+const TOTAL_SERVICES = HomeServiceItems.length;
+
+const slugify = (text) =>
+  text
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-|-$/g, "");
+
 const HomeService = () => {
   const [activeService, setActiveService] = useState(0);
+  const detailsRef = useRef(null);
   const service = HomeServiceItems[activeService];
+
+  // Tap / click: select the service. On phones and tablets the details panel
+  // sits below the grid, so scroll it into view so the change is visible.
+  const handleSelect = (index) => {
+    setActiveService(index);
+
+    if (
+      typeof window !== "undefined" &&
+      window.matchMedia("(max-width: 1024px)").matches
+    ) {
+      requestAnimationFrame(() => {
+        detailsRef.current?.scrollIntoView({
+          behavior: "smooth",
+          block: "start",
+        });
+      });
+    }
+  };
 
   const headingParts = service.title.split(" ");
   const headingAccent = headingParts.pop();
@@ -265,13 +293,14 @@ const HomeService = () => {
   return (
     <section className="HomeService">
       <div className="HomeService__container">
+        {/* LEFT: service cards. Hover, focus or click a card to switch the panel */}
         <div className="HomeService__grid">
           <div className="HomeService__gridHeader">
             <span className="HomeService__sectionEyebrow">
-              OUR EXPERTISE
+              {BRAND_NAME.toUpperCase()} EXPERTISE
             </span>
             <span className="HomeService__gridCount">
-              12 SERVICES
+              {TOTAL_SERVICES} SERVICES
             </span>
           </div>
 
@@ -287,11 +316,13 @@ const HomeService = () => {
                   className={`HomeService__card ${
                     isActive ? "is-active" : ""
                   }`}
-                  onClick={() => setActiveService(index)}
+                  onMouseEnter={() => setActiveService(index)}
+                  onFocus={() => setActiveService(index)}
+                  onClick={() => handleSelect(index)}
                   aria-pressed={isActive}
                 >
                   <span className="HomeService__cardIcon">
-                    <Icon strokeWidth={1.5} />
+                    <Icon strokeWidth={1.6} />
                   </span>
 
                   <span className="HomeService__cardTitle">
@@ -312,19 +343,25 @@ const HomeService = () => {
           <div className="HomeService__gridFooter">
             <span className="HomeService__gridFooterDot" />
             <span>
-              Integrated solutions. Exceptional standards.
+              {BRAND_NAME}: integrated solutions, exceptional standards.
             </span>
           </div>
         </div>
 
-        <div className="HomeService__details" key={service.title}>
+        {/* RIGHT: details of the active service */}
+        <div
+          className="HomeService__details"
+          key={service.title}
+          ref={detailsRef}
+        >
           <div className="HomeService__detailsTop">
             <span className="HomeService__detailsLine" />
             <span className="HomeService__detailsEyebrow">
               OUR SERVICES
             </span>
             <span className="HomeService__detailsNumber">
-              {String(activeService + 1).padStart(2, "0")} / 12
+              {String(activeService + 1).padStart(2, "0")} /{" "}
+              {String(TOTAL_SERVICES).padStart(2, "0")}
             </span>
           </div>
 
@@ -353,7 +390,7 @@ const HomeService = () => {
                   key={feature.label}
                 >
                   <div className="HomeService__featureIcon">
-                    <FeatureIcon strokeWidth={1.5} />
+                    <FeatureIcon strokeWidth={1.6} />
                   </div>
 
                   <span className="HomeService__featureLabel">
@@ -384,10 +421,7 @@ const HomeService = () => {
 
           <a
             className="HomeService__readMore"
-            href={`/services/${service.title
-              .toLowerCase()
-              .replace(/[^a-z0-9]+/g, "-")
-              .replace(/^-|-$/g, "")}`}
+            href={`/services/${slugify(service.title)}`}
           >
             <span>Explore Service</span>
             <span className="HomeService__readMoreIcon">

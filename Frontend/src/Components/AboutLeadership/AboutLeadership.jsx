@@ -29,7 +29,7 @@ const AboutLeadership = () => {
   }, []);
 
   const paragraphs = [
-    "HH Sheikh Ahmed bin Saeed Al Maktoum began his aviation career in 1985, when he was appointed President of the Dubai Department of Civil Aviation. In the same year, he became Chairman of the newly founded Emirates, and helmed the launch of the airline with two leased aircraft to two destinations from Dubai. Today, he leads the Emirates Group, which includes dnata.",
+    "HH Akash Kumar bin Saeed Al Maktoum began his aviation career in 1985, when he was appointed President of the Dubai Department of Civil Aviation. In the same year, he became Chairman of the newly founded Emirates, and helmed the launch of the airline with two leased aircraft to two destinations from Dubai. Today, he leads the Emirates Group, which includes dnata.",
 
     "Emirates is now an award-winning global airline with an extensive international network spanning six continents. Its operations connect people, businesses and destinations around the world.",
 
@@ -60,7 +60,7 @@ const AboutLeadership = () => {
 
           <div className="AboutLeadership__person">
             <h3 className="AboutLeadership__name">
-              HH Sheikh Ahmed bin Saeed Al-Maktoum
+              HH Akash Kumar bin Saeed Al-Maktoum
             </h3>
 
             <p className="AboutLeadership__role">
