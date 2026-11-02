@@ -2,7 +2,8 @@ import React, { useState } from "react";
 import {
   MapPin,
   Phone,
-  Printer,
+  Mail,
+  Clock,
   ArrowUpRight,
   ShieldCheck,
   Send,
@@ -11,6 +12,44 @@ import {
 
 import "./ContactSection.css";
 import MainLogo from "../../assets/main-logo.png";
+
+/* ------------------------------------------------------------------
+   EDIT YOUR REAL DETAILS HERE. Everything on the page uses these.
+   The values below are placeholders - replace them with your own.
+------------------------------------------------------------------- */
+const BRAND_NAME = "Prime Site";
+const BRAND_FIRST = "Prime";
+const BRAND_LAST = "Site";
+
+const CONTACT = {
+  addressLines: ["Your Office Address", "City, State, Country"],
+  // India number (placeholder - replace with your real number)
+  phoneDisplay: "+91 00000 00000",
+  phoneLink: "+910000000000", // digits only, used for the call link
+  email: "info@yourwebsite.com",
+  hours: ["Mon - Sat", "9:00 AM - 6:00 PM"],
+};
+
+const SERVICE_OPTIONS = [
+  "Manpower Solutions",
+  "Workforce Solutions",
+  "Security Services",
+  "Facilities Management",
+  "Hospitality Solutions",
+  "Aviation Services",
+  "Systems Integration",
+  "Managed Services",
+  "Cash Services",
+  "Other",
+];
+
+const ENQUIRY_OPTIONS = [
+  "General Enquiry",
+  "Manpower Requirement",
+  "Business Partnership",
+  "Service Request",
+  "Careers",
+];
 
 const ContactSection = () => {
   const [formData, setFormData] = useState({
@@ -60,8 +99,17 @@ const ContactSection = () => {
 
       setStatus({
         type: "success",
-        message:
-          "Your enquiry has been received. Our team will get back to you shortly.",
+        message: `Thank you! Your enquiry has been received. The ${BRAND_NAME} team will get back to you shortly.`,
+      });
+
+      setFormData({
+        name: "",
+        email: "",
+        phone: "",
+        company: "",
+        service: "",
+        enquiry: "",
+        message: "",
       });
     } catch (error) {
       setStatus({
@@ -73,35 +121,36 @@ const ContactSection = () => {
     }
   };
 
+  const mapQuery = encodeURIComponent(
+    `${BRAND_NAME} ${CONTACT.addressLines.join(", ")}`
+  );
+
   const contactItems = [
     {
       icon: MapPin,
-      title: "Headquarters",
-      lines: [
-        "Transguard Group Headquarters",
-        "P.O. Box 22630, Dubai, UAE",
-      ],
-      href: "https://www.google.com/maps/search/?api=1&query=Transguard+Group+Dubai",
+      title: "Our Office",
+      lines: CONTACT.addressLines,
+      href: `https://www.google.com/maps/search/?api=1&query=${mapQuery}`,
       action: "View location",
     },
     {
       icon: Phone,
-      title: "Telephone",
-      lines: ["+971 (0) 4 703 0500"],
-      href: "tel:+97147030500",
-      action: "Call us",
+      title: "Call Us",
+      lines: [`India: ${CONTACT.phoneDisplay}`],
+      href: `tel:${CONTACT.phoneLink}`,
+      action: "Call now",
     },
     {
-      icon: Phone,
-      title: "AE Toll Free",
-      lines: ["800 1800"],
-      href: "tel:8001800",
-      action: "Call toll free",
+      icon: Mail,
+      title: "Email Us",
+      lines: [CONTACT.email],
+      href: `mailto:${CONTACT.email}`,
+      action: "Send an email",
     },
     {
-      icon: Printer,
-      title: "Fax",
-      lines: ["+971 4 299 5664"],
+      icon: Clock,
+      title: "Working Hours",
+      lines: CONTACT.hours,
       href: null,
       action: null,
     },
@@ -112,33 +161,34 @@ const ContactSection = () => {
       <div className="ContactSection-shell">
         <div className="ContactSection-topLine">
           <span />
-          <span>CONTACT OUR TEAM</span>
+          <span>CONTACT {BRAND_NAME.toUpperCase()}</span>
         </div>
 
         <div className="ContactSection-container">
           {/* LEFT: COMPANY INFORMATION */}
           <aside className="ContactSection-info">
             <div className="ContactSection-watermark" aria-hidden="true">
-              T
+              {BRAND_FIRST.charAt(0)}
             </div>
 
             <div className="ContactSection-infoInner">
               <a
                 className="ContactSection-brand"
                 href="/"
-                aria-label="Transguard Group home"
+                aria-label={`${BRAND_NAME} home`}
               >
                 <span className="ContactSection-logoWrap">
                   <img
                     className="ContactSection-logo"
                     src={MainLogo}
-                    alt="Transguard Group logo"
+                    alt={`${BRAND_NAME} logo`}
                   />
                 </span>
 
                 <span className="ContactSection-brandText">
-                  <span>Transguard</span>
-                  <span>Group</span>
+                  <span className="ContactSection-brandName">
+                    {BRAND_FIRST} <span>{BRAND_LAST}</span>
+                  </span>
                   <span className="ContactSection-brandRule" />
                 </span>
               </a>
@@ -156,7 +206,8 @@ const ContactSection = () => {
                 </h2>
 
                 <p className="ContactSection-infoDescription">
-                  Have a question or need assistance? Our team is ready to
+                  Need skilled manpower, a security team or reliable facility
+                  support? Tell {BRAND_NAME} what you need and our team will
                   help you find the right solution for your business.
                 </p>
               </div>
@@ -164,6 +215,7 @@ const ContactSection = () => {
               <div className="ContactSection-contactList">
                 {contactItems.map((item) => {
                   const Icon = item.icon;
+                  const isExternal = item.href?.startsWith("https://");
 
                   return (
                     <div
@@ -190,16 +242,8 @@ const ContactSection = () => {
                           <a
                             className="ContactSection-contactLink"
                             href={item.href}
-                            target={
-                              item.href.startsWith("https://")
-                                ? "_blank"
-                                : undefined
-                            }
-                            rel={
-                              item.href.startsWith("https://")
-                                ? "noreferrer"
-                                : undefined
-                            }
+                            target={isExternal ? "_blank" : undefined}
+                            rel={isExternal ? "noreferrer" : undefined}
                           >
                             {item.action}
                             <ArrowUpRight size={13} />
@@ -219,7 +263,7 @@ const ContactSection = () => {
                 <span>
                   <strong>Professional support, every step.</strong>
                   <small>
-                    Tell us what you need and we&apos;ll help you move forward.
+                    From first enquiry to deployment, {BRAND_NAME} is with you.
                   </small>
                 </span>
               </div>
@@ -240,14 +284,12 @@ const ContactSection = () => {
                 </h2>
 
                 <p className="ContactSection-formDescription">
-                  Fill in your details below and share your enquiry with us.
+                  Fill in your details below and share your enquiry with{" "}
+                  {BRAND_NAME}. We usually reply within one working day.
                 </p>
               </div>
 
-              <form
-                className="ContactSection-form"
-                onSubmit={handleSubmit}
-              >
+              <form className="ContactSection-form" onSubmit={handleSubmit}>
                 <div className="ContactSection-fields">
                   <div className="ContactSection-field">
                     <label htmlFor="ContactSection-name">
@@ -284,15 +326,13 @@ const ContactSection = () => {
                   </div>
 
                   <div className="ContactSection-field">
-                    <label htmlFor="ContactSection-phone">
-                      Phone number
-                    </label>
+                    <label htmlFor="ContactSection-phone">Phone number</label>
 
                     <input
                       id="ContactSection-phone"
                       type="tel"
                       name="phone"
-                      placeholder="+971 ..."
+                      placeholder="+91 00000 00000"
                       value={formData.phone}
                       onChange={handleChange}
                       autoComplete="tel"
@@ -325,17 +365,14 @@ const ContactSection = () => {
                       name="service"
                       value={formData.service}
                       onChange={handleChange}
+                      className={formData.service ? "has-value" : ""}
                     >
                       <option value="">Select a service</option>
-                      <option value="Security">Security</option>
-                      <option value="Facilities Management">
-                        Facilities Management
-                      </option>
-                      <option value="Manpower Supply">
-                        Manpower Supply
-                      </option>
-                      <option value="Cash Services">Cash Services</option>
-                      <option value="Other">Other</option>
+                      {SERVICE_OPTIONS.map((option) => (
+                        <option key={option} value={option}>
+                          {option}
+                        </option>
+                      ))}
                     </select>
                   </div>
 
@@ -349,14 +386,14 @@ const ContactSection = () => {
                       name="enquiry"
                       value={formData.enquiry}
                       onChange={handleChange}
+                      className={formData.enquiry ? "has-value" : ""}
                     >
                       <option value="">Select enquiry type</option>
-                      <option value="General Enquiry">General enquiry</option>
-                      <option value="Business Partnership">
-                        Business partnership
-                      </option>
-                      <option value="Service Request">Service request</option>
-                      <option value="Careers">Careers</option>
+                      {ENQUIRY_OPTIONS.map((option) => (
+                        <option key={option} value={option}>
+                          {option}
+                        </option>
+                      ))}
                     </select>
                   </div>
 
@@ -398,12 +435,12 @@ const ContactSection = () => {
                 </div>
 
                 <p className="ContactSection-privacy">
-                  Your details are provided to help us respond to your enquiry.
+                  Your details are used only to respond to your enquiry.
                 </p>
 
                 {status.message && (
                   <div
-                    className="ContactSection-status"
+                    className={`ContactSection-status ContactSection-status--${status.type}`}
                     role="status"
                     aria-live="polite"
                   >
@@ -418,10 +455,7 @@ const ContactSection = () => {
               </form>
             </div>
 
-            <div
-              className="ContactSection-bottomAccent"
-              aria-hidden="true"
-            >
+            <div className="ContactSection-bottomAccent" aria-hidden="true">
               <span />
               <span />
               <span />

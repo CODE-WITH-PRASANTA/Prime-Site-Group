@@ -1,0 +1,1014 @@
+.CareerTwo {
+  --CareerTwo-red: #df1830;
+  --CareerTwo-red-dark: #c91229;
+  --CareerTwo-dark: #1c1d20;
+  --CareerTwo-gray: #626873;
+  --CareerTwo-border: #e9e9ec;
+  --CareerTwo-ease: cubic-bezier(0.16, 1, 0.3, 1);
+
+  position: relative;
+  width: 100%;
+  padding: 100px 0 110px;
+  overflow: hidden;
+  isolation: isolate;
+  background:
+    radial-gradient(
+      circle at 5% 10%,
+      rgba(223, 24, 48, 0.035),
+      transparent 25%
+    ),
+    #fff;
+  color: var(--CareerTwo-dark);
+  font-family: "Inter", "Segoe UI", Arial, sans-serif;
+}
+
+/* TOP DECORATIVE LINE */
+
+.CareerTwo::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 4px;
+  background: linear-gradient(
+    90deg,
+    var(--CareerTwo-red) 0%,
+    var(--CareerTwo-red) 38%,
+    #f3b4bd 38%,
+    #f3b4bd 100%
+  );
+  z-index: 2;
+}
+
+/* MAIN LAYOUT */
+
+.CareerTwo__container {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.05fr);
+  align-items: center;
+  gap: clamp(45px, 6vw, 100px);
+  width: min(1440px, calc(100% - 100px));
+  margin: 0 auto;
+}
+
+/* =====================================================
+   LEFT SIDE IMAGE
+===================================================== */
+
+.CareerTwo__visual {
+  position: relative;
+  min-width: 0;
+  padding: 0 22px 32px 0;
+
+  opacity: 0;
+  transform: translateX(-65px);
+
+  transition:
+    opacity 1s var(--CareerTwo-ease),
+    transform 1s var(--CareerTwo-ease);
+}
+
+.CareerTwo--visible .CareerTwo__visual {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.CareerTwo__imageWrapper {
+  position: relative;
+  height: clamp(480px, 43vw, 610px);
+  min-height: 450px;
+  overflow: hidden;
+  border-radius: 8px 70px 8px 8px;
+  background: #e8e8e8;
+  box-shadow: 0 25px 65px rgba(24, 30, 40, 0.16);
+}
+
+.CareerTwo__imageWrapper::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: inherit;
+  pointer-events: none;
+  z-index: 2;
+}
+
+.CareerTwo__image {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+
+  transform: scale(1.08);
+  transition: transform 1.5s var(--CareerTwo-ease);
+}
+
+.CareerTwo--visible .CareerTwo__image {
+  transform: scale(1);
+}
+
+.CareerTwo__imageWrapper:hover .CareerTwo__image {
+  transform: scale(1.045);
+}
+
+/* IMAGE OVERLAY */
+
+.CareerTwo__imageOverlay {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+
+  background: linear-gradient(
+    180deg,
+    rgba(15, 20, 30, 0.25) 0%,
+    rgba(15, 20, 30, 0.03) 35%,
+    rgba(15, 20, 30, 0.12) 48%,
+    rgba(15, 20, 30, 0.88) 100%
+  );
+}
+
+/* IMAGE TOP LABEL */
+
+.CareerTwo__imageTop {
+  position: absolute;
+  top: 27px;
+  left: 26px;
+  z-index: 3;
+
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  padding: 12px 16px;
+  border: 1px solid rgba(255, 255, 255, 0.26);
+  border-radius: 5px;
+
+  background: rgba(20, 24, 31, 0.42);
+  color: #fff;
+
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 2px;
+
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+.CareerTwo__imageDot,
+.CareerTwo__footerDot {
+  flex-shrink: 0;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--CareerTwo-red);
+}
+
+.CareerTwo__imageDot {
+  background: #fff;
+  box-shadow: 0 0 0 4px rgba(255, 255, 255, 0.15);
+}
+
+/* IMAGE BOTTOM CAPTION */
+
+.CareerTwo__imageCaption {
+  position: absolute;
+  right: 34px;
+  bottom: 55px;
+  left: 34px;
+  z-index: 3;
+
+  color: #fff;
+}
+
+.CareerTwo__captionLabel {
+  display: inline-block;
+  margin-bottom: 17px;
+  color: #ffb9c2;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 3px;
+}
+
+.CareerTwo__imageCaption h3 {
+  margin: 0 0 16px;
+  font-size: clamp(27px, 3vw, 42px);
+  font-weight: 750;
+  line-height: 1.2;
+  letter-spacing: -1.2px;
+  color: #fff;
+}
+
+.CareerTwo__imageCaption h3 span {
+  color: #fff;
+}
+
+.CareerTwo__imageCaption p {
+  max-width: 390px;
+  margin: 0;
+
+  color: rgba(255, 255, 255, 0.83);
+  font-size: 14px;
+  line-height: 1.85;
+}
+
+/* IMAGE COUNTER */
+
+.CareerTwo__imageCounter {
+  position: absolute;
+  right: 28px;
+  bottom: 24px;
+  z-index: 3;
+
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  color: #fff;
+}
+
+.CareerTwo__counterNumber {
+  color: #ffb9c2;
+  font-family: Georgia, serif;
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.CareerTwo__counterLine {
+  width: 34px;
+  height: 1px;
+  background: rgba(255, 255, 255, 0.6);
+}
+
+.CareerTwo__counterText {
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 1.3px;
+}
+
+/* FLOATING CARD */
+
+.CareerTwo__experienceCard {
+  position: absolute;
+  right: -8px;
+  bottom: 0;
+  z-index: 4;
+
+  display: flex;
+  align-items: center;
+  gap: 14px;
+
+  min-width: 245px;
+  padding: 19px 23px;
+
+  border: 1px solid rgba(255, 255, 255, 0.9);
+  border-radius: 9px;
+
+  background: rgba(255, 255, 255, 0.96);
+  box-shadow: 0 15px 40px rgba(20, 25, 35, 0.13);
+
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+
+  transition:
+    transform 0.35s ease,
+    box-shadow 0.35s ease;
+}
+
+.CareerTwo__experienceCard:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 22px 45px rgba(20, 25, 35, 0.17);
+}
+
+.CareerTwo__experienceIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 45px;
+  height: 45px;
+  flex-shrink: 0;
+
+  border-radius: 7px;
+  background: rgba(223, 24, 48, 0.08);
+  color: var(--CareerTwo-red);
+}
+
+.CareerTwo__experienceIcon svg {
+  width: 24px;
+  height: 24px;
+}
+
+.CareerTwo__experienceCard > div:last-child {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.CareerTwo__experienceCard strong {
+  color: var(--CareerTwo-dark);
+  font-size: 14px;
+  font-weight: 750;
+}
+
+.CareerTwo__experienceCard span {
+  color: var(--CareerTwo-gray);
+  font-size: 11px;
+}
+
+/* =====================================================
+   RIGHT SIDE CONTENT
+===================================================== */
+
+.CareerTwo__content {
+  position: relative;
+  min-width: 0;
+  padding: 20px 0;
+
+  opacity: 0;
+  transform: translateX(65px);
+
+  transition:
+    opacity 1s var(--CareerTwo-ease) 0.12s,
+    transform 1s var(--CareerTwo-ease) 0.12s;
+}
+
+.CareerTwo--visible .CareerTwo__content {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* EYEBROW */
+
+.CareerTwo__eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 13px;
+  margin-bottom: 24px;
+}
+
+.CareerTwo__eyebrowLine {
+  width: 36px;
+  height: 3px;
+  flex-shrink: 0;
+  border-radius: 2px;
+  background: var(--CareerTwo-red);
+}
+
+.CareerTwo__eyebrow > span:last-child {
+  color: var(--CareerTwo-red);
+  font-size: 11px;
+  font-weight: 850;
+  letter-spacing: 3px;
+  line-height: 1.6;
+}
+
+/* HEADING */
+
+.CareerTwo__title {
+  margin: 0 0 23px;
+
+  color: var(--CareerTwo-dark);
+  font-size: clamp(39px, 4.1vw, 64px);
+  font-weight: 760;
+  line-height: 1.09;
+  letter-spacing: -2.5px;
+}
+
+.CareerTwo__titleHighlight {
+  display: inline-block;
+  color: var(--CareerTwo-red);
+  font-family: Georgia, "Times New Roman", serif;
+  font-weight: 700;
+  font-style: italic;
+}
+
+.CareerTwo__titleSecondLine {
+  display: inline-block;
+}
+
+/* DESCRIPTION */
+
+.CareerTwo__description {
+  max-width: 620px;
+  margin: 0 0 15px;
+
+  color: #424751;
+  font-size: 15px;
+  line-height: 1.9;
+  font-weight: 400;
+}
+
+.CareerTwo__description--secondary {
+  margin-bottom: 28px;
+  color: #737883;
+  font-size: 14px;
+}
+
+/* =====================================================
+   BENEFITS
+===================================================== */
+
+.CareerTwo__benefits {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 28px;
+  border-top: 1px solid var(--CareerTwo-border);
+}
+
+.CareerTwo__benefit {
+  position: relative;
+  display: grid;
+  grid-template-columns: 43px minmax(0, 1fr) 25px;
+  align-items: center;
+  gap: 13px;
+
+  padding: 17px 8px 17px 0;
+  border-bottom: 1px solid var(--CareerTwo-border);
+
+  transition:
+    background-color 0.3s ease,
+    padding 0.3s ease;
+}
+
+.CareerTwo__benefit:hover {
+  padding-right: 13px;
+  padding-left: 10px;
+  background: rgba(223, 24, 48, 0.035);
+}
+
+.CareerTwo__benefitNumber {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 39px;
+  height: 39px;
+
+  border: 1px solid #f2d5d9;
+  border-radius: 7px;
+
+  color: var(--CareerTwo-red);
+  background: #fff;
+
+  font-family: Georgia, serif;
+  font-size: 14px;
+  font-weight: 700;
+
+  transition:
+    background-color 0.3s ease,
+    color 0.3s ease;
+}
+
+.CareerTwo__benefit:hover .CareerTwo__benefitNumber {
+  color: #fff;
+  background: var(--CareerTwo-red);
+  border-color: var(--CareerTwo-red);
+}
+
+.CareerTwo__benefitContent h3 {
+  margin: 0 0 5px;
+  color: var(--CareerTwo-dark);
+  font-size: 15px;
+  font-weight: 750;
+}
+
+.CareerTwo__benefitContent p {
+  margin: 0;
+  color: var(--CareerTwo-gray);
+  font-size: 12px;
+  line-height: 1.7;
+}
+
+.CareerTwo__benefitArrow {
+  color: #a6a9af;
+  font-size: 21px;
+  transition:
+    color 0.3s ease,
+    transform 0.3s ease;
+}
+
+.CareerTwo__benefit:hover .CareerTwo__benefitArrow {
+  color: var(--CareerTwo-red);
+  transform: translate(3px, -3px);
+}
+
+/* =====================================================
+   STATISTICS
+===================================================== */
+
+.CareerTwo__stats {
+  display: flex;
+  align-items: center;
+  gap: 25px;
+  margin-bottom: 30px;
+}
+
+.CareerTwo__stat {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  min-width: 0;
+}
+
+.CareerTwo__stat strong {
+  color: var(--CareerTwo-red);
+  font-size: clamp(20px, 2vw, 27px);
+  font-weight: 800;
+  line-height: 1.2;
+  letter-spacing: -0.8px;
+}
+
+.CareerTwo__stat span {
+  color: #686d76;
+  font-size: 11px;
+  font-weight: 550;
+}
+
+.CareerTwo__statDivider {
+  width: 1px;
+  height: 38px;
+  flex-shrink: 0;
+  background: #dedfe3;
+}
+
+/* =====================================================
+   BUTTONS
+===================================================== */
+
+.CareerTwo__actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 14px;
+}
+
+.CareerTwo__primaryButton,
+.CareerTwo__secondaryButton {
+  min-height: 51px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+
+  padding: 0 23px;
+  border-radius: 5px;
+
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: 750;
+  text-decoration: none;
+
+  cursor: pointer;
+
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease,
+    background-color 0.3s ease,
+    color 0.3s ease;
+}
+
+.CareerTwo__primaryButton {
+  border: 1px solid var(--CareerTwo-red);
+  color: #fff;
+  background: var(--CareerTwo-red);
+  box-shadow: 0 9px 22px rgba(223, 24, 48, 0.15);
+}
+
+.CareerTwo__primaryButton:hover {
+  transform: translateY(-3px);
+  border-color: var(--CareerTwo-red-dark);
+  background: var(--CareerTwo-red-dark);
+  box-shadow: 0 13px 28px rgba(223, 24, 48, 0.23);
+}
+
+.CareerTwo__primaryButton svg {
+  width: 18px;
+  height: 18px;
+  transition: transform 0.3s ease;
+}
+
+.CareerTwo__primaryButton:hover svg {
+  transform: translateX(4px);
+}
+
+.CareerTwo__secondaryButton {
+  border: 1px solid #d9dce1;
+  color: var(--CareerTwo-dark);
+  background: #fff;
+}
+
+.CareerTwo__secondaryButton span {
+  color: var(--CareerTwo-red);
+  font-size: 17px;
+  transition: transform 0.3s ease;
+}
+
+.CareerTwo__secondaryButton:hover {
+  transform: translateY(-3px);
+  border-color: var(--CareerTwo-red);
+  color: var(--CareerTwo-red);
+  box-shadow: 0 8px 20px rgba(20, 25, 35, 0.07);
+}
+
+.CareerTwo__secondaryButton:hover span {
+  transform: translate(2px, -2px);
+}
+
+/* BOTTOM NOTE */
+
+.CareerTwo__footerNote {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 27px;
+}
+
+.CareerTwo__footerDot {
+  width: 7px;
+  height: 7px;
+}
+
+.CareerTwo__footerNote > span:last-child {
+  color: #737883;
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 1.7px;
+}
+
+/* BACKGROUND TYPOGRAPHY */
+
+.CareerTwo__backgroundText {
+  position: absolute;
+  right: -10px;
+  bottom: -55px;
+  z-index: 0;
+
+  color: rgba(28, 29, 32, 0.027);
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(110px, 19vw, 270px);
+  font-weight: 800;
+  letter-spacing: -12px;
+  line-height: 1;
+  white-space: nowrap;
+  pointer-events: none;
+  user-select: none;
+}
+
+/* =====================================================
+   LARGE LAPTOPS
+===================================================== */
+
+@media (min-width: 1500px) {
+  .CareerTwo__container {
+    gap: 100px;
+  }
+
+  .CareerTwo__imageWrapper {
+    height: 630px;
+  }
+
+  .CareerTwo__content {
+    max-width: 650px;
+  }
+}
+
+/* =====================================================
+   TABLETS / SMALL LAPTOPS
+===================================================== */
+
+@media (max-width: 1100px) {
+  .CareerTwo {
+    padding: 75px 0 85px;
+  }
+
+  .CareerTwo__container {
+    width: calc(100% - 60px);
+    grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+    gap: 38px;
+  }
+
+  .CareerTwo__imageWrapper {
+    height: 540px;
+    min-height: 400px;
+    border-top-right-radius: 48px;
+  }
+
+  .CareerTwo__title {
+    font-size: clamp(38px, 4.5vw, 52px);
+    letter-spacing: -1.8px;
+  }
+
+  .CareerTwo__stats {
+    gap: 15px;
+  }
+
+  .CareerTwo__stat strong {
+    font-size: 21px;
+  }
+
+  .CareerTwo__imageCaption {
+    right: 23px;
+    left: 23px;
+    bottom: 55px;
+  }
+
+  .CareerTwo__imageCaption h3 {
+    font-size: 31px;
+  }
+
+  .CareerTwo__experienceCard {
+    right: -5px;
+    min-width: 215px;
+    padding: 15px;
+  }
+}
+
+/* =====================================================
+   MOBILE / TABLET STACKING
+===================================================== */
+
+@media (max-width: 850px) {
+  .CareerTwo {
+    padding: 65px 0 75px;
+  }
+
+  .CareerTwo__container {
+    grid-template-columns: minmax(0, 1fr);
+    width: min(650px, calc(100% - 42px));
+    gap: 48px;
+  }
+
+  /* Keep the image on the left in the desktop layout.
+     On mobile, image naturally appears above content. */
+
+  .CareerTwo__visual {
+    width: 100%;
+    max-width: 600px;
+    margin: 0 auto;
+    padding-right: 14px;
+    padding-bottom: 25px;
+  }
+
+  .CareerTwo__imageWrapper {
+    height: 500px;
+    min-height: 0;
+    border-radius: 7px 55px 7px 7px;
+  }
+
+  .CareerTwo__content {
+    width: 100%;
+    max-width: 650px;
+    margin: 0 auto;
+    padding: 0;
+  }
+
+  .CareerTwo__title {
+    font-size: clamp(42px, 7vw, 60px);
+  }
+
+  .CareerTwo__description {
+    max-width: 100%;
+  }
+
+  .CareerTwo__backgroundText {
+    bottom: 0;
+  }
+}
+
+/* =====================================================
+   MOBILE
+===================================================== */
+
+@media (max-width: 520px) {
+  .CareerTwo {
+    padding: 48px 0 60px;
+  }
+
+  .CareerTwo__container {
+    width: calc(100% - 36px);
+    gap: 40px;
+  }
+
+  .CareerTwo__visual {
+    padding-right: 7px;
+    padding-bottom: 25px;
+  }
+
+  .CareerTwo__imageWrapper {
+    height: 390px;
+    border-top-right-radius: 38px;
+  }
+
+  .CareerTwo__imageTop {
+    top: 17px;
+    left: 15px;
+    gap: 8px;
+    padding: 10px 11px;
+    font-size: 8px;
+    letter-spacing: 1.2px;
+  }
+
+  .CareerTwo__imageCaption {
+    right: 18px;
+    bottom: 43px;
+    left: 18px;
+  }
+
+  .CareerTwo__captionLabel {
+    margin-bottom: 12px;
+    font-size: 8px;
+    letter-spacing: 2px;
+  }
+
+  .CareerTwo__imageCaption h3 {
+    margin-bottom: 11px;
+    font-size: 28px;
+    letter-spacing: -0.5px;
+  }
+
+  .CareerTwo__imageCaption p {
+    font-size: 12px;
+    line-height: 1.7;
+  }
+
+  .CareerTwo__imageCounter {
+    right: 15px;
+    bottom: 14px;
+    gap: 7px;
+  }
+
+  .CareerTwo__counterText {
+    font-size: 7px;
+    letter-spacing: 0.8px;
+  }
+
+  .CareerTwo__counterLine {
+    width: 20px;
+  }
+
+  .CareerTwo__experienceCard {
+    right: -7px;
+    bottom: 0;
+    gap: 10px;
+    min-width: 0;
+    padding: 12px 13px;
+    border-radius: 7px;
+  }
+
+  .CareerTwo__experienceIcon {
+    width: 36px;
+    height: 36px;
+  }
+
+  .CareerTwo__experienceIcon svg {
+    width: 20px;
+    height: 20px;
+  }
+
+  .CareerTwo__experienceCard strong {
+    font-size: 12px;
+  }
+
+  .CareerTwo__experienceCard span {
+    font-size: 10px;
+  }
+
+  .CareerTwo__eyebrow {
+    gap: 9px;
+    margin-bottom: 18px;
+  }
+
+  .CareerTwo__eyebrowLine {
+    width: 27px;
+  }
+
+  .CareerTwo__eyebrow > span:last-child {
+    font-size: 9px;
+    letter-spacing: 2px;
+  }
+
+  .CareerTwo__title {
+    margin-bottom: 18px;
+    font-size: clamp(37px, 10vw, 48px);
+    line-height: 1.12;
+    letter-spacing: -1.7px;
+  }
+
+  .CareerTwo__description {
+    margin-bottom: 13px;
+    font-size: 13px;
+    line-height: 1.85;
+  }
+
+  .CareerTwo__description--secondary {
+    margin-bottom: 22px;
+  }
+
+  .CareerTwo__benefit {
+    grid-template-columns: 36px minmax(0, 1fr) 18px;
+    gap: 10px;
+    padding: 15px 0;
+  }
+
+  .CareerTwo__benefitNumber {
+    width: 34px;
+    height: 34px;
+    font-size: 12px;
+  }
+
+  .CareerTwo__benefitContent h3 {
+    font-size: 13px;
+  }
+
+  .CareerTwo__benefitContent p {
+    font-size: 11px;
+  }
+
+  .CareerTwo__benefitArrow {
+    font-size: 17px;
+  }
+
+  .CareerTwo__stats {
+    justify-content: space-between;
+    gap: 10px;
+    margin-bottom: 25px;
+  }
+
+  .CareerTwo__stat strong {
+    font-size: clamp(15px, 4.5vw, 20px);
+    letter-spacing: -0.5px;
+  }
+
+  .CareerTwo__stat span {
+    font-size: 9px;
+  }
+
+  .CareerTwo__statDivider {
+    height: 30px;
+  }
+
+  .CareerTwo__actions {
+    align-items: stretch;
+    gap: 10px;
+  }
+
+  .CareerTwo__primaryButton,
+  .CareerTwo__secondaryButton {
+    min-height: 47px;
+    padding: 0 14px;
+    gap: 8px;
+    font-size: 10px;
+  }
+
+  .CareerTwo__primaryButton {
+    flex: 1 1 auto;
+  }
+
+  .CareerTwo__secondaryButton {
+    flex: 0 0 auto;
+  }
+
+  .CareerTwo__primaryButton svg {
+    width: 15px;
+    height: 15px;
+  }
+
+  .CareerTwo__footerNote {
+    margin-top: 22px;
+  }
+
+  .CareerTwo__footerNote > span:last-child {
+    font-size: 8px;
+    letter-spacing: 1.1px;
+  }
+
+  .CareerTwo__backgroundText {
+    right: -15px;
+    bottom: 5px;
+    font-size: 95px;
+    letter-spacing: -5px;
+  }
+}
+
+/* ACCESSIBILITY */
+
+@media (prefers-reduced-motion: reduce) {
+  .CareerTwo *,
+  .CareerTwo *::before,
+  .CareerTwo *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+
+  .CareerTwo__visual,
+  .CareerTwo__content {
+    opacity: 1;
+    transform: none;
+  }
+}

@@ -16,7 +16,7 @@ const AboutTeam = () => {
         "https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=900&q=90",
       number: "01",
       description: [
-        "Rabie Atieh leads Transguard Group's business solutions operations, bringing extensive experience in leadership, business transformation and regional market development.",
+        "Rabie Atieh leads prime site Group's business solutions operations, bringing extensive experience in leadership, business transformation and regional market development.",
         "His professional background spans cash management, security, facilities management and workforce solutions, supporting the delivery of integrated services to clients across the region.",
         "His leadership focuses on operational excellence, long-term client relationships and developing innovative solutions that respond to evolving business needs.",
       ],

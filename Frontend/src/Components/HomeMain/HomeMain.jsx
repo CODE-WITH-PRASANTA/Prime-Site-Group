@@ -7,12 +7,11 @@ const HomeMainSlides = [
   {
     id: 1,
     number: "01",
-    category: "AVIATION",
-    eyebrow: "EXCELLENCE IN EVERY DETAIL",
-    title: "Aviation Services",
+    category: "SECURITY",
+    eyebrow: "PROTECTION & DEFENCE EXCELLENCE",
+    title: "Security Solutions",
     description:
-      "Raising industry standards through precision, safety, and continuous innovation.",
-    // Premium high-res aviation hero image
+      "Delivering certified physical guarding, high-threat asset protection, and intelligent 24/7 surveillance across enterprise infrastructure.",
     image:
       "https://images.unsplash.com/photo-1542296332-2e4473faf563?auto=format&fit=crop&w=2400&q=90",
     position: "center right",
@@ -20,11 +19,11 @@ const HomeMainSlides = [
   {
     id: 2,
     number: "02",
-    category: "FINTECH",
-    eyebrow: "SMARTER BUSINESS. BETTER FUTURE.",
-    title: "ZandPay",
+    category: "MANPOWER",
+    eyebrow: "SCALABLE HUMAN CAPITAL",
+    title: "Workforce Solutions",
     description:
-      "Empowering businesses with secure, seamless payment solutions built for tomorrow.",
+      "Empowering industries with agile blue-collar, white-collar, and specialist talent deployed with complete regulatory compliance.",
     image:
       "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?auto=format&fit=crop&w=2200&q=90",
     position: "center",
@@ -36,7 +35,7 @@ const HomeMainSlides = [
     eyebrow: "MOVING BUSINESS FORWARD",
     title: "Integrated Logistics",
     description:
-      "Connecting businesses, people, and possibilities through dependable logistics solutions.",
+      "Connecting supply chains, warehouses, and nationwide distribution through dependable end-to-end fleet and freight logistics.",
     image:
       "https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=2200&q=90",
     position: "center",
@@ -44,11 +43,11 @@ const HomeMainSlides = [
   {
     id: 4,
     number: "04",
-    category: "INFRASTRUCTURE",
-    eyebrow: "BUILDING TOMORROW TODAY",
-    title: "Infrastructure",
+    category: "FACILITIES",
+    eyebrow: "BUILDING ASSET LONGEVITY",
+    title: "Facility Management",
     description:
-      "Creating smarter spaces and lasting infrastructure for a connected world.",
+      "Optimizing commercial properties and operational environments through smart MEP engineering, IoT tracking, and comprehensive hygiene care.",
     image:
       "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=2200&q=90",
     position: "center",
@@ -86,7 +85,7 @@ const HomeMain = () => {
   return (
     <section
       className="HomeMain"
-      aria-label="Prime Site Group services"
+      aria-label="Prime Site services"
       onMouseEnter={() => setIsPaused(true)}
       onMouseLeave={() => setIsPaused(false)}
       onFocusCapture={() => setIsPaused(true)}
@@ -140,11 +139,12 @@ const HomeMain = () => {
                   <span className="HomeMain__category">{slide.category}</span>
                   <span className="HomeMain__categoryLine" />
                   <span className="HomeMain__tagline">
-                    A world of possibilities
+                    A world of possibilities[cite: 1]
                   </span>
                 </div>
               </div>
 
+              {/* Large Watermark Number */}
               <span className="HomeMain__watermark" aria-hidden="true">
                 {slide.number}
               </span>
@@ -155,7 +155,7 @@ const HomeMain = () => {
               <span className="HomeMain__imageLabelDot" />
               <span>{slide.category}</span>
               <span className="HomeMain__imageLabelDivider" />
-              <span>PRIME SITE GROUP</span>
+              <span>PRIME SITE</span>
             </div>
           </article>
         ))}

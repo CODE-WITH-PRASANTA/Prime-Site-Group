@@ -1,21 +1,24 @@
 import React, { useState, useEffect, useRef } from "react";
 import "./AboutStandards.css";
 
+// Change the brand name here and it updates everywhere in this section.
+const BRAND_NAME = "Prime Site";
+
 const standardsPillars = [
   {
     id: 1,
-    title: "Zero Harm Philosophy",
-    desc: "Targeting incident-free operations across all working sites.",
+    title: "Safety First Culture",
+    desc: "Every team member is briefed, trained and equipped to stay safe on site.",
   },
   {
     id: 2,
-    title: "ISO Integrated Standards",
-    desc: "Rigorous ISO 45001 & ISO 14001 certification compliance.",
+    title: "Compliance & Standards",
+    desc: "We follow applicable health, safety and labour regulations on every project.",
   },
   {
     id: 3,
-    title: "Eco-Conscious Footprint",
-    desc: "Proactive resource conservation and green waste protocols.",
+    title: "Responsible Operations",
+    desc: "Practical steps to reduce waste and protect the environment we work in.",
   },
 ];
 
@@ -24,18 +27,27 @@ const AboutStandards = () => {
   const sectionRef = useRef(null);
 
   useEffect(() => {
+    const section = sectionRef.current;
+
+    if (!section) return undefined;
+
+    if (!("IntersectionObserver" in window)) {
+      setIsVisible(true);
+      return undefined;
+    }
+
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
           setIsVisible(true);
+          observer.unobserve(entry.target);
         }
       },
-      { threshold: 0.2 }
+      // low threshold so tall stacked layouts on phones still reveal
+      { threshold: 0.1, rootMargin: "0px 0px -40px 0px" }
     );
 
-    if (sectionRef.current) {
-      observer.observe(sectionRef.current);
-    }
+    observer.observe(section);
 
     return () => observer.disconnect();
   }, []);
@@ -44,55 +56,55 @@ const AboutStandards = () => {
     <section
       ref={sectionRef}
       className={`AboutStandards ${isVisible ? "AboutStandards--visible" : ""}`}
-      aria-label="Health, Safety and Environment Standards"
+      aria-label={`${BRAND_NAME} health, safety and environment standards`}
     >
       <div className="AboutStandards__container">
-        {/* Left Side: Angled Workforce & Safety Visual */}
+        {/* Left: angled image */}
         <div className="AboutStandards__media">
           <div className="AboutStandards__imageClip">
             <img
-              src="https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&w=2200&q=85"
-              alt="Construction specialist working on safety scaffold"
+              src="https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&w=1600&q=80"
+              alt="Construction specialist working safely on site"
               className="AboutStandards__image"
               loading="lazy"
+              decoding="async"
             />
             <div className="AboutStandards__imageShade" />
           </div>
 
-          {/* Floating Safety Compliance Badge */}
           <div className="AboutStandards__badge">
             <span className="AboutStandards__badgeDot" />
             <div className="AboutStandards__badgeInfo">
-              <strong>HSE Accredited</strong>
-              <span>Zero-Harm Safety Protocols</span>
+              <strong>Safety First</strong>
+              <span>Safe people. Safe sites.</span>
             </div>
           </div>
         </div>
 
-        {/* Right Side: Staggered Executive Presentation Content */}
+        {/* Right: content */}
         <div className="AboutStandards__content">
           <div className="AboutStandards__eyebrowWrap">
             <span className="AboutStandards__eyebrowLine" />
-            <span className="AboutStandards__eyebrow">STANDARDS[cite: 9]</span>
+            <span className="AboutStandards__eyebrow">STANDARDS</span>
           </div>
 
           <h2 className="AboutStandards__title">
             Health, Safety and{" "}
-            <span className="AboutStandards__titleAccent">Environment[cite: 9]</span>
+            <span className="AboutStandards__titleAccent">Environment</span>
           </h2>
 
           <p className="AboutStandards__description">
-            At Transguard, embedding a strong Health, Safety and Environment
-            (HSE) culture is an intrinsic part of the way we work and live and
-            its proactive management forms a critical part of our business[cite: 9].
+            At {BRAND_NAME}, a strong Health, Safety and Environment (HSE)
+            culture is part of the way we work. We prepare and support every
+            member of our workforce to stay safe, and we manage safety
+            proactively across every client site and project.
           </p>
 
-          {/* Core Pillars */}
           <div className="AboutStandards__pillars">
             {standardsPillars.map((pillar) => (
               <div key={pillar.id} className="AboutStandards__pillarItem">
                 <div className="AboutStandards__pillarIcon">
-                  <svg viewBox="0 0 20 20" fill="currentColor">
+                  <svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
                     <path
                       fillRule="evenodd"
                       d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
@@ -108,11 +120,10 @@ const AboutStandards = () => {
             ))}
           </div>
 
-          {/* Action Row */}
           <div className="AboutStandards__actionWrap">
-            <a href="#hse-policy" className="AboutStandards__linkPrimary">
-              <span>Explore HSE Framework</span>
-              <svg viewBox="0 0 20 20" fill="currentColor">
+            <a href="/hse-policy" className="AboutStandards__linkPrimary">
+              <span>Explore Our HSE Approach</span>
+              <svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
                 <path
                   fillRule="evenodd"
                   d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z"

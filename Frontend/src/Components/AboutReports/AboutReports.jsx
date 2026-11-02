@@ -4,28 +4,28 @@ import "./AboutReports.css";
 const reportFiles = [
   {
     id: "2025-2026",
-    title: "Annual Report 2025/2026",
+    title: "Prime Site Annual Report 2025/2026",
     size: "18.4 MB",
     pages: "128 Pages",
     fileUrl: "#download-2025-2026",
   },
   {
     id: "2024-2025",
-    title: "Annual Report 2024/2025",
+    title: "Prime Site Annual Report 2024/2025",
     size: "16.8 MB",
     pages: "116 Pages",
     fileUrl: "#download-2024-2025",
   },
   {
     id: "2023-2024",
-    title: "Annual Report 2023/2024",
+    title: "Prime Site Annual Report 2023/2024",
     size: "15.2 MB",
     pages: "104 Pages",
     fileUrl: "#download-2023-2024",
   },
   {
     id: "2022-2023",
-    title: "Annual Report 2022/2023",
+    title: "Prime Site Annual Report 2022/2023",
     size: "14.9 MB",
     pages: "96 Pages",
     fileUrl: "#download-2022-2023",
@@ -70,29 +70,29 @@ const AboutReports = () => {
     <section
       ref={sectionRef}
       className={`AboutReports ${isVisible ? "AboutReports--visible" : ""}`}
-      aria-label="Annual Financial Reports"
+      aria-label="Prime Site Annual Financial & ESG Reports"
     >
       <div className="AboutReports__container">
         {/* Left Side: Staggered Running Content */}
         <div className="AboutReports__content">
           <div className="AboutReports__eyebrowWrap">
             <span className="AboutReports__eyebrowLine" />
-            <span className="AboutReports__eyebrow">REPORTS[cite: 8]</span>
+            <span className="AboutReports__eyebrow">DISCLOSURES & GOVERNANCE</span>
           </div>
 
           <h2 className="AboutReports__title">
-            Annual <span className="AboutReports__titleAccent">Reports[cite: 8]</span>
+            Annual <span className="AboutReports__titleAccent">Reports</span>
           </h2>
 
           <p className="AboutReports__description">
-            Our annual reports document Transguard's incredible growth
-            trajectory[cite: 8], detailing our financial milestones, corporate governance,
-            and continuous investments across sustainable business operations.
+            Our annual disclosures document Prime Site's sustainable growth trajectory, 
+            detailing audited financial performance, corporate governance standards, 
+            and strategic capital deployment across our integrated operational divisions.
           </p>
 
           <form className="AboutReports__form" onSubmit={handleDownload}>
             <label htmlFor="report-select" className="AboutReports__label">
-              Choose your file:[cite: 8]
+              Select Disclosure Filing:
             </label>
 
             {/* Custom Interactive Select Box */}
@@ -105,7 +105,7 @@ const AboutReports = () => {
               >
                 {reportFiles.map((file) => (
                   <option key={file.id} value={file.id}>
-                    {file.title}[cite: 8]
+                    {file.title}
                   </option>
                 ))}
               </select>
@@ -131,7 +131,7 @@ const AboutReports = () => {
                   <line x1="16" y1="17" x2="8" y2="17" />
                   <polyline points="10 9 9 9 8 9" />
                 </svg>
-                PDF Format
+                Audited PDF
               </span>
               <span className="AboutReports__fileMetaDivider" />
               <span>{selectedReport.size}</span>
@@ -139,7 +139,7 @@ const AboutReports = () => {
               <span>{selectedReport.pages}</span>
             </div>
 
-            {/* Premium Download Action Button */}
+            {/* Download Action Button */}
             <button
               type="submit"
               className={`AboutReports__downloadButton ${
@@ -147,7 +147,7 @@ const AboutReports = () => {
               }`}
             >
               <span className="AboutReports__downloadText">
-                {isDownloading ? "Preparing Document..." : "Download[cite: 8]"}
+                {isDownloading ? "Preparing Document..." : "Download Report"}
               </span>
               <span className="AboutReports__downloadIcon">
                 <svg viewBox="0 0 20 20" fill="currentColor">
@@ -167,7 +167,7 @@ const AboutReports = () => {
           <div className="AboutReports__imageClip">
             <img
               src="https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&w=2200&q=85"
-              alt="Dubai skyline and Burj Khalifa reflections at golden hour"
+              alt="Prime Site corporate infrastructure and commercial skyline"
               className="AboutReports__image"
               loading="lazy"
             />
@@ -178,7 +178,7 @@ const AboutReports = () => {
           <div className="AboutReports__badge">
             <span className="AboutReports__badgeDot" />
             <div className="AboutReports__badgeInfo">
-              <strong>Audited Disclosures</strong>
+              <strong>Prime Site Governance</strong>
               <span>IFRS & Regulatory Compliant</span>
             </div>
           </div>

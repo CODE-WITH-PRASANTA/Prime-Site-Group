@@ -1,47 +1,63 @@
 /* ========================================================
-   HOME NEWS - PREMIUM CAROUSEL COMPONENT
+   HOME NEWS - PRIME SITE (Navy + Orange)
 ======================================================== */
 
 .HomeNews {
-  --HomeNews-red: #d7192d;
-  --HomeNews-red-hover: #b51223;
-  --HomeNews-dark: #1f2022;
-  --HomeNews-title: #2a2b2e;
-  --HomeNews-text: #595c61;
-  --HomeNews-bg: #f8f9fa;
-  --HomeNews-border: #e6e8eb;
-  --HomeNews-transition: cubic-bezier(0.25, 1, 0.5, 1);
+  --HN-navy: #14307a;
+  --HN-navy-dark: #0b1d4d;
+  --HN-orange: #f58220;
+  --HN-orange-light: #ffb347;
+  --HN-text: #4b5160;
+  --HN-muted: #7a7f8c;
+  --HN-border: #e3e7f1;
+  --HN-bg: #f5f7fc;
+  --HN-ease: cubic-bezier(0.25, 1, 0.5, 1);
 
   position: relative;
+  isolation: isolate;
   width: 100%;
+  max-width: 100%;
   padding: 85px 0 95px;
-  background-color: var(--HomeNews-bg);
-  font-family: "Inter", "Segoe UI", Arial, sans-serif;
-  color: var(--HomeNews-dark);
   overflow: hidden;
+  background:
+    radial-gradient(circle at 100% 0%, rgba(245, 130, 32, 0.1), transparent 34%),
+    radial-gradient(circle at 0% 100%, rgba(20, 48, 122, 0.08), transparent 34%),
+    var(--HN-bg);
+  color: var(--HN-text);
+  font-family: "Inter", "Segoe UI", Arial, sans-serif;
+}
+
+/* The section itself must be border-box too (prevents sideways overflow) */
+.HomeNews,
+.HomeNews *,
+.HomeNews *::before,
+.HomeNews *::after {
+  box-sizing: border-box;
 }
 
 .HomeNews__container {
+  width: 100%;
   max-width: 1400px;
   margin: 0 auto;
-  padding: 0 40px;
+  padding: 0 clamp(16px, 4vw, 40px);
 }
 
 /* ========================================================
-   HEADER SECTION
+   HEADER
 ======================================================== */
 
 .HomeNews__header {
   display: flex;
   align-items: flex-end;
   justify-content: space-between;
-  margin-bottom: 38px;
-  gap: 20px;
+  gap: 24px;
+  margin-bottom: 30px;
 }
 
 .HomeNews__titleGroup {
   display: flex;
   flex-direction: column;
+  min-width: 0;
 }
 
 .HomeNews__eyebrowWrap {
@@ -52,89 +68,110 @@
 }
 
 .HomeNews__eyebrowBar {
-  width: 28px;
-  height: 3px;
-  background-color: var(--HomeNews-red);
-  border-radius: 2px;
+  width: 38px;
+  height: 4px;
+  border-radius: 4px;
+  background: linear-gradient(90deg, var(--HN-orange), var(--HN-orange-light));
 }
 
 .HomeNews__eyebrow {
+  color: var(--HN-navy);
   font-size: 11px;
   font-weight: 800;
-  letter-spacing: 2.6px;
-  color: #6a6e73;
+  letter-spacing: 3px;
 }
 
 .HomeNews__heading {
   margin: 0;
-  font-size: clamp(34px, 4vw, 50px);
+  color: var(--HN-navy-dark);
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(32px, 4vw, 50px);
   font-weight: 700;
-  line-height: 1.1;
-  color: var(--HomeNews-title);
-  letter-spacing: -1.2px;
+  line-height: 1.12;
+  letter-spacing: -1px;
 }
 
 .HomeNews__ampersand {
-  font-family: Georgia, "Times New Roman", serif;
+  color: #8b91a1;
   font-weight: 400;
-  color: #7b7e84;
 }
 
 .HomeNews__headingAccent {
-  color: var(--HomeNews-red);
-  font-family: Georgia, "Times New Roman", serif;
-  font-weight: 600;
+  background: linear-gradient(90deg, var(--HN-orange), #e8590c);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: var(--HN-orange);
+}
+
+.HomeNews__intro {
+  max-width: 560px;
+  margin: 12px 0 0;
+  color: var(--HN-muted);
+  font-size: 14.5px;
+  line-height: 1.7;
 }
 
 /* ========================================================
-   BUTTON CONTROLS
+   ARROW BUTTONS
 ======================================================== */
 
 .HomeNews__controls {
   display: flex;
+  flex-shrink: 0;
   align-items: center;
-  gap: 1px;
-  background: var(--HomeNews-red);
-  box-shadow: 0 10px 24px rgba(215, 25, 45, 0.28);
-  border-radius: 2px;
-  overflow: hidden;
+  gap: 12px;
 }
 
 .HomeNews__navButton {
   display: inline-grid;
   place-items: center;
-  width: 54px;
+  width: 52px;
   height: 52px;
   padding: 0;
-  border: 0;
-  background: var(--HomeNews-red);
-  color: #ffffff;
+  border-radius: 50%;
   cursor: pointer;
-  transition: background-color 0.25s ease, transform 0.2s ease;
-  position: relative;
+  transition:
+    background 0.3s ease,
+    color 0.3s ease,
+    transform 0.25s ease,
+    box-shadow 0.3s ease;
 }
 
-.HomeNews__navButton:first-child::after {
-  content: "";
-  position: absolute;
-  right: 0;
-  top: 20%;
-  height: 60%;
-  width: 1px;
-  background-color: rgba(255, 255, 255, 0.25);
+.HomeNews__navButton--prev {
+  color: var(--HN-navy);
+  background: #fff;
+  border: 1.5px solid var(--HN-navy);
+}
+
+.HomeNews__navButton--next {
+  color: #fff;
+  background: linear-gradient(135deg, var(--HN-orange), var(--HN-orange-light));
+  border: 1.5px solid transparent;
+  box-shadow: 0 12px 24px -8px rgba(245, 130, 32, 0.6);
+}
+
+.HomeNews__navButton--prev:hover {
+  color: #fff;
+  background: var(--HN-navy);
+  box-shadow: 0 12px 24px -8px rgba(20, 48, 122, 0.5);
+}
+
+.HomeNews__navButton--next:hover {
+  box-shadow: 0 16px 28px -8px rgba(245, 130, 32, 0.75);
 }
 
 .HomeNews__navButton:hover {
-  background-color: var(--HomeNews-red-hover);
+  transform: translateY(-2px);
 }
 
 .HomeNews__navButton:active {
-  transform: scale(0.95);
+  transform: scale(0.94);
 }
 
 .HomeNews__navButton:focus-visible {
-  outline: 2px solid #ffffff;
-  outline-offset: -3px;
+  outline: 3px solid var(--HN-navy);
+  outline-offset: 3px;
 }
 
 .HomeNews__navButton svg {
@@ -152,50 +189,70 @@
 }
 
 /* ========================================================
-   CAROUSEL SLIDER TRACK (RIGHT-TO-LEFT)
+   CAROUSEL
 ======================================================== */
 
 .HomeNews__carouselWindow {
   width: 100%;
+  padding-block: 14px 26px; /* room so card shadows are not clipped */
+  margin-block: -14px -26px;
   overflow: hidden;
-  border-radius: 6px;
 }
 
 .HomeNews__track {
   display: flex;
   width: 100%;
-  transition: transform 0.65s var(--HomeNews-transition);
+  transition: transform 0.65s var(--HN-ease);
   will-change: transform;
 }
 
 .HomeNews__card {
+  display: flex;
   flex: 0 0 calc(100% / 3);
   max-width: calc(100% / 3);
-  padding: 0 10px;
-  box-sizing: border-box;
+  min-width: 0;
+  padding: 0 12px;
+}
+
+.HomeNews__cardInner {
   display: flex;
   flex-direction: column;
+  width: 100%;
+  overflow: hidden;
+  background: #fff;
+  border: 1px solid var(--HN-border);
+  border-radius: 20px;
+  box-shadow: 0 18px 40px -22px rgba(20, 48, 122, 0.35);
+  transition:
+    transform 0.4s var(--HN-ease),
+    box-shadow 0.4s ease,
+    border-color 0.3s ease;
+}
+
+.HomeNews__card:hover .HomeNews__cardInner {
+  border-color: rgba(245, 130, 32, 0.45);
+  box-shadow: 0 28px 50px -20px rgba(20, 48, 122, 0.45);
+  transform: translateY(-6px);
 }
 
 .HomeNews__imageWrapper {
   position: relative;
   width: 100%;
-  height: 310px;
+  height: 260px;
   overflow: hidden;
-  border-radius: 4px;
-  background-color: #202224;
+  background: var(--HN-navy-dark);
 }
 
 .HomeNews__image {
+  display: block;
   width: 100%;
   height: 100%;
   object-fit: cover;
-  display: block;
-  transition: transform 0.6s var(--HomeNews-transition);
+  transition: transform 0.7s var(--HN-ease);
 }
 
 .HomeNews__card:hover .HomeNews__image {
-  transform: scale(1.05);
+  transform: scale(1.07);
 }
 
 .HomeNews__imageShade {
@@ -203,8 +260,8 @@
   inset: 0;
   background: linear-gradient(
     180deg,
-    rgba(15, 16, 18, 0) 45%,
-    rgba(15, 16, 18, 0.65) 100%
+    rgba(11, 29, 77, 0) 40%,
+    rgba(11, 29, 77, 0.7) 100%
   );
   pointer-events: none;
 }
@@ -212,116 +269,123 @@
 .HomeNews__badge {
   position: absolute;
   top: 14px;
-  right: 14px;
-  background: rgba(25, 27, 29, 0.7);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-  color: #ffffff;
-  font-size: 9px;
-  font-weight: 700;
+  left: 14px;
+  padding: 6px 12px;
+  color: #fff;
+  background: linear-gradient(120deg, var(--HN-orange), #ff9d3d);
+  border-radius: 999px;
+  box-shadow: 0 8px 16px -6px rgba(245, 130, 32, 0.7);
+  font-size: 9.5px;
+  font-weight: 800;
   letter-spacing: 1.6px;
-  padding: 6px 10px;
-  border-radius: 2px;
-  border: 1px solid rgba(255, 255, 255, 0.15);
 }
 
-/* Card Content */
+/* Card content */
+
 .HomeNews__cardContent {
-  padding: 22px 4px 10px;
   display: flex;
-  flex-direction: column;
   flex: 1;
+  flex-direction: column;
+  padding: 22px 22px 24px;
 }
 
 .HomeNews__meta {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
-  gap: 8px;
+  gap: 4px 8px;
   margin-bottom: 12px;
 }
 
 .HomeNews__tag {
-  color: var(--HomeNews-red);
+  color: var(--HN-orange);
   font-size: 10px;
   font-weight: 800;
   letter-spacing: 1.4px;
 }
 
 .HomeNews__dot {
-  width: 3px;
-  height: 3px;
+  width: 4px;
+  height: 4px;
   border-radius: 50%;
-  background-color: #abb0b6;
+  background: #b4bacb;
 }
 
 .HomeNews__date {
-  color: #7a7e84;
+  color: var(--HN-muted);
   font-size: 11px;
   font-weight: 600;
 }
 
 .HomeNews__cardTitle {
-  margin: 0 0 16px;
+  display: -webkit-box;
+  min-height: calc(1.4em * 2); /* all titles reserve 2 lines, so cards align */
+  margin: 0 0 18px;
+  overflow: hidden;
+  color: var(--HN-navy-dark);
   font-size: 18px;
   font-weight: 700;
   line-height: 1.4;
-  color: var(--HomeNews-title);
-  display: -webkit-box;
+  transition: color 0.25s ease;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
-  overflow: hidden;
-  transition: color 0.25s ease;
 }
 
 .HomeNews__card:hover .HomeNews__cardTitle {
-  color: var(--HomeNews-red);
+  color: var(--HN-navy);
 }
 
 .HomeNews__readLink {
-  margin-top: auto;
   display: inline-flex;
   align-items: center;
-  gap: 8px;
-  color: var(--HomeNews-title);
-  text-decoration: none;
-  font-size: 12px;
+  align-self: flex-start;
+  gap: 10px;
+  margin-top: auto;
+  padding-bottom: 3px;
+  color: var(--HN-navy);
+  border-bottom: 2px solid transparent;
+  font-size: 12.5px;
   font-weight: 700;
   letter-spacing: 0.5px;
-  transition: color 0.25s ease;
+  text-decoration: none;
+  transition:
+    color 0.25s ease,
+    border-color 0.25s ease,
+    gap 0.25s ease;
 }
 
 .HomeNews__readLink svg {
-  width: 14px;
-  height: 14px;
+  width: 15px;
+  height: 15px;
   transition: transform 0.25s ease;
 }
 
-.HomeNews__card:hover .HomeNews__readLink {
-  color: var(--HomeNews-red);
-}
-
-.HomeNews__card:hover .HomeNews__readLink svg {
-  transform: translateX(4px);
+.HomeNews__card:hover .HomeNews__readLink,
+.HomeNews__readLink:focus-visible {
+  gap: 14px;
+  color: var(--HN-orange);
+  border-color: var(--HN-orange);
 }
 
 /* ========================================================
-   2-SECOND PROGRESS INDICATOR TRACK
+   PROGRESS BAR
 ======================================================== */
 
 .HomeNews__indicatorTrack {
   position: relative;
   width: 100%;
-  height: 3px;
-  background-color: var(--HomeNews-border);
-  margin-top: 35px;
-  border-radius: 3px;
+  height: 4px;
+  margin-top: 50px;
   overflow: hidden;
+  background: var(--HN-border);
+  border-radius: 4px;
 }
 
 .HomeNews__indicatorFill {
   width: 100%;
   height: 100%;
-  background-color: var(--HomeNews-red);
+  background: linear-gradient(90deg, var(--HN-navy), var(--HN-orange));
+  border-radius: 4px;
   transform: scaleX(0);
   transform-origin: left center;
   animation-name: HomeNewsProgress;
@@ -337,69 +401,79 @@
   from {
     transform: scaleX(0);
   }
+
   to {
     transform: scaleX(1);
   }
 }
 
 /* ========================================================
-   RESPONSIVE DESIGN
+   RESPONSIVE (matches the JS breakpoints: 1024 / 640)
 ======================================================== */
 
 @media (max-width: 1024px) {
+  .HomeNews {
+    padding: 70px 0 80px;
+  }
+
   .HomeNews__card {
-    flex: 0 0 calc(100% / 2);
-    max-width: calc(100% / 2);
+    flex: 0 0 50%;
+    max-width: 50%;
   }
 
   .HomeNews__imageWrapper {
-    height: 270px;
+    height: 240px;
   }
 }
 
 @media (max-width: 640px) {
   .HomeNews {
-    padding: 60px 0;
-  }
-
-  .HomeNews__container {
-    padding: 0 20px;
+    padding: 56px 0 64px;
   }
 
   .HomeNews__header {
     flex-direction: column;
     align-items: flex-start;
-    gap: 18px;
+    gap: 20px;
   }
 
-  .HomeNews__controls {
-    align-self: flex-start;
+  .HomeNews__intro {
+    font-size: 14px;
   }
 
   .HomeNews__navButton {
     width: 46px;
-    height: 44px;
+    height: 46px;
   }
 
   .HomeNews__card {
     flex: 0 0 100%;
     max-width: 100%;
-    padding: 0;
+    padding: 0 4px;
   }
 
   .HomeNews__imageWrapper {
-    height: 230px;
+    height: 220px;
+  }
+
+  .HomeNews__cardContent {
+    padding: 18px 18px 22px;
   }
 
   .HomeNews__cardTitle {
-    font-size: 16px;
+    font-size: 16.5px;
+  }
+
+  .HomeNews__indicatorTrack {
+    margin-top: 44px;
   }
 }
 
 /* Accessibility */
 @media (prefers-reduced-motion: reduce) {
   .HomeNews__track,
-  .HomeNews__image {
+  .HomeNews__image,
+  .HomeNews__cardInner {
     transition: none !important;
   }
 

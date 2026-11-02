@@ -1,4 +1,3 @@
-
 /* ==========================================
    ABOUT OUR VALUES
    Premium corporate image and content
@@ -16,9 +15,10 @@
   min-width: 0;
   padding: 2px 0;
   overflow: hidden;
-  background: #fff;
+  background: #ffffff;
   color: var(--AboutOurValues-dark);
   font-family: "Inter", "Segoe UI", Arial, sans-serif;
+  box-sizing: border-box;
 }
 
 .AboutOurValues *,
@@ -37,7 +37,7 @@
   min-height: 540px;
   margin: 0 auto;
   overflow: hidden;
-  background: #fff;
+  background: #ffffff;
 }
 
 /* ==========================================
@@ -68,11 +68,8 @@
   object-fit: cover;
   object-position: center 42%;
   transform: scale(1.06);
-  animation: AboutOurValuesImageReveal 1.3s
-    cubic-bezier(0.22, 1, 0.36, 1) both;
-  transition:
-    transform 1s cubic-bezier(0.22, 1, 0.36, 1),
-    filter 0.6s ease;
+  animation: AboutOurValuesImageReveal 1.3s cubic-bezier(0.22, 1, 0.36, 1) both;
+  transition: transform 1s cubic-bezier(0.22, 1, 0.36, 1), filter 0.6s ease;
 }
 
 @keyframes AboutOurValuesImageReveal {
@@ -80,15 +77,13 @@
     opacity: 0.6;
     transform: scale(1.13) translateX(-14px);
   }
-
   to {
     opacity: 1;
     transform: scale(1.06) translateX(0);
   }
 }
 
-.AboutOurValues__imageSection:hover
-  .AboutOurValues__image {
+.AboutOurValues__imageSection:hover .AboutOurValues__image {
   transform: scale(1.12);
   filter: saturate(1.06);
 }
@@ -106,8 +101,7 @@
   transition: opacity 0.5s ease;
 }
 
-.AboutOurValues__imageSection:hover
-  .AboutOurValues__imageOverlay {
+.AboutOurValues__imageSection:hover .AboutOurValues__imageOverlay {
   opacity: 0.8;
 }
 
@@ -121,19 +115,16 @@
   display: flex;
   align-items: center;
   gap: 10px;
-  color: #fff;
+  color: #ffffff;
   font-size: 9px;
   font-weight: 700;
   letter-spacing: 2px;
   opacity: 0;
   transform: translateY(12px);
-  transition:
-    opacity 0.45s ease,
-    transform 0.45s ease;
+  transition: opacity 0.45s ease, transform 0.45s ease;
 }
 
-.AboutOurValues__imageSection:hover
-  .AboutOurValues__imageCaption {
+.AboutOurValues__imageSection:hover .AboutOurValues__imageCaption {
   opacity: 1;
   transform: translateY(0);
 }
@@ -159,7 +150,7 @@
   margin-left: -15%;
   padding: 55px 8% 55px 29%;
   overflow: hidden;
-  background: #fff;
+  background: #ffffff;
 }
 
 .AboutOurValues__content {
@@ -167,8 +158,7 @@
   z-index: 2;
   width: 100%;
   max-width: 510px;
-  animation: AboutOurValuesContentReveal 0.9s 0.12s
-    cubic-bezier(0.22, 1, 0.36, 1) both;
+  animation: AboutOurValuesContentReveal 0.9s 0.12s cubic-bezier(0.22, 1, 0.36, 1) both;
 }
 
 @keyframes AboutOurValuesContentReveal {
@@ -176,7 +166,6 @@
     opacity: 0;
     transform: translateY(18px);
   }
-
   to {
     opacity: 1;
     transform: translateY(0);
@@ -209,7 +198,6 @@
   from {
     transform: scaleX(0);
   }
-
   to {
     transform: scaleX(1);
   }
@@ -252,11 +240,8 @@
   min-width: 0;
   padding: 12px 8px 12px 0;
   border-bottom: 1px solid #eeeeef;
-  transition:
-    padding-left 0.3s ease,
-    background 0.3s ease;
-  animation: AboutOurValuesItemReveal 0.6s
-    cubic-bezier(0.22, 1, 0.36, 1) both;
+  transition: padding-left 0.3s ease, background 0.3s ease;
+  animation: AboutOurValuesItemReveal 0.6s cubic-bezier(0.22, 1, 0.36, 1) both;
   animation-delay: var(--AboutOurValues-delay, 0ms);
 }
 
@@ -265,7 +250,6 @@
     opacity: 0;
     transform: translateX(12px);
   }
-
   to {
     opacity: 1;
     transform: translateX(0);
@@ -295,11 +279,7 @@
   border: 1px solid #e8e9eb;
   border-radius: 50%;
   background: #fafafa;
-  transition:
-    color 0.3s ease,
-    border-color 0.3s ease,
-    background 0.3s ease,
-    transform 0.3s ease;
+  transition: color 0.3s ease, border-color 0.3s ease, background 0.3s ease, transform 0.3s ease;
 }
 
 .AboutOurValues__itemIcon svg {
@@ -308,7 +288,7 @@
 }
 
 .AboutOurValues__item:hover .AboutOurValues__itemIcon {
-  color: #fff;
+  color: #ffffff;
   border-color: var(--AboutOurValues-red);
   background: var(--AboutOurValues-red);
   transform: rotate(-5deg);
@@ -348,9 +328,7 @@
   color: var(--AboutOurValues-red);
   opacity: 0;
   transform: translate(-4px, 4px);
-  transition:
-    opacity 0.3s ease,
-    transform 0.3s ease;
+  transition: opacity 0.3s ease, transform 0.3s ease;
 }
 
 .AboutOurValues__item:hover .AboutOurValues__itemArrow {
@@ -490,6 +468,8 @@
     bottom: 30px;
     left: 20px;
     font-size: 8px;
+    opacity: 1;
+    transform: translateY(0);
   }
 
   .AboutOurValues__contentSection {

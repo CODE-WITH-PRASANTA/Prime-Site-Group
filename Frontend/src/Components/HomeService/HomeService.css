@@ -1,14 +1,16 @@
-
 /* ==========================================
-   HOME SERVICE - NO HORIZONTAL OVERFLOW
+   HOME SERVICE - PRIME SITE (Navy + Orange)
 ========================================== */
 
 .HomeService {
-  --HomeService-red: #e31e2f;
-  --HomeService-navy: #202b43;
-  --HomeService-text: #34373c;
-  --HomeService-muted: #737780;
-  --HomeService-border: #e9eaed;
+  --HS-navy: #14307a;
+  --HS-navy-dark: #0b1d4d;
+  --HS-orange: #f58220;
+  --HS-orange-light: #ffb347;
+  --HS-text: #2f3441;
+  --HS-muted: #6b7280;
+  --HS-border: #e6e9f2;
+  --HS-soft: #f5f7fc;
 
   position: relative;
   isolation: isolate;
@@ -19,166 +21,200 @@
   padding: 80px clamp(16px, 4vw, 64px);
   overflow-x: clip;
   background:
-    radial-gradient(
-      circle at 100% 0%,
-      rgba(227, 30, 47, 0.035),
-      transparent 28%
-    ),
-    #fff;
-  color: var(--HomeService-text);
+    radial-gradient(circle at 0% 0%, rgba(20, 48, 122, 0.07), transparent 32%),
+    radial-gradient(circle at 100% 100%, rgba(245, 130, 32, 0.1), transparent 34%),
+    linear-gradient(180deg, #ffffff 0%, #f7f9fe 100%);
+  color: var(--HS-text);
   font-family: "Inter", "Segoe UI", Arial, sans-serif;
 }
 
+/* The section itself must be border-box too, otherwise width:100% + padding
+   makes it wider than the screen and the right side gets cut off. */
+.HomeService,
 .HomeService *,
 .HomeService *::before,
 .HomeService *::after {
   box-sizing: border-box;
 }
 
+/* Keep content clear of the floating WhatsApp / call / scroll-top buttons on wide screens */
+@media (min-width: 1280px) {
+  .HomeService {
+    padding-right: clamp(96px, 7vw, 130px);
+  }
+}
+
 .HomeService__container {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(0, 1.18fr);
-  align-items: start;
-  gap: clamp(28px, 4vw, 64px);
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.08fr);
+  align-items: stretch; /* both panels always the same height */
+  gap: clamp(24px, 3vw, 44px);
   width: 100%;
-  max-width: 1450px;
+  max-width: 1400px;
   min-width: 0;
   margin-inline: auto;
 }
 
-/* LEFT GRID */
+/* ================= LEFT GRID ================= */
 
 .HomeService__grid {
+  display: flex;
+  flex-direction: column;
   width: 100%;
   max-width: 100%;
   min-width: 0;
   overflow: hidden;
-  border: 1px solid var(--HomeService-border);
+  border: 1px solid var(--HS-border);
+  border-radius: 22px;
   background: #fff;
-  box-shadow: 0 12px 45px rgba(29, 38, 54, 0.035);
+  box-shadow:
+    0 25px 60px -22px rgba(20, 48, 122, 0.25),
+    0 4px 14px rgba(20, 48, 122, 0.05);
   animation: HomeServiceReveal 0.7s ease both;
 }
 
 .HomeService__gridHeader {
+  position: relative;
   display: flex;
+  flex-shrink: 0;
   align-items: center;
   justify-content: space-between;
   gap: 8px;
   min-width: 0;
-  min-height: 54px;
-  padding: 12px 16px;
-  border-bottom: 1px solid var(--HomeService-border);
-  background: #fdfdfd;
+  min-height: 62px;
+  padding: 14px 22px;
+  background: linear-gradient(120deg, var(--HS-navy-dark), var(--HS-navy));
+}
+
+.HomeService__gridHeader::after {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--HS-orange), var(--HS-orange-light), transparent);
+  content: "";
 }
 
 .HomeService__sectionEyebrow {
-  color: var(--HomeService-navy);
-  font-size: 10px;
+  color: #fff;
+  font-size: 11px;
   font-weight: 800;
-  letter-spacing: 2px;
+  letter-spacing: 2.5px;
 }
 
 .HomeService__gridCount {
   flex-shrink: 0;
-  color: #9699a0;
+  padding: 5px 11px;
+  border-radius: 999px;
+  color: var(--HS-navy-dark);
+  background: linear-gradient(120deg, var(--HS-orange), var(--HS-orange-light));
   font-size: 9px;
-  font-weight: 700;
-  letter-spacing: 0.7px;
+  font-weight: 800;
+  letter-spacing: 0.9px;
 }
 
-/* Four-column grid */
+/* Cards grid: 4 x 3, every tile exactly the same size */
 
 .HomeService__gridItems {
   display: grid;
+  flex: 1;
   grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-auto-rows: minmax(132px, 1fr);
+  gap: 10px;
   width: 100%;
   min-width: 0;
+  padding: 14px;
+  background: var(--HS-soft);
 }
-
-/* Individual service card */
 
 .HomeService__card {
   position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: flex-start;
+  justify-content: center;
   width: 100%;
+  height: 100%;
   min-width: 0;
-  min-height: 164px;
-  padding: 24px 5px 16px;
+  padding: 14px 6px;
   overflow: hidden;
-  color: var(--HomeService-text);
+  color: var(--HS-text);
   background: #fff;
-  border: 0;
-  border-right: 1px solid var(--HomeService-border);
-  border-bottom: 1px solid var(--HomeService-border);
+  border: 1px solid var(--HS-border);
+  border-radius: 16px;
+  font-family: inherit;
   text-align: center;
   cursor: pointer;
   isolation: isolate;
   transition:
-    background 0.3s ease,
+    transform 0.3s cubic-bezier(0.22, 1, 0.36, 1),
     box-shadow 0.3s ease,
-    color 0.3s ease;
+    color 0.3s ease,
+    border-color 0.3s ease;
 }
 
-.HomeService__card:nth-child(4n) {
-  border-right: 0;
-}
-
-.HomeService__card:nth-last-child(-n + 4) {
-  border-bottom: 0;
-}
-
+/* Navy fill that slides up on hover / active */
 .HomeService__card::before {
   position: absolute;
   z-index: -1;
   inset: 0;
-  background: linear-gradient(
-    145deg,
-    rgba(227, 30, 47, 0.055),
-    rgba(32, 43, 67, 0.025)
-  );
+  background: linear-gradient(160deg, var(--HS-navy), var(--HS-navy-dark));
   content: "";
   opacity: 0;
-  transition: opacity 0.3s ease;
+  transform: translateY(100%);
+  transition:
+    transform 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 0.25s ease;
+}
+
+.HomeService__card:hover,
+.HomeService__card.is-active {
+  color: #fff;
+  border-color: transparent;
+  box-shadow: 0 16px 30px -10px rgba(20, 48, 122, 0.55);
+  transform: translateY(-3px);
 }
 
 .HomeService__card:hover::before,
 .HomeService__card.is-active::before {
   opacity: 1;
+  transform: translateY(0);
 }
 
-.HomeService__card:hover,
-.HomeService__card.is-active {
-  color: var(--HomeService-navy);
-  box-shadow: inset 0 -2px 0 var(--HomeService-red);
+.HomeService__card:focus-visible {
+  outline: 3px solid var(--HS-orange);
+  outline-offset: 2px;
 }
 
 .HomeService__cardIcon {
   display: grid;
-  width: 38px;
-  height: 38px;
+  width: 46px;
+  height: 46px;
   flex-shrink: 0;
-  margin-bottom: 12px;
+  margin-bottom: 10px;
   place-items: center;
-  color: #44484e;
+  color: var(--HS-navy);
+  background: rgba(20, 48, 122, 0.08);
+  border-radius: 14px;
   transition:
     color 0.3s ease,
+    background 0.3s ease,
     transform 0.3s ease;
 }
 
 .HomeService__cardIcon svg {
   display: block;
-  width: 31px;
-  height: 31px;
+  width: 24px;
+  height: 24px;
   max-width: 100%;
 }
 
 .HomeService__card:hover .HomeService__cardIcon,
 .HomeService__card.is-active .HomeService__cardIcon {
-  color: var(--HomeService-red);
-  transform: translateY(-3px);
+  color: #fff;
+  background: linear-gradient(135deg, var(--HS-orange), var(--HS-orange-light));
+  transform: scale(1.08);
 }
 
 .HomeService__cardTitle {
@@ -186,86 +222,139 @@
   width: 100%;
   max-width: 100%;
   font-size: 12px;
-  font-weight: 500;
-  line-height: 1.55;
+  font-weight: 600;
+  line-height: 1.4;
   overflow-wrap: anywhere;
-  word-break: normal;
 }
 
 .HomeService__cardUnderline {
   width: 0;
   height: 3px;
   flex-shrink: 0;
-  margin-top: 12px;
-  background: var(--HomeService-red);
+  margin-top: 9px;
+  border-radius: 3px;
+  background: linear-gradient(90deg, var(--HS-orange), var(--HS-orange-light));
   transition: width 0.3s ease;
 }
 
+.HomeService__card:hover .HomeService__cardUnderline,
 .HomeService__card.is-active .HomeService__cardUnderline {
-  width: 34px;
+  width: 32px;
 }
 
 .HomeService__cardArrow {
   position: absolute;
-  top: 8px;
-  right: 7px;
-  width: 14px;
-  height: 14px;
-  color: var(--HomeService-red);
+  top: 9px;
+  right: 9px;
+  width: 15px;
+  height: 15px;
+  color: var(--HS-orange-light);
   opacity: 0;
-  transform: translate(-3px, 3px);
+  transform: translate(-4px, 4px);
   transition:
     opacity 0.3s ease,
     transform 0.3s ease;
 }
 
-.HomeService__card:hover .HomeService__cardArrow {
+.HomeService__card:hover .HomeService__cardArrow,
+.HomeService__card.is-active .HomeService__cardArrow {
   opacity: 1;
   transform: translate(0, 0);
 }
 
 .HomeService__gridFooter {
   display: flex;
+  flex-shrink: 0;
   align-items: center;
-  gap: 8px;
+  gap: 10px;
   width: 100%;
   min-width: 0;
-  min-height: 46px;
-  padding: 10px 13px;
-  color: var(--HomeService-muted);
-  border-top: 1px solid var(--HomeService-border);
-  font-size: 10px;
+  min-height: 50px;
+  padding: 12px 20px;
+  color: var(--HS-muted);
+  background: #fff;
+  border-top: 1px solid var(--HS-border);
+  font-size: 11px;
+  font-weight: 500;
   line-height: 1.5;
 }
 
 .HomeService__gridFooterDot {
-  width: 7px;
-  height: 7px;
+  position: relative;
+  width: 8px;
+  height: 8px;
   flex-shrink: 0;
   border-radius: 50%;
-  background: var(--HomeService-red);
+  background: var(--HS-orange);
 }
 
-/* RIGHT DETAIL PANEL */
+.HomeService__gridFooterDot::after {
+  position: absolute;
+  inset: -4px;
+  border: 2px solid var(--HS-orange);
+  border-radius: 50%;
+  content: "";
+  animation: HomeServicePulse 2s ease-out infinite;
+}
+
+/* ================= RIGHT DETAILS ================= */
 
 .HomeService__details {
+  position: relative;
+  display: flex;
+  flex-direction: column;
   width: 100%;
   max-width: 100%;
   min-width: 0;
-  padding-top: 6px;
+  padding: clamp(24px, 2.6vw, 38px);
+  overflow: hidden;
   overflow-wrap: anywhere;
-  animation: HomeServiceDetailsReveal 0.45s ease both;
+  background: #fff;
+  border: 1px solid var(--HS-border);
+  border-radius: 22px;
+  box-shadow:
+    0 25px 60px -22px rgba(20, 48, 122, 0.22),
+    0 4px 14px rgba(20, 48, 122, 0.05);
+  animation: HomeServiceDetailsReveal 0.4s ease both;
+}
+
+.HomeService__details::before {
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  height: 5px;
+  background: linear-gradient(90deg, var(--HS-navy), var(--HS-orange), var(--HS-orange-light));
+  content: "";
+}
+
+.HomeService__details::after {
+  position: absolute;
+  z-index: 0;
+  top: -90px;
+  right: -90px;
+  width: 260px;
+  height: 260px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(245, 130, 32, 0.14), transparent 70%);
+  content: "";
+  pointer-events: none;
+}
+
+.HomeService__details > * {
+  position: relative;
+  z-index: 1;
 }
 
 @keyframes HomeServiceDetailsReveal {
   from {
     opacity: 0;
-    transform: translateY(10px);
+    transform: translateX(14px);
   }
 
   to {
     opacity: 1;
-    transform: translateY(0);
+    transform: translateX(0);
   }
 }
 
@@ -274,53 +363,60 @@
   align-items: center;
   gap: 12px;
   min-width: 0;
-  margin-bottom: 9px;
+  margin-bottom: 16px;
 }
 
 .HomeService__detailsLine {
-  width: 34px;
-  height: 3px;
+  width: 38px;
+  height: 4px;
   flex-shrink: 0;
-  background: var(--HomeService-red);
+  border-radius: 4px;
+  background: linear-gradient(90deg, var(--HS-orange), var(--HS-orange-light));
 }
 
 .HomeService__detailsEyebrow {
-  color: #454850;
+  color: var(--HS-navy);
   font-size: 11px;
-  font-weight: 600;
+  font-weight: 700;
   letter-spacing: 4px;
 }
 
 .HomeService__detailsNumber {
   margin-left: auto;
-  color: #a0a2a7;
-  font-size: 10px;
-  font-weight: 700;
+  padding: 5px 12px;
+  border-radius: 999px;
+  color: var(--HS-navy);
+  background: rgba(20, 48, 122, 0.08);
+  font-size: 11px;
+  font-weight: 800;
   white-space: nowrap;
 }
 
 .HomeService__heading {
-  margin: 0 0 13px;
-  padding-left: 12px;
-  border-left: 5px solid var(--HomeService-navy);
-  color: #282b31;
+  margin: 0 0 10px;
+  color: var(--HS-navy-dark);
   font-family: Georgia, "Times New Roman", serif;
-  font-size: clamp(28px, 2.8vw, 43px);
-  font-weight: 600;
-  line-height: 1.22;
-  letter-spacing: -0.8px;
+  font-size: clamp(28px, 2.7vw, 42px);
+  font-weight: 700;
+  line-height: 1.15;
+  letter-spacing: -0.6px;
   overflow-wrap: anywhere;
 }
 
 .HomeService__heading span {
-  color: var(--HomeService-red);
+  background: linear-gradient(90deg, var(--HS-orange), #e8590c);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: var(--HS-orange);
 }
 
 .HomeService__subheading {
-  margin: 0 0 12px;
-  color: #2d3035;
+  margin: 0 0 16px;
+  color: var(--HS-text);
   font-family: Georgia, "Times New Roman", serif;
-  font-size: clamp(19px, 1.8vw, 26px);
+  font-size: clamp(17px, 1.5vw, 22px);
+  font-style: italic;
   font-weight: 600;
   line-height: 1.4;
   overflow-wrap: anywhere;
@@ -329,21 +425,23 @@
 .HomeService__description {
   max-width: 100%;
   margin: 0;
-  color: #50545b;
+  padding-left: 16px;
+  border-left: 3px solid var(--HS-orange);
+  color: #4b5160;
   font-size: 14px;
-  line-height: 1.85;
+  line-height: 1.8;
   overflow-wrap: anywhere;
 }
 
-/* FEATURE GRID */
+/* Features: 4 equal tiles */
 
 .HomeService__features {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 8px;
+  gap: 12px;
   width: 100%;
   min-width: 0;
-  margin-top: 23px;
+  margin-top: 24px;
 }
 
 .HomeService__feature {
@@ -351,136 +449,168 @@
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
-  gap: 8px;
+  gap: 10px;
   min-width: 0;
-  padding: 10px 3px;
-  border-radius: 5px;
+  min-height: 118px;
+  padding: 16px 8px;
+  border: 1px solid var(--HS-border);
+  border-radius: 16px;
+  background: var(--HS-soft);
   text-align: center;
   transition:
     background 0.3s ease,
-    transform 0.3s ease;
+    transform 0.3s ease,
+    box-shadow 0.3s ease,
+    border-color 0.3s ease;
 }
 
 .HomeService__feature:hover {
-  background: #fafafb;
-  transform: translateY(-3px);
+  background: #fff;
+  border-color: rgba(245, 130, 32, 0.5);
+  box-shadow: 0 14px 28px -12px rgba(20, 48, 122, 0.3);
+  transform: translateY(-4px);
 }
 
 .HomeService__featureIcon {
   display: grid;
-  width: 38px;
-  height: 38px;
+  width: 44px;
+  height: 44px;
+  flex-shrink: 0;
   place-items: center;
-  color: var(--HomeService-navy);
+  color: #fff;
+  background: linear-gradient(135deg, var(--HS-navy), #2a4fb3);
+  border-radius: 50%;
+  box-shadow: 0 8px 16px -6px rgba(20, 48, 122, 0.55);
+  transition: background 0.3s ease;
+}
+
+.HomeService__feature:hover .HomeService__featureIcon {
+  background: linear-gradient(135deg, var(--HS-orange), var(--HS-orange-light));
 }
 
 .HomeService__featureIcon svg {
   display: block;
-  width: 29px;
-  height: 29px;
+  width: 21px;
+  height: 21px;
   max-width: 100%;
 }
 
 .HomeService__featureLabel {
   max-width: 100%;
-  color: #45484e;
-  font-size: 10px;
-  line-height: 1.55;
-  overflow-wrap: anywhere;
+  color: #3b4050;
+  font-size: 11.5px;
+  font-weight: 600;
+  line-height: 1.45;
+  overflow-wrap: break-word;
 }
 
-/* HIGHLIGHTS */
+/* Highlights */
 
 .HomeService__highlights {
   width: 100%;
   min-width: 0;
-  margin-top: 22px;
-  padding-top: 17px;
-  border-top: 1px solid var(--HomeService-border);
+  margin-top: 24px;
+  padding: 20px;
+  border-radius: 16px;
+  background: linear-gradient(135deg, rgba(20, 48, 122, 0.05), rgba(245, 130, 32, 0.07));
 }
 
 .HomeService__highlightsTitle {
   display: block;
-  margin-bottom: 13px;
-  color: #7a7d84;
-  font-size: 9px;
+  margin-bottom: 14px;
+  color: var(--HS-navy);
+  font-size: 10px;
   font-weight: 800;
-  letter-spacing: 1.8px;
+  letter-spacing: 2.2px;
 }
 
 .HomeService__highlightsList {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 11px 14px;
+  gap: 11px 16px;
 }
 
 .HomeService__highlight {
   display: flex;
   align-items: flex-start;
-  gap: 8px;
+  gap: 9px;
   min-width: 0;
-  color: #484c53;
-  font-size: 11px;
-  line-height: 1.6;
-  overflow-wrap: anywhere;
+  color: #3f4452;
+  font-size: 12.5px;
+  font-weight: 500;
+  line-height: 1.5;
+  overflow-wrap: break-word;
 }
 
 .HomeService__highlight svg {
-  width: 15px;
-  height: 15px;
+  width: 17px;
+  height: 17px;
   flex-shrink: 0;
-  margin-top: 2px;
-  color: var(--HomeService-red);
+  margin-top: 1px;
+  color: var(--HS-orange);
 }
 
-/* READ MORE */
+/* Button: always pinned to the bottom of the card */
 
 .HomeService__readMore {
   display: inline-flex;
   align-items: center;
-  gap: 13px;
+  align-self: flex-start;
+  gap: 14px;
   max-width: 100%;
-  margin-top: 24px;
-  color: var(--HomeService-red);
+  margin-top: auto;
+  padding: 8px 8px 8px 24px;
+  border-radius: 999px;
+  color: #fff;
+  background: linear-gradient(120deg, var(--HS-navy-dark), var(--HS-navy));
+  box-shadow: 0 14px 28px -10px rgba(20, 48, 122, 0.6);
   font-size: 14px;
-  font-weight: 600;
+  font-weight: 700;
   text-decoration: none;
-  transition: gap 0.3s ease;
+  transition:
+    gap 0.3s ease,
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
+}
+
+/* guaranteed gap above the button, even when the panel is short */
+.HomeService__highlights {
+  margin-bottom: 26px;
 }
 
 .HomeService__readMore:hover {
-  gap: 19px;
+  gap: 20px;
+  box-shadow: 0 18px 32px -10px rgba(245, 130, 32, 0.6);
+  transform: translateY(-2px);
 }
 
 .HomeService__readMoreIcon {
   display: grid;
-  width: 32px;
-  height: 32px;
+  width: 36px;
+  height: 36px;
   flex-shrink: 0;
   place-items: center;
-  border: 1px solid rgba(227, 30, 47, 0.28);
+  color: #fff;
+  background: linear-gradient(135deg, var(--HS-orange), var(--HS-orange-light));
   border-radius: 50%;
-  transition:
-    color 0.3s ease,
-    background 0.3s ease;
-}
-
-.HomeService__readMoreIcon svg {
-  width: 16px;
-  height: 16px;
+  transition: transform 0.3s ease;
 }
 
 .HomeService__readMore:hover .HomeService__readMoreIcon {
-  color: #fff;
-  background: var(--HomeService-red);
+  transform: rotate(-45deg);
 }
 
-/* ANIMATIONS */
+.HomeService__readMoreIcon svg {
+  width: 17px;
+  height: 17px;
+}
+
+/* ================= ANIMATIONS ================= */
 
 @keyframes HomeServiceReveal {
   from {
     opacity: 0;
-    transform: translateY(14px);
+    transform: translateY(18px);
   }
 
   to {
@@ -489,217 +619,217 @@
   }
 }
 
-/* TABLET */
-
-@media (max-width: 1000px) {
-  .HomeService {
-    padding: 60px 24px;
+@keyframes HomeServicePulse {
+  0% {
+    opacity: 0.8;
+    transform: scale(0.6);
   }
 
-  .HomeService__container {
-    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-    gap: 24px;
+  100% {
+    opacity: 0;
+    transform: scale(1.6);
+  }
+}
+
+/* ================= LAPTOP ================= */
+
+@media (max-width: 1200px) {
+  .HomeService__features {
+    gap: 8px;
   }
 
-  .HomeService__card {
-    min-height: 140px;
-    padding: 21px 4px 13px;
+  .HomeService__feature {
+    padding: 14px 6px;
+  }
+
+  .HomeService__featureLabel {
+    font-size: 10.5px;
   }
 
   .HomeService__cardTitle {
     font-size: 11px;
   }
-
-  .HomeService__heading {
-    font-size: clamp(27px, 3.3vw, 36px);
-  }
-
-  .HomeService__subheading {
-    font-size: 21px;
-  }
-
-  .HomeService__description {
-    font-size: 13px;
-  }
-
-  .HomeService__features {
-    gap: 3px;
-  }
-
-  .HomeService__featureLabel {
-    font-size: 9px;
-  }
 }
 
-/* MOBILE / SMALL TABLET */
+/* ================= TABLET: stack panels ================= */
 
-@media (max-width: 760px) {
+@media (max-width: 1024px) {
   .HomeService {
-    padding: 48px 20px;
+    padding: 60px 24px;
   }
 
   .HomeService__container {
     grid-template-columns: minmax(0, 1fr);
-    gap: 32px;
+    gap: 28px;
   }
 
-  .HomeService__grid,
-  .HomeService__details {
-    width: 100%;
-    max-width: 100%;
-  }
-
-  .HomeService__card {
-    min-height: 145px;
+  .HomeService__gridItems {
+    grid-auto-rows: minmax(126px, auto);
   }
 
   .HomeService__cardTitle {
     font-size: 12px;
   }
 
-  .HomeService__heading {
-    font-size: clamp(31px, 6vw, 40px);
-  }
-
-  .HomeService__subheading {
-    font-size: 23px;
-  }
-
-  .HomeService__description {
-    font-size: 14px;
+  .HomeService__features {
+    gap: 12px;
   }
 
   .HomeService__featureLabel {
-    font-size: 11px;
+    font-size: 12px;
   }
 }
 
-/* SMALL PHONES */
+/* ================= MOBILE ================= */
 
-@media (max-width: 480px) {
+@media (max-width: 640px) {
   .HomeService {
-    padding: 38px 14px;
-  }
-
-  .HomeService__container {
-    gap: 28px;
+    padding: 44px 16px;
   }
 
   .HomeService__gridHeader {
-    min-height: 45px;
-    padding: 10px;
+    min-height: 54px;
+    padding: 10px 16px;
   }
 
   .HomeService__sectionEyebrow {
-    font-size: 9px;
-    letter-spacing: 1.2px;
+    font-size: 10px;
+    letter-spacing: 1.8px;
   }
 
-  .HomeService__gridCount {
-    font-size: 8px;
+  .HomeService__gridItems {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-auto-rows: minmax(116px, auto);
+    gap: 8px;
+    padding: 10px;
   }
 
   .HomeService__card {
-    min-height: 122px;
-    padding: 17px 3px 10px;
+    padding: 12px 4px;
+    border-radius: 13px;
   }
 
   .HomeService__cardIcon {
-    width: 32px;
-    height: 32px;
+    width: 38px;
+    height: 38px;
     margin-bottom: 8px;
+    border-radius: 11px;
   }
 
   .HomeService__cardIcon svg {
-    width: 25px;
-    height: 25px;
+    width: 21px;
+    height: 21px;
   }
 
   .HomeService__cardTitle {
-    font-size: 10px;
-    line-height: 1.45;
-  }
-
-  .HomeService__cardUnderline {
-    margin-top: 8px;
-  }
-
-  .HomeService__card.is-active .HomeService__cardUnderline {
-    width: 25px;
+    font-size: 10.5px;
   }
 
   .HomeService__gridFooter {
-    min-height: 40px;
-    padding: 8px;
-    font-size: 9px;
+    padding: 10px 14px;
+    font-size: 10px;
   }
 
-  .HomeService__detailsTop {
-    gap: 8px;
-  }
-
-  .HomeService__detailsLine {
-    width: 25px;
+  .HomeService__details {
+    padding: 24px 16px;
+    border-radius: 18px;
   }
 
   .HomeService__detailsEyebrow {
-    font-size: 9px;
+    font-size: 9.5px;
     letter-spacing: 2.5px;
   }
 
   .HomeService__heading {
-    padding-left: 9px;
-    border-left-width: 4px;
-    font-size: clamp(27px, 7.5vw, 34px);
+    font-size: clamp(26px, 7.5vw, 34px);
   }
 
   .HomeService__subheading {
-    font-size: 20px;
+    font-size: 18px;
   }
 
   .HomeService__description {
+    padding-left: 12px;
     font-size: 13px;
-    line-height: 1.8;
+    line-height: 1.75;
   }
 
   .HomeService__features {
     grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 8px;
-    margin-top: 18px;
+    margin-top: 20px;
   }
 
   .HomeService__feature {
-    min-height: 100px;
+    min-height: 104px;
     justify-content: center;
-    padding: 10px 7px;
-    border: 1px solid #eeeeef;
   }
 
-  .HomeService__featureIcon {
-    width: 34px;
-    height: 34px;
+  .HomeService__highlights {
+    padding: 16px;
   }
 
-  .HomeService__featureIcon svg {
-    width: 26px;
-    height: 26px;
+  .HomeService__highlightsList {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 10px;
+  }
+
+  .HomeService__highlight {
+    font-size: 12px;
+  }
+
+  .HomeService__readMore {
+    margin-top: 4px;
+  }
+}
+
+/* ================= EXTRA RESPONSIVE POLISH ================= */
+
+/* when a card is tapped on mobile/tablet, the page scrolls to the panel below the grid */
+.HomeService__details {
+  scroll-margin-top: 90px;
+}
+
+@media (max-width: 640px) {
+  /* room at the bottom so the floating chat / call buttons never cover the button */
+  .HomeService {
+    padding-bottom: 90px;
+  }
+}
+
+@media (max-width: 380px) {
+  .HomeService {
+    padding-inline: 12px;
+  }
+
+  .HomeService__gridItems {
+    gap: 6px;
+    padding: 8px;
+  }
+
+  .HomeService__cardTitle {
+    font-size: 10px;
+  }
+
+  .HomeService__details {
+    padding: 22px 14px;
+  }
+
+  .HomeService__features {
+    gap: 8px;
   }
 
   .HomeService__featureLabel {
     font-size: 11px;
   }
+}
 
-  .HomeService__highlightsList {
-    grid-template-columns: minmax(0, 1fr);
-    gap: 9px;
-  }
-
-  .HomeService__highlight {
-    font-size: 11px;
+@media (max-width: 340px) {
+  .HomeService__gridItems {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
 
-/* ACCESSIBILITY */
+/* ================= ACCESSIBILITY ================= */
 
 @media (prefers-reduced-motion: reduce) {
   .HomeService *,
