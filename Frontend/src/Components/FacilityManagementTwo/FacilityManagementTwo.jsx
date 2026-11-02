@@ -1,257 +1,244 @@
 import React, { useState, useEffect, useCallback } from "react";
 import "./FacilityManagementTwo.css";
 
-const facilitySlides = [
+const SLIDE_DURATION = 2000; // 2-second synchronized rotation
+
+const facilityManagementData = [
   {
     id: 1,
-    category: "FACILITY MANAGEMENT",
-    title: "Complete Facility Management Solutions",
+    tag: "FACILITY MANAGEMENT",
+    titlePrimary: "Integrated Hard & Soft",
+    titleAccent: "FM Solutions",
     description:
-      "We deliver dependable facility management services that help businesses maintain clean, safe, organized, and efficient working environments. Our trained teams support the smooth operation of your facilities.",
-    features: [
-      "Professional Facility Support Teams",
-      "Clean, Safe, and Organized Spaces",
-      "Reliable Day-to-Day Operations",
-    ],
+      "Delivering turnkey facilities lifecycle management combining proactive MEP maintenance, HVAC infrastructure optimization, and premium housekeeping for high-density commercial towers and mixed-use portfolios.",
+    badgeTitle: "INTEGRATED FM",
+    badgeSub: "24/7 Asset & Operations Care",
     image:
-      "https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&w=1200&q=85",
-    badgeNumber: "01",
-    badgeText: "Facility Solutions",
+      "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=2200&q=85",
+    features: [
+      "Preventive & Predictive MEP Maintenance",
+      "CAFM & IoT-Driven Infrastructure Monitoring",
+      "Strict Energy Efficiency & Sustainability Standards",
+    ],
   },
   {
     id: 2,
-    category: "HOUSEKEEPING SERVICES",
-    title: "Professional Housekeeping and Maintenance",
+    tag: "FACILITY MANAGEMENT",
+    titlePrimary: "Commercial Cleaning &",
+    titleAccent: "Hygiene Services",
     description:
-      "Maintain a welcoming and hygienic environment with professional housekeeping and maintenance support. Our workforce helps offices, commercial buildings, and business facilities operate smoothly.",
-    features: [
-      "Office and Commercial Cleaning",
-      "Routine Maintenance Support",
-      "Hygiene and Workplace Care",
-    ],
+      "Deploying BICSc-certified sanitization teams and high-level industrial cleaning crews equipped with hospital-grade disinfection technologies for corporate headquarters, malls, and healthcare spaces.",
+    badgeTitle: "HYGIENE EXCELLENCE",
+    badgeSub: "BICSc Certified Standards",
     image:
-      "https://images.unsplash.com/photo-1497366811353-6870744d04b2?auto=format&fit=crop&w=1200&q=85",
-    badgeNumber: "02",
-    badgeText: "Housekeeping",
+      "https://images.unsplash.com/photo-1581578731548-c64695cc6952?auto=format&fit=crop&w=2200&q=85",
+    features: [
+      "High-Level External Facade & Rope Access",
+      "Eco-Friendly Green Cleaning Formulations",
+      "Tailored Daily & Deep Cleaning Regimes",
+    ],
   },
   {
     id: 3,
-    category: "WORKPLACE OPERATIONS",
-    title: "Smarter Support for Modern Workplaces",
+    tag: "FACILITY MANAGEMENT",
+    titlePrimary: "HVAC, Electrical &",
+    titleAccent: "Plumbing (MEP)",
     description:
-      "From workplace coordination to essential facility support, we help organizations create comfortable, functional, and well-maintained spaces for employees, customers, and visitors.",
-    features: [
-      "Workplace Support Personnel",
-      "Efficient Facility Coordination",
-      "Flexible Staffing Solutions",
-    ],
+      "Ensuring peak operational continuity through specialized engineering diagnostics, chilled water network upkeep, power distribution checks, and compliance with statutory environmental codes.",
+    badgeTitle: "ENGINEERING & MEP",
+    badgeSub: "Continuous System Reliability",
     image:
-      "https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=1200&q=85",
-    badgeNumber: "03",
-    badgeText: "Workplace Support",
+      "https://images.unsplash.com/photo-1621905251189-08b45d6a269e?auto=format&fit=crop&w=2200&q=85",
+    features: [
+      "Thermal Imaging & Vibration Analysis",
+      "Rapid Response Breakdown Teams",
+      "Comprehensive Asset Lifecycle Optimization",
+    ],
+  },
+  {
+    id: 4,
+    tag: "FACILITY MANAGEMENT",
+    titlePrimary: "Smart Building &",
+    titleAccent: "Energy Management",
+    description:
+      "Empowering property owners with centralized BMS integration, real-time energy audits, and smart automation to lower carbon footprints and achieve tangible operational savings.",
+    badgeTitle: "SMART BMS & ENERGY",
+    badgeSub: "ESG & Carbon Reduction Focus",
+    image:
+      "https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=2200&q=85",
+    features: [
+      "Real-Time Chiller Plant Optimization",
+      "Automated IAQ (Indoor Air Quality) Tracking",
+      "Detailed ESG & Sustainability Reporting",
+    ],
   },
 ];
 
 const FacilityManagementTwo = () => {
-  const [activeIndex, setActiveIndex] = useState(0);
+  const [activeSlide, setActiveSlide] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
+  const totalSlides = facilityManagementData.length;
+  const currentSlide = facilityManagementData[activeSlide];
 
-  const activeSlide = facilitySlides[activeIndex];
+  const handleNext = useCallback(() => {
+    setActiveSlide((prev) => (prev + 1) % totalSlides);
+  }, [totalSlides]);
 
-  const nextSlide = useCallback(() => {
-    setActiveIndex((current) => (current + 1) % facilitySlides.length);
-  }, []);
+  const handlePrev = useCallback(() => {
+    setActiveSlide((prev) => (prev - 1 + totalSlides) % totalSlides);
+  }, [totalSlides]);
 
-  const previousSlide = useCallback(() => {
-    setActiveIndex(
-      (current) =>
-        (current - 1 + facilitySlides.length) % facilitySlides.length
-    );
-  }, []);
-
+  // Autoplay rotation
   useEffect(() => {
-    if (isPaused) return undefined;
+    if (isPaused) return;
 
-    const interval = setInterval(nextSlide, 5000);
+    const timer = setInterval(() => {
+      handleNext();
+    }, SLIDE_DURATION);
 
-    return () => clearInterval(interval);
-  }, [isPaused, nextSlide]);
+    return () => clearInterval(timer);
+  }, [isPaused, handleNext]);
 
   return (
     <section
-      className="facility-management-two"
-      aria-label="Facility management services"
+      className="FacilityManagementTwo"
+      aria-label="Facility Management Solutions"
       onMouseEnter={() => setIsPaused(true)}
       onMouseLeave={() => setIsPaused(false)}
-      onFocus={() => setIsPaused(true)}
-      onBlur={(event) => {
-        if (!event.currentTarget.contains(event.relatedTarget)) {
+      onFocusCapture={() => setIsPaused(true)}
+      onBlurCapture={(e) => {
+        if (!e.currentTarget.contains(e.relatedTarget)) {
           setIsPaused(false);
         }
       }}
     >
-      <div className="facility-management-two__container">
-        {/* LEFT IMAGE SECTION */}
-        <div className="facility-management-two__visual">
-          <div className="facility-management-two__image-frame">
-            {facilitySlides.map((slide, index) => (
+      <div className="FacilityManagementTwo__container">
+        {/* Left Side: Angled Image Visual with Slider */}
+        <div className="FacilityManagementTwo__media">
+          <div className="FacilityManagementTwo__imageClip">
+            {facilityManagementData.map((item, index) => (
               <img
-                key={slide.id}
-                src={slide.image}
-                alt={slide.badgeText}
-                className={`facility-management-two__image ${
-                  index === activeIndex
-                    ? "facility-management-two__image--active"
+                key={item.id}
+                src={item.image}
+                alt={`${item.titlePrimary} ${item.titleAccent}`}
+                className={`FacilityManagementTwo__image ${
+                  index === activeSlide
+                    ? "FacilityManagementTwo__image--active"
                     : ""
                 }`}
                 loading={index === 0 ? "eager" : "lazy"}
-                aria-hidden={index !== activeIndex}
               />
             ))}
-
-            <div className="facility-management-two__image-overlay" />
-
-            <div className="facility-management-two__image-label">
-              <span className="facility-management-two__label-dot" />
-              Professional Facility Services
-            </div>
+            <div className="FacilityManagementTwo__imageShade" />
           </div>
 
-          <div className="facility-management-two__image-decoration" />
-
+          {/* Floating Operational Badge */}
           <div
-            className="facility-management-two__image-badge"
-            key={activeSlide.id}
+            key={`badge-${activeSlide}`}
+            className="FacilityManagementTwo__badge"
           >
-            <span className="facility-management-two__badge-number">
-              {activeSlide.badgeNumber}
-            </span>
-
-            <div className="facility-management-two__badge-divider" />
-
-            <div className="facility-management-two__badge-content">
-              <strong>{activeSlide.badgeText}</strong>
-              <span>Professional. Reliable. Efficient.</span>
+            <span className="FacilityManagementTwo__badgeDot" />
+            <div className="FacilityManagementTwo__badgeText">
+              <strong>{currentSlide.badgeTitle}</strong>
+              <span>{currentSlide.badgeSub}</span>
             </div>
           </div>
 
-          {/* IMAGE CONTROLS */}
-          <div className="facility-management-two__image-controls">
+          {/* Bottom Left Navigation Buttons */}
+          <div className="FacilityManagementTwo__nav">
             <button
               type="button"
-              className="facility-management-two__arrow"
-              onClick={previousSlide}
-              aria-label="Previous facility management service"
+              className="FacilityManagementTwo__navBtn FacilityManagementTwo__navBtn--prev"
+              onClick={handlePrev}
+              aria-label="Previous facility management solution"
             >
-              &#8592;
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                <path
+                  d="M19 12H5m7 7-7-7 7-7"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+              </svg>
             </button>
-
-            <span className="facility-management-two__slide-count">
-              <strong>{String(activeIndex + 1).padStart(2, "0")}</strong>
-              <span>/</span>
-              {String(facilitySlides.length).padStart(2, "0")}
-            </span>
-
             <button
               type="button"
-              className="facility-management-two__arrow"
-              onClick={nextSlide}
-              aria-label="Next facility management service"
+              className="FacilityManagementTwo__navBtn FacilityManagementTwo__navBtn--next"
+              onClick={handleNext}
+              aria-label="Next facility management solution"
             >
-              &#8594;
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                <path
+                  d="M5 12h14m-7-7 7 7-7 7"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+              </svg>
             </button>
           </div>
         </div>
 
-        {/* RIGHT CONTENT SECTION */}
+        {/* Right Side: Staggered Content */}
         <div
-          className="facility-management-two__content"
-          key={activeSlide.id}
+          key={`content-${activeSlide}`}
+          className="FacilityManagementTwo__content"
         >
-          <div className="facility-management-two__eyebrow">
-            <span className="facility-management-two__eyebrow-line" />
-            {activeSlide.category}
+          <div className="FacilityManagementTwo__eyebrowWrap">
+            <span className="FacilityManagementTwo__eyebrowLine" />
+            <span className="FacilityManagementTwo__eyebrow">
+              {currentSlide.tag}
+            </span>
           </div>
 
-          <h2 className="facility-management-two__title">
-            {activeSlide.title}
+          <h2 className="FacilityManagementTwo__title">
+            <span className="FacilityManagementTwo__titlePrimary">
+              {currentSlide.titlePrimary}{" "}
+            </span>
+            <span className="FacilityManagementTwo__titleAccent">
+              {currentSlide.titleAccent}
+            </span>
           </h2>
 
-          <p className="facility-management-two__description">
-            {activeSlide.description}
+          <p className="FacilityManagementTwo__description">
+            {currentSlide.description}
           </p>
 
-          {/* FEATURES */}
-          <div className="facility-management-two__features">
-            {activeSlide.features.map((feature, index) => (
-              <div
-                className="facility-management-two__feature"
-                key={feature}
-                style={{ "--feature-index": index }}
-              >
-                <span className="facility-management-two__feature-icon">
-                  <svg
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    aria-hidden="true"
-                  >
-                    <path
-                      d="M5 12.5L9.5 17L19 7"
-                      stroke="currentColor"
-                      strokeWidth="2"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    />
-                  </svg>
-                </span>
-
+          {/* Dynamic Feature Highlights */}
+          <div className="FacilityManagementTwo__features">
+            {currentSlide.features.map((feature, idx) => (
+              <div key={idx} className="FacilityManagementTwo__featureItem">
+                <span className="FacilityManagementTwo__featureDot" />
                 <span>{feature}</span>
               </div>
             ))}
           </div>
 
-          {/* BUTTON AND PAGINATION */}
-          <div className="facility-management-two__footer">
+          {/* CTA & Synchronized Progress Bar */}
+          <div className="FacilityManagementTwo__actionRow">
             <a
-              href="#contact"
-              className="facility-management-two__cta"
+              href="#fm-enquiry"
+              className="FacilityManagementTwo__btnPrimary"
             >
-              <span>Explore Our Services</span>
-
-              <span className="facility-management-two__cta-icon">
-                &#8599;
-              </span>
+              <span>Request FM Proposal</span>
+              <svg viewBox="0 0 20 20" fill="currentColor">
+                <path
+                  fillRule="evenodd"
+                  d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z"
+                  clipRule="evenodd"
+                />
+              </svg>
             </a>
 
-            <div className="facility-management-two__pagination">
-              {facilitySlides.map((slide, index) => (
-                <button
-                  key={slide.id}
-                  type="button"
-                  className={`facility-management-two__pagination-item ${
-                    index === activeIndex
-                      ? "facility-management-two__pagination-item--active"
-                      : ""
-                  }`}
-                  onClick={() => setActiveIndex(index)}
-                  aria-label={`Show facility service ${index + 1}`}
-                  aria-current={index === activeIndex ? "true" : undefined}
-                >
-                  <span />
-                </button>
-              ))}
+            <div className="FacilityManagementTwo__progressTrack">
+              <div
+                key={`progress-${activeSlide}-${isPaused}`}
+                className={`FacilityManagementTwo__progressBar ${
+                  isPaused ? "is-paused" : ""
+                }`}
+                style={{ animationDuration: `${SLIDE_DURATION}ms` }}
+              />
             </div>
-          </div>
-
-          {/* AUTO-SLIDE PROGRESS BAR */}
-          <div className="facility-management-two__progress-track">
-            <div
-              key={activeIndex}
-              className="facility-management-two__progress-bar"
-              style={{
-                animationPlayState: isPaused ? "paused" : "running",
-              }}
-            />
           </div>
         </div>
       </div>

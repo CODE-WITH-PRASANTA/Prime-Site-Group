@@ -1,30 +1,21 @@
 import React, { useState, useEffect, useRef } from "react";
 import "./ManagedServicesThree.css";
 
-const managedServicePoints = [
+const managedPillars = [
   {
     id: 1,
-    title: "IT Infrastructure Management",
-    detail:
-      "Proactive monitoring and maintenance of IT infrastructure to support stable, secure, and reliable business operations.",
+    title: "Proactive Infrastructure & Cloud Monitoring",
+    desc: "24/7/365 telemetry oversight, automated anomaly detection, and rapid resolution across multi-cloud, hybrid, and on-premises server estates.",
   },
   {
     id: 2,
-    title: "24/7 Technical Support",
-    detail:
-      "Dedicated technical support teams help identify issues, resolve disruptions, and maintain business continuity.",
+    title: "Cybersecurity & Compliance Management",
+    desc: "Continuous vulnerability scanning, endpoint detection and response (EDR), patch governance, and zero-trust policy enforcement.",
   },
   {
     id: 3,
-    title: "Cloud & Network Management",
-    detail:
-      "Reliable management of cloud environments, network resources, and system performance to support business growth.",
-  },
-  {
-    id: 4,
-    title: "Security & Performance Monitoring",
-    detail:
-      "Continuous system monitoring, routine updates, and security management help protect business infrastructure.",
+    title: "Strategic IT Consulting & SLA Delivery",
+    desc: "Dedicated virtual CIO guidance, lifecycle asset planning, guaranteed response SLAs, and continuous operational cost optimization.",
   },
 ];
 
@@ -33,21 +24,18 @@ const ManagedServicesThree = () => {
   const sectionRef = useRef(null);
 
   useEffect(() => {
-    const section = sectionRef.current;
-
-    if (!section) return;
-
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
           setIsVisible(true);
-          observer.unobserve(entry.target);
         }
       },
       { threshold: 0.2 }
     );
 
-    observer.observe(section);
+    if (sectionRef.current) {
+      observer.observe(sectionRef.current);
+    }
 
     return () => observer.disconnect();
   }, []);
@@ -58,113 +46,62 @@ const ManagedServicesThree = () => {
       className={`ManagedServicesThree ${
         isVisible ? "ManagedServicesThree--visible" : ""
       }`}
-      aria-label="Managed services and technology infrastructure"
+      aria-label="Enterprise Managed IT Services and Infrastructure Management"
     >
       <div className="ManagedServicesThree__container">
-        {/* Left Side: Managed Technology Services Image */}
-
-        <div className="ManagedServicesThree__media">
-          <div className="ManagedServicesThree__imageClip">
-            <img
-              src="https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&w=2200&q=85"
-              alt="Modern business workspace representing managed business services"
-              className="ManagedServicesThree__image"
-              loading="lazy"
-            />
-
-            <div className="ManagedServicesThree__imageShade" />
-          </div>
-
-          {/* Floating Managed Services Badge */}
-
-          <div className="ManagedServicesThree__badge">
-            <span className="ManagedServicesThree__badgeDot" />
-
-            <div className="ManagedServicesThree__badgeInfo">
-              <strong>Managed Services</strong>
-              <span>Reliable · Secure · Efficient</span>
-            </div>
-          </div>
-        </div>
-
-        {/* Right Side: Animated Content */}
-
+        {/* Left Side: Staggered Running Content */}
         <div className="ManagedServicesThree__content">
           <div className="ManagedServicesThree__eyebrowWrap">
             <span className="ManagedServicesThree__eyebrowLine" />
-
-            <span className="ManagedServicesThree__eyebrow">
-              MANAGED SOLUTIONS
-            </span>
+            <span className="ManagedServicesThree__eyebrow">ENTERPRISE IT EXCELLENCE</span>
           </div>
 
           <h2 className="ManagedServicesThree__title">
-            Simplifying Operations,
-            <br />
-            <span className="ManagedServicesThree__titleAccent">
-              Empowering Growth
-            </span>
+            Our <span className="ManagedServicesThree__titleAccent">Framework</span>
           </h2>
 
           <p className="ManagedServicesThree__description">
-            We provide comprehensive managed services that help businesses
-            operate more efficiently, reduce technical complexity, and
-            maintain reliable systems. From IT infrastructure and cloud
-            management to technical support and security monitoring, our
-            solutions allow your team to focus on core business priorities
-            while we help keep essential operations running smoothly.
+            We provide comprehensive managed IT and cloud operations designed to eliminate downtime,
+            strengthen digital resilience, and scale with your enterprise. Our certified systems engineers
+            and dedicated support specialists manage your core digital assets so your internal teams can focus on growth.
           </p>
 
-          {/* Managed Services Checklist */}
-
-          <div className="ManagedServicesThree__list">
-            {managedServicePoints.map((point) => (
+          {/* Operational Pillars */}
+          <div className="ManagedServicesThree__pillars">
+            {managedPillars.map((pillar) => (
               <div
-                key={point.id}
-                className="ManagedServicesThree__item"
-                style={{ "--item-index": point.id }}
+                key={pillar.id}
+                className="ManagedServicesThree__pillarItem"
               >
-                <span className="ManagedServicesThree__checkIcon">
-                  <svg
-                    viewBox="0 0 20 20"
-                    fill="currentColor"
-                    aria-hidden="true"
-                  >
+                <div className="ManagedServicesThree__pillarIcon">
+                  <svg viewBox="0 0 20 20" fill="currentColor">
                     <path
                       fillRule="evenodd"
                       d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
                       clipRule="evenodd"
                     />
                   </svg>
-                </span>
-
-                <div className="ManagedServicesThree__itemText">
-                  <h4 className="ManagedServicesThree__itemTitle">
-                    {point.title}
+                </div>
+                <div className="ManagedServicesThree__pillarText">
+                  <h4 className="ManagedServicesThree__pillarTitle">
+                    {pillar.title}
                   </h4>
-
-                  <p className="ManagedServicesThree__itemDetail">
-                    {point.detail}
+                  <p className="ManagedServicesThree__pillarDesc">
+                    {pillar.desc}
                   </p>
                 </div>
               </div>
             ))}
           </div>
 
-          {/* Primary Action Button */}
-
+          {/* Action Button */}
           <div className="ManagedServicesThree__actionWrap">
             <a
-              href="#managed-services-details"
+              href="#consultation"
               className="ManagedServicesThree__linkPrimary"
             >
-              <span>Explore Our Managed Services</span>
-
-              <svg
-                viewBox="0 0 20 20"
-                fill="currentColor"
-                aria-hidden="true"
-              >
+              <span>Schedule IT Infrastructure Audit</span>
+              <svg viewBox="0 0 20 20" fill="currentColor">
                 <path
                   fillRule="evenodd"
                   d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z"
@@ -172,6 +109,28 @@ const ManagedServicesThree = () => {
                 />
               </svg>
             </a>
+          </div>
+        </div>
+
+        {/* Right Side: Data Center / Infrastructure Management Visual */}
+        <div className="ManagedServicesThree__media">
+          <div className="ManagedServicesThree__imageClip">
+            <img
+              src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=2200&q=85"
+              alt="High-density data center server racks and enterprise cloud infrastructure"
+              className="ManagedServicesThree__image"
+              loading="lazy"
+            />
+            <div className="ManagedServicesThree__imageShade" />
+          </div>
+
+          {/* Floating Operational Badge */}
+          <div className="ManagedServicesThree__badge">
+            <span className="ManagedServicesThree__badgeDot" />
+            <div className="ManagedServicesThree__badgeInfo">
+              <strong>99.99% Uptime Guarantee</strong>
+              <span>SOC 2 Type II & ISO 27001 Certified</span>
+            </div>
           </div>
         </div>
       </div>

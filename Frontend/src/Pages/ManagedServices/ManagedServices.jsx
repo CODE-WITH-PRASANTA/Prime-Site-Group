@@ -4,7 +4,6 @@ import ManagedServicesTwo from '../../Components/ManagedServicesTwo/ManagedServi
 import ManagedServicesThree from '../../Components/ManagedServicesThree/ManagedServicesThree'
 import ManagedServicesFour from '../../Components/ManagedServicesFour/ManagedServicesFour'
 import ManagedServicesFive from '../../Components/ManagedServicesFive/ManagedServicesFive'
-import ManagedServicesSix from '../../Components/ManagedServicesSix/ManagedServicesSix'
 
 const ManagedServices = () => {
   return (
@@ -14,7 +13,6 @@ const ManagedServices = () => {
         <ManagedServicesThree/>
         <ManagedServicesFour/>
         <ManagedServicesFive/>
-        <ManagedServicesSix/>
     </div>
   )
 }

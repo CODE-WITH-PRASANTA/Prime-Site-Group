@@ -6,49 +6,49 @@ const SLIDE_DURATION = 2000; // 2-second synchronized rotation
 const manPowerServicesData = [
   {
     id: 1,
-    tag: "MANPOWER SERVICES",
+    tag: "MANPOWER SOLUTIONS",
     titlePrimary: "Skilled Technical",
-    titleAccent: "& Labour Supply",
+    titleAccent: "& Industrial Staff",
     description:
-      "Delivering certified technicians, skilled tradesmen, and dependable workforce solutions for large-scale construction, MEP, facilities management, and industrial projects across the UAE.",
-    badgeTitle: "VERIFIED WORKFORCE",
-    badgeSub: "24/7 Deployment Readiness",
+      "Providing certified electromechanical technicians, heavy machinery operators, licensed welders, and skilled industrial personnel vetted to satisfy rigorous infrastructure and industrial compliance frameworks.",
+    badgeTitle: "MOL & ISO COMPLIANT",
+    badgeSub: "Certified Industrial Staff",
     image:
-      "https://images.unsplash.com/photo-1541888946425-d0fbb18f170f?auto=format&fit=crop&w=2200&q=85",
+      "https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&w=2200&q=85",
   },
   {
     id: 2,
-    tag: "MANPOWER SERVICES",
-    titlePrimary: "Executive Staffing",
-    titleAccent: "& Corporate Talent",
+    tag: "MANPOWER SOLUTIONS",
+    titlePrimary: "Engineering &",
+    titleAccent: "Site Supervision",
     description:
-      "Providing top-tier professional personnel, administrative experts, and corporate talent acquisition solutions to match dynamic organizational demands with exceptional accuracy.",
-    badgeTitle: "ELITE PLACEMENT",
-    badgeSub: "Professional Corporate Talent",
+      "Deploying experienced civil engineers, MEP site supervisors, HSE project officers, and technical project leads to manage large-scale commercial developments and complex industrial turnarounds.",
+    badgeTitle: "PROJECT OVERSIGHT",
+    badgeSub: "Licensed Site Engineers",
     image:
-      "https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto=format&fit=crop&w=2200&q=85",
+      "https://images.unsplash.com/photo-1581094794329-c8112a89af12?auto=format&fit=crop&w=2200&q=85",
   },
   {
     id: 3,
-    tag: "MANPOWER SERVICES",
+    tag: "MANPOWER SOLUTIONS",
     titlePrimary: "Hospitality &",
-    titleAccent: "Facility Support",
+    titleAccent: "Front-of-House Staff",
     description:
-      "Equipping hotels, resorts, and commercial properties with experienced front-of-house hospitality personnel, housekeeping teams, and dedicated operational support staff.",
-    badgeTitle: "HOSPITALITY EXPERTS",
-    badgeSub: "Premium Guest Services",
+      "Supplying bilingual front-desk executives, premium concierge specialists, banquet service crews, and multi-lingual corporate support staff to luxury hotel chains and corporate headquarters.",
+    badgeTitle: "PREMIUM HOSPITALITY",
+    badgeSub: "Vetted Service Crews",
     image:
-      "https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?auto=format&fit=crop&w=2200&q=85",
+      "https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=2200&q=85",
   },
   {
     id: 4,
-    tag: "MANPOWER SERVICES",
+    tag: "MANPOWER SOLUTIONS",
     titlePrimary: "Logistics &",
-    titleAccent: "Warehouse Crew",
+    titleAccent: "Supply Chain Crews",
     description:
-      "Supplying efficient logistics operatives, fork-lift operators, warehouse coordinators, and supply chain personnel to optimize fast-paced distribution operations.",
-    badgeTitle: "LOGISTICS CREW",
-    badgeSub: "Supply Chain & Warehousing",
+      "Mobilizing on-demand warehouse managers, certified forklift drivers, pick-pack operatives, and end-to-end distribution support teams for high-throughput fulfillment centers and 3PL networks.",
+    badgeTitle: "SUPPLY CHAIN TEAMS",
+    badgeSub: "High-Volume Mobilization",
     image:
       "https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=2200&q=85",
   },
@@ -68,7 +68,7 @@ const ManPowerServiceTwo = () => {
     setActiveSlide((prev) => (prev - 1 + totalSlides) % totalSlides);
   }, [totalSlides]);
 
-  // Autoplay every 2 seconds
+  // Autoplay rotation
   useEffect(() => {
     if (isPaused) return;
 
@@ -82,7 +82,7 @@ const ManPowerServiceTwo = () => {
   return (
     <section
       className="ManPowerServiceTwo"
-      aria-label="Manpower Services Presentation"
+      aria-label="Manpower Solutions Presentation"
       onMouseEnter={() => setIsPaused(true)}
       onMouseLeave={() => setIsPaused(false)}
       onFocusCapture={() => setIsPaused(true)}
@@ -124,7 +124,7 @@ const ManPowerServiceTwo = () => {
             </div>
           </div>
 
-          {/* Bottom Left Square Navigation Buttons */}
+          {/* Bottom Left Navigation Buttons */}
           <div className="ManPowerServiceTwo__nav">
             <button
               type="button"
@@ -188,25 +188,25 @@ const ManPowerServiceTwo = () => {
           <div className="ManPowerServiceTwo__features">
             <div className="ManPowerServiceTwo__featureItem">
               <span className="ManPowerServiceTwo__featureDot" />
-              <span>Fully Compliant & Verified Workforce Standards</span>
+              <span>Full Ministry of Labour (MOL) & Visa Compliance</span>
             </div>
             <div className="ManPowerServiceTwo__featureItem">
               <span className="ManPowerServiceTwo__featureDot" />
-              <span>Rapid Deployment & Flexible Contract Terms</span>
+              <span>Rapid Multi-Tier Deployment & Shift Management</span>
             </div>
             <div className="ManPowerServiceTwo__featureItem">
               <span className="ManPowerServiceTwo__featureDot" />
-              <span>Dedicated Account & Project Supervision</span>
+              <span>Comprehensive Health, Safety & Onboarding Protocols</span>
             </div>
           </div>
 
-          {/* Premium Action Row */}
+          {/* Action Row */}
           <div className="ManPowerServiceTwo__actionRow">
             <a
-              href="#service-enquiry"
+              href="#manpower-enquiry"
               className="ManPowerServiceTwo__btnPrimary"
             >
-              <span>Request Workforce Consultation</span>
+              <span>Request Workforce Proposal</span>
               <svg viewBox="0 0 20 20" fill="currentColor">
                 <path
                   fillRule="evenodd"
@@ -216,7 +216,7 @@ const ManPowerServiceTwo = () => {
               </svg>
             </a>
 
-            {/* 2-Second Synchronized Progress Line */}
+            {/* Synchronized Progress Line */}
             <div className="ManPowerServiceTwo__progressTrack">
               <div
                 key={`progress-${activeSlide}-${isPaused}`}

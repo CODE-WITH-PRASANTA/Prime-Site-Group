@@ -11,76 +11,80 @@ const TasteOfHomeMain = () => {
 
   return (
     <section
-      className={`TasteOfHomeMain ${isLoaded ? "TasteOfHomeMain--loaded" : ""}`}
-      aria-label="Taste of Home Culinary and Catering Solutions Overview"
+      className={`TasteOfHome ${isLoaded ? "TasteOfHome--loaded" : ""}`}
+      aria-label="Prime Site Taste of Home Industrial Catering and Dining Overview"
     >
-      {/* 45% Visual Right Media (Culinary & Food Services Background) */}
-      <div className="TasteOfHomeMain__mediaWrap">
+      {/* 45% Visual Right Media (Catering & Culinary Background) */}
+      <div className="TasteOfHome__mediaWrap">
         <img
-          src="https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=2400&q=90"
-          alt="Large-scale institutional catering and culinary operations"
-          className="TasteOfHomeMain__mediaImage"
+          src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?auto=format&fit=crop&w=2400&q=90"
+          alt="Prime Site Taste of Home industrial culinary kitchen and dining hospitality"
+          className="TasteOfHome__mediaImage"
         />
-        <div className="TasteOfHomeMain__mediaShade" />
+        <div className="TasteOfHome__mediaShade" />
 
         {/* Floating Sector Badge */}
-        <div className="TasteOfHomeMain__heroTag">
-          <span className="TasteOfHomeMain__heroTagDot" />
-          <span className="TasteOfHomeMain__heroTagTitle">ETHNIC & HOME-STYLE CATERING</span>
-          <span className="TasteOfHomeMain__heroTagDivider" />
-          <span className="TasteOfHomeMain__heroTagSubtitle">NUTRITIOUS VOLUME DINING</span>
+        <div className="TasteOfHome__heroTag">
+          <span className="TasteOfHome__heroTagDot" />
+          <span className="TasteOfHome__heroTagTitle">CULINARY EXCELLENCE</span>
+          <span className="TasteOfHome__heroTagDivider" />
+          <span className="TasteOfHome__heroTagSubtitle">LARGE-SCALE CATERING</span>
         </div>
       </div>
 
       {/* 55% Angled Executive Content Panel */}
-      <div className="TasteOfHomeMain__leftPanel">
-        <div className="TasteOfHomeMain__panelTexture" />
+      <div className="TasteOfHome__leftPanel">
+        <div className="TasteOfHome__panelTexture" />
 
-        <div className="TasteOfHomeMain__content">
-          <div className="TasteOfHomeMain__eyebrowWrap">
-            <span className="TasteOfHomeMain__eyebrowLine" />
-            <span className="TasteOfHomeMain__eyebrow">AUTHENTIC CULINARY SOLUTIONS</span>
+        <div className="TasteOfHome__content">
+          <div className="TasteOfHome__eyebrowWrap">
+            <span className="TasteOfHome__eyebrowLine" />
+            <span className="TasteOfHome__eyebrow">FOOD & DINING SERVICES</span>
           </div>
 
-          <h1 className="TasteOfHomeMain__title">
-            Transguard <span className="TasteOfHomeMain__titleAccent">Taste of Home</span>
+          <h1 className="TasteOfHome__title">
+            PRIME SITE <span className="TasteOfHome__titleAccent">Taste of Home</span>
           </h1>
 
-          <p className="TasteOfHomeMain__lead">
-            The UAE’s dedicated high-volume ethnic catering specialist, preparing authentic, 
-            nutritious, and comforting meals that recreate the warmth of home for thousands 
-            of multicultural workforce teams across the nation daily.
+          <p className="TasteOfHome__lead">
+            Prime Site’s dedicated culinary division, Taste of Home, provides nutritious,
+            authentic, and large-scale dining solutions tailored for multinational workforces,
+            corporate headquarters, educational campuses, and healthcare institutions across the UAE.
           </p>
 
-          <p className="TasteOfHomeMain__description">
-            Operated within certified industrial central production kitchens, our HACCP-compliant 
-            culinary teams blend regional spices, fresh farm produce, and balanced dietetic planning 
-            to deliver wholesome culinary experiences at massive scale with unwavering hygiene standards.
+          <p className="TasteOfHome__description">
+            Operating HACCP-certified commercial kitchens that prepare tens of thousands of wholesome
+            meals daily, our expert chefs recreate multi-ethnic culinary traditions with rigorous food
+            safety, balanced nutritional science, and sustainably sourced ingredients.
           </p>
 
           {/* Service Feature Highlights */}
-          <div className="TasteOfHomeMain__features">
-            <span className="TasteOfHomeMain__featurePill">
-              <span className="TasteOfHomeMain__featureDot" />
-              Regional & Ethnic Menu Diversity
+          <div className="TasteOfHome__features">
+            <span className="TasteOfHome__featurePill">
+              <span className="TasteOfHome__featureDot" />
+              High-Volume Bulk Catering
             </span>
-            <span className="TasteOfHomeMain__featurePill">
-              <span className="TasteOfHomeMain__featureDot" />
+            <span className="TasteOfHome__featurePill">
+              <span className="TasteOfHome__featureDot" />
+              Multi-Cuisine Menus
+            </span>
+            <span className="TasteOfHome__featurePill">
+              <span className="TasteOfHome__featureDot" />
               HACCP & ISO 22000 Certified
             </span>
-            <span className="TasteOfHomeMain__featurePill">
-              <span className="TasteOfHomeMain__featureDot" />
-              High-Volume Camp & Site Dining
+            <span className="TasteOfHome__featurePill">
+              <span className="TasteOfHome__featureDot" />
+              Corporate Cafeteria Operations
             </span>
-            <span className="TasteOfHomeMain__featurePill">
-              <span className="TasteOfHomeMain__featureDot" />
-              Dietetic & Nutritional Balance
+            <span className="TasteOfHome__featurePill">
+              <span className="TasteOfHome__featureDot" />
+              Dietitian-Approved Menus
             </span>
           </div>
 
           {/* Action Row */}
-          <div className="TasteOfHomeMain__actionRow">
-            <a href="#catering-enquiry" className="TasteOfHomeMain__btnPrimary">
+          <div className="TasteOfHome__actionRow">
+            <a href="#catering-enquiry" className="TasteOfHome__btnPrimary">
               <span>Request Catering Proposal</span>
               <svg viewBox="0 0 20 20" fill="currentColor">
                 <path
@@ -90,20 +94,20 @@ const TasteOfHomeMain = () => {
                 />
               </svg>
             </a>
-            <a href="#menu-catalog" className="TasteOfHomeMain__btnOutline">
-              <span>View Cuisine Options</span>
+            <a href="#sample-menus" className="TasteOfHome__btnOutline">
+              <span>View Sample Menus</span>
             </a>
           </div>
         </div>
 
         {/* Large Background Watermark */}
-        <span className="TasteOfHomeMain__watermark" aria-hidden="true">
-          HOME
+        <span className="TasteOfHome__watermark" aria-hidden="true">
+          DINING
         </span>
       </div>
 
       {/* Red Accent Trim Strip */}
-      <div className="TasteOfHomeMain__edgeStripe" aria-hidden="true" />
+      <div className="TasteOfHome__edgeStripe" aria-hidden="true" />
     </section>
   );
 };

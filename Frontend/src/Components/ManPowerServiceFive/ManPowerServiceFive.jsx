@@ -1,36 +1,61 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
+import {
+  Users,
+  ShieldCheck,
+  Building2,
+  CheckCircle2,
+  Clock,
+  ArrowRight,
+  Sparkles,
+} from "lucide-react";
 import "./ManPowerServiceFive.css";
 
-const manpowerHighlights = [
-  {
-    id: 1,
-    title: "Skilled Workforce Solutions",
-    detail:
-      "Providing qualified, trained, and dependable manpower tailored to your business requirements.",
-  },
-  {
-    id: 2,
-    title: "Flexible Staffing Services",
-    detail:
-      "Customized workforce deployment designed to support changing operational demands.",
-  },
-  {
-    id: 3,
-    title: "Reliable Workforce Management",
-    detail:
-      "Streamlined recruitment, workforce coordination, and ongoing support to improve productivity.",
-  },
-];
-
 const ManPowerServiceFive = () => {
-  const [isVisible, setIsVisible] = useState(false);
   const sectionRef = useRef(null);
-  const mediaRef = useRef(null);
+  const [isVisible, setIsVisible] = useState(false);
+  const [activeCard, setActiveCard] = useState(null);
 
-  // Scroll-triggered entrance animation
+  const capabilities = [
+    {
+      id: 1,
+      tag: "FACILITY DEPLOYMENT",
+      title: "On-Site Facility Staffing",
+      description:
+        "Trained concierge, building administrators, and operational supervisors placed directly across commercial and premium residential towers.",
+      metric: "24/7",
+      metricLabel: "COVERAGE",
+      icon: Users,
+    },
+    {
+      id: 2,
+      tag: "PREMISES CONTROL",
+      title: "Asset & Perimeter Security",
+      description:
+        "Vetted, certified estate guards and surveillance monitoring specialists dedicated to high-compliance access management and safety.",
+      metric: "100%",
+      metricLabel: "VETTED CREW",
+      icon: ShieldCheck,
+    },
+    {
+      id: 3,
+      tag: "INFRASTRUCTURE",
+      title: "Technical Engineering Support",
+      description:
+        "Licensed HVAC technicians, electricians, and maintenance crew providing rapid preventive upkeep to preserve property asset valuation.",
+      metric: "15m",
+      metricLabel: "SLA DISPATCH",
+      icon: Building2,
+    },
+  ];
+
+  const commitments = [
+    "Rigorous due-diligence and background-verified workforce",
+    "Tailored team deployment aligned to property portfolio scale",
+    "Continuous site compliance, safety protocols, and auditing",
+  ];
+
   useEffect(() => {
     const section = sectionRef.current;
-
     if (!section) return;
 
     const observer = new IntersectionObserver(
@@ -40,7 +65,7 @@ const ManPowerServiceFive = () => {
           observer.unobserve(entry.target);
         }
       },
-      { threshold: 0.18 }
+      { threshold: 0.1 }
     );
 
     observer.observe(section);
@@ -48,160 +73,154 @@ const ManPowerServiceFive = () => {
     return () => observer.disconnect();
   }, []);
 
-  // Interactive 3D image hover effect
-  const handleMouseMove = (e) => {
-    const card = mediaRef.current;
-    if (!card) return;
-
-    const rect = card.getBoundingClientRect();
-
-    const x = e.clientX - rect.left;
-    const y = e.clientY - rect.top;
-
-    const centerX = rect.width / 2;
-    const centerY = rect.height / 2;
-
-    const rotateX = ((y - centerY) / centerY) * -6;
-    const rotateY = ((x - centerX) / centerX) * 6;
-
-    card.style.setProperty("--ManPowerServiceFive-rx", `${rotateX}deg`);
-    card.style.setProperty("--ManPowerServiceFive-ry", `${rotateY}deg`);
-    card.style.setProperty("--ManPowerServiceFive-scale", "1.025");
-
-    card.style.setProperty(
-      "--ManPowerServiceFive-shine-x",
-      `${(x / rect.width) * 100}%`
-    );
-
-    card.style.setProperty(
-      "--ManPowerServiceFive-shine-y",
-      `${(y / rect.height) * 100}%`
-    );
-  };
-
-  const handleMouseLeave = () => {
-    const card = mediaRef.current;
-    if (!card) return;
-
-    card.style.setProperty("--ManPowerServiceFive-rx", "0deg");
-    card.style.setProperty("--ManPowerServiceFive-ry", "0deg");
-    card.style.setProperty("--ManPowerServiceFive-scale", "1");
-    card.style.setProperty("--ManPowerServiceFive-shine-x", "50%");
-    card.style.setProperty("--ManPowerServiceFive-shine-y", "50%");
-  };
-
   return (
     <section
-      ref={sectionRef}
       className={`ManPowerServiceFive ${
         isVisible ? "ManPowerServiceFive--visible" : ""
       }`}
-      aria-label="Manpower Services and Workforce Solutions"
+      ref={sectionRef}
     >
       <div className="ManPowerServiceFive__container">
-        {/* Left Side: Content */}
-        <div className="ManPowerServiceFive__content">
-          <div className="ManPowerServiceFive__eyebrowWrap">
+        {/* Section Header */}
+        <header className="ManPowerServiceFive__header">
+          <div className="ManPowerServiceFive__eyebrow">
             <span className="ManPowerServiceFive__eyebrowLine" />
-            <span className="ManPowerServiceFive__eyebrow">
-              OUR EXPERTISE
-            </span>
+            <span>OPERATIONAL EXCELLENCE & WORKFORCE</span>
           </div>
 
-          <h2 className="ManPowerServiceFive__title">
-            <span className="ManPowerServiceFive__titlePrimary">
-              Manpower{" "}
-            </span>
-            <span className="ManPowerServiceFive__titleAccent">
-              Solutions
-            </span>
-          </h2>
+          <div className="ManPowerServiceFive__headerRow">
+            <h2 className="ManPowerServiceFive__title">
+              Professional <span>Manpower</span> & Facility Operations
+            </h2>
 
-          <p className="ManPowerServiceFive__description">
-            We deliver dependable manpower solutions that help businesses
-            operate efficiently and achieve their goals. From skilled workforce
-            deployment to flexible staffing and workforce coordination, our
-            approach focuses on quality, reliability, and your business needs.
-          </p>
+            <p className="ManPowerServiceFive__intro">
+              Prime Site delivers fully managed, compliance-ready workforce
+              solutions tailored for luxury high-rises, commercial developments,
+              and managed estates. We ensure total property security, seamless
+              day-to-day operations, and sustained investor asset value.
+            </p>
+          </div>
+        </header>
 
-          {/* Workforce Capabilities */}
-          <div className="ManPowerServiceFive__list">
-            {manpowerHighlights.map((item) => (
-              <div
+        {/* Capabilities Grid */}
+        <div className="ManPowerServiceFive__grid">
+          {capabilities.map((item, index) => {
+            const Icon = item.icon;
+            const isActive = activeCard === item.id;
+
+            return (
+              <article
+                className={`ManPowerServiceFive__card ${
+                  isActive ? "ManPowerServiceFive__card--active" : ""
+                }`}
                 key={item.id}
-                className="ManPowerServiceFive__item"
+                style={{
+                  "--ManPowerServiceFive-delay": `${index * 120}ms`,
+                }}
+                onMouseEnter={() => setActiveCard(item.id)}
+                onMouseLeave={() => setActiveCard(null)}
               >
-                <span className="ManPowerServiceFive__checkIcon">
-                  <svg viewBox="0 0 20 20" fill="currentColor">
-                    <path
-                      fillRule="evenodd"
-                      d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                      clipRule="evenodd"
-                    />
-                  </svg>
-                </span>
+                <div className="ManPowerServiceFive__cardHeader">
+                  <span className="ManPowerServiceFive__cardTag">
+                    {item.tag}
+                  </span>
 
-                <div className="ManPowerServiceFive__itemText">
-                  <h4 className="ManPowerServiceFive__itemTitle">
+                  <div className="ManPowerServiceFive__cardMetric">
+                    <span className="ManPowerServiceFive__metricValue">
+                      {item.metric}
+                    </span>
+                    <span className="ManPowerServiceFive__metricLabel">
+                      {item.metricLabel}
+                    </span>
+                  </div>
+                </div>
+
+                <div className="ManPowerServiceFive__iconBadge">
+                  <div className="ManPowerServiceFive__iconBadgeOuter">
+                    <div className="ManPowerServiceFive__iconBadgeInner">
+                      <Icon
+                        className="ManPowerServiceFive__badgeIcon"
+                        strokeWidth={1.5}
+                      />
+                    </div>
+                  </div>
+                </div>
+
+                <div className="ManPowerServiceFive__cardBody">
+                  <h3 className="ManPowerServiceFive__cardTitle">
                     {item.title}
-                  </h4>
-
-                  <p className="ManPowerServiceFive__itemDetail">
-                    {item.detail}
+                  </h3>
+                  <p className="ManPowerServiceFive__cardDescription">
+                    {item.description}
                   </p>
                 </div>
-              </div>
-            ))}
-          </div>
 
-          {/* Call to Action */}
-          <div className="ManPowerServiceFive__actionWrap">
-            <a
-              href="#partner-with-us"
-              className="ManPowerServiceFive__btnPrimary"
-            >
-              <span>Partner With Us</span>
+                <div className="ManPowerServiceFive__cardFooter">
+                  <span className="ManPowerServiceFive__footerLine" />
+                  <span className="ManPowerServiceFive__footerText">
+                    PRIME STANDARD
+                  </span>
+                  <span className="ManPowerServiceFive__footerAction">
+                    <ArrowRight size={16} />
+                  </span>
+                </div>
 
-              <svg viewBox="0 0 20 20" fill="currentColor">
-                <path
-                  fillRule="evenodd"
-                  d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z"
-                  clipRule="evenodd"
+                <span
+                  className="ManPowerServiceFive__cardAccent"
+                  aria-hidden="true"
                 />
-              </svg>
-            </a>
-          </div>
+              </article>
+            );
+          })}
         </div>
 
-        {/* Right Side: Interactive Image */}
-        <div
-          ref={mediaRef}
-          className="ManPowerServiceFive__media"
-          onMouseMove={handleMouseMove}
-          onMouseLeave={handleMouseLeave}
-        >
-          <div className="ManPowerServiceFive__imageClip">
-            <img
-              src="https://images.unsplash.com/photo-1521737711867-e3b97375f902?auto=format&fit=crop&w=2200&q=85"
-              alt="Professional team collaborating in a modern workplace"
-              className="ManPowerServiceFive__image"
-              loading="lazy"
-            />
-
-            <div className="ManPowerServiceFive__lightSweep" />
-            <div className="ManPowerServiceFive__imageShade" />
+        {/* Bottom Banner */}
+        <div className="ManPowerServiceFive__banner">
+          <div className="ManPowerServiceFive__bannerContent">
+            <span className="ManPowerServiceFive__bannerKicker">
+              <Sparkles size={14} /> DEDICATED SITE ALLOCATION
+            </span>
+            <h4 className="ManPowerServiceFive__bannerHeading">
+              Need on-demand team deployment for your development?
+            </h4>
+            <div className="ManPowerServiceFive__bannerList">
+              {commitments.map((text, i) => (
+                <div key={i} className="ManPowerServiceFive__bannerItem">
+                  <CheckCircle2
+                    size={16}
+                    className="ManPowerServiceFive__checkIcon"
+                  />
+                  <span>{text}</span>
+                </div>
+              ))}
+            </div>
           </div>
 
-          {/* Floating Workforce Badge */}
-          <div className="ManPowerServiceFive__badge">
-            <span className="ManPowerServiceFive__badgeDot" />
-
-            <div className="ManPowerServiceFive__badgeInfo">
-              <strong>Workforce Excellence</strong>
-              <span>Reliable Manpower Solutions</span>
+          <div className="ManPowerServiceFive__bannerSide">
+            <div className="ManPowerServiceFive__statPill">
+              <Clock size={18} />
+              <div>
+                <strong>Rapid Turnaround</strong>
+                <small>Deploy within 48-72 hours</small>
+              </div>
             </div>
           </div>
         </div>
+
+        {/* Section Footer */}
+        <footer className="ManPowerServiceFive__footer">
+          <div className="ManPowerServiceFive__footerDecoration">
+            <span />
+            <span />
+            <span />
+          </div>
+          <p className="ManPowerServiceFive__footerStatement">
+            Precision manpower. Uncompromised asset integrity. Prime service standards.
+          </p>
+          <span className="ManPowerServiceFive__footerCaption">
+            PRIME SITE · FACILITY & MANPOWER EXCELLENCE
+          </span>
+        </footer>
       </div>
     </section>
   );

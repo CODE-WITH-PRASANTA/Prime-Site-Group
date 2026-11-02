@@ -1,259 +1,248 @@
 import React, { useState, useEffect, useCallback } from "react";
 import "./KitchenMaintenanceSolutionsTwo.css";
 
-const kitchenMaintenanceSlides = [
+const SLIDE_DURATION = 2000; // 2-second synchronized rotation
+
+const kitchenMaintenanceData = [
   {
     id: 1,
-    category: "Equipment Care",
-    badgeNumber: "01",
-    badgeTitle: "Kitchen Equipment",
-    badgeDescription: "Reliable performance, every day",
-    eyebrow: "PROFESSIONAL EQUIPMENT MAINTENANCE",
-    title: "Keep Your Kitchen Running at Its Best",
+    tag: "KITCHEN MAINTENANCE SOLUTIONS",
+    titlePrimary: "Commercial Cooking &",
+    titleAccent: "Hot Line Equipment",
     description:
-      "Keep your commercial kitchen efficient, safe, and ready for every service. Our maintenance solutions help reduce unexpected breakdowns, improve equipment performance, and support uninterrupted kitchen operations.",
-    features: [
-      "Routine equipment inspections",
-      "Preventive maintenance planning",
-      "Performance and safety checks",
-    ],
+      "Delivering 24/7 reactive repairs, burner calibrations, and certified preventative maintenance for commercial combi-ovens, ranges, deep fryers, and industrial steam kettles across hotel and restaurant kitchens.",
+    badgeTitle: "HOT LINE EXPERTS",
+    badgeSub: "Certified Commercial Gas & Electric",
     image:
-      "https://images.unsplash.com/photo-1556911220-e15b29be8c8f?auto=format&fit=crop&w=1200&q=85",
-    imagePosition: "center",
+      "https://images.unsplash.com/photo-1556910103-1c02745aae4d?auto=format&fit=crop&w=2200&q=85",
+    features: [
+      "OEM-Certified Technicians & Genuine Spare Parts",
+      "Gas Leak, Thermostat & Ignition Safety Checks",
+      "Emergency Hotline for Peak Dining Hour Breakdowns",
+    ],
   },
   {
     id: 2,
-    category: "Repair & Servicing",
-    badgeNumber: "02",
-    badgeTitle: "Expert Repairs",
-    badgeDescription: "Solutions that minimise downtime",
-    eyebrow: "FAST AND DEPENDABLE SUPPORT",
-    title: "Expert Repairs for Essential Kitchen Equipment",
+    tag: "KITCHEN MAINTENANCE SOLUTIONS",
+    titlePrimary: "Kitchen Hood &",
+    titleAccent: "Exhaust Duct Degreasing",
     description:
-      "Equipment problems can disrupt your entire operation. Our repair-focused maintenance approach helps identify faults, address performance issues, and get essential kitchen equipment back to work as quickly as possible.",
-    features: [
-      "Fault identification and troubleshooting",
-      "Repair and replacement coordination",
-      "Post-repair performance verification",
-    ],
+      "NFPA-compliant high-pressure steam degreasing and exhaust canopy scrubbing designed to mitigate commercial kitchen fire hazards and maintain municipality air hygiene certifications.",
+    badgeTitle: "FIRE SAFETY & HYGIENE",
+    badgeSub: "NFPA 96 & Municipality Compliant",
     image:
-      "https://images.unsplash.com/photo-1556912172-45b7abe8b7e1?auto=format&fit=crop&w=1200&q=85",
-    imagePosition: "center",
+      "https://images.unsplash.com/photo-1590725140246-20acceedc18a?auto=format&fit=crop&w=2200&q=85",
+    features: [
+      "Full Hood, Riser & Roof Exhaust Fan Degreasing",
+      "Before-and-After Photographic Compliance Reports",
+      "Ecology Unit & Electrostatic Precipitator (ESP) Care",
+    ],
   },
   {
     id: 3,
-    category: "Hygiene & Safety",
-    badgeNumber: "03",
-    badgeTitle: "Safe Operations",
-    badgeDescription: "A cleaner, safer workspace",
-    eyebrow: "KITCHEN HYGIENE AND SAFETY",
-    title: "Create a Cleaner and Safer Kitchen Environment",
+    tag: "KITCHEN MAINTENANCE SOLUTIONS",
+    titlePrimary: "Walk-in Chillers &",
+    titleAccent: "Cold Line Refrigeration",
     description:
-      "A well-maintained kitchen supports better working conditions and more consistent food preparation. Our maintenance approach focuses on equipment condition, operational checks, and practical upkeep to help maintain a professional workspace.",
-    features: [
-      "Kitchen condition assessments",
-      "Cleaning and upkeep recommendations",
-      "Maintenance scheduling and reporting",
-    ],
+      "Precision thermodynamic upkeep for walk-in cold rooms, under-counter blast chillers, and commercial ice machines to guarantee critical HACCP temperature food safety standards.",
+    badgeTitle: "COLD CHAIN & REFRIGERATION",
+    badgeSub: "Zero Food Spoilage Guarantee",
     image:
-      "https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?auto=format&fit=crop&w=1200&q=85",
-    imagePosition: "center",
+      "https://images.unsplash.com/photo-1584992236310-6edddc08acff?auto=format&fit=crop&w=2200&q=85",
+    features: [
+      "Compressor, Coil & Condenser Chemical Descaling",
+      "Digital Temperature Calibration & HACCP Compliance",
+      "Refrigerant Leak Detection & Door Gasket Upgrades",
+    ],
+  },
+  {
+    id: 4,
+    tag: "KITCHEN MAINTENANCE SOLUTIONS",
+    titlePrimary: "Commercial Dishwashing &",
+    titleAccent: "Drainage Systems",
+    description:
+      "Comprehensive descaling and maintenance for conveyor flight dishwashers, automated chemical dispensers, grease traps, and plumbing lines to prevent kitchen floor blockages.",
+    badgeTitle: "WAREWASHING & PLUMBING",
+    badgeSub: "Automated Sanitization & Waste Care",
+    image:
+      "https://images.unsplash.com/photo-1581578731548-c64695cc6952?auto=format&fit=crop&w=2200&q=85",
+    features: [
+      "Boiler Descaling & Rinse Pressure Optimization",
+      "Biological Grease Trap Dosing & Line Jetting",
+      "Scheduled Sanitizer Chemical Dispenser Testing",
+    ],
   },
 ];
 
 const KitchenMaintenanceSolutionsTwo = () => {
   const [activeSlide, setActiveSlide] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
+  const totalSlides = kitchenMaintenanceData.length;
+  const currentSlide = kitchenMaintenanceData[activeSlide];
 
-  const currentSlide = kitchenMaintenanceSlides[activeSlide];
+  const handleNext = useCallback(() => {
+    setActiveSlide((prev) => (prev + 1) % totalSlides);
+  }, [totalSlides]);
 
-  const goToNext = useCallback(() => {
-    setActiveSlide((previous) =>
-      (previous + 1) % kitchenMaintenanceSlides.length
-    );
-  }, []);
+  const handlePrev = useCallback(() => {
+    setActiveSlide((prev) => (prev - 1 + totalSlides) % totalSlides);
+  }, [totalSlides]);
 
-  const goToPrevious = useCallback(() => {
-    setActiveSlide((previous) =>
-      previous === 0
-        ? kitchenMaintenanceSlides.length - 1
-        : previous - 1
-    );
-  }, []);
-
-  const goToSlide = (index) => {
-    setActiveSlide(index);
-  };
-
+  // Autoplay rotation
   useEffect(() => {
-    if (isPaused) return undefined;
+    if (isPaused) return;
 
-    const interval = setInterval(() => {
-      setActiveSlide((previous) =>
-        (previous + 1) % kitchenMaintenanceSlides.length
-      );
-    }, 5000);
+    const timer = setInterval(() => {
+      handleNext();
+    }, SLIDE_DURATION);
 
-    return () => clearInterval(interval);
-  }, [isPaused]);
+    return () => clearInterval(timer);
+  }, [isPaused, handleNext]);
 
   return (
     <section
-      className="kitchen-maintenance-two"
-      aria-label="Kitchen maintenance solutions"
+      className="KitchenMaintenanceSolutionsTwo"
+      aria-label="Commercial Kitchen Maintenance Solutions"
       onMouseEnter={() => setIsPaused(true)}
       onMouseLeave={() => setIsPaused(false)}
-      onFocus={() => setIsPaused(true)}
-      onBlur={(event) => {
-        if (!event.currentTarget.contains(event.relatedTarget)) {
+      onFocusCapture={() => setIsPaused(true)}
+      onBlurCapture={(e) => {
+        if (!e.currentTarget.contains(e.relatedTarget)) {
           setIsPaused(false);
         }
       }}
     >
-      <div className="kitchen-maintenance-two-container">
-        <div className="kitchen-maintenance-two-heading">
-          <span className="kitchen-maintenance-two-heading-line" />
-          <span>SMART MAINTENANCE. BETTER PERFORMANCE.</span>
-        </div>
-
-        <div className="kitchen-maintenance-two-slider">
-          <div className="kitchen-maintenance-two-image-column">
-            <div className="kitchen-maintenance-two-image-frame">
+      <div className="KitchenMaintenanceSolutionsTwo__container">
+        {/* Left Side: Angled Image Visual with Slider */}
+        <div className="KitchenMaintenanceSolutionsTwo__media">
+          <div className="KitchenMaintenanceSolutionsTwo__imageClip">
+            {kitchenMaintenanceData.map((item, index) => (
               <img
-                key={currentSlide.image}
-                className="kitchen-maintenance-two-image"
-                src={currentSlide.image}
-                alt={currentSlide.badgeTitle}
-                style={{ objectPosition: currentSlide.imagePosition }}
-                loading="lazy"
+                key={item.id}
+                src={item.image}
+                alt={`${item.titlePrimary} ${item.titleAccent}`}
+                className={`KitchenMaintenanceSolutionsTwo__image ${
+                  index === activeSlide
+                    ? "KitchenMaintenanceSolutionsTwo__image--active"
+                    : ""
+                }`}
+                loading={index === 0 ? "eager" : "lazy"}
               />
+            ))}
+            <div className="KitchenMaintenanceSolutionsTwo__imageShade" />
+          </div>
 
-              <div className="kitchen-maintenance-two-image-overlay" />
-
-              <div className="kitchen-maintenance-two-image-caption">
-                <span className="kitchen-maintenance-two-caption-label">
-                  OUR EXPERTISE
-                </span>
-                <h3>{currentSlide.badgeTitle}</h3>
-                <p>{currentSlide.badgeDescription}</p>
-              </div>
-
-              <div className="kitchen-maintenance-two-image-number">
-                {currentSlide.badgeNumber}
-              </div>
-
-              <div className="kitchen-maintenance-two-image-decoration" />
-            </div>
-
-            <div className="kitchen-maintenance-two-image-bottom">
-              <span className="kitchen-maintenance-two-bottom-dot" />
-              <span>Maintenance You Can Depend On</span>
+          {/* Floating Operational Badge */}
+          <div
+            key={`badge-${activeSlide}`}
+            className="KitchenMaintenanceSolutionsTwo__badge"
+          >
+            <span className="KitchenMaintenanceSolutionsTwo__badgeDot" />
+            <div className="KitchenMaintenanceSolutionsTwo__badgeText">
+              <strong>{currentSlide.badgeTitle}</strong>
+              <span>{currentSlide.badgeSub}</span>
             </div>
           </div>
 
-          <div className="kitchen-maintenance-two-content" key={currentSlide.id}>
-            <div className="kitchen-maintenance-two-category">
-              <span className="kitchen-maintenance-two-category-line" />
-              {currentSlide.category}
-            </div>
-
-            <p className="kitchen-maintenance-two-eyebrow">
-              {currentSlide.eyebrow}
-            </p>
-
-            <h2 className="kitchen-maintenance-two-title">
-              {currentSlide.title}
-            </h2>
-
-            <p className="kitchen-maintenance-two-description">
-              {currentSlide.description}
-            </p>
-
-            <div className="kitchen-maintenance-two-feature-list">
-              {currentSlide.features.map((feature, index) => (
-                <div
-                  className="kitchen-maintenance-two-feature"
-                  key={feature}
-                  style={{ "--feature-index": index }}
-                >
-                  <span className="kitchen-maintenance-two-feature-check">
-                    ✓
-                  </span>
-                  <span>{feature}</span>
-                </div>
-              ))}
-            </div>
-
-            <div className="kitchen-maintenance-two-content-bottom">
-              <a
-                href="#contact"
-                className="kitchen-maintenance-two-cta"
-              >
-                <span>Explore Our Solutions</span>
-                <span className="kitchen-maintenance-two-cta-arrow">
-                  ↗
-                </span>
-              </a>
-
-              <div className="kitchen-maintenance-two-controls">
-                <button
-                  type="button"
-                  className="kitchen-maintenance-two-arrow"
-                  onClick={goToPrevious}
-                  aria-label="Previous slide"
-                >
-                  ←
-                </button>
-
-                <span className="kitchen-maintenance-two-counter">
-                  <strong>
-                    {String(activeSlide + 1).padStart(2, "0")}
-                  </strong>
-                  <span className="kitchen-maintenance-two-counter-divider">
-                    /
-                  </span>
-                  {String(kitchenMaintenanceSlides.length).padStart(2, "0")}
-                </span>
-
-                <button
-                  type="button"
-                  className="kitchen-maintenance-two-arrow"
-                  onClick={goToNext}
-                  aria-label="Next slide"
-                >
-                  →
-                </button>
-              </div>
-            </div>
+          {/* Bottom Left Navigation Buttons */}
+          <div className="KitchenMaintenanceSolutionsTwo__nav">
+            <button
+              type="button"
+              className="KitchenMaintenanceSolutionsTwo__navBtn KitchenMaintenanceSolutionsTwo__navBtn--prev"
+              onClick={handlePrev}
+              aria-label="Previous kitchen maintenance solution"
+            >
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                <path
+                  d="M19 12H5m7 7-7-7 7-7"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+              </svg>
+            </button>
+            <button
+              type="button"
+              className="KitchenMaintenanceSolutionsTwo__navBtn KitchenMaintenanceSolutionsTwo__navBtn--next"
+              onClick={handleNext}
+              aria-label="Next kitchen maintenance solution"
+            >
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                <path
+                  d="M5 12h14m-7-7 7 7-7 7"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+              </svg>
+            </button>
           </div>
         </div>
 
-        <div className="kitchen-maintenance-two-pagination">
-          <div className="kitchen-maintenance-two-dots">
-            {kitchenMaintenanceSlides.map((slide, index) => (
-              <button
-                key={slide.id}
-                type="button"
-                className={`kitchen-maintenance-two-dot ${
-                  activeSlide === index ? "active" : ""
-                }`}
-                onClick={() => goToSlide(index)}
-                aria-label={`Go to slide ${index + 1}`}
-                aria-current={activeSlide === index ? "true" : undefined}
-              />
+        {/* Right Side: Staggered Content */}
+        <div
+          key={`content-${activeSlide}`}
+          className="KitchenMaintenanceSolutionsTwo__content"
+        >
+          <div className="KitchenMaintenanceSolutionsTwo__eyebrowWrap">
+            <span className="KitchenMaintenanceSolutionsTwo__eyebrowLine" />
+            <span className="KitchenMaintenanceSolutionsTwo__eyebrow">
+              {currentSlide.tag}
+            </span>
+          </div>
+
+          <h2 className="KitchenMaintenanceSolutionsTwo__title">
+            <span className="KitchenMaintenanceSolutionsTwo__titlePrimary">
+              {currentSlide.titlePrimary}{" "}
+            </span>
+            <span className="KitchenMaintenanceSolutionsTwo__titleAccent">
+              {currentSlide.titleAccent}
+            </span>
+          </h2>
+
+          <p className="KitchenMaintenanceSolutionsTwo__description">
+            {currentSlide.description}
+          </p>
+
+          {/* Dynamic Feature Highlights */}
+          <div className="KitchenMaintenanceSolutionsTwo__features">
+            {currentSlide.features.map((feature, idx) => (
+              <div
+                key={idx}
+                className="KitchenMaintenanceSolutionsTwo__featureItem"
+              >
+                <span className="KitchenMaintenanceSolutionsTwo__featureDot" />
+                <span>{feature}</span>
+              </div>
             ))}
           </div>
 
-          <div className="kitchen-maintenance-two-progress-track">
-            <div
-              className="kitchen-maintenance-two-progress-bar"
-              key={activeSlide}
-            />
-          </div>
+          {/* CTA & Synchronized Progress Bar */}
+          <div className="KitchenMaintenanceSolutionsTwo__actionRow">
+            <a
+              href="#kitchen-maintenance-enquiry"
+              className="KitchenMaintenanceSolutionsTwo__btnPrimary"
+            >
+              <span>Schedule Equipment Service</span>
+              <svg viewBox="0 0 20 20" fill="currentColor">
+                <path
+                  fillRule="evenodd"
+                  d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z"
+                  clipRule="evenodd"
+                />
+              </svg>
+            </a>
 
-          <span className="kitchen-maintenance-two-pagination-label">
-            KITCHEN MAINTENANCE SOLUTIONS
-          </span>
+            <div className="KitchenMaintenanceSolutionsTwo__progressTrack">
+              <div
+                key={`progress-${activeSlide}-${isPaused}`}
+                className={`KitchenMaintenanceSolutionsTwo__progressBar ${
+                  isPaused ? "is-paused" : ""
+                }`}
+                style={{ animationDuration: `${SLIDE_DURATION}ms` }}
+              />
+            </div>
+          </div>
         </div>
       </div>
     </section>

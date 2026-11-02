@@ -3,7 +3,6 @@ import FacilityManagementMain from '../../Components/FacilityManagementMain/Faci
 import FacilityManagementTwo from '../../Components/FacilityManagementTwo/FacilityManagementTwo'
 import FacilityManagementThree from '../../Components/FacilityManagementThree/FacilityManagementThree'
 import FacilityManagementFour from '../../Components/FacilityManagementFour/FacilityManagementFour'
-import FacilityManagementFive from '../../Components/FacilityManagementFive/FacilityManagementFive'
 import FacilityManagementSix from '../../Components/FacilityManagementSix/FacilityManagementSix'
 
 const FacilityManagement = () => {
@@ -13,7 +12,6 @@ const FacilityManagement = () => {
         <FacilityManagementTwo/>
         <FacilityManagementThree/>
         <FacilityManagementFour/>
-        <FacilityManagementFive/>
         <FacilityManagementSix/>
     </div>
   )

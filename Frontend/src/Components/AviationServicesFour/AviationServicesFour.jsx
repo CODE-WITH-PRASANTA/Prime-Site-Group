@@ -1,31 +1,46 @@
 import React, { useState, useEffect, useRef } from "react";
 import "./AviationServicesFour.css";
 
-const aviationPoints = [
+const aviationCapabilities = [
   {
-    id: 1,
-    title: "Aircraft Ground Support",
+    id: "av-1",
+    code: "GHA-01",
+    title: "Airside Ground Handling & Ramp Ops",
     detail:
-      "Coordinated ground handling and operational support to help aircraft maintain efficient turnaround times.",
+      "Marshalling, baggage handling, aircraft towing, and precision apron coordination meeting strict turnaround-time thresholds.",
+    badge: "Airside Certified",
   },
   {
-    id: 2,
-    title: "Passenger Assistance Services",
+    id: "av-2",
+    code: "SEC-02",
+    title: "Aviation Security & Screening",
     detail:
-      "Professional passenger support focused on smooth check-in, boarding coordination, and a comfortable travel experience.",
+      "ICAO-compliant passenger profiling, access badge verification, baggage scanning protocols, and sterile airside perimeter guarding.",
+    badge: "ICAO Compliant",
   },
   {
-    id: 3,
-    title: "Airport Operations Management",
+    id: "av-3",
+    code: "CLN-03",
+    title: "Aircraft Deep Cabin Grooming",
     detail:
-      "Reliable operational coordination designed to support airport workflows, service quality, and on-time performance.",
+      "Rapid-turnaround line sanitization, deep transit cleans, antimicrobial cabin misting, and certified biohazard response units.",
+    badge: "Rapid Turnaround",
   },
   {
-    id: 4,
-    title: "Safety and Quality Standards",
+    id: "av-4",
+    code: "LOG-04",
+    title: "Air Cargo & ULD Logistics Support",
     detail:
-      "Consistent safety procedures, trained personnel, and quality monitoring across aviation support activities.",
+      "Unit Load Device (ULD) buildup, break-bulk sorting, cold-chain tarmac transfers, and secure bonded warehouse staging.",
+    badge: "Bonded Ops",
   },
+];
+
+const terminalMetrics = [
+  { value: "450K+", label: "Flights Supported Annually" },
+  { value: "< 25 min", label: "Average Ramp Turnaround Window" },
+  { value: "100%", label: "Civil Aviation Authority Vetting" },
+  { value: "24/7/365", label: "Integrated Flight Operations Center" },
 ];
 
 const AviationServicesFour = () => {
@@ -33,26 +48,18 @@ const AviationServicesFour = () => {
   const sectionRef = useRef(null);
 
   useEffect(() => {
-    const section = sectionRef.current;
-
-    if (!section) return;
-
-    if (typeof IntersectionObserver === "undefined") {
-      setIsVisible(true);
-      return;
-    }
-
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
           setIsVisible(true);
-          observer.unobserve(entry.target);
         }
       },
-      { threshold: 0.2 }
+      { threshold: 0.15 }
     );
 
-    observer.observe(section);
+    if (sectionRef.current) {
+      observer.observe(sectionRef.current);
+    }
 
     return () => observer.disconnect();
   }, []);
@@ -63,103 +70,89 @@ const AviationServicesFour = () => {
       className={`AviationServicesFour ${
         isVisible ? "AviationServicesFour--visible" : ""
       }`}
-      aria-label="Aviation Services"
+      aria-label="Prime Site Aviation Ground Support & Security"
     >
       <div className="AviationServicesFour__container">
-        <div className="AviationServicesFour__media">
-          <div className="AviationServicesFour__imageClip">
-            <img
-              src="https://images.unsplash.com/photo-1436491865332-7a61a109cc05?auto=format&fit=crop&w=2200&q=85"
-              alt="Commercial aircraft prepared for aviation operations"
-              className="AviationServicesFour__image"
-              loading="lazy"
-            />
-            <div className="AviationServicesFour__imageShade" />
-          </div>
-
-          <div className="AviationServicesFour__badge">
-            <span className="AviationServicesFour__badgeDot" />
-            <div className="AviationServicesFour__badgeInfo">
-              <strong>Aviation-Ready Operations</strong>
-              <span>Safety, Service & Efficiency</span>
-            </div>
-          </div>
-        </div>
-
-        <div className="AviationServicesFour__content">
+        {/* Header Block */}
+        <div className="AviationServicesFour__header">
           <div className="AviationServicesFour__eyebrowWrap">
             <span className="AviationServicesFour__eyebrowLine" />
             <span className="AviationServicesFour__eyebrow">
-              AVIATION SERVICES
+              CRITICAL AIRSIDE INFRASTRUCTURE
             </span>
           </div>
 
           <h2 className="AviationServicesFour__title">
-            Reliable Support for{" "}
+            Prime Site{" "}
             <span className="AviationServicesFour__titleAccent">
-              Aviation Operations
+              Aviation Services
             </span>
           </h2>
 
           <p className="AviationServicesFour__description">
-            We provide dependable aviation support services designed to help
-            airport and airline operations run smoothly. From ground handling
-            and passenger assistance to operational coordination and quality
-            monitoring, our approach puts safety, efficiency, and service
-            excellence first.
+            Prime Site delivers mission-critical aviation support across primary
+            international hubs and regional aerodromes. From ramp operations and
+            aircraft turnaround to sterile security screening, our trained crews
+            ensure total regulatory compliance and zero-delay flight schedules.
           </p>
+        </div>
 
-          <div className="AviationServicesFour__list">
-            {aviationPoints.map((point) => (
-              <div
-                key={point.id}
-                className="AviationServicesFour__item"
-              >
-                <span className="AviationServicesFour__checkIcon">
-                  <svg
-                    viewBox="0 0 20 20"
-                    fill="currentColor"
-                    aria-hidden="true"
-                  >
+        {/* Four Column Services Grid */}
+        <div className="AviationServicesFour__grid">
+          {aviationCapabilities.map((item) => (
+            <div key={item.id} className="AviationServicesFour__card">
+              <div className="AviationServicesFour__cardTop">
+                <span className="AviationServicesFour__cardCode">{item.code}</span>
+                <span className="AviationServicesFour__cardBadge">{item.badge}</span>
+              </div>
+
+              <h3 className="AviationServicesFour__cardTitle">{item.title}</h3>
+              <p className="AviationServicesFour__cardDetail">{item.detail}</p>
+
+              <div className="AviationServicesFour__cardFooter">
+                <a
+                  href="#flight-ops-inquiry"
+                  className="AviationServicesFour__cardLink"
+                >
+                  <span>Operating Protocol</span>
+                  <svg viewBox="0 0 20 20" fill="currentColor">
                     <path
                       fillRule="evenodd"
-                      d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                      d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z"
                       clipRule="evenodd"
                     />
                   </svg>
-                </span>
-
-                <div className="AviationServicesFour__itemText">
-                  <h4 className="AviationServicesFour__itemTitle">
-                    {point.title}
-                  </h4>
-                  <p className="AviationServicesFour__itemDetail">
-                    {point.detail}
-                  </p>
-                </div>
+                </a>
               </div>
-            ))}
-          </div>
+            </div>
+          ))}
+        </div>
 
-          <div className="AviationServicesFour__actionWrap">
-            <a
-              href="#aviation-service-details"
-              className="AviationServicesFour__linkPrimary"
-            >
-              <span>Explore Aviation Services</span>
-              <svg
-                viewBox="0 0 20 20"
-                fill="currentColor"
-                aria-hidden="true"
-              >
-                <path
-                  fillRule="evenodd"
-                  d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z"
-                  clipRule="evenodd"
-                />
-              </svg>
-            </a>
-          </div>
+        {/* Terminal Operations Stats Strip */}
+        <div className="AviationServicesFour__statsStrip">
+          {terminalMetrics.map((stat, idx) => (
+            <div key={idx} className="AviationServicesFour__statItem">
+              <span className="AviationServicesFour__statValue">{stat.value}</span>
+              <span className="AviationServicesFour__statLabel">{stat.label}</span>
+            </div>
+          ))}
+        </div>
+
+        {/* Bottom CTA Block */}
+        <div className="AviationServicesFour__actionWrap">
+          <a
+            href="#contact-aviation"
+            className="AviationServicesFour__linkPrimary"
+          >
+            <span>Coordinate Flight Operations Support</span>
+            <svg viewBox="0 0 20 20" fill="currentColor">
+              <path
+                fillRule="evenodd"
+                d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z"
+                clipRule="evenodd"
+              />
+            </svg>
+          </a>
         </div>
       </div>
     </section>

@@ -1,49 +1,41 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import "./WorkforceSoluationThree.css";
 
-const workforceSoluationPoints = [
+const approachPillars = [
   {
-    title: "Recruitment & Talent Acquisition",
-    description:
-      "Find suitable candidates through structured recruitment solutions tailored to your business requirements.",
+    id: 1,
+    title: "Vulnerability & Threat Assessment",
+    desc: "Comprehensive perimeter audits and intelligence-led risk mapping to identify security vulnerabilities before deployment.",
   },
   {
-    title: "Flexible Staffing Solutions",
-    description:
-      "Adapt to changing workloads with temporary, permanent, and contract staffing support.",
+    id: 2,
+    title: "Integrated System & Personnel Design",
+    desc: "Seamlessly combining certified guarding personnel with AI CCTV networks, access control barriers, and SOC monitoring telemetry.",
   },
   {
-    title: "Workforce Planning & Management",
-    description:
-      "Improve team coordination, resource allocation, and workforce productivity with organized planning.",
-  },
-  {
-    title: "Training & Professional Development",
-    description:
-      "Support employee growth through skills development, onboarding, and continuous improvement.",
+    id: 3,
+    title: "Continuous Audit & Incident Response",
+    desc: "Rigorous SLA oversight, unannounced compliance drills, and 24/7 dedicated tactical support guaranteeing zero-compromise asset defence.",
   },
 ];
 
 const WorkforceSoluationThree = () => {
-  const sectionRef = useRef(null);
   const [isVisible, setIsVisible] = useState(false);
+  const sectionRef = useRef(null);
 
   useEffect(() => {
-    const section = sectionRef.current;
-
-    if (!section) return;
-
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
           setIsVisible(true);
-          observer.unobserve(entry.target);
         }
       },
-      { threshold: 0.15 }
+      { threshold: 0.2 }
     );
 
-    observer.observe(section);
+    if (sectionRef.current) {
+      observer.observe(sectionRef.current);
+    }
 
     return () => observer.disconnect();
   }, []);
@@ -51,80 +43,96 @@ const WorkforceSoluationThree = () => {
   return (
     <section
       ref={sectionRef}
-      className={`WorkforceSoluationThree-section ${
-        isVisible ? "WorkforceSoluationThree-visible" : ""
+      className={`WorkforceSoluationThree ${
+        isVisible ? "WorkforceSoluationThree--visible" : ""
       }`}
+      aria-label="Security Deployment Strategy and Operational Approach"
     >
-      <div className="WorkforceSoluationThree-container">
-        <div className="WorkforceSoluationThree-image-column">
-          <div className="WorkforceSoluationThree-image-frame">
-            <img
-              className="WorkforceSoluationThree-main-image"
-              src="https://images.unsplash.com/photo-1521737711867-e3b97375f902?auto=format&fit=crop&w=2200&q=85"
-              alt="Professionals working together in a collaborative workplace"
-              loading="lazy"
-            />
-
-            <div className="WorkforceSoluationThree-image-overlay"></div>
+      <div className="WorkforceSoluationThree__container">
+        {/* Left Side: Staggered Running Content */}
+        <div className="WorkforceSoluationThree__content">
+          <div className="WorkforceSoluationThree__eyebrowWrap">
+            <span className="WorkforceSoluationThree__eyebrowLine" />
+            <span className="WorkforceSoluationThree__eyebrow">OUR STRATEGY</span>
           </div>
 
-          <div className="WorkforceSoluationThree-floating-badge">
-            <span className="WorkforceSoluationThree-badge-icon">✓</span>
-
-            <div className="WorkforceSoluationThree-badge-content">
-              <strong>People Drive Success</strong>
-              <span>Skilled · Supported · Productive</span>
-            </div>
-          </div>
-
-          <div className="WorkforceSoluationThree-image-decoration"></div>
-        </div>
-
-        <div className="WorkforceSoluationThree-content">
-          <span className="WorkforceSoluationThree-eyebrow">
-            SMART WORKFORCE SOLUTIONS
-          </span>
-
-          <h2 className="WorkforceSoluationThree-title">
-            The Right People
-            <br />
-            <span>For Every Opportunity</span>
+          <h2 className="WorkforceSoluationThree__title">
+            Our <span className="WorkforceSoluationThree__titleAccent">Approach</span>
           </h2>
 
-          <p className="WorkforceSoluationThree-description">
-            A successful business starts with the right people in the right
-            roles. Our workforce solutions help organizations find talent,
-            manage staffing requirements, and build capable teams. From
-            recruitment and workforce planning to employee development, we
-            help businesses create a more productive and adaptable workplace.
+          <p className="WorkforceSoluationThree__description">
+            Our specialist security consultants and tactical command managers design bespoke, 
+            multi-layered protection architectures tailored to complex commercial, governmental, 
+            and event environments. We harmonize certified personnel with cutting-edge defence 
+            technologies to ensure uninterrupted operational safety and strict regulatory compliance.
           </p>
 
-          <div className="WorkforceSoluationThree-features">
-            {workforceSoluationPoints.map((point, index) => (
+          {/* Operational Pillars */}
+          <div className="WorkforceSoluationThree__pillars">
+            {approachPillars.map((pillar) => (
               <div
-                className="WorkforceSoluationThree-feature"
-                key={point.title}
-                style={{ "--feature-index": index }}
+                key={pillar.id}
+                className="WorkforceSoluationThree__pillarItem"
               >
-                <div className="WorkforceSoluationThree-check">
-                  <span>✓</span>
+                <div className="WorkforceSoluationThree__pillarIcon">
+                  <svg viewBox="0 0 20 20" fill="currentColor">
+                    <path
+                      fillRule="evenodd"
+                      d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                      clipRule="evenodd"
+                    />
+                  </svg>
                 </div>
-
-                <div className="WorkforceSoluationThree-feature-content">
-                  <h3>{point.title}</h3>
-                  <p>{point.description}</p>
+                <div className="WorkforceSoluationThree__pillarText">
+                  <h4 className="WorkforceSoluationThree__pillarTitle">
+                    {pillar.title}
+                  </h4>
+                  <p className="WorkforceSoluationThree__pillarDesc">
+                    {pillar.desc}
+                  </p>
                 </div>
               </div>
             ))}
           </div>
 
-          <a
-            className="WorkforceSoluationThree-button"
-            href="#workforce-solutions-details"
-          >
-            Explore Workforce Solutions
-            <span className="WorkforceSoluationThree-button-arrow">→</span>
-          </a>
+          {/* Action Button */}
+          <div className="WorkforceSoluationThree__actionWrap">
+            <a
+              href="#consultation"
+              className="WorkforceSoluationThree__linkPrimary"
+            >
+              <span>Consult Our Security Advisory</span>
+              <svg viewBox="0 0 20 20" fill="currentColor">
+                <path
+                  fillRule="evenodd"
+                  d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z"
+                  clipRule="evenodd"
+                />
+              </svg>
+            </a>
+          </div>
+        </div>
+
+        {/* Right Side: Angled Logistics & Armoured Team Visual */}
+        <div className="WorkforceSoluationThree__media">
+          <div className="WorkforceSoluationThree__imageClip">
+            <img
+              src="https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=2200&q=85"
+              alt="Armoured security personnel deploying secure ATM logistics"
+              className="WorkforceSoluationThree__image"
+              loading="lazy"
+            />
+            <div className="WorkforceSoluationThree__imageShade" />
+          </div>
+
+          {/* Floating Operational Badge */}
+          <div className="WorkforceSoluationThree__badge">
+            <span className="WorkforceSoluationThree__badgeDot" />
+            <div className="WorkforceSoluationThree__badgeInfo">
+              <strong>Risk-Calibrated Security</strong>
+              <span>Full SIRA Compliance & Tactical Guarding</span>
+            </div>
+          </div>
         </div>
       </div>
     </section>

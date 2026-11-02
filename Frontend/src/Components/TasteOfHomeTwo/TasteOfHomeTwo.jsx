@@ -1,266 +1,239 @@
 import React, { useState, useEffect, useCallback } from "react";
 import "./TasteOfHomeTwo.css";
 
-const tasteSlides = [
+const SLIDE_DURATION = 2000; // 2-second synchronized rotation
+
+const tasteOfHomeData = [
   {
     id: 1,
-    label: "Authentic Homemade Food",
-    badgeNumber: "01",
-    badgeTitle: "Made With Love",
-    badgeDescription: "Fresh meals with authentic flavors",
-    eyebrow: "THE COMFORT OF HOMEMADE FOOD",
-    title: "Bringing the Taste of Home to Every Meal",
+    tag: "TASTE OF HOME",
+    titlePrimary: "Homestyle Regional",
+    titleAccent: "& Heritage Recipes",
     description:
-      "Enjoy the warmth and comfort of homemade food prepared with care. From familiar traditional recipes to everyday favorites, we bring together fresh ingredients, authentic flavors, and the feeling of a meal made at home.",
-    features: [
-      "Fresh ingredients selected with care",
-      "Authentic recipes inspired by home cooking",
-      "Delicious meals for everyday moments",
-    ],
+      "Bringing authentic comfort food to life with slow-simmered family recipes, traditional spice blends, and warmth crafted to recreate the heartwarming nostalgia of home-cooked meals.",
+    badgeTitle: "AUTHENTIC RECIPES",
+    badgeSub: "Crafted with Heritage Spices",
     image:
-      "https://images.unsplash.com/photo-1547592180-85f173990554?auto=format&fit=crop&w=1200&q=85",
-    imagePosition: "center",
+      "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?auto=format&fit=crop&w=2200&q=85",
+    features: [
+      "Traditional Slow-Cooked Culinary Methods",
+      "Farm-Fresh, Wholesome Ingredients Daily",
+      "Time-Honored Regional Comfort Flavors",
+    ],
   },
   {
     id: 2,
-    label: "Fresh & Flavorful",
-    badgeNumber: "02",
-    badgeTitle: "Fresh Every Day",
-    badgeDescription: "Quality ingredients, delicious results",
-    eyebrow: "FRESHNESS YOU CAN TASTE",
-    title: "Fresh Ingredients. Flavors to Remember.",
+    tag: "TASTE OF HOME",
+    titlePrimary: "Artisan Breads &",
+    titleAccent: "Rustic Oven Bakes",
     description:
-      "Great food begins with great ingredients. Discover delicious meals inspired by seasonal produce, balanced flavors, and thoughtful preparation, bringing freshness and satisfaction to your everyday dining experience.",
-    features: [
-      "Carefully selected ingredients",
-      "Flavorful meals prepared with attention",
-      "A delicious variety for every appetite",
-    ],
+      "Handcrafted sourdough loaves, golden morning pastries, and wholesome hearth-baked crusts prepared fresh at dawn using stone-ground flours and natural wild yeasts.",
+    badgeTitle: "HEARTH BAKED",
+    badgeSub: "Freshly Baked Daily at Dawn",
     image:
-      "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?auto=format&fit=crop&w=1200&q=85",
-    imagePosition: "center",
+      "https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&w=2200&q=85",
+    features: [
+      "Natural Fermentation & Wild Sourdough Starters",
+      "No Artificial Preservatives or Fillers",
+      "Crisp Crusts & Rich, Nutritious Crumb",
+    ],
   },
   {
     id: 3,
-    label: "Food for Everyone",
-    badgeNumber: "03",
-    badgeTitle: "Gather & Enjoy",
-    badgeDescription: "Good food brings people together",
-    eyebrow: "SHARING MOMENTS THROUGH FOOD",
-    title: "Every Meal Deserves a Little Happiness",
+    tag: "TASTE OF HOME",
+    titlePrimary: "Hearty Stews &",
+    titleAccent: "Soul-Warming Soups",
     description:
-      "Make everyday moments special with comforting food and memorable flavors. Whether you are sharing a meal with family or enjoying a quiet lunch, discover food that brings people together around the table.",
-    features: [
-      "Comforting dishes for family meals",
-      "A welcoming experience for every occasion",
-      "Flavorful food made for sharing",
-    ],
+      "Nourishing broths, tender braised meats, and garden root vegetables simmered for hours in clay pots to deliver comforting, deep-rooted flavors perfect for every gathering.",
+    badgeTitle: "SLOW SIMMERED",
+    badgeSub: "12-Hour Rich Broths & Stews",
     image:
-      "https://images.unsplash.com/photo-1543353071-873f17a7a088?auto=format&fit=crop&w=1200&q=85",
-    imagePosition: "center",
+      "https://images.unsplash.com/photo-1547592166-23ac45744acd?auto=format&fit=crop&w=2200&q=85",
+    features: [
+      "12-Hour Bone & Herb-Infused Broths",
+      "Seasonal Organic Produce & Farm Greens",
+      "Warm Comfort in Every Single Spoonful",
+    ],
+  },
+  {
+    id: 4,
+    tag: "TASTE OF HOME",
+    titlePrimary: "Handmade Sweets &",
+    titleAccent: "Classic Confections",
+    description:
+      "Indulge in sweet memories with heritage desserts, warm fruit crumbles, and vintage confectioneries prepared just like grandma made them, right down to the pinch of sea salt.",
+    badgeTitle: "SWEET TRADITIONS",
+    badgeSub: "Nostalgic Handcrafted Desserts",
+    image:
+      "https://images.unsplash.com/photo-1587314168485-3236d6710814?auto=format&fit=crop&w=2200&q=85",
+    features: [
+      "Pure Creamery Butter & Natural Sugars",
+      "Generational Family Pastry Techniques",
+      "Warm, Shareable Family-Style Treats",
+    ],
   },
 ];
 
 const TasteOfHomeTwo = () => {
-  const [activeIndex, setActiveIndex] = useState(0);
+  const [activeSlide, setActiveSlide] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
+  const totalSlides = tasteOfHomeData.length;
+  const currentSlide = tasteOfHomeData[activeSlide];
 
-  const activeSlide = tasteSlides[activeIndex];
+  const handleNext = useCallback(() => {
+    setActiveSlide((prev) => (prev + 1) % totalSlides);
+  }, [totalSlides]);
 
-  const nextSlide = useCallback(() => {
-    setActiveIndex((current) => (current + 1) % tasteSlides.length);
-  }, []);
+  const handlePrev = useCallback(() => {
+    setActiveSlide((prev) => (prev - 1 + totalSlides) % totalSlides);
+  }, [totalSlides]);
 
-  const previousSlide = useCallback(() => {
-    setActiveIndex(
-      (current) => (current - 1 + tasteSlides.length) % tasteSlides.length
-    );
-  }, []);
-
-  const goToSlide = (index) => {
-    setActiveIndex(index);
-  };
-
+  // Autoplay rotation
   useEffect(() => {
-    if (isPaused) return undefined;
+    if (isPaused) return;
 
     const timer = setInterval(() => {
-      setActiveIndex((current) => (current + 1) % tasteSlides.length);
-    }, 5000);
+      handleNext();
+    }, SLIDE_DURATION);
 
     return () => clearInterval(timer);
-  }, [isPaused]);
+  }, [isPaused, handleNext]);
 
   return (
     <section
-      className="taste-of-home-two"
-      aria-label="Taste of Home"
+      className="TasteOfHomeTwo"
+      aria-label="Taste of Home Showcase"
       onMouseEnter={() => setIsPaused(true)}
       onMouseLeave={() => setIsPaused(false)}
       onFocusCapture={() => setIsPaused(true)}
-      onBlurCapture={(event) => {
-        if (!event.currentTarget.contains(event.relatedTarget)) {
+      onBlurCapture={(e) => {
+        if (!e.currentTarget.contains(e.relatedTarget)) {
           setIsPaused(false);
         }
       }}
     >
-      <div className="taste-of-home-two__container">
-        {/* LEFT IMAGE SECTION */}
-        <div className="taste-of-home-two__visual">
-          <div className="taste-of-home-two__image-frame">
-            {tasteSlides.map((slide, index) => (
+      <div className="TasteOfHomeTwo__container">
+        {/* Left Side: Angled Image Visual with Slider */}
+        <div className="TasteOfHomeTwo__media">
+          <div className="TasteOfHomeTwo__imageClip">
+            {tasteOfHomeData.map((item, index) => (
               <img
-                key={slide.id}
-                src={slide.image}
-                alt={slide.label}
-                className={`taste-of-home-two__image ${
-                  activeIndex === index
-                    ? "taste-of-home-two__image--active"
-                    : ""
+                key={item.id}
+                src={item.image}
+                alt={`${item.titlePrimary} ${item.titleAccent}`}
+                className={`TasteOfHomeTwo__image ${
+                  index === activeSlide ? "TasteOfHomeTwo__image--active" : ""
                 }`}
-                style={{ objectPosition: slide.imagePosition }}
                 loading={index === 0 ? "eager" : "lazy"}
               />
             ))}
-
-            <div className="taste-of-home-two__image-overlay" />
-
-            <div className="taste-of-home-two__image-label">
-              <span className="taste-of-home-two__label-dot" />
-              {activeSlide.label}
-            </div>
+            <div className="TasteOfHomeTwo__imageShade" />
           </div>
 
-          <div className="taste-of-home-two__image-decoration" />
-
+          {/* Floating Operational Badge */}
           <div
-            className="taste-of-home-two__image-badge"
-            key={`badge-${activeSlide.id}`}
+            key={`badge-${activeSlide}`}
+            className="TasteOfHomeTwo__badge"
           >
-            <span className="taste-of-home-two__badge-number">
-              {activeSlide.badgeNumber}
-            </span>
-
-            <span className="taste-of-home-two__badge-divider" />
-
-            <div className="taste-of-home-two__badge-content">
-              <strong>{activeSlide.badgeTitle}</strong>
-              <span>{activeSlide.badgeDescription}</span>
+            <span className="TasteOfHomeTwo__badgeDot" />
+            <div className="TasteOfHomeTwo__badgeText">
+              <strong>{currentSlide.badgeTitle}</strong>
+              <span>{currentSlide.badgeSub}</span>
             </div>
           </div>
 
-          {/* IMAGE NAVIGATION */}
-          <div className="taste-of-home-two__image-controls">
+          {/* Bottom Left Navigation Buttons */}
+          <div className="TasteOfHomeTwo__nav">
             <button
               type="button"
-              className="taste-of-home-two__arrow"
-              onClick={previousSlide}
-              aria-label="Previous slide"
+              className="TasteOfHomeTwo__navBtn TasteOfHomeTwo__navBtn--prev"
+              onClick={handlePrev}
+              aria-label="Previous culinary highlight"
             >
-              &#8592;
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                <path
+                  d="M19 12H5m7 7-7-7 7-7"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+              </svg>
             </button>
-
-            <div className="taste-of-home-two__slide-count">
-              <strong>{String(activeIndex + 1).padStart(2, "0")}</strong>
-              <span>/</span>
-              <span>{String(tasteSlides.length).padStart(2, "0")}</span>
-            </div>
-
             <button
               type="button"
-              className="taste-of-home-two__arrow"
-              onClick={nextSlide}
-              aria-label="Next slide"
+              className="TasteOfHomeTwo__navBtn TasteOfHomeTwo__navBtn--next"
+              onClick={handleNext}
+              aria-label="Next culinary highlight"
             >
-              &#8594;
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                <path
+                  d="M5 12h14m-7-7 7 7-7 7"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+              </svg>
             </button>
           </div>
         </div>
 
-        {/* RIGHT CONTENT SECTION */}
+        {/* Right Side: Staggered Content */}
         <div
-          className="taste-of-home-two__content"
-          key={`content-${activeSlide.id}`}
+          key={`content-${activeSlide}`}
+          className="TasteOfHomeTwo__content"
         >
-          <div className="taste-of-home-two__eyebrow">
-            <span className="taste-of-home-two__eyebrow-line" />
-            {activeSlide.eyebrow}
+          <div className="TasteOfHomeTwo__eyebrowWrap">
+            <span className="TasteOfHomeTwo__eyebrowLine" />
+            <span className="TasteOfHomeTwo__eyebrow">
+              {currentSlide.tag}
+            </span>
           </div>
 
-          <h2 className="taste-of-home-two__title">
-            {activeSlide.title}
+          <h2 className="TasteOfHomeTwo__title">
+            <span className="TasteOfHomeTwo__titlePrimary">
+              {currentSlide.titlePrimary}{" "}
+            </span>
+            <span className="TasteOfHomeTwo__titleAccent">
+              {currentSlide.titleAccent}
+            </span>
           </h2>
 
-          <p className="taste-of-home-two__description">
-            {activeSlide.description}
+          <p className="TasteOfHomeTwo__description">
+            {currentSlide.description}
           </p>
 
-          <div className="taste-of-home-two__features">
-            {activeSlide.features.map((feature, index) => (
-              <div
-                className="taste-of-home-two__feature"
-                key={feature}
-                style={{ "--feature-index": index }}
-              >
-                <span className="taste-of-home-two__feature-icon">
-                  <svg
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    aria-hidden="true"
-                  >
-                    <path
-                      d="M5 12.5L9.5 17L19 7"
-                      stroke="currentColor"
-                      strokeWidth="2.2"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    />
-                  </svg>
-                </span>
-
+          {/* Dynamic Feature Highlights */}
+          <div className="TasteOfHomeTwo__features">
+            {currentSlide.features.map((feature, idx) => (
+              <div key={idx} className="TasteOfHomeTwo__featureItem">
+                <span className="TasteOfHomeTwo__featureDot" />
                 <span>{feature}</span>
               </div>
             ))}
           </div>
 
-          <div className="taste-of-home-two__footer">
-            <a href="#contact" className="taste-of-home-two__cta">
-              <span>Discover Our Food</span>
-              <span className="taste-of-home-two__cta-icon">
-                &#8599;
-              </span>
+          {/* CTA & Synchronized Progress Bar */}
+          <div className="TasteOfHomeTwo__actionRow">
+            <a href="#taste-enquiry" className="TasteOfHomeTwo__btnPrimary">
+              <span>Explore The Home Menu</span>
+              <svg viewBox="0 0 20 20" fill="currentColor">
+                <path
+                  fillRule="evenodd"
+                  d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z"
+                  clipRule="evenodd"
+                />
+              </svg>
             </a>
 
-            <div
-              className="taste-of-home-two__pagination"
-              aria-label="Choose a slide"
-            >
-              {tasteSlides.map((slide, index) => (
-                <button
-                  key={slide.id}
-                  type="button"
-                  className={`taste-of-home-two__pagination-item ${
-                    activeIndex === index
-                      ? "taste-of-home-two__pagination-item--active"
-                      : ""
-                  }`}
-                  onClick={() => goToSlide(index)}
-                  aria-label={`Go to slide ${index + 1}`}
-                  aria-current={activeIndex === index ? "true" : undefined}
-                >
-                  <span />
-                </button>
-              ))}
-            </div>
-          </div>
-
-          <div className="taste-of-home-two__progress-track">
-            {!isPaused && (
+            <div className="TasteOfHomeTwo__progressTrack">
               <div
-                className="taste-of-home-two__progress-bar"
-                key={activeIndex}
+                key={`progress-${activeSlide}-${isPaused}`}
+                className={`TasteOfHomeTwo__progressBar ${
+                  isPaused ? "is-paused" : ""
+                }`}
+                style={{ animationDuration: `${SLIDE_DURATION}ms` }}
               />
-            )}
+            </div>
           </div>
         </div>
       </div>

@@ -43,7 +43,7 @@ const ManagedServicesMain = () => {
           </div>
 
           <h1 className="ManagedServicesMain__title">
-            Transguard <span className="ManagedServicesMain__titleAccent">Managed Services</span>
+            Prime Site <span className="ManagedServicesMain__titleAccent">Managed Services</span>
           </h1>
 
           <p className="ManagedServicesMain__lead">

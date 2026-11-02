@@ -1,36 +1,62 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
+import {
+  Plane,
+  ShieldCheck,
+  Luggage,
+  Compass,
+  Clock,
+  ArrowRight,
+  Sparkles,
+  CheckCircle2,
+} from "lucide-react";
 import "./AviationServicesFive.css";
 
-const deliveryHighlights = [
-  {
-    id: 1,
-    title: "End-to-End Aviation Solutions",
-    detail:
-      "Integrated aviation services designed to support efficient and reliable operations.",
-  },
-  {
-    id: 2,
-    title: "Customer-Centric Operations",
-    detail:
-      "Customized aviation solutions aligned with client requirements and operational demands.",
-  },
-  {
-    id: 3,
-    title: "Continuous Service Innovation",
-    detail:
-      "Modern processes and innovative solutions to improve operational efficiency and service quality.",
-  },
-];
-
 const AviationServicesFive = () => {
-  const [isVisible, setIsVisible] = useState(false);
   const sectionRef = useRef(null);
-  const mediaRef = useRef(null);
+  const [isVisible, setIsVisible] = useState(false);
+  const [activeCard, setActiveCard] = useState(null);
 
-  // Intersection observer for entrance animation
+  const capabilities = [
+    {
+      id: 1,
+      tag: "GROUND OPERATIONS",
+      title: "Ramp & Apron Services",
+      description:
+        "Comprehensive aircraft turnarounds, pushback handling, baggage coordination, and marshaling precision executed to strict international safety standards.",
+      metric: "99.8%",
+      metricLabel: "ON-TIME DISPATCH",
+      icon: Plane,
+    },
+    {
+      id: 2,
+      tag: "SECURITY & COMPLIANCE",
+      title: "Aviation Security Protocols",
+      description:
+        "Vetted passenger screening oversight, secure hold baggage inspections, and round-the-clock perimeter surveillance across airside zones.",
+      metric: "100%",
+      metricLabel: "REGULATORY COMPLIANT",
+      icon: ShieldCheck,
+    },
+    {
+      id: 3,
+      tag: "PASSENGER CARE",
+      title: "Terminal & Concierge Hospitality",
+      description:
+        "Front-of-house check-in support, VIP lounge hospitality management, special assistance services, and seamless terminal transit solutions.",
+      metric: "24/7",
+      metricLabel: "TERMINAL SUPPORT",
+      icon: Luggage,
+    },
+  ];
+
+  const commitments = [
+    "Full adherence to ICAO, IATA, and regional civil aviation mandates",
+    "Highly trained airside operations workforce and certified security staff",
+    "Precision turnaround cycles designed to minimize ramp dwell times",
+  ];
+
   useEffect(() => {
     const section = sectionRef.current;
-
     if (!section) return;
 
     const observer = new IntersectionObserver(
@@ -40,7 +66,7 @@ const AviationServicesFive = () => {
           observer.unobserve(entry.target);
         }
       },
-      { threshold: 0.18 }
+      { threshold: 0.1 }
     );
 
     observer.observe(section);
@@ -48,167 +74,154 @@ const AviationServicesFive = () => {
     return () => observer.disconnect();
   }, []);
 
-  // Interactive 3D pointer hover effect on image
-  const handleMouseMove = (e) => {
-    const card = mediaRef.current;
-    if (!card) return;
-
-    const rect = card.getBoundingClientRect();
-
-    const x = e.clientX - rect.left;
-    const y = e.clientY - rect.top;
-
-    const centerX = rect.width / 2;
-    const centerY = rect.height / 2;
-
-    const rotateX = ((y - centerY) / centerY) * -6;
-    const rotateY = ((x - centerX) / centerX) * 6;
-
-    card.style.setProperty("--AviationServicesFive-rx", `${rotateX}deg`);
-    card.style.setProperty("--AviationServicesFive-ry", `${rotateY}deg`);
-    card.style.setProperty("--AviationServicesFive-scale", "1.025");
-
-    card.style.setProperty(
-      "--AviationServicesFive-shine-x",
-      `${(x / rect.width) * 100}%`
-    );
-
-    card.style.setProperty(
-      "--AviationServicesFive-shine-y",
-      `${(y / rect.height) * 100}%`
-    );
-  };
-
-  // Reset image when the pointer leaves
-  const handleMouseLeave = () => {
-    const card = mediaRef.current;
-    if (!card) return;
-
-    card.style.setProperty("--AviationServicesFive-rx", "0deg");
-    card.style.setProperty("--AviationServicesFive-ry", "0deg");
-    card.style.setProperty("--AviationServicesFive-scale", "1");
-  };
-
   return (
     <section
-      ref={sectionRef}
       className={`AviationServicesFive ${
         isVisible ? "AviationServicesFive--visible" : ""
       }`}
-      aria-label="Aviation Services and Solutions"
+      ref={sectionRef}
     >
       <div className="AviationServicesFive__container">
-        {/* Left Side: Staggered Content */}
-        <div className="AviationServicesFive__content">
-          <div className="AviationServicesFive__eyebrowWrap">
+        {/* Section Header */}
+        <header className="AviationServicesFive__header">
+          <div className="AviationServicesFive__eyebrow">
             <span className="AviationServicesFive__eyebrowLine" />
-            <span className="AviationServicesFive__eyebrow">
-              OUR SERVICES
-            </span>
+            <span>AIRSIDE EXCELLENCE & GROUND HANDLING</span>
           </div>
 
-          <h2 className="AviationServicesFive__title">
-            <span className="AviationServicesFive__titlePrimary">
-              What We{" "}
-            </span>
-            <span className="AviationServicesFive__titleAccent">
-              Deliver
-            </span>
-          </h2>
+          <div className="AviationServicesFive__headerRow">
+            <h2 className="AviationServicesFive__title">
+              Specialised <span>Aviation</span> & Airport Logistics
+            </h2>
 
-          <p className="AviationServicesFive__description">
-            We provide comprehensive aviation services focused on safety,
-            efficiency, and customer satisfaction. Our team delivers reliable,
-            innovative solutions designed to meet the evolving needs of the
-            aviation industry.
-          </p>
+            <p className="AviationServicesFive__intro">
+              Prime Site delivers mission-critical aviation support, from secure
+              apron operations and technical ground dispatch to five-star terminal
+              concierge services. We provide global standard infrastructure, strict
+              regulatory compliance, and zero-compromise safety.
+            </p>
+          </div>
+        </header>
 
-          {/* Aviation Service Highlights */}
-          <div className="AviationServicesFive__list">
-            {deliveryHighlights.map((item) => (
-              <div
+        {/* Capabilities Grid */}
+        <div className="AviationServicesFive__grid">
+          {capabilities.map((item, index) => {
+            const Icon = item.icon;
+            const isActive = activeCard === item.id;
+
+            return (
+              <article
+                className={`AviationServicesFive__card ${
+                  isActive ? "AviationServicesFive__card--active" : ""
+                }`}
                 key={item.id}
-                className="AviationServicesFive__item"
+                style={{
+                  "--AviationServicesFive-delay": `${index * 120}ms`,
+                }}
+                onMouseEnter={() => setActiveCard(item.id)}
+                onMouseLeave={() => setActiveCard(null)}
               >
-                <span className="AviationServicesFive__checkIcon">
-                  <svg
-                    viewBox="0 0 20 20"
-                    fill="currentColor"
-                    aria-hidden="true"
-                  >
-                    <path
-                      fillRule="evenodd"
-                      d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                      clipRule="evenodd"
-                    />
-                  </svg>
-                </span>
+                <div className="AviationServicesFive__cardHeader">
+                  <span className="AviationServicesFive__cardTag">
+                    {item.tag}
+                  </span>
 
-                <div className="AviationServicesFive__itemText">
-                  <h4 className="AviationServicesFive__itemTitle">
+                  <div className="AviationServicesFive__cardMetric">
+                    <span className="AviationServicesFive__metricValue">
+                      {item.metric}
+                    </span>
+                    <span className="AviationServicesFive__metricLabel">
+                      {item.metricLabel}
+                    </span>
+                  </div>
+                </div>
+
+                <div className="AviationServicesFive__iconBadge">
+                  <div className="AviationServicesFive__iconBadgeOuter">
+                    <div className="AviationServicesFive__iconBadgeInner">
+                      <Icon
+                        className="AviationServicesFive__badgeIcon"
+                        strokeWidth={1.5}
+                      />
+                    </div>
+                  </div>
+                </div>
+
+                <div className="AviationServicesFive__cardBody">
+                  <h3 className="AviationServicesFive__cardTitle">
                     {item.title}
-                  </h4>
-
-                  <p className="AviationServicesFive__itemDetail">
-                    {item.detail}
+                  </h3>
+                  <p className="AviationServicesFive__cardDescription">
+                    {item.description}
                   </p>
                 </div>
-              </div>
-            ))}
-          </div>
 
-          {/* Action CTA Button */}
-          <div className="AviationServicesFive__actionWrap">
-            <a
-              href="#partner-with-us"
-              className="AviationServicesFive__btnPrimary"
-            >
-              <span>Explore Our Services</span>
+                <div className="AviationServicesFive__cardFooter">
+                  <span className="AviationServicesFive__footerLine" />
+                  <span className="AviationServicesFive__footerText">
+                    PRIME STANDARD
+                  </span>
+                  <span className="AviationServicesFive__footerAction">
+                    <ArrowRight size={16} />
+                  </span>
+                </div>
 
-              <svg
-                viewBox="0 0 20 20"
-                fill="currentColor"
-                aria-hidden="true"
-              >
-                <path
-                  fillRule="evenodd"
-                  d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z"
-                  clipRule="evenodd"
+                <span
+                  className="AviationServicesFive__cardAccent"
+                  aria-hidden="true"
                 />
-              </svg>
-            </a>
-          </div>
+              </article>
+            );
+          })}
         </div>
 
-        {/* Right Side: Interactive 3D Image */}
-        <div
-          ref={mediaRef}
-          className="AviationServicesFive__media"
-          onMouseMove={handleMouseMove}
-          onMouseLeave={handleMouseLeave}
-        >
-          <div className="AviationServicesFive__imageClip">
-            <img
-              src="https://images.unsplash.com/photo-1436491865332-7a61a109cc05?auto=format&fit=crop&w=2200&q=85"
-              alt="Aircraft flying through the sky"
-              className="AviationServicesFive__image"
-              loading="lazy"
-            />
-
-            <div className="AviationServicesFive__lightSweep" />
-            <div className="AviationServicesFive__imageShade" />
+        {/* Bottom Banner */}
+        <div className="AviationServicesFive__banner">
+          <div className="AviationServicesFive__bannerContent">
+            <span className="AviationServicesFive__bannerKicker">
+              <Sparkles size={14} /> CERTIFIED AIRPORT READINESS
+            </span>
+            <h4 className="AviationServicesFive__bannerHeading">
+              Need integrated ramp, cargo, or passenger support for your fleet?
+            </h4>
+            <div className="AviationServicesFive__bannerList">
+              {commitments.map((text, i) => (
+                <div key={i} className="AviationServicesFive__bannerItem">
+                  <CheckCircle2
+                    size={16}
+                    className="AviationServicesFive__checkIcon"
+                  />
+                  <span>{text}</span>
+                </div>
+              ))}
+            </div>
           </div>
 
-          {/* Floating Badge */}
-          <div className="AviationServicesFive__badge">
-            <span className="AviationServicesFive__badgeDot" />
-
-            <div className="AviationServicesFive__badgeInfo">
-              <strong>Excellence in Aviation</strong>
-              <span>Reliable Aviation Solutions</span>
+          <div className="AviationServicesFive__bannerSide">
+            <div className="AviationServicesFive__statPill">
+              <Compass size={18} />
+              <div>
+                <strong>Global Operations</strong>
+                <small>Airside certified crew</small>
+              </div>
             </div>
           </div>
         </div>
+
+        {/* Section Footer */}
+        <footer className="AviationServicesFive__footer">
+          <div className="AviationServicesFive__footerDecoration">
+            <span />
+            <span />
+            <span />
+          </div>
+          <p className="AviationServicesFive__footerStatement">
+            Aviation precision. Flawless flight support. Prime operational distinction.
+          </p>
+          <span className="AviationServicesFive__footerCaption">
+            PRIME SITE · AVIATION & AIRPORT SERVICES
+          </span>
+        </footer>
       </div>
     </section>
   );

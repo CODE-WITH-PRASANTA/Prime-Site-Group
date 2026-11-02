@@ -1,248 +1,244 @@
 import React, { useState, useEffect, useCallback } from "react";
 import "./AviationServicesTwo.css";
 
-const aviationSlides = [
+const SLIDE_DURATION = 2000; // 2-second synchronized rotation
+
+const aviationServicesData = [
   {
     id: 1,
-    category: "AVIATION WORKFORCE",
-    title: "Specialized Aviation Staffing Solutions",
+    tag: "AVIATION SERVICES",
+    titlePrimary: "Comprehensive Ground",
+    titleAccent: "& Ramp Handling",
     description:
-      "We provide skilled aviation professionals to support airport operations, ground handling, passenger services, and other essential aviation activities.",
-    features: [
-      "Qualified Aviation Professionals",
-      "Flexible Workforce Deployment",
-      "Reliable Operational Support",
-    ],
+      "Providing certified apron handling, precision pushback, baggage logistics, and rapid turnaround coordination under strict IATA safety regulations for commercial and private carriers.",
+    badgeTitle: "RAMP & APRON",
+    badgeSub: "IATA Certified Ground Operations",
     image:
-      "https://images.unsplash.com/photo-1436491865332-7a61a109cc05?auto=format&fit=crop&w=1200&q=85",
-    badgeNumber: "01",
-    badgeText: "Aviation Staffing",
+      "https://images.unsplash.com/photo-1542296332-2e4473faf563?auto=format&fit=crop&w=2200&q=85",
+    features: [
+      "Precision Aircraft Marshalling & Pushback",
+      "Fast-Track Turnaround & Baggage Handling",
+      "Full ISAGO & IATA Safety Protocol Compliance",
+    ],
   },
   {
     id: 2,
-    category: "AIRPORT OPERATIONS",
-    title: "Reliable Airport Ground Handling",
+    tag: "AVIATION SERVICES",
+    titlePrimary: "Commercial MRO &",
+    titleAccent: "Line Maintenance",
     description:
-      "Our workforce solutions help airports maintain smooth ground operations through dependable personnel, efficient coordination, and professional service.",
-    features: [
-      "Ground Handling Personnel",
-      "Passenger Assistance Teams",
-      "Operational Workforce Support",
-    ],
+      "Delivering round-the-clock line maintenance, structural avionics diagnostics, and scheduled inspections to ensure uncompromising airworthiness and maximum fleet uptime.",
+    badgeTitle: "MRO EXCELLENCE",
+    badgeSub: "FAA & EASA Certified Technicians",
     image:
-      "https://images.unsplash.com/photo-1570710891163-6d3b5c47248b?auto=format&fit=crop&w=1200&q=85",
-    badgeNumber: "02",
-    badgeText: "Ground Operations",
+      "https://images.unsplash.com/photo-1519074069444-1ba4ea16e6f6?auto=format&fit=crop&w=2200&q=85",
+    features: [
+      "24/7 Line Maintenance & Emergency AOG Support",
+      "Avionics, Hydraulics & Powerplant Diagnostics",
+      "Certified Component Overhaul & Airframe Repair",
+    ],
   },
   {
     id: 3,
-    category: "AVIATION PERSONNEL",
-    title: "Professional Teams for Every Flight",
+    tag: "AVIATION SERVICES",
+    titlePrimary: "Executive VIP Charter &",
+    titleAccent: "FBO Concierge",
     description:
-      "From passenger-facing roles to essential airport support functions, we help businesses build dependable teams that keep aviation services running smoothly.",
-    features: [
-      "Experienced Support Staff",
-      "Scalable Staffing Solutions",
-      "Service-Focused Professionals",
-    ],
+      "Curating seamless business aviation experiences with exclusive private jet charters, VIP lounge hospitality, fast-track customs clearance, and discreet airside transit.",
+    badgeTitle: "PRIVATE AVIATION",
+    badgeSub: "Bespoke VIP & FBO Handling",
     image:
-      "https://images.unsplash.com/photo-1542296332-2e4473faf563?auto=format&fit=crop&w=1200&q=85",
-    badgeNumber: "03",
-    badgeText: "Professional Teams",
+      "https://images.unsplash.com/photo-1540962351504-03099e0a754b?auto=format&fit=crop&w=2200&q=85",
+    features: [
+      "Dedicated Fixed-Base Operator (FBO) Lounges",
+      "Direct Ramp Chauffeur & VIP Boarding",
+      "Custom Flight Planning & Overflight Clearances",
+    ],
+  },
+  {
+    id: 4,
+    tag: "AVIATION SERVICES",
+    titlePrimary: "Air Cargo Logistics &",
+    titleAccent: "Dangerous Goods Handling",
+    description:
+      "Managing high-velocity air freight operations, temperature-controlled pharma transit, and certified hazmat consignments with end-to-end customs bonded tracking.",
+    badgeTitle: "CARGO LOGISTICS",
+    badgeSub: "Cold Chain & High-Security Freight",
+    image:
+      "https://images.unsplash.com/photo-1570710891163-6d3b5c47248b?auto=format&fit=crop&w=2200&q=85",
+    features: [
+      "GDP-Compliant Temperature-Controlled Storage",
+      "Certified Dangerous Goods (DGR) Operations",
+      "ULD Buildup, Breakdown & Express Ramp Transfer",
+    ],
   },
 ];
 
 const AviationServicesTwo = () => {
-  const [activeIndex, setActiveIndex] = useState(0);
+  const [activeSlide, setActiveSlide] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
+  const totalSlides = aviationServicesData.length;
+  const currentSlide = aviationServicesData[activeSlide];
 
-  const activeSlide = aviationSlides[activeIndex];
+  const handleNext = useCallback(() => {
+    setActiveSlide((prev) => (prev + 1) % totalSlides);
+  }, [totalSlides]);
 
-  const nextSlide = useCallback(() => {
-    setActiveIndex((current) => (current + 1) % aviationSlides.length);
-  }, []);
+  const handlePrev = useCallback(() => {
+    setActiveSlide((prev) => (prev - 1 + totalSlides) % totalSlides);
+  }, [totalSlides]);
 
-  const previousSlide = useCallback(() => {
-    setActiveIndex(
-      (current) =>
-        (current - 1 + aviationSlides.length) % aviationSlides.length
-    );
-  }, []);
-
+  // Autoplay rotation
   useEffect(() => {
-    if (isPaused) return undefined;
+    if (isPaused) return;
 
-    const interval = setInterval(() => {
-      nextSlide();
-    }, 5000);
+    const timer = setInterval(() => {
+      handleNext();
+    }, SLIDE_DURATION);
 
-    return () => clearInterval(interval);
-  }, [isPaused, nextSlide, activeIndex]);
+    return () => clearInterval(timer);
+  }, [isPaused, handleNext]);
 
   return (
     <section
-      className="aviation-services-two"
-      aria-label="Aviation workforce services"
+      className="AviationServicesTwo"
+      aria-label="Aviation Services Showcase"
       onMouseEnter={() => setIsPaused(true)}
       onMouseLeave={() => setIsPaused(false)}
-      onFocus={() => setIsPaused(true)}
-      onBlur={(event) => {
-        if (!event.currentTarget.contains(event.relatedTarget)) {
+      onFocusCapture={() => setIsPaused(true)}
+      onBlurCapture={(e) => {
+        if (!e.currentTarget.contains(e.relatedTarget)) {
           setIsPaused(false);
         }
       }}
     >
-      <div className="aviation-services-two__container">
-        {/* LEFT IMAGE AREA */}
-        <div className="aviation-services-two__visual">
-          <div className="aviation-services-two__image-frame">
-            {aviationSlides.map((slide, index) => (
+      <div className="AviationServicesTwo__container">
+        {/* Left Side: Angled Image Visual with Slider */}
+        <div className="AviationServicesTwo__media">
+          <div className="AviationServicesTwo__imageClip">
+            {aviationServicesData.map((item, index) => (
               <img
-                key={slide.id}
-                src={slide.image}
-                alt={slide.badgeText}
-                className={`aviation-services-two__image ${
-                  index === activeIndex
-                    ? "aviation-services-two__image--active"
+                key={item.id}
+                src={item.image}
+                alt={`${item.titlePrimary} ${item.titleAccent}`}
+                className={`AviationServicesTwo__image ${
+                  index === activeSlide
+                    ? "AviationServicesTwo__image--active"
                     : ""
                 }`}
                 loading={index === 0 ? "eager" : "lazy"}
-                aria-hidden={index !== activeIndex}
               />
             ))}
+            <div className="AviationServicesTwo__imageShade" />
+          </div>
 
-            <div className="aviation-services-two__image-overlay" />
-
-            <div className="aviation-services-two__image-label">
-              <span className="aviation-services-two__label-dot" />
-              Aviation Workforce Solutions
+          {/* Floating Operational Badge */}
+          <div
+            key={`badge-${activeSlide}`}
+            className="AviationServicesTwo__badge"
+          >
+            <span className="AviationServicesTwo__badgeDot" />
+            <div className="AviationServicesTwo__badgeText">
+              <strong>{currentSlide.badgeTitle}</strong>
+              <span>{currentSlide.badgeSub}</span>
             </div>
           </div>
 
-          <div className="aviation-services-two__image-decoration" />
-
-          <div className="aviation-services-two__image-badge">
-            <span className="aviation-services-two__badge-number">
-              {activeSlide.badgeNumber}
-            </span>
-
-            <div className="aviation-services-two__badge-divider" />
-
-            <div className="aviation-services-two__badge-content">
-              <strong>{activeSlide.badgeText}</strong>
-              <span>Professional. Reliable. Efficient.</span>
-            </div>
-          </div>
-
-          <div className="aviation-services-two__image-controls">
+          {/* Bottom Left Navigation Buttons */}
+          <div className="AviationServicesTwo__nav">
             <button
               type="button"
-              className="aviation-services-two__arrow"
-              onClick={previousSlide}
+              className="AviationServicesTwo__navBtn AviationServicesTwo__navBtn--prev"
+              onClick={handlePrev}
               aria-label="Previous aviation service"
             >
-              &#8592;
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                <path
+                  d="M19 12H5m7 7-7-7 7-7"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+              </svg>
             </button>
-
-            <span className="aviation-services-two__slide-count">
-              <strong>{String(activeIndex + 1).padStart(2, "0")}</strong>
-              <span>/</span>
-              {String(aviationSlides.length).padStart(2, "0")}
-            </span>
-
             <button
               type="button"
-              className="aviation-services-two__arrow"
-              onClick={nextSlide}
+              className="AviationServicesTwo__navBtn AviationServicesTwo__navBtn--next"
+              onClick={handleNext}
               aria-label="Next aviation service"
             >
-              &#8594;
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                <path
+                  d="M5 12h14m-7-7 7 7-7 7"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+              </svg>
             </button>
           </div>
         </div>
 
-        {/* RIGHT CONTENT AREA */}
-        <div className="aviation-services-two__content" key={activeSlide.id}>
-          <div className="aviation-services-two__eyebrow">
-            <span className="aviation-services-two__eyebrow-line" />
-            {activeSlide.category}
+        {/* Right Side: Staggered Content */}
+        <div
+          key={`content-${activeSlide}`}
+          className="AviationServicesTwo__content"
+        >
+          <div className="AviationServicesTwo__eyebrowWrap">
+            <span className="AviationServicesTwo__eyebrowLine" />
+            <span className="AviationServicesTwo__eyebrow">
+              {currentSlide.tag}
+            </span>
           </div>
 
-          <h2 className="aviation-services-two__title">
-            {activeSlide.title}
+          <h2 className="AviationServicesTwo__title">
+            <span className="AviationServicesTwo__titlePrimary">
+              {currentSlide.titlePrimary}{" "}
+            </span>
+            <span className="AviationServicesTwo__titleAccent">
+              {currentSlide.titleAccent}
+            </span>
           </h2>
 
-          <p className="aviation-services-two__description">
-            {activeSlide.description}
+          <p className="AviationServicesTwo__description">
+            {currentSlide.description}
           </p>
 
-          <div className="aviation-services-two__features">
-            {activeSlide.features.map((feature, index) => (
-              <div
-                className="aviation-services-two__feature"
-                key={feature}
-                style={{ "--feature-index": index }}
-              >
-                <span className="aviation-services-two__feature-icon">
-                  <svg
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    aria-hidden="true"
-                  >
-                    <path
-                      d="M5 12.5L9.5 17L19 7"
-                      stroke="currentColor"
-                      strokeWidth="2"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    />
-                  </svg>
-                </span>
-
+          {/* Dynamic Feature Highlights */}
+          <div className="AviationServicesTwo__features">
+            {currentSlide.features.map((feature, idx) => (
+              <div key={idx} className="AviationServicesTwo__featureItem">
+                <span className="AviationServicesTwo__featureDot" />
                 <span>{feature}</span>
               </div>
             ))}
           </div>
 
-          <div className="aviation-services-two__footer">
+          {/* CTA & Synchronized Progress Bar */}
+          <div className="AviationServicesTwo__actionRow">
             <a
-              href="#contact"
-              className="aviation-services-two__cta"
+              href="#aviation-enquiry"
+              className="AviationServicesTwo__btnPrimary"
             >
-              <span>Explore Our Services</span>
-              <span className="aviation-services-two__cta-icon">
-                &#8599;
-              </span>
+              <span>Request Aviation Services</span>
+              <svg viewBox="0 0 20 20" fill="currentColor">
+                <path
+                  fillRule="evenodd"
+                  d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z"
+                  clipRule="evenodd"
+                />
+              </svg>
             </a>
 
-            <div className="aviation-services-two__pagination">
-              {aviationSlides.map((slide, index) => (
-                <button
-                  key={slide.id}
-                  type="button"
-                  className={`aviation-services-two__pagination-item ${
-                    index === activeIndex
-                      ? "aviation-services-two__pagination-item--active"
-                      : ""
-                  }`}
-                  onClick={() => setActiveIndex(index)}
-                  aria-label={`Show slide ${index + 1}`}
-                  aria-current={index === activeIndex ? "true" : undefined}
-                >
-                  <span />
-                </button>
-              ))}
+            <div className="AviationServicesTwo__progressTrack">
+              <div
+                key={`progress-${activeSlide}-${isPaused}`}
+                className={`AviationServicesTwo__progressBar ${
+                  isPaused ? "is-paused" : ""
+                }`}
+                style={{ animationDuration: `${SLIDE_DURATION}ms` }}
+              />
             </div>
-          </div>
-
-          <div className="aviation-services-two__progress-track">
-            <div
-              className="aviation-services-two__progress-bar"
-              key={`${activeIndex}-${isPaused}`}
-              style={{
-                animationPlayState: isPaused ? "paused" : "running",
-              }}
-            />
           </div>
         </div>
       </div>

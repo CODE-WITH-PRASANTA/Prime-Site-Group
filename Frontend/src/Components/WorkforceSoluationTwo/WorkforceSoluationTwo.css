@@ -1,25 +1,24 @@
-/* =========================================
-   WORKFORCE SOLUTION TWO
-   Responsive split-slider section
-========================================= */
+/* ========================================================
+   WORKFORCE SOLUATION TWO - HERO SLIDER SECTION
+======================================================== */
 
 .WorkforceSoluationTwo {
-  --workforce-red: #d7192d;
-  --workforce-red-hover: #b51223;
-  --workforce-dark: #202124;
-  --workforce-charcoal: #34363a;
-  --workforce-gray: #62666d;
-  --workforce-border: #e0e3e7;
-  --workforce-white: #ffffff;
-  --workforce-ease: cubic-bezier(0.16, 1, 0.3, 1);
+  --WorkforceSoluationTwo-red: #d7192d;
+  --WorkforceSoluationTwo-red-hover: #b51223;
+  --WorkforceSoluationTwo-dark: #1f2124;
+  --WorkforceSoluationTwo-charcoal: #2c2f33;
+  --WorkforceSoluationTwo-gray: #585c63;
+  --WorkforceSoluationTwo-border: #dde1e5;
+  --WorkforceSoluationTwo-bg: #ffffff;
+  --WorkforceSoluationTwo-ease: cubic-bezier(0.16, 1, 0.3, 1);
 
   position: relative;
   width: 100%;
-  padding: 65px 0 85px;
-  overflow: hidden;
-  background: var(--workforce-white);
-  color: var(--workforce-dark);
+  padding: 50px 0 90px;
+  background-color: var(--WorkforceSoluationTwo-bg);
   font-family: "Inter", "Segoe UI", Arial, sans-serif;
+  color: var(--WorkforceSoluationTwo-dark);
+  overflow: hidden;
   box-sizing: border-box;
 }
 
@@ -29,29 +28,24 @@
   box-sizing: border-box;
 }
 
-/* Main layout */
-
 .WorkforceSoluationTwo__container {
-  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
   max-width: 1440px;
   margin: 0 auto;
   padding: 0 40px;
-
-  display: grid;
-  grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
-  align-items: center;
-  gap: clamp(35px, 5vw, 70px);
+  gap: 65px;
 }
 
-/* =========================================
-   LEFT IMAGE SECTION
-========================================= */
+/* ========================================================
+   LEFT MEDIA: ANGLED SLANTED CLIP & IMAGE FADE
+======================================================== */
 
 .WorkforceSoluationTwo__media {
   position: relative;
-  width: 100%;
-  height: 550px;
-  min-width: 0;
+  flex: 1 1 52%;
+  height: 560px;
 }
 
 .WorkforceSoluationTwo__imageClip {
@@ -59,25 +53,22 @@
   width: 100%;
   height: 100%;
   overflow: hidden;
-  background: #25272a;
-  clip-path: polygon(0 0, 100% 0, 76% 100%, 0 100%);
+  clip-path: polygon(0% 0%, 100% 0%, 75% 100%, 0% 100%);
+  background-color: #1a1c1e;
   box-shadow: 15px 25px 50px rgba(0, 0, 0, 0.12);
 }
 
 .WorkforceSoluationTwo__image {
   position: absolute;
   inset: 0;
-  display: block;
   width: 100%;
   height: 100%;
   object-fit: cover;
   object-position: center;
   opacity: 0;
   transform: scale(1.08);
-  transition:
-    opacity 0.75s ease-in-out,
-    transform 1.8s ease-out;
-  pointer-events: none;
+  transition: opacity 0.8s ease-in-out, transform 2.2s ease-out;
+  display: block;
 }
 
 .WorkforceSoluationTwo__image--active {
@@ -88,369 +79,273 @@
 .WorkforceSoluationTwo__imageShade {
   position: absolute;
   inset: 0;
-  z-index: 1;
-  pointer-events: none;
   background: linear-gradient(
     135deg,
-    rgba(215, 25, 45, 0.1) 0%,
-    transparent 48%,
-    rgba(15, 17, 20, 0.48) 100%
+    rgba(215, 25, 45, 0.08) 0%,
+    transparent 50%,
+    rgba(20, 22, 25, 0.35) 100%
   );
+  pointer-events: none;
 }
 
-/* =========================================
-   FLOATING BADGE
-========================================= */
-
+/* Floating Status Badge */
 .WorkforceSoluationTwo__badge {
   position: absolute;
   top: 24px;
   left: 24px;
   z-index: 3;
-
-  display: flex;
+  display: inline-flex;
   align-items: center;
   gap: 12px;
-
-  max-width: calc(100% - 48px);
-  padding: 13px 18px;
-
-  background: rgba(255, 255, 255, 0.96);
-  border: 1px solid rgba(255, 255, 255, 0.8);
-  border-radius: 5px;
-  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.12);
-
+  padding: 12px 18px;
+  background: rgba(255, 255, 255, 0.94);
   backdrop-filter: blur(14px);
   -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(255, 255, 255, 0.8);
+  border-radius: 6px;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.1);
+  animation: badgeFadeInWorkforce 0.6s var(--WorkforceSoluationTwo-ease) forwards;
+}
 
-  animation: WorkforceSoluationTwoBadgeIn 0.5s
-    var(--workforce-ease) both;
+@keyframes badgeFadeInWorkforce {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .WorkforceSoluationTwo__badgeDot {
-  flex-shrink: 0;
-  width: 9px;
-  height: 9px;
+  width: 8px;
+  height: 8px;
   border-radius: 50%;
-  background: var(--workforce-red);
-  box-shadow: 0 0 10px rgba(215, 25, 45, 0.5);
+  background-color: var(--WorkforceSoluationTwo-red);
+  box-shadow: 0 0 10px rgba(215, 25, 45, 0.6);
+  flex-shrink: 0;
 }
 
 .WorkforceSoluationTwo__badgeText {
   display: flex;
   flex-direction: column;
-  gap: 4px;
-  min-width: 0;
 }
 
 .WorkforceSoluationTwo__badgeText strong {
-  color: var(--workforce-dark);
-  font-size: 11px;
+  font-size: 11.5px;
   font-weight: 800;
-  letter-spacing: 0.7px;
-  line-height: 1.4;
+  letter-spacing: 0.6px;
+  color: var(--WorkforceSoluationTwo-dark);
 }
 
 .WorkforceSoluationTwo__badgeText span {
-  color: var(--workforce-gray);
   font-size: 10px;
-  line-height: 1.4;
+  color: var(--WorkforceSoluationTwo-gray);
 }
 
-/* =========================================
-   PREVIOUS / NEXT BUTTONS
-========================================= */
-
+/* Square Dark Navigation Buttons */
 .WorkforceSoluationTwo__nav {
   position: absolute;
-  z-index: 4;
   bottom: 24px;
   left: 24px;
-
+  z-index: 4;
   display: flex;
   gap: 2px;
-  overflow: hidden;
-
-  background: rgba(25, 27, 29, 0.8);
-  border-radius: 4px;
-  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.25);
-
+  background: rgba(25, 27, 29, 0.65);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
+  border-radius: 4px;
+  overflow: hidden;
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.25);
 }
 
 .WorkforceSoluationTwo__navBtn {
-  display: grid;
+  display: inline-grid;
   place-items: center;
-  flex-shrink: 0;
-
-  width: 46px;
-  height: 46px;
+  width: 44px;
+  height: 44px;
   padding: 0;
-
-  color: #ffffff;
-  background: transparent;
   border: 0;
+  background: transparent;
+  color: #ffffff;
   cursor: pointer;
-
-  transition:
-    background-color 0.25s ease,
-    color 0.25s ease;
+  transition: background-color 0.25s ease, color 0.25s ease;
 }
 
 .WorkforceSoluationTwo__navBtn:hover {
-  background: var(--workforce-red);
+  background-color: var(--WorkforceSoluationTwo-red);
   color: #ffffff;
-}
-
-.WorkforceSoluationTwo__navBtn:focus-visible {
-  outline: 2px solid #ffffff;
-  outline-offset: -4px;
 }
 
 .WorkforceSoluationTwo__navBtn svg {
-  width: 19px;
-  height: 19px;
+  width: 18px;
+  height: 18px;
 }
 
-/* Slide counter */
-
-.WorkforceSoluationTwo__counter {
-  position: absolute;
-  z-index: 3;
-  right: 25%;
-  bottom: 29px;
-
-  display: flex;
-  align-items: center;
-  gap: 8px;
-
-  color: #ffffff;
-  font-size: 12px;
-  font-weight: 700;
-  letter-spacing: 1px;
-  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.45);
-}
-
-.WorkforceSoluationTwo__counterDivider {
-  color: rgba(255, 255, 255, 0.65);
-}
-
-/* =========================================
-   RIGHT CONTENT
-========================================= */
+/* ========================================================
+   RIGHT CONTENT: STAGGERED TEXT ANIMATIONS
+======================================================== */
 
 .WorkforceSoluationTwo__content {
-  position: relative;
+  flex: 1 1 48%;
+  max-width: 580px;
   z-index: 2;
-  width: 100%;
-  max-width: 590px;
-  min-width: 0;
-  padding: 12px 0;
-  animation: WorkforceSoluationTwoContentIn 0.65s
-    var(--workforce-ease) both;
 }
 
 /* Eyebrow */
-
 .WorkforceSoluationTwo__eyebrowWrap {
-  display: flex;
+  display: inline-flex;
   align-items: center;
   gap: 12px;
-  margin-bottom: 17px;
-  animation: WorkforceSoluationTwoContentIn 0.45s
-    var(--workforce-ease) both;
+  margin-bottom: 14px;
+  animation: contentSlideInWorkforce 0.5s var(--WorkforceSoluationTwo-ease) forwards;
 }
 
 .WorkforceSoluationTwo__eyebrowLine {
-  flex-shrink: 0;
-  width: 30px;
+  width: 28px;
   height: 3px;
+  background-color: var(--WorkforceSoluationTwo-red);
   border-radius: 2px;
-  background: var(--workforce-red);
+  flex-shrink: 0;
 }
 
 .WorkforceSoluationTwo__eyebrow {
-  color: #62666d;
   font-size: 11px;
   font-weight: 800;
-  letter-spacing: 2.5px;
-  line-height: 1.5;
+  letter-spacing: 2.6px;
+  color: #63676c;
 }
 
-/* Heading */
-
+/* Title */
 .WorkforceSoluationTwo__title {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 2px;
-
-  margin: 0 0 20px;
-
-  font-family: Georgia, "Times New Roman", serif;
-  font-size: clamp(34px, 3.5vw, 52px);
-  font-weight: 600;
+  margin: 0 0 16px;
+  font-size: clamp(34px, 3.8vw, 52px);
+  font-weight: 700;
   line-height: 1.12;
-  letter-spacing: -1.3px;
+  letter-spacing: -1.4px;
+  animation: contentSlideInWorkforce 0.6s var(--WorkforceSoluationTwo-ease) forwards;
 }
 
-.WorkforceSoluationTwo__titlePrimary,
-.WorkforceSoluationTwo__titleAccent {
-  display: block;
-  max-width: 100%;
-  overflow-wrap: anywhere;
-  color: var(--workforce-red);
+.WorkforceSoluationTwo__titlePrimary {
+  color: var(--WorkforceSoluationTwo-red);
+  font-family: Georgia, "Times New Roman", serif;
+  font-weight: 600;
 }
 
 .WorkforceSoluationTwo__titleAccent {
+  color: var(--WorkforceSoluationTwo-red);
+  font-family: Georgia, "Times New Roman", serif;
   font-weight: 600;
 }
 
 /* Description */
-
 .WorkforceSoluationTwo__description {
-  max-width: 540px;
-  margin: 0 0 27px;
-
-  color: var(--workforce-gray);
-  font-size: 15px;
-  font-weight: 400;
-  line-height: 1.85;
-
-  animation: WorkforceSoluationTwoContentIn 0.65s
-    var(--workforce-ease) both;
+  margin: 0 0 28px;
+  font-size: 15.5px;
+  line-height: 1.75;
+  color: var(--WorkforceSoluationTwo-gray);
+  max-width: 520px;
+  animation: contentSlideInWorkforce 0.7s var(--WorkforceSoluationTwo-ease) forwards;
 }
 
-/* =========================================
-   FEATURES
-========================================= */
-
+/* Features List */
 .WorkforceSoluationTwo__features {
   display: flex;
   flex-direction: column;
-  gap: 14px;
+  gap: 12px;
   margin-bottom: 32px;
-
-  animation: WorkforceSoluationTwoContentIn 0.75s
-    var(--workforce-ease) both;
+  animation: contentSlideInWorkforce 0.8s var(--WorkforceSoluationTwo-ease) forwards;
 }
 
 .WorkforceSoluationTwo__featureItem {
   display: flex;
-  align-items: flex-start;
-  gap: 11px;
-
-  color: var(--workforce-charcoal);
-  font-size: 13px;
+  align-items: center;
+  gap: 10px;
+  font-size: 13.5px;
   font-weight: 600;
-  line-height: 1.6;
+  color: var(--WorkforceSoluationTwo-charcoal);
 }
 
 .WorkforceSoluationTwo__featureDot {
-  position: relative;
-  top: 7px;
-  flex-shrink: 0;
-
-  width: 7px;
-  height: 7px;
-
+  width: 6px;
+  height: 6px;
   border-radius: 50%;
-  background: var(--workforce-red);
+  background-color: var(--WorkforceSoluationTwo-red);
+  flex-shrink: 0;
 }
 
-/* =========================================
-   ACTION BUTTON AND PROGRESS BAR
-========================================= */
+/* Keyframes */
+@keyframes contentSlideInWorkforce {
+  from {
+    opacity: 0;
+    transform: translateX(25px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
 
+/* Action CTA & Progress Bar */
 .WorkforceSoluationTwo__actionRow {
   display: flex;
   align-items: center;
-  gap: 22px;
-
-  animation: WorkforceSoluationTwoContentIn 0.85s
-    var(--workforce-ease) both;
+  gap: 24px;
+  animation: contentSlideInWorkforce 0.9s var(--WorkforceSoluationTwo-ease) forwards;
 }
 
 .WorkforceSoluationTwo__btnPrimary {
   display: inline-flex;
   align-items: center;
-  justify-content: center;
-  gap: 12px;
-
-  min-height: 48px;
-  max-width: 100%;
-  padding: 13px 23px;
-
+  gap: 10px;
+  background-color: var(--WorkforceSoluationTwo-red);
   color: #ffffff;
-  background: var(--workforce-red);
-  border: 1px solid var(--workforce-red);
+  padding: 13px 26px;
   border-radius: 3px;
-
-  font-size: 12px;
+  font-size: 13px;
   font-weight: 700;
-  letter-spacing: 0.35px;
-  line-height: 1.5;
-  text-align: center;
+  letter-spacing: 0.5px;
   text-decoration: none;
-
-  box-shadow: 0 10px 24px rgba(215, 25, 45, 0.22);
-
-  transition:
-    background-color 0.25s ease,
-    transform 0.25s ease,
-    box-shadow 0.25s ease;
-
-  white-space: normal;
-}
-
-.WorkforceSoluationTwo__btnPrimary:hover {
-  color: #ffffff;
-  background: var(--workforce-red-hover);
-  border-color: var(--workforce-red-hover);
-  transform: translateY(-2px);
-  box-shadow: 0 14px 28px rgba(215, 25, 45, 0.3);
-}
-
-.WorkforceSoluationTwo__btnPrimary:focus-visible {
-  outline: 3px solid rgba(215, 25, 45, 0.35);
-  outline-offset: 4px;
+  box-shadow: 0 10px 24px rgba(215, 25, 45, 0.28);
+  transition: background-color 0.25s ease, transform 0.2s ease, box-shadow 0.25s ease;
+  white-space: nowrap;
 }
 
 .WorkforceSoluationTwo__btnPrimary svg {
-  flex-shrink: 0;
   width: 16px;
   height: 16px;
   transition: transform 0.25s ease;
+}
+
+.WorkforceSoluationTwo__btnPrimary:hover {
+  background-color: var(--WorkforceSoluationTwo-red-hover);
+  transform: translateY(-2px);
+  box-shadow: 0 14px 28px rgba(215, 25, 45, 0.36);
 }
 
 .WorkforceSoluationTwo__btnPrimary:hover svg {
   transform: translateX(4px);
 }
 
-/* Progress track */
-
+/* Synchronized Progress Track */
 .WorkforceSoluationTwo__progressTrack {
   position: relative;
-  flex: 1 1 100px;
+  flex: 1;
   max-width: 150px;
-  min-width: 50px;
   height: 3px;
-  overflow: hidden;
-
+  background-color: var(--WorkforceSoluationTwo-border);
   border-radius: 2px;
-  background: var(--workforce-border);
+  overflow: hidden;
 }
 
 .WorkforceSoluationTwo__progressBar {
   width: 100%;
   height: 100%;
-
-  background: var(--workforce-red);
+  background-color: var(--WorkforceSoluationTwo-red);
   transform: scaleX(0);
   transform-origin: left center;
-
-  animation-name: WorkforceSoluationTwoProgress;
+  animation-name: WorkforceProgressBar;
   animation-timing-function: linear;
   animation-fill-mode: forwards;
 }
@@ -459,169 +354,58 @@
   animation-play-state: paused;
 }
 
-/* Slide indicators */
-
-.WorkforceSoluationTwo__indicators {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  margin-top: 25px;
-}
-
-.WorkforceSoluationTwo__indicator {
-  width: 8px;
-  height: 8px;
-  padding: 0;
-
-  border: 0;
-  border-radius: 50%;
-  background: #d5d7db;
-  cursor: pointer;
-
-  transition:
-    width 0.3s ease,
-    border-radius 0.3s ease,
-    background-color 0.3s ease;
-}
-
-.WorkforceSoluationTwo__indicator--active {
-  width: 26px;
-  border-radius: 10px;
-  background: var(--workforce-red);
-}
-
-.WorkforceSoluationTwo__indicator:focus-visible {
-  outline: 2px solid var(--workforce-red);
-  outline-offset: 4px;
-}
-
-/* =========================================
-   ANIMATIONS
-========================================= */
-
-@keyframes WorkforceSoluationTwoContentIn {
-  from {
-    opacity: 0;
-    transform: translateX(24px);
-  }
-
-  to {
-    opacity: 1;
-    transform: translateX(0);
-  }
-}
-
-@keyframes WorkforceSoluationTwoBadgeIn {
-  from {
-    opacity: 0;
-    transform: translateY(-10px);
-  }
-
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-@keyframes WorkforceSoluationTwoProgress {
+@keyframes WorkforceProgressBar {
   from {
     transform: scaleX(0);
   }
-
   to {
     transform: scaleX(1);
   }
 }
 
-/* =========================================
-   LARGE LAPTOPS
-========================================= */
+/* ========================================================
+   RESPONSIVE DESIGN (ALL DEVICES)
+======================================================== */
 
 @media (max-width: 1200px) {
-  .WorkforceSoluationTwo {
-    padding: 55px 0 75px;
-  }
-
   .WorkforceSoluationTwo__container {
+    gap: 40px;
     padding: 0 30px;
-    gap: 38px;
   }
 
   .WorkforceSoluationTwo__media {
-    height: 470px;
+    height: 480px;
   }
 
   .WorkforceSoluationTwo__imageClip {
-    clip-path: polygon(0 0, 100% 0, 84% 100%, 0 100%);
-  }
-
-  .WorkforceSoluationTwo__title {
-    font-size: clamp(32px, 3.5vw, 43px);
-  }
-
-  .WorkforceSoluationTwo__description {
-    font-size: 14px;
-  }
-
-  .WorkforceSoluationTwo__features {
-    gap: 11px;
-    margin-bottom: 25px;
-  }
-
-  .WorkforceSoluationTwo__actionRow {
-    gap: 15px;
-  }
-
-  .WorkforceSoluationTwo__btnPrimary {
-    padding: 12px 17px;
+    clip-path: polygon(0% 0%, 100% 0%, 82% 100%, 0% 100%);
   }
 }
 
-/* =========================================
-   TABLETS
-========================================= */
-
 @media (max-width: 900px) {
   .WorkforceSoluationTwo {
-    padding: 55px 0 65px;
+    padding: 70px 0 80px;
   }
 
   .WorkforceSoluationTwo__container {
-    grid-template-columns: minmax(0, 1fr);
-    gap: 38px;
-    padding: 0 32px;
+    flex-direction: column-reverse;
+    gap: 45px;
   }
 
+  .WorkforceSoluationTwo__media,
   .WorkforceSoluationTwo__content {
-    max-width: 720px;
-    margin: 0 auto;
-    padding: 0;
+    width: 100%;
+    max-width: 100%;
+    flex: none;
   }
 
   .WorkforceSoluationTwo__media {
-    width: 100%;
-    max-width: 720px;
-    height: 410px;
-    margin: 0 auto;
+    height: 380px;
   }
 
   .WorkforceSoluationTwo__imageClip {
-    border-radius: 10px;
     clip-path: none;
-  }
-
-  .WorkforceSoluationTwo__title {
-    font-size: clamp(36px, 5.5vw, 48px);
-  }
-
-  .WorkforceSoluationTwo__description {
-    max-width: 650px;
-    font-size: 15px;
-  }
-
-  .WorkforceSoluationTwo__counter {
-    right: 22px;
-    bottom: 30px;
+    border-radius: 12px;
   }
 
   .WorkforceSoluationTwo__nav {
@@ -630,192 +414,68 @@
   }
 }
 
-/* =========================================
-   MOBILE DEVICES
-========================================= */
-
 @media (max-width: 560px) {
   .WorkforceSoluationTwo {
-    padding: 42px 0 50px;
+    padding: 50px 0 60px;
   }
 
   .WorkforceSoluationTwo__container {
-    padding: 0 18px;
-    gap: 30px;
-  }
-
-  .WorkforceSoluationTwo__media {
-    height: clamp(245px, 68vw, 330px);
-  }
-
-  .WorkforceSoluationTwo__imageClip {
-    border-radius: 8px;
-  }
-
-  .WorkforceSoluationTwo__badge {
-    top: 12px;
-    left: 12px;
-    gap: 9px;
-    max-width: calc(100% - 24px);
-    padding: 9px 12px;
-  }
-
-  .WorkforceSoluationTwo__badgeDot {
-    width: 7px;
-    height: 7px;
-  }
-
-  .WorkforceSoluationTwo__badgeText strong {
-    font-size: 9px;
-    letter-spacing: 0.5px;
-  }
-
-  .WorkforceSoluationTwo__badgeText span {
-    font-size: 9px;
-  }
-
-  .WorkforceSoluationTwo__nav {
-    bottom: 12px;
-    left: 12px;
-  }
-
-  .WorkforceSoluationTwo__navBtn {
-    width: 39px;
-    height: 39px;
-  }
-
-  .WorkforceSoluationTwo__navBtn svg {
-    width: 17px;
-    height: 17px;
-  }
-
-  .WorkforceSoluationTwo__counter {
-    right: 15px;
-    bottom: 24px;
-    gap: 6px;
-    font-size: 10px;
-  }
-
-  .WorkforceSoluationTwo__eyebrowWrap {
-    gap: 9px;
-    margin-bottom: 13px;
-  }
-
-  .WorkforceSoluationTwo__eyebrowLine {
-    width: 23px;
-    height: 2px;
-  }
-
-  .WorkforceSoluationTwo__eyebrow {
-    font-size: 9px;
-    letter-spacing: 1.8px;
+    padding: 0 20px;
   }
 
   .WorkforceSoluationTwo__title {
-    gap: 4px;
-    margin-bottom: 16px;
-    font-size: clamp(29px, 8vw, 38px);
-    line-height: 1.15;
-    letter-spacing: -0.8px;
+    font-size: 30px;
+    letter-spacing: -1.2px;
   }
 
   .WorkforceSoluationTwo__description {
-    margin-bottom: 21px;
-    font-size: 13.5px;
-    line-height: 1.8;
+    font-size: 14.5px;
+    margin-bottom: 20px;
   }
 
-  .WorkforceSoluationTwo__features {
-    gap: 12px;
-    margin-bottom: 25px;
-  }
-
-  .WorkforceSoluationTwo__featureItem {
-    gap: 9px;
-    font-size: 12px;
-    line-height: 1.6;
-  }
-
-  .WorkforceSoluationTwo__featureDot {
-    top: 6px;
-    width: 6px;
-    height: 6px;
+  .WorkforceSoluationTwo__media {
+    height: 270px;
   }
 
   .WorkforceSoluationTwo__actionRow {
     flex-direction: column;
     align-items: stretch;
-    gap: 17px;
+    gap: 16px;
   }
 
   .WorkforceSoluationTwo__btnPrimary {
     width: 100%;
-    min-height: 47px;
-    padding: 12px 16px;
-    font-size: 12px;
+    justify-content: center;
   }
 
   .WorkforceSoluationTwo__progressTrack {
-    flex: none;
-    width: 100%;
-    max-width: none;
-    min-width: 0;
-  }
-
-  .WorkforceSoluationTwo__indicators {
-    margin-top: 21px;
-  }
-}
-
-/* =========================================
-   SMALL PHONES
-========================================= */
-
-@media (max-width: 360px) {
-  .WorkforceSoluationTwo__container {
-    padding: 0 14px;
-  }
-
-  .WorkforceSoluationTwo__media {
-    height: 230px;
-  }
-
-  .WorkforceSoluationTwo__title {
-    font-size: 28px;
+    max-width: 100%;
   }
 
   .WorkforceSoluationTwo__badge {
-    padding: 8px 10px;
-  }
-
-  .WorkforceSoluationTwo__counter {
-    right: 11px;
-  }
-
-  .WorkforceSoluationTwo__featureItem {
-    font-size: 11.5px;
+    top: 14px;
+    left: 14px;
+    padding: 8px 12px;
   }
 }
 
-/* =========================================
-   REDUCED MOTION ACCESSIBILITY
-========================================= */
-
+/* Accessibility */
 @media (prefers-reduced-motion: reduce) {
-  .WorkforceSoluationTwo *,
-  .WorkforceSoluationTwo *::before,
-  .WorkforceSoluationTwo *::after {
-    scroll-behavior: auto !important;
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
-  }
-
-  .WorkforceSoluationTwo__image {
-    transform: none;
+  .WorkforceSoluationTwo__image,
+  .WorkforceSoluationTwo__eyebrowWrap,
+  .WorkforceSoluationTwo__title,
+  .WorkforceSoluationTwo__description,
+  .WorkforceSoluationTwo__features,
+  .WorkforceSoluationTwo__actionRow,
+  .WorkforceSoluationTwo__badge {
+    transition: none !important;
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
   }
 
   .WorkforceSoluationTwo__progressBar {
+    animation: none !important;
     transform: scaleX(1);
   }
 }

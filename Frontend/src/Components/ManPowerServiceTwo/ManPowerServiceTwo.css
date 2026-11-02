@@ -3,8 +3,8 @@
 ======================================================== */
 
 .ManPowerServiceTwo {
-  --ManPowerServiceTwo-red: #d7192d;
-  --ManPowerServiceTwo-red-hover: #b51223;
+  --ManPowerServiceTwo-primary: #d7192d;
+  --ManPowerServiceTwo-primary-hover: #b51223;
   --ManPowerServiceTwo-dark: #1f2124;
   --ManPowerServiceTwo-charcoal: #2c2f33;
   --ManPowerServiceTwo-gray: #585c63;
@@ -104,10 +104,10 @@
   border: 1px solid rgba(255, 255, 255, 0.8);
   border-radius: 6px;
   box-shadow: 0 12px 30px rgba(0, 0, 0, 0.1);
-  animation: badgeFadeInSec 0.6s var(--ManPowerServiceTwo-ease) forwards;
+  animation: badgeFadeInManpower 0.6s var(--ManPowerServiceTwo-ease) forwards;
 }
 
-@keyframes badgeFadeInSec {
+@keyframes badgeFadeInManpower {
   from {
     opacity: 0;
     transform: translateY(-8px);
@@ -122,7 +122,7 @@
   width: 8px;
   height: 8px;
   border-radius: 50%;
-  background-color: var(--ManPowerServiceTwo-red);
+  background-color: var(--ManPowerServiceTwo-primary);
   box-shadow: 0 0 10px rgba(215, 25, 45, 0.6);
   flex-shrink: 0;
 }
@@ -174,7 +174,7 @@
 }
 
 .ManPowerServiceTwo__navBtn:hover {
-  background-color: var(--ManPowerServiceTwo-red);
+  background-color: var(--ManPowerServiceTwo-primary);
   color: #ffffff;
 }
 
@@ -199,13 +199,13 @@
   align-items: center;
   gap: 12px;
   margin-bottom: 14px;
-  animation: contentSlideInSec 0.5s var(--ManPowerServiceTwo-ease) forwards;
+  animation: contentSlideInManpower 0.5s var(--ManPowerServiceTwo-ease) forwards;
 }
 
 .ManPowerServiceTwo__eyebrowLine {
   width: 28px;
   height: 3px;
-  background-color: var(--ManPowerServiceTwo-red);
+  background-color: var(--ManPowerServiceTwo-primary);
   border-radius: 2px;
   flex-shrink: 0;
 }
@@ -224,17 +224,17 @@
   font-weight: 700;
   line-height: 1.12;
   letter-spacing: -1.4px;
-  animation: contentSlideInSec 0.6s var(--ManPowerServiceTwo-ease) forwards;
+  animation: contentSlideInManpower 0.6s var(--ManPowerServiceTwo-ease) forwards;
 }
 
 .ManPowerServiceTwo__titlePrimary {
-  color: var(--ManPowerServiceTwo-red);
+  color: var(--ManPowerServiceTwo-primary);
   font-family: Georgia, "Times New Roman", serif;
   font-weight: 600;
 }
 
 .ManPowerServiceTwo__titleAccent {
-  color: var(--ManPowerServiceTwo-red);
+  color: var(--ManPowerServiceTwo-primary);
   font-family: Georgia, "Times New Roman", serif;
   font-weight: 600;
 }
@@ -246,7 +246,7 @@
   line-height: 1.75;
   color: var(--ManPowerServiceTwo-gray);
   max-width: 520px;
-  animation: contentSlideInSec 0.7s var(--ManPowerServiceTwo-ease) forwards;
+  animation: contentSlideInManpower 0.7s var(--ManPowerServiceTwo-ease) forwards;
 }
 
 /* Features List */
@@ -255,7 +255,7 @@
   flex-direction: column;
   gap: 12px;
   margin-bottom: 32px;
-  animation: contentSlideInSec 0.8s var(--ManPowerServiceTwo-ease) forwards;
+  animation: contentSlideInManpower 0.8s var(--ManPowerServiceTwo-ease) forwards;
 }
 
 .ManPowerServiceTwo__featureItem {
@@ -271,12 +271,12 @@
   width: 6px;
   height: 6px;
   border-radius: 50%;
-  background-color: var(--ManPowerServiceTwo-red);
+  background-color: var(--ManPowerServiceTwo-primary);
   flex-shrink: 0;
 }
 
 /* Animation Keyframes */
-@keyframes contentSlideInSec {
+@keyframes contentSlideInManpower {
   from {
     opacity: 0;
     transform: translateX(25px);
@@ -292,14 +292,14 @@
   display: flex;
   align-items: center;
   gap: 24px;
-  animation: contentSlideInSec 0.9s var(--ManPowerServiceTwo-ease) forwards;
+  animation: contentSlideInManpower 0.9s var(--ManPowerServiceTwo-ease) forwards;
 }
 
 .ManPowerServiceTwo__btnPrimary {
   display: inline-flex;
   align-items: center;
   gap: 10px;
-  background-color: var(--ManPowerServiceTwo-red);
+  background-color: var(--ManPowerServiceTwo-primary);
   color: #ffffff;
   padding: 13px 26px;
   border-radius: 3px;
@@ -319,7 +319,7 @@
 }
 
 .ManPowerServiceTwo__btnPrimary:hover {
-  background-color: var(--ManPowerServiceTwo-red-hover);
+  background-color: var(--ManPowerServiceTwo-primary-hover);
   transform: translateY(-2px);
   box-shadow: 0 14px 28px rgba(215, 25, 45, 0.36);
 }
@@ -342,10 +342,10 @@
 .ManPowerServiceTwo__progressBar {
   width: 100%;
   height: 100%;
-  background-color: var(--ManPowerServiceTwo-red);
+  background-color: var(--ManPowerServiceTwo-primary);
   transform: scaleX(0);
   transform-origin: left center;
-  animation-name: ManPowerProgressBar;
+  animation-name: ManpowerProgressBar;
   animation-timing-function: linear;
   animation-fill-mode: forwards;
 }
@@ -354,7 +354,7 @@
   animation-play-state: paused;
 }
 
-@keyframes ManPowerProgressBar {
+@keyframes ManpowerProgressBar {
   from {
     transform: scaleX(0);
   }

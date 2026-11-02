@@ -1,30 +1,21 @@
 import React, { useState, useEffect, useRef } from "react";
 import "./FacilityManagementThree.css";
 
-const facilityManagementPoints = [
+const managementPillars = [
   {
     id: 1,
-    title: "Integrated Building Maintenance",
-    detail:
-      "Proactive maintenance programs help keep commercial buildings, equipment, and essential infrastructure operating efficiently.",
+    title: "Preventive & Predictive Maintenance",
+    desc: "Lifecycle management and telemetry-driven maintenance scheduling across critical MEP, HVAC, and power infrastructure to avoid downtime.",
   },
   {
     id: 2,
-    title: "HVAC & Electrical System Management",
-    detail:
-      "Coordinated maintenance and monitoring support reliable heating, ventilation, air conditioning, and electrical systems.",
+    title: "Integrated Workplace & Soft Services",
+    desc: "Unifying commercial cleaning, specialized hygiene, waste diversion, and workplace experience management under unified SLA oversight.",
   },
   {
     id: 3,
-    title: "Professional Cleaning & Hygiene",
-    detail:
-      "Structured cleaning schedules and hygiene management help maintain safe, clean, and welcoming work environments.",
-  },
-  {
-    id: 4,
-    title: "Safety & Operational Compliance",
-    detail:
-      "Routine inspections, safety procedures, and maintenance documentation support dependable facility operations.",
+    title: "Energy Efficiency & Sustainability Auditing",
+    desc: "Targeted carbon reduction strategies, automated building controls (BMS), and real-time utility consumption tracking for ESG compliance.",
   },
 ];
 
@@ -33,21 +24,18 @@ const FacilityManagementThree = () => {
   const sectionRef = useRef(null);
 
   useEffect(() => {
-    const section = sectionRef.current;
-
-    if (!section) return;
-
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
           setIsVisible(true);
-          observer.unobserve(entry.target);
         }
       },
-      { threshold: 0.15 }
+      { threshold: 0.2 }
     );
 
-    observer.observe(section);
+    if (sectionRef.current) {
+      observer.observe(sectionRef.current);
+    }
 
     return () => observer.disconnect();
   }, []);
@@ -58,113 +46,63 @@ const FacilityManagementThree = () => {
       className={`FacilityManagementThree ${
         isVisible ? "FacilityManagementThree--visible" : ""
       }`}
-      aria-label="Facility management and building maintenance solutions"
+      aria-label="Integrated Facility Management and Building Operations"
     >
       <div className="FacilityManagementThree__container">
-        {/* Left Side: Modern Facility Image */}
-
-        <div className="FacilityManagementThree__media">
-          <div className="FacilityManagementThree__imageClip">
-            <img
-              src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1800&q=85"
-              alt="Modern commercial building representing professional facility management"
-              className="FacilityManagementThree__image"
-              loading="lazy"
-            />
-
-            <div className="FacilityManagementThree__imageShade" />
-          </div>
-
-          {/* Floating Facility Management Badge */}
-
-          <div className="FacilityManagementThree__badge">
-            <span className="FacilityManagementThree__badgeDot" />
-
-            <div className="FacilityManagementThree__badgeInfo">
-              <strong>Facility Excellence</strong>
-              <span>Maintenance · Safety · Efficiency</span>
-            </div>
-          </div>
-        </div>
-
-        {/* Right Side: Facility Management Content */}
-
+        {/* Left Side: Staggered Running Content */}
         <div className="FacilityManagementThree__content">
           <div className="FacilityManagementThree__eyebrowWrap">
             <span className="FacilityManagementThree__eyebrowLine" />
-
-            <span className="FacilityManagementThree__eyebrow">
-              FACILITY MANAGEMENT
-            </span>
+            <span className="FacilityManagementThree__eyebrow">OPERATIONAL EXCELLENCE</span>
           </div>
 
           <h2 className="FacilityManagementThree__title">
-            Smarter Spaces,
-            <br />
-            <span className="FacilityManagementThree__titleAccent">
-              Better Performance
-            </span>
+            Our <span className="FacilityManagementThree__titleAccent">Methodology</span>
           </h2>
 
           <p className="FacilityManagementThree__description">
-            We deliver integrated facility management solutions that keep
-            buildings safe, efficient, and ready for everyday operations.
-            From technical maintenance and building systems to professional
-            cleaning and safety management, our approach helps businesses
-            maintain comfortable environments while improving operational
-            reliability and long-term asset performance.
+            We deliver total facilities management architectures designed to optimize lifecycle performance, 
+            enhance building efficiency, and cultivate productive work environments. By merging skilled 
+            engineering teams with intelligent asset analytics, we protect asset value and ensure 
+            uninterrupted facility uptime.
           </p>
 
-          {/* Facility Management Checklist */}
-
-          <div className="FacilityManagementThree__list">
-            {facilityManagementPoints.map((point) => (
+          {/* Operational Pillars */}
+          <div className="FacilityManagementThree__pillars">
+            {managementPillars.map((pillar) => (
               <div
-                key={point.id}
-                className="FacilityManagementThree__item"
-                style={{ "--item-index": point.id }}
+                key={pillar.id}
+                className="FacilityManagementThree__pillarItem"
               >
-                <span className="FacilityManagementThree__checkIcon">
-                  <svg
-                    viewBox="0 0 20 20"
-                    fill="currentColor"
-                    aria-hidden="true"
-                  >
+                <div className="FacilityManagementThree__pillarIcon">
+                  <svg viewBox="0 0 20 20" fill="currentColor">
                     <path
                       fillRule="evenodd"
                       d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
                       clipRule="evenodd"
                     />
                   </svg>
-                </span>
-
-                <div className="FacilityManagementThree__itemText">
-                  <h4 className="FacilityManagementThree__itemTitle">
-                    {point.title}
+                </div>
+                <div className="FacilityManagementThree__pillarText">
+                  <h4 className="FacilityManagementThree__pillarTitle">
+                    {pillar.title}
                   </h4>
-
-                  <p className="FacilityManagementThree__itemDetail">
-                    {point.detail}
+                  <p className="FacilityManagementThree__pillarDesc">
+                    {pillar.desc}
                   </p>
                 </div>
               </div>
             ))}
           </div>
 
-          {/* Primary Action Button */}
-
+          {/* Action Button */}
           <div className="FacilityManagementThree__actionWrap">
             <a
-              href="#facility-management-services"
+              href="#consultation"
               className="FacilityManagementThree__linkPrimary"
             >
-              <span>Explore Our Facility Solutions</span>
-
-              <svg
-                viewBox="0 0 20 20"
-                fill="currentColor"
-                aria-hidden="true"
-              >
+              <span>Request Facility Operations Audit</span>
+              <svg viewBox="0 0 20 20" fill="currentColor">
                 <path
                   fillRule="evenodd"
                   d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z"
@@ -172,6 +110,28 @@ const FacilityManagementThree = () => {
                 />
               </svg>
             </a>
+          </div>
+        </div>
+
+        {/* Right Side: Modern Facility Management Visual */}
+        <div className="FacilityManagementThree__media">
+          <div className="FacilityManagementThree__imageClip">
+            <img
+              src="https://images.unsplash.com/photo-1581092160607-ee22621dd758?auto=format&fit=crop&w=2200&q=85"
+              alt="Facility engineer inspecting central HVAC and plant room equipment"
+              className="FacilityManagementThree__image"
+              loading="lazy"
+            />
+            <div className="FacilityManagementThree__imageShade" />
+          </div>
+
+          {/* Floating Operational Badge */}
+          <div className="FacilityManagementThree__badge">
+            <span className="FacilityManagementThree__badgeDot" />
+            <div className="FacilityManagementThree__badgeInfo">
+              <strong>Smart Building Operations</strong>
+              <span>ISO 41001 Certified FM Protocols</span>
+            </div>
           </div>
         </div>
       </div>

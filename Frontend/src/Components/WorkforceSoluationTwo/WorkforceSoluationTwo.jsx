@@ -1,187 +1,188 @@
 import React, { useState, useEffect, useCallback } from "react";
 import "./WorkforceSoluationTwo.css";
 
-const SLIDE_DURATION = 2000;
+const SLIDE_DURATION = 2000; // 2-second synchronized rotation
 
-const workforceServices = [
+const workforceSolutionsData = [
   {
     id: 1,
     tag: "WORKFORCE SOLUTIONS",
     titlePrimary: "Skilled Technical",
-    titleAccent: "& Labour Supply",
+    titleAccent: "& Engineering Talent",
     description:
-      "Delivering certified technicians, skilled tradesmen, and dependable workforce solutions for large-scale construction, MEP, facilities management, and industrial projects across the UAE.",
-    badgeTitle: "VERIFIED WORKFORCE",
-    badgeSub: "24/7 Deployment Readiness",
+      "Providing certified engineers, skilled technicians, and site specialists on demand, tailored for large-scale industrial infrastructure, construction developments, and facility systems.",
+    badgeTitle: "CERTIFIED TALENT",
+    badgeSub: "Ready-to-Deploy Technical Crews",
     image:
-      "https://images.unsplash.com/photo-1541888946425-d0fbb18f170f?auto=format&fit=crop&w=1600&q=85",
-    alt: "Construction professionals working at an industrial site",
+      "https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&w=2200&q=85",
+    features: [
+      "Rigorous Vetting & Skill Assessments",
+      "Fast-Track Mobilization & Site Deployment",
+      "Full Compliance with UAE Labor Regulations",
+    ],
   },
   {
     id: 2,
-    tag: "CORPORATE STAFFING",
-    titlePrimary: "Executive Staffing",
-    titleAccent: "& Corporate Talent",
+    tag: "WORKFORCE SOLUTIONS",
+    titlePrimary: "Blue-Collar",
+    titleAccent: "& Industrial Staffing",
     description:
-      "Providing professional personnel, administrative experts, and corporate talent acquisition solutions to match dynamic organizational demands with exceptional accuracy.",
-    badgeTitle: "ELITE PLACEMENT",
-    badgeSub: "Professional Corporate Talent",
+      "Delivering high-volume, reliable labor forces across construction, MEP, fabrication, and manufacturing facilities with comprehensive logistics, safety training, and welfare management.",
+    badgeTitle: "MASS STAFFING",
+    badgeSub: "Reliable Industrial Manpower",
     image:
-      "https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto=format&fit=crop&w=1600&q=85",
-    alt: "Corporate professionals collaborating in an office",
+      "https://images.unsplash.com/photo-1581092160607-ee22621dd758?auto=format&fit=crop&w=2200&q=85",
+    features: [
+      "End-to-End Visa & Payroll Administration",
+      "On-Site Safety (HSE) Certified Teams",
+      "Scalable Surge Capacity for Tight Deadlines",
+    ],
   },
   {
     id: 3,
-    tag: "HOSPITALITY SOLUTIONS",
-    titlePrimary: "Hospitality &",
-    titleAccent: "Facility Support",
+    tag: "WORKFORCE SOLUTIONS",
+    titlePrimary: "Logistics, Supply Chain",
+    titleAccent: "& Warehouse Teams",
     description:
-      "Equipping hotels, resorts, and commercial properties with experienced hospitality personnel, housekeeping teams, and dedicated operational support staff.",
-    badgeTitle: "HOSPITALITY EXPERTS",
-    badgeSub: "Premium Guest Services",
+      "Staffing distribution hubs, fulfillment warehouses, and 3PL networks with licensed equipment operators, inventory specialists, and material handling crews.",
+    badgeTitle: "SUPPLY CHAIN",
+    badgeSub: "Material & Fleet Handling Experts",
     image:
-      "https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?auto=format&fit=crop&w=1600&q=85",
-    alt: "Premium hotel interior representing hospitality services",
+      "https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=2200&q=85",
+    features: [
+      "Certified Forklift & Heavy Equipment Operators",
+      "WMS & Inventory Processing Personnel",
+      "Flexible Shift & Seasonal Peak Management",
+    ],
   },
   {
     id: 4,
-    tag: "LOGISTICS WORKFORCE",
-    titlePrimary: "Logistics &",
-    titleAccent: "Warehouse Crew",
+    tag: "WORKFORCE SOLUTIONS",
+    titlePrimary: "Executive & Specialist",
+    titleAccent: "Contract Placements",
     description:
-      "Supplying efficient logistics operatives, forklift operators, warehouse coordinators, and supply chain personnel to optimize fast-paced distribution operations.",
-    badgeTitle: "LOGISTICS CREW",
-    badgeSub: "Supply Chain & Warehousing",
+      "Placing project directors, project managers, and specialized consultants on flexible interim or permanent contracts to steer complex enterprise transformations to completion.",
+    badgeTitle: "EXECUTIVE SEARCH",
+    badgeSub: "Leadership & Specialized PMs",
     image:
-      "https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=1600&q=85",
-    alt: "Warehouse storage and logistics operations",
+      "https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=2200&q=85",
+    features: [
+      "Dedicated Industry-Specific Headhunters",
+      "Targeted Senior Leadership Acquisition",
+      "Comprehensive Retention & SLA Oversight",
+    ],
   },
 ];
 
 const WorkforceSoluationTwo = () => {
   const [activeSlide, setActiveSlide] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
-
-  const totalSlides = workforceServices.length;
-  const currentSlide = workforceServices[activeSlide];
+  const totalSlides = workforceSolutionsData.length;
+  const currentSlide = workforceSolutionsData[activeSlide];
 
   const handleNext = useCallback(() => {
-    setActiveSlide((previous) => (previous + 1) % totalSlides);
+    setActiveSlide((prev) => (prev + 1) % totalSlides);
   }, [totalSlides]);
 
   const handlePrev = useCallback(() => {
-    setActiveSlide((previous) => (previous - 1 + totalSlides) % totalSlides);
+    setActiveSlide((prev) => (prev - 1 + totalSlides) % totalSlides);
   }, [totalSlides]);
 
+  // Autoplay rotation
   useEffect(() => {
-    if (isPaused) return undefined;
+    if (isPaused) return;
 
-    const timer = window.setInterval(handleNext, SLIDE_DURATION);
+    const timer = setInterval(() => {
+      handleNext();
+    }, SLIDE_DURATION);
 
-    return () => window.clearInterval(timer);
+    return () => clearInterval(timer);
   }, [isPaused, handleNext]);
-
-  const handleBlur = (event) => {
-    if (!event.currentTarget.contains(event.relatedTarget)) {
-      setIsPaused(false);
-    }
-  };
 
   return (
     <section
       className="WorkforceSoluationTwo"
-      aria-label="Workforce solutions"
+      aria-label="Workforce Solutions Showcase"
       onMouseEnter={() => setIsPaused(true)}
       onMouseLeave={() => setIsPaused(false)}
       onFocusCapture={() => setIsPaused(true)}
-      onBlurCapture={handleBlur}
+      onBlurCapture={(e) => {
+        if (!e.currentTarget.contains(e.relatedTarget)) {
+          setIsPaused(false);
+        }
+      }}
     >
       <div className="WorkforceSoluationTwo__container">
-        {/* Left: Image slider */}
+        {/* Left Side: Angled Image Visual with Slider */}
         <div className="WorkforceSoluationTwo__media">
           <div className="WorkforceSoluationTwo__imageClip">
-            {workforceServices.map((service, index) => (
+            {workforceSolutionsData.map((item, index) => (
               <img
-                key={service.id}
-                src={service.image}
-                alt={service.alt}
+                key={item.id}
+                src={item.image}
+                alt={`${item.titlePrimary} ${item.titleAccent}`}
                 className={`WorkforceSoluationTwo__image ${
                   index === activeSlide
                     ? "WorkforceSoluationTwo__image--active"
                     : ""
                 }`}
                 loading={index === 0 ? "eager" : "lazy"}
-                draggable="false"
               />
             ))}
-
             <div className="WorkforceSoluationTwo__imageShade" />
           </div>
 
-          {/* Floating badge */}
+          {/* Floating Operational Badge */}
           <div
             key={`badge-${activeSlide}`}
             className="WorkforceSoluationTwo__badge"
           >
             <span className="WorkforceSoluationTwo__badgeDot" />
-
             <div className="WorkforceSoluationTwo__badgeText">
               <strong>{currentSlide.badgeTitle}</strong>
               <span>{currentSlide.badgeSub}</span>
             </div>
           </div>
 
-          {/* Image navigation */}
+          {/* Bottom Left Navigation Buttons */}
           <div className="WorkforceSoluationTwo__nav">
             <button
               type="button"
-              className="WorkforceSoluationTwo__navBtn"
+              className="WorkforceSoluationTwo__navBtn WorkforceSoluationTwo__navBtn--prev"
               onClick={handlePrev}
-              aria-label="Previous workforce service"
+              aria-label="Previous workforce solution"
             >
-              <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
                 <path
                   d="M19 12H5m7 7-7-7 7-7"
-                  stroke="currentColor"
                   strokeWidth="2"
                   strokeLinecap="round"
                   strokeLinejoin="round"
                 />
               </svg>
             </button>
-
             <button
               type="button"
-              className="WorkforceSoluationTwo__navBtn"
+              className="WorkforceSoluationTwo__navBtn WorkforceSoluationTwo__navBtn--next"
               onClick={handleNext}
-              aria-label="Next workforce service"
+              aria-label="Next workforce solution"
             >
-              <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
                 <path
                   d="M5 12h14m-7-7 7 7-7 7"
-                  stroke="currentColor"
                   strokeWidth="2"
                   strokeLinecap="round"
                   strokeLinejoin="round"
                 />
               </svg>
             </button>
-          </div>
-
-          {/* Slide counter */}
-          <div className="WorkforceSoluationTwo__counter">
-            <span>{String(activeSlide + 1).padStart(2, "0")}</span>
-            <span className="WorkforceSoluationTwo__counterDivider">/</span>
-            <span>{String(totalSlides).padStart(2, "0")}</span>
           </div>
         </div>
 
-        {/* Right: Animated service content */}
+        {/* Right Side: Staggered Content */}
         <div
           key={`content-${activeSlide}`}
           className="WorkforceSoluationTwo__content"
-          aria-live="polite"
-          aria-atomic="true"
         >
           <div className="WorkforceSoluationTwo__eyebrowWrap">
             <span className="WorkforceSoluationTwo__eyebrowLine" />
@@ -192,9 +193,8 @@ const WorkforceSoluationTwo = () => {
 
           <h2 className="WorkforceSoluationTwo__title">
             <span className="WorkforceSoluationTwo__titlePrimary">
-              {currentSlide.titlePrimary}
+              {currentSlide.titlePrimary}{" "}
             </span>
-
             <span className="WorkforceSoluationTwo__titleAccent">
               {currentSlide.titleAccent}
             </span>
@@ -204,33 +204,24 @@ const WorkforceSoluationTwo = () => {
             {currentSlide.description}
           </p>
 
-          {/* Service features */}
+          {/* Dynamic Feature Highlights */}
           <div className="WorkforceSoluationTwo__features">
-            <div className="WorkforceSoluationTwo__featureItem">
-              <span className="WorkforceSoluationTwo__featureDot" />
-              <span>Fully Compliant & Verified Workforce Standards</span>
-            </div>
-
-            <div className="WorkforceSoluationTwo__featureItem">
-              <span className="WorkforceSoluationTwo__featureDot" />
-              <span>Rapid Deployment & Flexible Contract Terms</span>
-            </div>
-
-            <div className="WorkforceSoluationTwo__featureItem">
-              <span className="WorkforceSoluationTwo__featureDot" />
-              <span>Dedicated Account & Project Supervision</span>
-            </div>
+            {currentSlide.features.map((feature, idx) => (
+              <div key={idx} className="WorkforceSoluationTwo__featureItem">
+                <span className="WorkforceSoluationTwo__featureDot" />
+                <span>{feature}</span>
+              </div>
+            ))}
           </div>
 
-          {/* Call to action and progress bar */}
+          {/* CTA & Synchronized Progress Bar */}
           <div className="WorkforceSoluationTwo__actionRow">
             <a
-              href="#service-enquiry"
+              href="#workforce-enquiry"
               className="WorkforceSoluationTwo__btnPrimary"
             >
-              <span>Request Consultation</span>
-
-              <svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+              <span>Request Workforce Consultation</span>
+              <svg viewBox="0 0 20 20" fill="currentColor">
                 <path
                   fillRule="evenodd"
                   d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z"
@@ -239,14 +230,7 @@ const WorkforceSoluationTwo = () => {
               </svg>
             </a>
 
-            <div
-              className="WorkforceSoluationTwo__progressTrack"
-              role="progressbar"
-              aria-label="Time until next slide"
-              aria-valuemin={0}
-              aria-valuemax={100}
-              aria-valuenow={isPaused ? 0 : undefined}
-            >
+            <div className="WorkforceSoluationTwo__progressTrack">
               <div
                 key={`progress-${activeSlide}-${isPaused}`}
                 className={`WorkforceSoluationTwo__progressBar ${
@@ -255,24 +239,6 @@ const WorkforceSoluationTwo = () => {
                 style={{ animationDuration: `${SLIDE_DURATION}ms` }}
               />
             </div>
-          </div>
-
-          {/* Slide indicators */}
-          <div className="WorkforceSoluationTwo__indicators">
-            {workforceServices.map((service, index) => (
-              <button
-                key={service.id}
-                type="button"
-                className={`WorkforceSoluationTwo__indicator ${
-                  index === activeSlide
-                    ? "WorkforceSoluationTwo__indicator--active"
-                    : ""
-                }`}
-                onClick={() => setActiveSlide(index)}
-                aria-label={`Show slide ${index + 1}: ${service.titlePrimary} ${service.titleAccent}`}
-                aria-current={index === activeSlide ? "true" : undefined}
-              />
-            ))}
           </div>
         </div>
       </div>

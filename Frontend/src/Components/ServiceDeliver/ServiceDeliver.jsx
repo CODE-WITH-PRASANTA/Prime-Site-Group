@@ -89,7 +89,7 @@ const ServiceDeliver = () => {
 
           <h2 className="ServiceDeliver__title">
             <span className="ServiceDeliver__titlePrimary">What We </span>
-            <span className="ServiceDeliver__titleAccent">Deliver[cite: 15]</span>
+            <span className="ServiceDeliver__titleAccent">Deliver</span>
           </h2>
 
           <p className="ServiceDeliver__description">

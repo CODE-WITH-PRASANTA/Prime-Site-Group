@@ -1,60 +1,64 @@
-/* =========================================
-   FACILITY MANAGEMENT TWO
-========================================= */
+/* ========================================================
+   FACILITY MANAGEMENT TWO - HERO SLIDER SECTION
+======================================================== */
 
-.facility-management-two {
-  --facility-primary:#d7192d;
-  --facility-secondary:  #b51223;
-  --facility-accent: #b51223;
-  --facility-text: #1f2124;
-  --facility-muted: #1f2124;
+.FacilityManagementTwo {
+  --FacilityManagementTwo-red: #d7192d;
+  --FacilityManagementTwo-red-hover: #b51223;
+  --FacilityManagementTwo-dark: #1f2124;
+  --FacilityManagementTwo-charcoal: #2c2f33;
+  --FacilityManagementTwo-gray: #585c63;
+  --FacilityManagementTwo-border: #dde1e5;
+  --FacilityManagementTwo-bg: #ffffff;
+  --FacilityManagementTwo-ease: cubic-bezier(0.16, 1, 0.3, 1);
 
+  position: relative;
   width: 100%;
-  padding: 75px 5%;
-  background: #ffffff;
-  box-sizing: border-box;
+  padding: 50px 0 90px;
+  background-color: var(--FacilityManagementTwo-bg);
+  font-family: "Inter", "Segoe UI", Arial, sans-serif;
+  color: var(--FacilityManagementTwo-dark);
   overflow: hidden;
-  font-family: Arial, Helvetica, sans-serif;
-}
-
-.facility-management-two *,
-.facility-management-two *::before,
-.facility-management-two *::after {
   box-sizing: border-box;
 }
 
-.facility-management-two__container {
-  width: 100%;
-  max-width: 1240px;
-  margin: 0 auto;
-  display: grid;
-  grid-template-columns: minmax(0, 0.95fr) minmax(0, 1fr);
+.FacilityManagementTwo *,
+.FacilityManagementTwo *::before,
+.FacilityManagementTwo *::after {
+  box-sizing: border-box;
+}
+
+.FacilityManagementTwo__container {
+  display: flex;
   align-items: center;
-  gap: clamp(40px, 6vw, 90px);
+  justify-content: space-between;
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 0 40px;
+  gap: 65px;
 }
 
-/* =========================================
-   LEFT IMAGE SECTION
-========================================= */
+/* ========================================================
+   LEFT MEDIA: ANGLED SLANTED CLIP & IMAGE FADE
+======================================================== */
 
-.facility-management-two__visual {
+.FacilityManagementTwo__media {
   position: relative;
-  min-width: 0;
-  padding: 0 18px 35px 0;
+  flex: 1 1 52%;
+  height: 560px;
 }
 
-.facility-management-two__image-frame {
+.FacilityManagementTwo__imageClip {
   position: relative;
   width: 100%;
-  height: clamp(400px, 43vw, 560px);
-  min-height: 350px;
+  height: 100%;
   overflow: hidden;
-  border-radius: 4px 85px 4px 4px;
-  background: #e8f0f6;
-  isolation: isolate;
+  clip-path: polygon(0% 0%, 100% 0%, 75% 100%, 0% 100%);
+  background-color: #1a1c1e;
+  box-shadow: 15px 25px 50px rgba(0, 0, 0, 0.12);
 }
 
-.facility-management-two__image {
+.FacilityManagementTwo__image {
   position: absolute;
   inset: 0;
   width: 100%;
@@ -62,743 +66,416 @@
   object-fit: cover;
   object-position: center;
   opacity: 0;
-  transform: scale(1.06);
-  transition:
-    opacity 0.7s ease,
-    transform 1.2s ease;
+  transform: scale(1.08);
+  transition: opacity 0.8s ease-in-out, transform 2.2s ease-out;
+  display: block;
 }
 
-.facility-management-two__image--active {
+.FacilityManagementTwo__image--active {
   opacity: 1;
   transform: scale(1);
-  z-index: 1;
 }
 
-.facility-management-two__image-overlay {
+.FacilityManagementTwo__imageShade {
   position: absolute;
   inset: 0;
-  z-index: 2;
-  pointer-events: none;
   background: linear-gradient(
-    180deg,
-    rgba(8, 32, 54, 0.04) 30%,
-    rgba(8, 32, 54, 0.65) 100%
+    135deg,
+    rgba(215, 25, 45, 0.08) 0%,
+    transparent 50%,
+    rgba(20, 22, 25, 0.35) 100%
   );
-}
-
-.facility-management-two__image-decoration {
-  position: absolute;
-  width: 52%;
-  height: 45%;
-  right: 0;
-  bottom: 0;
-  transform: translate(16px, 17px);
-  border-right: 3px solid var(--facility-accent);
-  border-bottom: 3px solid var(--facility-accent);
-  z-index: 0;
   pointer-events: none;
 }
 
-.facility-management-two__image-label {
+/* Floating Status Badge */
+.FacilityManagementTwo__badge {
   position: absolute;
-  top: 25px;
-  left: 25px;
+  top: 24px;
+  left: 24px;
   z-index: 3;
-  display: flex;
+  display: inline-flex;
   align-items: center;
-  gap: 10px;
-  padding: 11px 15px;
-  max-width: calc(100% - 50px);
-  border: 1px solid rgba(255, 255, 255, 0.4);
-  border-radius: 30px;
+  gap: 12px;
+  padding: 12px 18px;
   background: rgba(255, 255, 255, 0.94);
-  color: var(--facility-primary);
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 0.6px;
-  text-transform: uppercase;
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(255, 255, 255, 0.8);
+  border-radius: 6px;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.1);
+  animation: badgeFadeInFM 0.6s var(--FacilityManagementTwo-ease) forwards;
 }
 
-.facility-management-two__label-dot {
-  flex-shrink: 0;
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background: var(--facility-accent);
-  box-shadow: 0 0 0 4px rgba(53, 183, 207, 0.15);
-}
-
-/* =========================================
-   IMAGE BADGE
-========================================= */
-
-.facility-management-two__image-badge {
-  position: absolute;
-  left: -20px;
-  bottom: 65px;
-  z-index: 4;
-  display: flex;
-  align-items: center;
-  gap: 17px;
-  min-width: 260px;
-  max-width: calc(100% - 10px);
-  padding: 21px 24px;
-  background: #ffffff;
-  box-shadow: 0 15px 45px rgba(13, 47, 77, 0.14);
-  border-left: 4px solid var(--facility-accent);
-  animation: facilityBadgeAppear 0.45s ease both;
-}
-
-@keyframes facilityBadgeAppear {
+@keyframes badgeFadeInFM {
   from {
     opacity: 0;
-    transform: translateY(10px);
+    transform: translateY(-8px);
   }
-
   to {
     opacity: 1;
     transform: translateY(0);
   }
 }
 
-.facility-management-two__badge-number {
+.FacilityManagementTwo__badgeDot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: var(--FacilityManagementTwo-red);
+  box-shadow: 0 0 10px rgba(215, 25, 45, 0.6);
   flex-shrink: 0;
-  color: var(--facility-secondary);
-  font-size: 34px;
-  font-weight: 800;
-  line-height: 1;
 }
 
-.facility-management-two__badge-divider {
-  width: 1px;
-  height: 43px;
-  background: #dce5ed;
-}
-
-.facility-management-two__badge-content {
+.FacilityManagementTwo__badgeText {
   display: flex;
   flex-direction: column;
-  gap: 6px;
-  min-width: 0;
 }
 
-.facility-management-two__badge-content strong {
-  color: var(--facility-primary);
-  font-size: 14px;
-  font-weight: 700;
-  overflow-wrap: anywhere;
+.FacilityManagementTwo__badgeText strong {
+  font-size: 11.5px;
+  font-weight: 800;
+  letter-spacing: 0.6px;
+  color: var(--FacilityManagementTwo-dark);
 }
 
-.facility-management-two__badge-content span {
-  color: var(--facility-muted);
-  font-size: 11px;
-  line-height: 1.5;
+.FacilityManagementTwo__badgeText span {
+  font-size: 10px;
+  color: var(--FacilityManagementTwo-gray);
 }
 
-/* =========================================
-   IMAGE CONTROLS
-========================================= */
-
-.facility-management-two__image-controls {
+/* Square Dark Navigation Buttons */
+.FacilityManagementTwo__nav {
   position: absolute;
-  right: 0;
-  bottom: 0;
-  z-index: 5;
+  bottom: 24px;
+  left: 24px;
+  z-index: 4;
   display: flex;
-  align-items: center;
-  gap: 14px;
+  gap: 2px;
+  background: rgba(25, 27, 29, 0.65);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-radius: 4px;
+  overflow: hidden;
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.25);
 }
 
-.facility-management-two__arrow {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 43px;
-  height: 43px;
+.FacilityManagementTwo__navBtn {
+  display: inline-grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
   padding: 0;
-  border: 1px solid #dce6ef;
-  border-radius: 50%;
-  background: #ffffff;
-  color: var(--facility-primary);
-  font-size: 21px;
-  cursor: pointer;
-  transition:
-    color 0.25s ease,
-    background 0.25s ease,
-    border-color 0.25s ease,
-    transform 0.25s ease;
-}
-
-.facility-management-two__arrow:hover {
-  background: var(--facility-primary);
-  border-color: var(--facility-primary);
+  border: 0;
+  background: transparent;
   color: #ffffff;
-  transform: translateY(-2px);
+  cursor: pointer;
+  transition: background-color 0.25s ease, color 0.25s ease;
 }
 
-.facility-management-two__arrow:focus-visible,
-.facility-management-two__pagination-item:focus-visible,
-.facility-management-two__cta:focus-visible {
-  outline: 3px solid var(--facility-accent);
-  outline-offset: 4px;
+.FacilityManagementTwo__navBtn:hover {
+  background-color: var(--FacilityManagementTwo-red);
+  color: #ffffff;
 }
 
-.facility-management-two__slide-count {
-  display: flex;
-  align-items: center;
-  gap: 7px;
-  color: #8593a1;
-  font-size: 12px;
+.FacilityManagementTwo__navBtn svg {
+  width: 18px;
+  height: 18px;
 }
 
-.facility-management-two__slide-count strong {
-  color: var(--facility-primary);
-  font-size: 16px;
+/* ========================================================
+   RIGHT CONTENT: STAGGERED TEXT ANIMATIONS
+======================================================== */
+
+.FacilityManagementTwo__content {
+  flex: 1 1 48%;
+  max-width: 580px;
+  z-index: 2;
 }
 
-/* =========================================
-   RIGHT CONTENT
-========================================= */
-
-.facility-management-two__content {
-  min-width: 0;
-  padding: 10px 0;
-  animation: facilityContentAppear 0.5s ease both;
-}
-
-@keyframes facilityContentAppear {
-  from {
-    opacity: 0;
-    transform: translateX(18px);
-  }
-
-  to {
-    opacity: 1;
-    transform: translateX(0);
-  }
-}
-
-.facility-management-two__eyebrow {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  margin-bottom: 22px;
-  color: var(--facility-secondary);
-  font-size: 12px;
-  font-weight: 800;
-  letter-spacing: 1.8px;
-  line-height: 1.6;
-  text-transform: uppercase;
-}
-
-.facility-management-two__eyebrow-line {
-  display: inline-block;
-  width: 35px;
-  height: 2px;
-  flex-shrink: 0;
-  background: var(--facility-accent);
-}
-
-.facility-management-two__title {
-  margin: 0 0 22px;
-  color: var(--facility-primary);
-  font-size: clamp(30px, 3.1vw, 46px);
-  font-weight: 800;
-  line-height: 1.18;
-  letter-spacing: -1.1px;
-  overflow-wrap: break-word;
-}
-
-.facility-management-two__description {
-  max-width: 560px;
-  margin: 0 0 28px;
-  color: var(--facility-muted);
-  font-size: 15px;
-  line-height: 1.9;
-  overflow-wrap: break-word;
-}
-
-/* =========================================
-   FEATURES
-========================================= */
-
-.facility-management-two__features {
-  display: flex;
-  flex-direction: column;
-  gap: 17px;
-  margin-bottom: 35px;
-}
-
-.facility-management-two__feature {
-  display: flex;
-  align-items: center;
-  gap: 13px;
-  color: var(--facility-text);
-  font-size: 14px;
-  font-weight: 600;
-  line-height: 1.6;
-  animation: facilityFeatureAppear 0.45s ease both;
-  animation-delay: calc(var(--feature-index, 0) * 100ms);
-}
-
-@keyframes facilityFeatureAppear {
-  from {
-    opacity: 0;
-    transform: translateX(-12px);
-  }
-
-  to {
-    opacity: 1;
-    transform: translateX(0);
-  }
-}
-
-.facility-management-two__feature-icon {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 25px;
-  height: 25px;
-  flex-shrink: 0;
-  border-radius: 50%;
-  background: #e8f7fa;
-  color: var(--facility-secondary);
-}
-
-.facility-management-two__feature-icon svg {
-  display: block;
-  width: 15px;
-  height: 15px;
-}
-
-/* =========================================
-   BUTTON AND PAGINATION
-========================================= */
-
-.facility-management-two__footer {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 20px;
-  flex-wrap: wrap;
-}
-
-.facility-management-two__cta {
+/* Eyebrow */
+.FacilityManagementTwo__eyebrowWrap {
   display: inline-flex;
   align-items: center;
-  justify-content: center;
-  gap: 22px;
-  min-height: 54px;
-  padding: 13px 18px 13px 23px;
-  border: 1px solid var(--facility-primary);
-  border-radius: 3px;
-  background: var(--facility-primary);
+  gap: 12px;
+  margin-bottom: 14px;
+  animation: contentSlideInFM 0.5s var(--FacilityManagementTwo-ease) forwards;
+}
+
+.FacilityManagementTwo__eyebrowLine {
+  width: 28px;
+  height: 3px;
+  background-color: var(--FacilityManagementTwo-red);
+  border-radius: 2px;
+  flex-shrink: 0;
+}
+
+.FacilityManagementTwo__eyebrow {
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 2.6px;
+  color: #63676c;
+}
+
+/* Title */
+.FacilityManagementTwo__title {
+  margin: 0 0 16px;
+  font-size: clamp(34px, 3.8vw, 52px);
+  font-weight: 700;
+  line-height: 1.12;
+  letter-spacing: -1.4px;
+  animation: contentSlideInFM 0.6s var(--FacilityManagementTwo-ease) forwards;
+}
+
+.FacilityManagementTwo__titlePrimary {
+  color: var(--FacilityManagementTwo-red);
+  font-family: Georgia, "Times New Roman", serif;
+  font-weight: 600;
+}
+
+.FacilityManagementTwo__titleAccent {
+  color: var(--FacilityManagementTwo-red);
+  font-family: Georgia, "Times New Roman", serif;
+  font-weight: 600;
+}
+
+/* Description */
+.FacilityManagementTwo__description {
+  margin: 0 0 28px;
+  font-size: 15.5px;
+  line-height: 1.75;
+  color: var(--FacilityManagementTwo-gray);
+  max-width: 520px;
+  animation: contentSlideInFM 0.7s var(--FacilityManagementTwo-ease) forwards;
+}
+
+/* Features List */
+.FacilityManagementTwo__features {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 32px;
+  animation: contentSlideInFM 0.8s var(--FacilityManagementTwo-ease) forwards;
+}
+
+.FacilityManagementTwo__featureItem {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 13.5px;
+  font-weight: 600;
+  color: var(--FacilityManagementTwo-charcoal);
+}
+
+.FacilityManagementTwo__featureDot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background-color: var(--FacilityManagementTwo-red);
+  flex-shrink: 0;
+}
+
+/* Keyframes */
+@keyframes contentSlideInFM {
+  from {
+    opacity: 0;
+    transform: translateX(25px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* Action CTA & Progress Bar */
+.FacilityManagementTwo__actionRow {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  animation: contentSlideInFM 0.9s var(--FacilityManagementTwo-ease) forwards;
+}
+
+.FacilityManagementTwo__btnPrimary {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background-color: var(--FacilityManagementTwo-red);
   color: #ffffff;
+  padding: 13px 26px;
+  border-radius: 3px;
   font-size: 13px;
   font-weight: 700;
+  letter-spacing: 0.5px;
   text-decoration: none;
-  transition:
-    background 0.3s ease,
-    border-color 0.3s ease,
-    transform 0.3s ease,
-    box-shadow 0.3s ease;
+  box-shadow: 0 10px 24px rgba(215, 25, 45, 0.28);
+  transition: background-color 0.25s ease, transform 0.2s ease, box-shadow 0.25s ease;
+  white-space: nowrap;
 }
 
-.facility-management-two__cta:hover {
-  background: var(--facility-secondary);
-  border-color: var(--facility-secondary);
-  box-shadow: 0 8px 22px rgba(22, 118, 184, 0.2);
-  transform: translateY(-3px);
+.FacilityManagementTwo__btnPrimary svg {
+  width: 16px;
+  height: 16px;
+  transition: transform 0.25s ease;
 }
 
-.facility-management-two__cta-icon {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 28px;
-  height: 28px;
-  border-radius: 50%;
-  background: rgba(255, 255, 255, 0.15);
-  font-size: 17px;
-  transition: transform 0.3s ease;
+.FacilityManagementTwo__btnPrimary:hover {
+  background-color: var(--FacilityManagementTwo-red-hover);
+  transform: translateY(-2px);
+  box-shadow: 0 14px 28px rgba(215, 25, 45, 0.36);
 }
 
-.facility-management-two__cta:hover .facility-management-two__cta-icon {
-  transform: rotate(45deg);
+.FacilityManagementTwo__btnPrimary:hover svg {
+  transform: translateX(4px);
 }
 
-.facility-management-two__pagination {
-  display: flex;
-  align-items: center;
-  gap: 9px;
-}
-
-.facility-management-two__pagination-item {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 27px;
-  height: 25px;
-  padding: 0;
-  border: none;
-  background: transparent;
-  cursor: pointer;
-}
-
-.facility-management-two__pagination-item span {
-  display: block;
-  width: 7px;
-  height: 7px;
-  border-radius: 20px;
-  background: #cbd6df;
-  transition:
-    width 0.3s ease,
-    background 0.3s ease;
-}
-
-.facility-management-two__pagination-item--active span {
-  width: 25px;
-  background: var(--facility-secondary);
-}
-
-/* =========================================
-   PROGRESS BAR
-========================================= */
-
-.facility-management-two__progress-track {
-  width: 100%;
+/* Synchronized Progress Track */
+.FacilityManagementTwo__progressTrack {
+  position: relative;
+  flex: 1;
+  max-width: 150px;
   height: 3px;
-  margin-top: 35px;
+  background-color: var(--FacilityManagementTwo-border);
+  border-radius: 2px;
   overflow: hidden;
-  background: #eaf0f5;
 }
 
-.facility-management-two__progress-bar {
+.FacilityManagementTwo__progressBar {
   width: 100%;
   height: 100%;
-  background: var(--facility-accent);
-  transform-origin: left;
-  animation: facilityProgress 5s linear forwards;
+  background-color: var(--FacilityManagementTwo-red);
+  transform: scaleX(0);
+  transform-origin: left center;
+  animation-name: FacilityProgressBar;
+  animation-timing-function: linear;
+  animation-fill-mode: forwards;
 }
 
-@keyframes facilityProgress {
+.FacilityManagementTwo__progressBar.is-paused {
+  animation-play-state: paused;
+}
+
+@keyframes FacilityProgressBar {
   from {
     transform: scaleX(0);
   }
-
   to {
     transform: scaleX(1);
   }
 }
 
-/* =========================================
-   TABLET
-========================================= */
+/* ========================================================
+   RESPONSIVE DESIGN (ALL DEVICES)
+======================================================== */
 
-@media (max-width: 1024px) {
-  .facility-management-two {
-    padding: 60px 4%;
-  }
-
-  .facility-management-two__container {
-    grid-template-columns: minmax(0, 0.9fr) minmax(0, 1fr);
+@media (max-width: 1200px) {
+  .FacilityManagementTwo__container {
     gap: 40px;
+    padding: 0 30px;
   }
 
-  .facility-management-two__image-frame {
-    height: 440px;
-    min-height: 360px;
-    border-top-right-radius: 65px;
+  .FacilityManagementTwo__media {
+    height: 480px;
   }
 
-  .facility-management-two__image-badge {
-    left: -10px;
-    min-width: 225px;
-    padding: 17px;
-  }
-
-  .facility-management-two__badge-number {
-    font-size: 29px;
-  }
-
-  .facility-management-two__title {
-    font-size: clamp(30px, 3.7vw, 39px);
-  }
-
-  .facility-management-two__description {
-    font-size: 14px;
-    line-height: 1.8;
-  }
-
-  .facility-management-two__features {
-    gap: 14px;
-    margin-bottom: 28px;
-  }
-
-  .facility-management-two__footer {
-    align-items: flex-start;
+  .FacilityManagementTwo__imageClip {
+    clip-path: polygon(0% 0%, 100% 0%, 82% 100%, 0% 100%);
   }
 }
 
-/* =========================================
-   MOBILE AND SMALL TABLETS
-========================================= */
-
-@media (max-width: 768px) {
-  .facility-management-two {
-    padding: 48px 22px;
+@media (max-width: 900px) {
+  .FacilityManagementTwo {
+    padding: 70px 0 80px;
   }
 
-  .facility-management-two__container {
-    max-width: 600px;
-    grid-template-columns: minmax(0, 1fr);
-    gap: 50px;
+  .FacilityManagementTwo__container {
+    flex-direction: column-reverse;
+    gap: 45px;
   }
 
-  .facility-management-two__visual {
+  .FacilityManagementTwo__media,
+  .FacilityManagementTwo__content {
     width: 100%;
-    padding: 0 12px 32px 0;
+    max-width: 100%;
+    flex: none;
   }
 
-  .facility-management-two__image-frame {
-    height: clamp(340px, 78vw, 480px);
-    min-height: 320px;
-    border-top-right-radius: 65px;
+  .FacilityManagementTwo__media {
+    height: 380px;
   }
 
-  .facility-management-two__image-decoration {
-    transform: translate(11px, 12px);
+  .FacilityManagementTwo__imageClip {
+    clip-path: none;
+    border-radius: 12px;
   }
 
-  .facility-management-two__image-label {
-    top: 18px;
-    left: 18px;
-    padding: 10px 12px;
-    font-size: 10px;
-  }
-
-  .facility-management-two__image-badge {
-    left: -7px;
-    bottom: 57px;
-    min-width: 230px;
-    padding: 17px 19px;
-  }
-
-  .facility-management-two__image-controls {
-    gap: 10px;
-  }
-
-  .facility-management-two__arrow {
-    width: 39px;
-    height: 39px;
-    font-size: 19px;
-  }
-
-  .facility-management-two__content {
-    padding: 0;
-  }
-
-  .facility-management-two__eyebrow {
-    margin-bottom: 18px;
-    font-size: 11px;
-    letter-spacing: 1.5px;
-  }
-
-  .facility-management-two__title {
-    max-width: 540px;
-    margin-bottom: 18px;
-    font-size: clamp(31px, 6vw, 42px);
-    line-height: 1.2;
-    letter-spacing: -0.7px;
-  }
-
-  .facility-management-two__description {
-    max-width: none;
-    margin-bottom: 25px;
-    font-size: 14px;
-  }
-
-  .facility-management-two__features {
-    gap: 15px;
-    margin-bottom: 30px;
-  }
-
-  .facility-management-two__feature {
-    font-size: 13px;
-  }
-
-  .facility-management-two__progress-track {
-    margin-top: 28px;
+  .FacilityManagementTwo__nav {
+    bottom: 16px;
+    left: 16px;
   }
 }
 
-/* =========================================
-   SMALL MOBILE
-========================================= */
-
-@media (max-width: 480px) {
-  .facility-management-two {
-    padding: 38px 17px;
+@media (max-width: 560px) {
+  .FacilityManagementTwo {
+    padding: 50px 0 60px;
   }
 
-  .facility-management-two__container {
-    gap: 38px;
+  .FacilityManagementTwo__container {
+    padding: 0 20px;
   }
 
-  .facility-management-two__visual {
-    padding-right: 8px;
-    padding-bottom: 30px;
+  .FacilityManagementTwo__title {
+    font-size: 30px;
+    letter-spacing: -1.2px;
   }
 
-  .facility-management-two__image-frame {
-    height: 340px;
-    min-height: 300px;
-    border-top-right-radius: 48px;
+  .FacilityManagementTwo__description {
+    font-size: 14.5px;
+    margin-bottom: 20px;
   }
 
-  .facility-management-two__image-decoration {
-    width: 48%;
-    height: 38%;
-    transform: translate(8px, 9px);
-    border-width: 2px;
+  .FacilityManagementTwo__media {
+    height: 270px;
   }
 
-  .facility-management-two__image-label {
-    top: 13px;
-    left: 12px;
-    gap: 7px;
-    padding: 9px 10px;
-    max-width: calc(100% - 24px);
-    font-size: 9px;
-    letter-spacing: 0.3px;
+  .FacilityManagementTwo__actionRow {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 16px;
   }
 
-  .facility-management-two__label-dot {
-    width: 7px;
-    height: 7px;
-  }
-
-  .facility-management-two__image-badge {
-    left: -5px;
-    bottom: 50px;
-    min-width: 0;
-    width: min(260px, calc(100% - 8px));
-    gap: 12px;
-    padding: 15px;
-  }
-
-  .facility-management-two__badge-number {
-    font-size: 28px;
-  }
-
-  .facility-management-two__badge-divider {
-    height: 38px;
-  }
-
-  .facility-management-two__badge-content strong {
-    font-size: 12px;
-  }
-
-  .facility-management-two__badge-content span {
-    font-size: 10px;
-  }
-
-  .facility-management-two__image-controls {
-    gap: 7px;
-  }
-
-  .facility-management-two__arrow {
-    width: 34px;
-    height: 34px;
-    font-size: 17px;
-  }
-
-  .facility-management-two__slide-count {
-    gap: 4px;
-    font-size: 10px;
-  }
-
-  .facility-management-two__slide-count strong {
-    font-size: 13px;
-  }
-
-  .facility-management-two__eyebrow {
-    gap: 9px;
-    font-size: 10px;
-    letter-spacing: 1.1px;
-  }
-
-  .facility-management-two__eyebrow-line {
-    width: 26px;
-  }
-
-  .facility-management-two__title {
-    font-size: clamp(28px, 8vw, 35px);
-    line-height: 1.22;
-  }
-
-  .facility-management-two__description {
-    font-size: 13px;
-    line-height: 1.85;
-  }
-
-  .facility-management-two__features {
-    gap: 13px;
-  }
-
-  .facility-management-two__feature {
-    align-items: flex-start;
-    gap: 10px;
-    font-size: 12px;
-  }
-
-  .facility-management-two__feature-icon {
-    width: 23px;
-    height: 23px;
-  }
-
-  .facility-management-two__feature-icon svg {
-    width: 14px;
-    height: 14px;
-  }
-
-  .facility-management-two__footer {
-    align-items: flex-start;
-    gap: 19px;
-  }
-
-  .facility-management-two__cta {
+  .FacilityManagementTwo__btnPrimary {
     width: 100%;
-    justify-content: space-between;
-    min-height: 50px;
-    padding: 11px 13px 11px 17px;
-    font-size: 12px;
+    justify-content: center;
   }
 
-  .facility-management-two__pagination {
-    gap: 6px;
+  .FacilityManagementTwo__progressTrack {
+    max-width: 100%;
   }
 
-  .facility-management-two__pagination-item {
-    width: 24px;
-  }
-
-  .facility-management-two__progress-track {
-    margin-top: 23px;
+  .FacilityManagementTwo__badge {
+    top: 14px;
+    left: 14px;
+    padding: 8px 12px;
   }
 }
 
-/* =========================================
-   ACCESSIBILITY
-========================================= */
-
+/* Accessibility */
 @media (prefers-reduced-motion: reduce) {
-  .facility-management-two *,
-  .facility-management-two *::before,
-  .facility-management-two *::after {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    scroll-behavior: auto !important;
-    transition-duration: 0.01ms !important;
+  .FacilityManagementTwo__image,
+  .FacilityManagementTwo__eyebrowWrap,
+  .FacilityManagementTwo__title,
+  .FacilityManagementTwo__description,
+  .FacilityManagementTwo__features,
+  .FacilityManagementTwo__actionRow,
+  .FacilityManagementTwo__badge {
+    transition: none !important;
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+
+  .FacilityManagementTwo__progressBar {
+    animation: none !important;
+    transform: scaleX(1);
   }
 }

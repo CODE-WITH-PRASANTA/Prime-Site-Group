@@ -1,5 +1,5 @@
 /* ========================================================
-   AVIATION SERVICES THREE - AVIATION INFRASTRUCTURE SECTION
+   AVIATION SERVICES THREE - STRATEGIC APPROACH SECTION
 ======================================================== */
 
 .AviationServicesThree {
@@ -14,7 +14,7 @@
 
   position: relative;
   width: 100%;
-  padding: 10px 0 90px;
+  padding: 10px 0 105px;
   background-color: var(--AviationServicesThree-bg);
   font-family: "Inter", "Segoe UI", Arial, sans-serif;
   color: var(--AviationServicesThree-dark);
@@ -39,138 +39,11 @@
 }
 
 /* ========================================================
-   LEFT MEDIA
-======================================================== */
-
-.AviationServicesThree__media {
-  position: relative;
-  flex: 1 1 50%;
-  min-width: 0;
-  height: 580px;
-  opacity: 0;
-  transform: translateX(-80px);
-  transition:
-    transform 1.25s var(--AviationServicesThree-ease),
-    opacity 1.25s var(--AviationServicesThree-ease);
-  will-change: transform, opacity;
-}
-
-.AviationServicesThree--visible .AviationServicesThree__media {
-  opacity: 1;
-  transform: translateX(0);
-}
-
-.AviationServicesThree__imageClip {
-  position: relative;
-  width: 100%;
-  height: 100%;
-  overflow: hidden;
-  clip-path: polygon(0% 0%, 100% 0%, 75% 100%, 0% 100%);
-  background-color: #1a1c1e;
-  box-shadow: 15px 25px 50px rgba(0, 0, 0, 0.12);
-}
-
-.AviationServicesThree__image {
-  display: block;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: center;
-  transform: scale(1.08);
-  transition:
-    transform 4.5s ease-out,
-    filter 0.5s ease;
-}
-
-.AviationServicesThree--visible .AviationServicesThree__image {
-  transform: scale(1);
-}
-
-.AviationServicesThree__imageClip:hover
-.AviationServicesThree__image {
-  filter: brightness(1.08);
-}
-
-.AviationServicesThree__imageShade {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(
-    135deg,
-    rgba(215, 25, 45, 0.08) 0%,
-    transparent 50%,
-    rgba(20, 22, 25, 0.4) 100%
-  );
-  pointer-events: none;
-}
-
-/* ========================================================
-   FLOATING AVIATION BADGE
-======================================================== */
-
-.AviationServicesThree__badge {
-  position: absolute;
-  bottom: 40px;
-  right: 25px;
-  z-index: 3;
-  display: inline-flex;
-  align-items: center;
-  gap: 12px;
-  max-width: calc(100% - 35px);
-  padding: 14px 20px;
-  background: rgba(255, 255, 255, 0.95);
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
-  border: 1px solid rgba(255, 255, 255, 0.8);
-  border-radius: 8px;
-  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.12);
-  animation: AviationServicesThreeBadgeFloat 4s ease-in-out infinite;
-}
-
-.AviationServicesThree__badgeDot {
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
-  background: var(--AviationServicesThree-red);
-  box-shadow: 0 0 10px rgba(215, 25, 45, 0.6);
-  flex-shrink: 0;
-}
-
-.AviationServicesThree__badgeInfo {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-}
-
-.AviationServicesThree__badgeInfo strong {
-  font-size: 13px;
-  font-weight: 700;
-  color: var(--AviationServicesThree-dark);
-}
-
-.AviationServicesThree__badgeInfo span {
-  font-size: 11px;
-  line-height: 1.5;
-  color: var(--AviationServicesThree-gray);
-}
-
-@keyframes AviationServicesThreeBadgeFloat {
-  0%,
-  100% {
-    transform: translateY(0);
-  }
-
-  50% {
-    transform: translateY(-5px);
-  }
-}
-
-/* ========================================================
-   RIGHT CONTENT
+   LEFT CONTENT: STAGGERED RUNNING ENTRANCE ANIMATION
 ======================================================== */
 
 .AviationServicesThree__content {
   flex: 1 1 50%;
-  min-width: 0;
   max-width: 580px;
   z-index: 2;
 }
@@ -178,13 +51,12 @@
 .AviationServicesThree__eyebrowWrap,
 .AviationServicesThree__title,
 .AviationServicesThree__description,
-.AviationServicesThree__list,
+.AviationServicesThree__pillars,
 .AviationServicesThree__actionWrap {
   opacity: 0;
-  transform: translateX(45px);
-  transition:
-    transform 1.1s var(--AviationServicesThree-ease),
-    opacity 1.1s var(--AviationServicesThree-ease);
+  transform: translateX(-45px);
+  transition: transform 1.1s var(--AviationServicesThree-ease),
+              opacity 1.1s var(--AviationServicesThree-ease);
   will-change: transform, opacity;
 }
 
@@ -206,7 +78,7 @@
   transition-delay: 0.34s;
 }
 
-.AviationServicesThree--visible .AviationServicesThree__list {
+.AviationServicesThree--visible .AviationServicesThree__pillars {
   opacity: 1;
   transform: translateX(0);
   transition-delay: 0.46s;
@@ -218,10 +90,7 @@
   transition-delay: 0.58s;
 }
 
-/* ========================================================
-   EYEBROW
-======================================================== */
-
+/* Eyebrow */
 .AviationServicesThree__eyebrowWrap {
   display: inline-flex;
   align-items: center;
@@ -244,10 +113,7 @@
   color: #63676c;
 }
 
-/* ========================================================
-   TITLE
-======================================================== */
-
+/* Title */
 .AviationServicesThree__title {
   margin: 0 0 16px;
   font-size: clamp(36px, 4vw, 54px);
@@ -263,10 +129,7 @@
   font-weight: 600;
 }
 
-/* ========================================================
-   DESCRIPTION
-======================================================== */
-
+/* Description */
 .AviationServicesThree__description {
   margin: 0 0 28px;
   font-size: 16px;
@@ -275,35 +138,21 @@
   max-width: 520px;
 }
 
-/* ========================================================
-   AVIATION FACILITIES CHECKLIST
-======================================================== */
-
-.AviationServicesThree__list {
+/* Pillar List */
+.AviationServicesThree__pillars {
   display: flex;
   flex-direction: column;
   gap: 16px;
   margin-bottom: 34px;
 }
 
-.AviationServicesThree__item {
+.AviationServicesThree__pillarItem {
   display: flex;
   align-items: flex-start;
   gap: 14px;
-  opacity: 0;
-  transform: translateY(14px);
-  transition:
-    opacity 0.6s ease,
-    transform 0.6s var(--AviationServicesThree-ease);
 }
 
-.AviationServicesThree--visible .AviationServicesThree__item {
-  opacity: 1;
-  transform: translateY(0);
-  transition-delay: calc(0.45s + var(--item-index) * 0.12s);
-}
-
-.AviationServicesThree__checkIcon {
+.AviationServicesThree__pillarIcon {
   display: inline-grid;
   place-items: center;
   width: 24px;
@@ -313,88 +162,62 @@
   color: var(--AviationServicesThree-red);
   flex-shrink: 0;
   margin-top: 2px;
-  transition:
-    background-color 0.3s ease,
-    color 0.3s ease,
-    transform 0.3s ease;
 }
 
-.AviationServicesThree__item:hover .AviationServicesThree__checkIcon {
-  background-color: var(--AviationServicesThree-red);
-  color: #ffffff;
-  transform: scale(1.08);
-}
-
-.AviationServicesThree__checkIcon svg {
+.AviationServicesThree__pillarIcon svg {
   width: 14px;
   height: 14px;
 }
 
-.AviationServicesThree__itemText {
+.AviationServicesThree__pillarText {
   display: flex;
   flex-direction: column;
-  min-width: 0;
 }
 
-.AviationServicesThree__itemTitle {
-  margin: 0 0 4px;
+.AviationServicesThree__pillarTitle {
+  margin: 0 0 2px;
   font-size: 14.5px;
   font-weight: 700;
-  line-height: 1.5;
   color: var(--AviationServicesThree-charcoal);
 }
 
-.AviationServicesThree__itemDetail {
+.AviationServicesThree__pillarDesc {
   margin: 0;
   font-size: 13px;
   color: var(--AviationServicesThree-gray);
-  line-height: 1.6;
+  line-height: 1.5;
 }
 
-/* ========================================================
-   PRIMARY ACTION BUTTON
-======================================================== */
-
+/* Action Button */
 .AviationServicesThree__actionWrap {
   display: inline-block;
-  max-width: 100%;
 }
 
 .AviationServicesThree__linkPrimary {
-  position: relative;
   display: inline-flex;
   align-items: center;
-  justify-content: center;
   gap: 10px;
-  overflow: hidden;
   background-color: var(--AviationServicesThree-red);
   color: #ffffff;
   padding: 13px 26px;
-  border: 1px solid var(--AviationServicesThree-red);
   border-radius: 3px;
   font-size: 13px;
   font-weight: 700;
-  line-height: 1.5;
-  letter-spacing: 0.3px;
+  letter-spacing: 0.5px;
   text-decoration: none;
-  box-shadow: 0 10px 24px rgba(215, 25, 45, 0.25);
-  transition:
-    background-color 0.25s ease,
-    transform 0.25s ease,
-    box-shadow 0.25s ease;
+  box-shadow: 0 10px 24px rgba(215, 25, 45, 0.28);
+  transition: background-color 0.25s ease, transform 0.2s ease, box-shadow 0.25s ease;
 }
 
 .AviationServicesThree__linkPrimary svg {
   width: 16px;
   height: 16px;
-  flex-shrink: 0;
   transition: transform 0.25s ease;
 }
 
 .AviationServicesThree__linkPrimary:hover {
   background-color: var(--AviationServicesThree-red-hover);
-  border-color: var(--AviationServicesThree-red-hover);
-  transform: translateY(-3px);
+  transform: translateY(-2px);
   box-shadow: 0 14px 28px rgba(215, 25, 45, 0.36);
 }
 
@@ -402,13 +225,107 @@
   transform: translateX(4px);
 }
 
-.AviationServicesThree__linkPrimary:focus-visible {
-  outline: 3px solid rgba(215, 25, 45, 0.35);
-  outline-offset: 4px;
+/* ========================================================
+   RIGHT MEDIA: ANGLED CUT & SMOOTH IMAGE ZOOM ENTRANCE
+======================================================== */
+
+.AviationServicesThree__media {
+  position: relative;
+  flex: 1 1 50%;
+  height: 580px;
+  opacity: 0;
+  transform: translateX(80px);
+  transition: transform 1.25s var(--AviationServicesThree-ease),
+              opacity 1.25s var(--AviationServicesThree-ease);
+  will-change: transform, opacity;
+}
+
+.AviationServicesThree--visible .AviationServicesThree__media {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.AviationServicesThree__imageClip {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  clip-path: polygon(25% 0%, 100% 0%, 100% 100%, 0% 100%);
+  background-color: #1f2429;
+  box-shadow: -15px 25px 50px rgba(0, 0, 0, 0.14);
+}
+
+.AviationServicesThree__image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  transform: scale(1.08);
+  transition: transform 4.5s ease-out;
+  display: block;
+}
+
+.AviationServicesThree--visible .AviationServicesThree__image {
+  transform: scale(1);
+}
+
+.AviationServicesThree__imageShade {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    135deg,
+    rgba(215, 25, 45, 0.08) 0%,
+    transparent 50%,
+    rgba(23, 25, 28, 0.35) 100%
+  );
+  pointer-events: none;
+}
+
+/* Floating Status Badge */
+.AviationServicesThree__badge {
+  position: absolute;
+  bottom: 40px;
+  left: 20px;
+  z-index: 3;
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 20px;
+  background: rgba(255, 255, 255, 0.94);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(255, 255, 255, 0.7);
+  border-radius: 8px;
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.12);
+}
+
+.AviationServicesThree__badgeDot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--AviationServicesThree-red);
+  box-shadow: 0 0 10px rgba(215, 25, 45, 0.6);
+  flex-shrink: 0;
+}
+
+.AviationServicesThree__badgeInfo {
+  display: flex;
+  flex-direction: column;
+}
+
+.AviationServicesThree__badgeInfo strong {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--AviationServicesThree-dark);
+}
+
+.AviationServicesThree__badgeInfo span {
+  font-size: 11px;
+  color: var(--AviationServicesThree-gray);
 }
 
 /* ========================================================
-   RESPONSIVE DESIGN
+   RESPONSIVE DESIGN (ALL BREAKPOINTS)
 ======================================================== */
 
 @media (max-width: 1200px) {
@@ -422,11 +339,7 @@
   }
 
   .AviationServicesThree__imageClip {
-    clip-path: polygon(0% 0%, 100% 0%, 82% 100%, 0% 100%);
-  }
-
-  .AviationServicesThree__title {
-    font-size: clamp(34px, 4vw, 46px);
+    clip-path: polygon(18% 0%, 100% 0%, 100% 100%, 0% 100%);
   }
 }
 
@@ -436,13 +349,12 @@
   }
 
   .AviationServicesThree__container {
-    flex-direction: column-reverse;
+    flex-direction: column;
     gap: 45px;
-    padding: 0 30px;
   }
 
-  .AviationServicesThree__media,
-  .AviationServicesThree__content {
+  .AviationServicesThree__content,
+  .AviationServicesThree__media {
     width: 100%;
     max-width: 100%;
     flex: none;
@@ -450,7 +362,7 @@
 
   .AviationServicesThree__media {
     height: 380px;
-    transform: translateX(-35px);
+    transform: none;
   }
 
   .AviationServicesThree__content {
@@ -463,12 +375,8 @@
   }
 
   .AviationServicesThree__badge {
-    right: 20px;
+    left: 20px;
     bottom: 20px;
-  }
-
-  .AviationServicesThree__description {
-    max-width: 100%;
   }
 }
 
@@ -479,7 +387,6 @@
 
   .AviationServicesThree__container {
     padding: 0 20px;
-    gap: 32px;
   }
 
   .AviationServicesThree__title {
@@ -487,76 +394,43 @@
     letter-spacing: -1.2px;
   }
 
-  .AviationServicesThree__eyebrow {
-    font-size: 10px;
-    letter-spacing: 2px;
-  }
-
   .AviationServicesThree__description {
     font-size: 14.5px;
-    line-height: 1.75;
-    margin-bottom: 22px;
-  }
-
-  .AviationServicesThree__list {
-    gap: 18px;
-    margin-bottom: 28px;
-  }
-
-  .AviationServicesThree__item {
-    gap: 11px;
-  }
-
-  .AviationServicesThree__itemTitle {
-    font-size: 14px;
-  }
-
-  .AviationServicesThree__itemDetail {
-    font-size: 12.5px;
+    margin-bottom: 20px;
   }
 
   .AviationServicesThree__media {
     height: 270px;
   }
 
+  .AviationServicesThree__linkPrimary {
+    width: 100%;
+    justify-content: center;
+  }
+
   .AviationServicesThree__badge {
-    right: 12px;
-    bottom: 12px;
-    padding: 10px 12px;
-    gap: 9px;
+    padding: 10px 14px;
   }
 
   .AviationServicesThree__badgeInfo strong {
-    font-size: 11px;
+    font-size: 12px;
   }
 
   .AviationServicesThree__badgeInfo span {
-    font-size: 9px;
-  }
-
-  .AviationServicesThree__linkPrimary {
-    width: 100%;
-    padding: 13px 14px;
-    font-size: 12px;
+    font-size: 10px;
   }
 }
 
-/* ========================================================
-   ACCESSIBILITY: REDUCED MOTION
-======================================================== */
-
+/* Accessibility */
 @media (prefers-reduced-motion: reduce) {
   .AviationServicesThree__eyebrowWrap,
   .AviationServicesThree__title,
   .AviationServicesThree__description,
-  .AviationServicesThree__list,
+  .AviationServicesThree__pillars,
   .AviationServicesThree__actionWrap,
   .AviationServicesThree__media,
-  .AviationServicesThree__image,
-  .AviationServicesThree__item,
-  .AviationServicesThree__badge {
+  .AviationServicesThree__image {
     transition: none !important;
-    animation: none !important;
     transform: none !important;
     opacity: 1 !important;
   }

@@ -10,8 +10,8 @@ const SecurityServices = () => {
     <div>
         <SecurityServicesMain/>
         <SecurityServicesTwo/>
-        <SecurityServicesFour/>
         <SecurityServicesThree/>
+        <SecurityServicesFour/>
         <SecurityServicesFive/>
     </div>
   )

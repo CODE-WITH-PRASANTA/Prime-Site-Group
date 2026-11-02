@@ -1,5 +1,5 @@
 /* ========================================================
-   MANAGED SERVICES THREE - MANAGED SOLUTIONS SECTION
+   MANAGED SERVICES THREE - STRATEGIC APPROACH SECTION
 ======================================================== */
 
 .ManagedServicesThree {
@@ -14,7 +14,7 @@
 
   position: relative;
   width: 100%;
-  padding: 10px 0 90px;
+  padding: 10px 0 105px;
   background-color: var(--ManagedServicesThree-bg);
   font-family: "Inter", "Segoe UI", Arial, sans-serif;
   color: var(--ManagedServicesThree-dark);
@@ -39,137 +39,11 @@
 }
 
 /* ========================================================
-   LEFT MEDIA: ANGLED IMAGE
-======================================================== */
-
-.ManagedServicesThree__media {
-  position: relative;
-  flex: 1 1 50%;
-  min-width: 0;
-  height: 580px;
-  opacity: 0;
-  transform: translateX(-80px);
-  transition:
-    transform 1.25s var(--ManagedServicesThree-ease),
-    opacity 1.25s var(--ManagedServicesThree-ease);
-  will-change: transform, opacity;
-}
-
-.ManagedServicesThree--visible .ManagedServicesThree__media {
-  opacity: 1;
-  transform: translateX(0);
-}
-
-.ManagedServicesThree__imageClip {
-  position: relative;
-  width: 100%;
-  height: 100%;
-  overflow: hidden;
-  clip-path: polygon(0% 0%, 100% 0%, 75% 100%, 0% 100%);
-  background-color: #1f2124;
-  box-shadow: 15px 25px 50px rgba(0, 0, 0, 0.12);
-}
-
-.ManagedServicesThree__image {
-  display: block;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: center;
-  transform: scale(1.08);
-  transition:
-    transform 4.5s ease-out,
-    filter 0.5s ease;
-}
-
-.ManagedServicesThree--visible .ManagedServicesThree__image {
-  transform: scale(1);
-}
-
-.ManagedServicesThree__imageClip:hover
-.ManagedServicesThree__image {
-  filter: brightness(1.08);
-}
-
-.ManagedServicesThree__imageShade {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(
-    135deg,
-    rgba(215, 25, 45, 0.08) 0%,
-    transparent 50%,
-    rgba(20, 22, 25, 0.35) 100%
-  );
-  pointer-events: none;
-}
-
-/* ========================================================
-   FLOATING STATUS BADGE
-======================================================== */
-
-.ManagedServicesThree__badge {
-  position: absolute;
-  bottom: 40px;
-  right: 25px;
-  z-index: 3;
-  display: inline-flex;
-  align-items: center;
-  gap: 12px;
-  padding: 14px 20px;
-  background: rgba(255, 255, 255, 0.94);
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
-  border: 1px solid rgba(255, 255, 255, 0.8);
-  border-radius: 8px;
-  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.12);
-  animation: ManagedServicesThreeBadgeFloat 4s ease-in-out infinite;
-}
-
-.ManagedServicesThree__badgeDot {
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
-  background: var(--ManagedServicesThree-red);
-  box-shadow: 0 0 10px rgba(215, 25, 45, 0.6);
-  flex-shrink: 0;
-}
-
-.ManagedServicesThree__badgeInfo {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-}
-
-.ManagedServicesThree__badgeInfo strong {
-  font-size: 13px;
-  font-weight: 700;
-  color: var(--ManagedServicesThree-dark);
-}
-
-.ManagedServicesThree__badgeInfo span {
-  font-size: 11px;
-  color: var(--ManagedServicesThree-gray);
-  line-height: 1.5;
-}
-
-@keyframes ManagedServicesThreeBadgeFloat {
-  0%,
-  100% {
-    transform: translateY(0);
-  }
-
-  50% {
-    transform: translateY(-5px);
-  }
-}
-
-/* ========================================================
-   RIGHT CONTENT: STAGGERED ENTRANCE ANIMATIONS
+   LEFT CONTENT: STAGGERED RUNNING ENTRANCE ANIMATION
 ======================================================== */
 
 .ManagedServicesThree__content {
   flex: 1 1 50%;
-  min-width: 0;
   max-width: 580px;
   z-index: 2;
 }
@@ -177,13 +51,12 @@
 .ManagedServicesThree__eyebrowWrap,
 .ManagedServicesThree__title,
 .ManagedServicesThree__description,
-.ManagedServicesThree__list,
+.ManagedServicesThree__pillars,
 .ManagedServicesThree__actionWrap {
   opacity: 0;
-  transform: translateX(45px);
-  transition:
-    transform 1.1s var(--ManagedServicesThree-ease),
-    opacity 1.1s var(--ManagedServicesThree-ease);
+  transform: translateX(-45px);
+  transition: transform 1.1s var(--ManagedServicesThree-ease),
+              opacity 1.1s var(--ManagedServicesThree-ease);
   will-change: transform, opacity;
 }
 
@@ -205,7 +78,7 @@
   transition-delay: 0.34s;
 }
 
-.ManagedServicesThree--visible .ManagedServicesThree__list {
+.ManagedServicesThree--visible .ManagedServicesThree__pillars {
   opacity: 1;
   transform: translateX(0);
   transition-delay: 0.46s;
@@ -217,10 +90,7 @@
   transition-delay: 0.58s;
 }
 
-/* ========================================================
-   EYEBROW
-======================================================== */
-
+/* Eyebrow */
 .ManagedServicesThree__eyebrowWrap {
   display: inline-flex;
   align-items: center;
@@ -243,10 +113,7 @@
   color: #63676c;
 }
 
-/* ========================================================
-   TITLE
-======================================================== */
-
+/* Title */
 .ManagedServicesThree__title {
   margin: 0 0 16px;
   font-size: clamp(36px, 4vw, 54px);
@@ -262,10 +129,7 @@
   font-weight: 600;
 }
 
-/* ========================================================
-   DESCRIPTION
-======================================================== */
-
+/* Description */
 .ManagedServicesThree__description {
   margin: 0 0 28px;
   font-size: 16px;
@@ -274,24 +138,21 @@
   max-width: 520px;
 }
 
-/* ========================================================
-   MANAGED SERVICES CHECKLIST
-======================================================== */
-
-.ManagedServicesThree__list {
+/* Pillar List */
+.ManagedServicesThree__pillars {
   display: flex;
   flex-direction: column;
   gap: 16px;
   margin-bottom: 34px;
 }
 
-.ManagedServicesThree__item {
+.ManagedServicesThree__pillarItem {
   display: flex;
   align-items: flex-start;
   gap: 14px;
 }
 
-.ManagedServicesThree__checkIcon {
+.ManagedServicesThree__pillarIcon {
   display: inline-grid;
   place-items: center;
   width: 24px;
@@ -301,47 +162,33 @@
   color: var(--ManagedServicesThree-red);
   flex-shrink: 0;
   margin-top: 2px;
-  transition:
-    background-color 0.3s ease,
-    color 0.3s ease,
-    transform 0.3s ease;
 }
 
-.ManagedServicesThree__item:hover .ManagedServicesThree__checkIcon {
-  background-color: var(--ManagedServicesThree-red);
-  color: #ffffff;
-  transform: scale(1.08);
-}
-
-.ManagedServicesThree__checkIcon svg {
+.ManagedServicesThree__pillarIcon svg {
   width: 14px;
   height: 14px;
 }
 
-.ManagedServicesThree__itemText {
+.ManagedServicesThree__pillarText {
   display: flex;
   flex-direction: column;
-  min-width: 0;
 }
 
-.ManagedServicesThree__itemTitle {
+.ManagedServicesThree__pillarTitle {
   margin: 0 0 2px;
   font-size: 14.5px;
   font-weight: 700;
   color: var(--ManagedServicesThree-charcoal);
 }
 
-.ManagedServicesThree__itemDetail {
+.ManagedServicesThree__pillarDesc {
   margin: 0;
   font-size: 13px;
   color: var(--ManagedServicesThree-gray);
   line-height: 1.5;
 }
 
-/* ========================================================
-   PRIMARY ACTION BUTTON
-======================================================== */
-
+/* Action Button */
 .ManagedServicesThree__actionWrap {
   display: inline-block;
 }
@@ -349,34 +196,27 @@
 .ManagedServicesThree__linkPrimary {
   display: inline-flex;
   align-items: center;
-  justify-content: center;
   gap: 10px;
   background-color: var(--ManagedServicesThree-red);
   color: #ffffff;
   padding: 13px 26px;
-  border: 1px solid var(--ManagedServicesThree-red);
   border-radius: 3px;
   font-size: 13px;
   font-weight: 700;
   letter-spacing: 0.5px;
   text-decoration: none;
   box-shadow: 0 10px 24px rgba(215, 25, 45, 0.28);
-  transition:
-    background-color 0.25s ease,
-    transform 0.2s ease,
-    box-shadow 0.25s ease;
+  transition: background-color 0.25s ease, transform 0.2s ease, box-shadow 0.25s ease;
 }
 
 .ManagedServicesThree__linkPrimary svg {
   width: 16px;
   height: 16px;
-  flex-shrink: 0;
   transition: transform 0.25s ease;
 }
 
 .ManagedServicesThree__linkPrimary:hover {
   background-color: var(--ManagedServicesThree-red-hover);
-  border-color: var(--ManagedServicesThree-red-hover);
   transform: translateY(-2px);
   box-shadow: 0 14px 28px rgba(215, 25, 45, 0.36);
 }
@@ -385,13 +225,107 @@
   transform: translateX(4px);
 }
 
-.ManagedServicesThree__linkPrimary:focus-visible {
-  outline: 2px solid var(--ManagedServicesThree-dark);
-  outline-offset: 4px;
+/* ========================================================
+   RIGHT MEDIA: ANGLED CUT & SMOOTH IMAGE ZOOM ENTRANCE
+======================================================== */
+
+.ManagedServicesThree__media {
+  position: relative;
+  flex: 1 1 50%;
+  height: 580px;
+  opacity: 0;
+  transform: translateX(80px);
+  transition: transform 1.25s var(--ManagedServicesThree-ease),
+              opacity 1.25s var(--ManagedServicesThree-ease);
+  will-change: transform, opacity;
+}
+
+.ManagedServicesThree--visible .ManagedServicesThree__media {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.ManagedServicesThree__imageClip {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  clip-path: polygon(25% 0%, 100% 0%, 100% 100%, 0% 100%);
+  background-color: #1f2429;
+  box-shadow: -15px 25px 50px rgba(0, 0, 0, 0.14);
+}
+
+.ManagedServicesThree__image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  transform: scale(1.08);
+  transition: transform 4.5s ease-out;
+  display: block;
+}
+
+.ManagedServicesThree--visible .ManagedServicesThree__image {
+  transform: scale(1);
+}
+
+.ManagedServicesThree__imageShade {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    135deg,
+    rgba(215, 25, 45, 0.08) 0%,
+    transparent 50%,
+    rgba(23, 25, 28, 0.35) 100%
+  );
+  pointer-events: none;
+}
+
+/* Floating Status Badge */
+.ManagedServicesThree__badge {
+  position: absolute;
+  bottom: 40px;
+  left: 20px;
+  z-index: 3;
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 20px;
+  background: rgba(255, 255, 255, 0.94);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(255, 255, 255, 0.7);
+  border-radius: 8px;
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.12);
+}
+
+.ManagedServicesThree__badgeDot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--ManagedServicesThree-red);
+  box-shadow: 0 0 10px rgba(215, 25, 45, 0.6);
+  flex-shrink: 0;
+}
+
+.ManagedServicesThree__badgeInfo {
+  display: flex;
+  flex-direction: column;
+}
+
+.ManagedServicesThree__badgeInfo strong {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--ManagedServicesThree-dark);
+}
+
+.ManagedServicesThree__badgeInfo span {
+  font-size: 11px;
+  color: var(--ManagedServicesThree-gray);
 }
 
 /* ========================================================
-   RESPONSIVE DESIGN
+   RESPONSIVE DESIGN (ALL BREAKPOINTS)
 ======================================================== */
 
 @media (max-width: 1200px) {
@@ -405,7 +339,7 @@
   }
 
   .ManagedServicesThree__imageClip {
-    clip-path: polygon(0% 0%, 100% 0%, 82% 100%, 0% 100%);
+    clip-path: polygon(18% 0%, 100% 0%, 100% 100%, 0% 100%);
   }
 }
 
@@ -415,12 +349,12 @@
   }
 
   .ManagedServicesThree__container {
-    flex-direction: column-reverse;
+    flex-direction: column;
     gap: 45px;
   }
 
-  .ManagedServicesThree__media,
-  .ManagedServicesThree__content {
+  .ManagedServicesThree__content,
+  .ManagedServicesThree__media {
     width: 100%;
     max-width: 100%;
     flex: none;
@@ -428,7 +362,11 @@
 
   .ManagedServicesThree__media {
     height: 380px;
-    transform: translateX(-35px);
+    transform: none;
+  }
+
+  .ManagedServicesThree__content {
+    transform: none;
   }
 
   .ManagedServicesThree__imageClip {
@@ -437,12 +375,8 @@
   }
 
   .ManagedServicesThree__badge {
-    right: 20px;
+    left: 20px;
     bottom: 20px;
-  }
-
-  .ManagedServicesThree__description {
-    max-width: 100%;
   }
 }
 
@@ -460,11 +394,6 @@
     letter-spacing: -1.2px;
   }
 
-  .ManagedServicesThree__eyebrow {
-    font-size: 10px;
-    letter-spacing: 2px;
-  }
-
   .ManagedServicesThree__description {
     font-size: 14.5px;
     margin-bottom: 20px;
@@ -472,23 +401,6 @@
 
   .ManagedServicesThree__media {
     height: 270px;
-  }
-
-  .ManagedServicesThree__list {
-    gap: 18px;
-    margin-bottom: 28px;
-  }
-
-  .ManagedServicesThree__item {
-    gap: 11px;
-  }
-
-  .ManagedServicesThree__itemTitle {
-    font-size: 14px;
-  }
-
-  .ManagedServicesThree__itemDetail {
-    font-size: 12.5px;
   }
 
   .ManagedServicesThree__linkPrimary {
@@ -509,21 +421,16 @@
   }
 }
 
-/* ========================================================
-   ACCESSIBILITY
-======================================================== */
-
+/* Accessibility */
 @media (prefers-reduced-motion: reduce) {
   .ManagedServicesThree__eyebrowWrap,
   .ManagedServicesThree__title,
   .ManagedServicesThree__description,
-  .ManagedServicesThree__list,
+  .ManagedServicesThree__pillars,
   .ManagedServicesThree__actionWrap,
   .ManagedServicesThree__media,
-  .ManagedServicesThree__image,
-  .ManagedServicesThree__badge {
+  .ManagedServicesThree__image {
     transition: none !important;
-    animation: none !important;
     transform: none !important;
     opacity: 1 !important;
   }

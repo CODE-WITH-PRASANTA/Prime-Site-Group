@@ -4,7 +4,6 @@ import WorkforceSoluationTwo from '../../Components/WorkforceSoluationTwo/Workfo
 import WorkforceSoluationThree from '../../Components/WorkforceSoluationThree/WorkforceSoluationThree'
 import WorkforceSoluationFour from '../../Components/WorkforceSoluationFour/WorkforceSoluationFour'
 import WorkforceSoluationFive from '../../Components/WorkforceSoluationFive/WorkforceSoluationFive'
-import WorkforceSoluationSix from '../../Components/WorkforceSoluationSix/WorkforceSoluationSix'
 
 const WorkforceSoluation = () => {
   return (
@@ -14,7 +13,6 @@ const WorkforceSoluation = () => {
         <WorkforceSoluationThree/>
         <WorkforceSoluationFour/>
         <WorkforceSoluationFive/>
-        <WorkforceSoluationSix/>
     </div>
   )
 }

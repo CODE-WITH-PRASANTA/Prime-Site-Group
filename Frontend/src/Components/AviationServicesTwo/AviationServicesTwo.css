@@ -1,61 +1,64 @@
-/* =========================================
-   AVIATION SERVICES TWO
-========================================= */
+/* ========================================================
+   AVIATION SERVICES TWO - HERO SLIDER SECTION
+======================================================== */
 
-.aviation-services-two {
-  --aviation-primary: #d7192d ;
-  --aviation-secondary: #b51223;
-  --aviation-accent: #b51223;
-  --aviation-text: #1f2124;;
-  --aviation-muted: #1f2124;
-  --aviation-light: #f2f7fb;
+.AviationServicesTwo {
+  --AviationServicesTwo-red: #d7192d;
+  --AviationServicesTwo-red-hover: #b51223;
+  --AviationServicesTwo-dark: #1f2124;
+  --AviationServicesTwo-charcoal: #2c2f33;
+  --AviationServicesTwo-gray: #585c63;
+  --AviationServicesTwo-border: #dde1e5;
+  --AviationServicesTwo-bg: #ffffff;
+  --AviationServicesTwo-ease: cubic-bezier(0.16, 1, 0.3, 1);
 
+  position: relative;
   width: 100%;
-  padding: 75px 5%;
-  background: #ffffff;
-  box-sizing: border-box;
+  padding: 50px 0 90px;
+  background-color: var(--AviationServicesTwo-bg);
+  font-family: "Inter", "Segoe UI", Arial, sans-serif;
+  color: var(--AviationServicesTwo-dark);
   overflow: hidden;
-  font-family: Arial, Helvetica, sans-serif;
-}
-
-.aviation-services-two *,
-.aviation-services-two *::before,
-.aviation-services-two *::after {
   box-sizing: border-box;
 }
 
-.aviation-services-two__container {
-  width: 100%;
-  max-width: 1240px;
-  margin: 0 auto;
-  display: grid;
-  grid-template-columns: minmax(0, 0.95fr) minmax(0, 1fr);
+.AviationServicesTwo *,
+.AviationServicesTwo *::before,
+.AviationServicesTwo *::after {
+  box-sizing: border-box;
+}
+
+.AviationServicesTwo__container {
+  display: flex;
   align-items: center;
-  gap: clamp(40px, 6vw, 90px);
+  justify-content: space-between;
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 0 40px;
+  gap: 65px;
 }
 
-/* =========================================
-   LEFT VISUAL
-========================================= */
+/* ========================================================
+   LEFT MEDIA: ANGLED SLANTED CLIP & IMAGE FADE
+======================================================== */
 
-.aviation-services-two__visual {
+.AviationServicesTwo__media {
   position: relative;
-  min-width: 0;
-  padding: 0 18px 35px 0;
+  flex: 1 1 52%;
+  height: 560px;
 }
 
-.aviation-services-two__image-frame {
+.AviationServicesTwo__imageClip {
   position: relative;
   width: 100%;
-  height: clamp(400px, 43vw, 560px);
-  min-height: 350px;
+  height: 100%;
   overflow: hidden;
-  border-radius: 4px 85px 4px 4px;
-  background: #e8f0f6;
-  isolation: isolate;
+  clip-path: polygon(0% 0%, 100% 0%, 75% 100%, 0% 100%);
+  background-color: #1a1c1e;
+  box-shadow: 15px 25px 50px rgba(0, 0, 0, 0.12);
 }
 
-.aviation-services-two__image {
+.AviationServicesTwo__image {
   position: absolute;
   inset: 0;
   width: 100%;
@@ -63,739 +66,416 @@
   object-fit: cover;
   object-position: center;
   opacity: 0;
-  transform: scale(1.06);
-  transition:
-    opacity 0.7s ease,
-    transform 1.2s ease;
+  transform: scale(1.08);
+  transition: opacity 0.8s ease-in-out, transform 2.2s ease-out;
+  display: block;
 }
 
-.aviation-services-two__image--active {
+.AviationServicesTwo__image--active {
   opacity: 1;
   transform: scale(1);
-  z-index: 1;
 }
 
-.aviation-services-two__image-overlay {
+.AviationServicesTwo__imageShade {
   position: absolute;
   inset: 0;
-  z-index: 2;
-  pointer-events: none;
   background: linear-gradient(
-    180deg,
-    rgba(8, 32, 54, 0.04) 30%,
-    rgba(8, 32, 54, 0.65) 100%
+    135deg,
+    rgba(215, 25, 45, 0.08) 0%,
+    transparent 50%,
+    rgba(20, 22, 25, 0.35) 100%
   );
-}
-
-.aviation-services-two__image-decoration {
-  position: absolute;
-  width: 52%;
-  height: 45%;
-  right: 0;
-  bottom: 0;
-  transform: translate(16px, 17px);
-  border-right: 3px solid var(--aviation-accent);
-  border-bottom: 3px solid var(--aviation-accent);
-  z-index: 0;
   pointer-events: none;
 }
 
-.aviation-services-two__image-label {
+/* Floating Status Badge */
+.AviationServicesTwo__badge {
   position: absolute;
-  top: 25px;
-  left: 25px;
+  top: 24px;
+  left: 24px;
   z-index: 3;
-  display: flex;
+  display: inline-flex;
   align-items: center;
-  gap: 10px;
-  padding: 11px 15px;
-  max-width: calc(100% - 50px);
-  border: 1px solid rgba(255, 255, 255, 0.4);
-  border-radius: 30px;
+  gap: 12px;
+  padding: 12px 18px;
   background: rgba(255, 255, 255, 0.94);
-  color: var(--aviation-primary);
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 0.6px;
-  text-transform: uppercase;
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(255, 255, 255, 0.8);
+  border-radius: 6px;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.1);
+  animation: badgeFadeInAviation 0.6s var(--AviationServicesTwo-ease) forwards;
 }
 
-.aviation-services-two__label-dot {
-  flex-shrink: 0;
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background: var(--aviation-accent);
-  box-shadow: 0 0 0 4px rgba(53, 183, 207, 0.15);
-}
-
-.aviation-services-two__image-badge {
-  position: absolute;
-  left: -20px;
-  bottom: 65px;
-  z-index: 4;
-  display: flex;
-  align-items: center;
-  gap: 17px;
-  min-width: 260px;
-  max-width: calc(100% - 10px);
-  padding: 21px 24px;
-  background: #ffffff;
-  box-shadow: 0 15px 45px rgba(13, 47, 77, 0.14);
-  border-left: 4px solid var(--aviation-accent);
-  animation: aviationBadgeAppear 0.45s ease both;
-}
-
-@keyframes aviationBadgeAppear {
+@keyframes badgeFadeInAviation {
   from {
     opacity: 0;
-    transform: translateY(10px);
+    transform: translateY(-8px);
   }
-
   to {
     opacity: 1;
     transform: translateY(0);
   }
 }
 
-.aviation-services-two__badge-number {
+.AviationServicesTwo__badgeDot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: var(--AviationServicesTwo-red);
+  box-shadow: 0 0 10px rgba(215, 25, 45, 0.6);
   flex-shrink: 0;
-  color: var(--aviation-secondary);
-  font-size: 34px;
-  font-weight: 800;
-  line-height: 1;
 }
 
-.aviation-services-two__badge-divider {
-  width: 1px;
-  height: 43px;
-  background: #dce5ed;
-}
-
-.aviation-services-two__badge-content {
+.AviationServicesTwo__badgeText {
   display: flex;
   flex-direction: column;
-  gap: 6px;
-  min-width: 0;
 }
 
-.aviation-services-two__badge-content strong {
-  color: var(--aviation-primary);
-  font-size: 14px;
-  font-weight: 700;
-  overflow-wrap: anywhere;
+.AviationServicesTwo__badgeText strong {
+  font-size: 11.5px;
+  font-weight: 800;
+  letter-spacing: 0.6px;
+  color: var(--AviationServicesTwo-dark);
 }
 
-.aviation-services-two__badge-content span {
-  color: var(--aviation-muted);
-  font-size: 11px;
-  line-height: 1.5;
+.AviationServicesTwo__badgeText span {
+  font-size: 10px;
+  color: var(--AviationServicesTwo-gray);
 }
 
-/* =========================================
-   IMAGE NAVIGATION
-========================================= */
-
-.aviation-services-two__image-controls {
+/* Square Dark Navigation Buttons */
+.AviationServicesTwo__nav {
   position: absolute;
-  right: 0;
-  bottom: 0;
-  z-index: 5;
+  bottom: 24px;
+  left: 24px;
+  z-index: 4;
   display: flex;
-  align-items: center;
-  gap: 14px;
+  gap: 2px;
+  background: rgba(25, 27, 29, 0.65);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-radius: 4px;
+  overflow: hidden;
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.25);
 }
 
-.aviation-services-two__arrow {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 43px;
-  height: 43px;
+.AviationServicesTwo__navBtn {
+  display: inline-grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
   padding: 0;
-  border: 1px solid #dce6ef;
-  border-radius: 50%;
-  background: #ffffff;
-  color: var(--aviation-primary);
-  font-size: 21px;
-  cursor: pointer;
-  transition:
-    color 0.25s ease,
-    background 0.25s ease,
-    border-color 0.25s ease,
-    transform 0.25s ease;
-}
-
-.aviation-services-two__arrow:hover {
-  background: var(--aviation-primary);
-  border-color: var(--aviation-primary);
+  border: 0;
+  background: transparent;
   color: #ffffff;
-  transform: translateY(-2px);
+  cursor: pointer;
+  transition: background-color 0.25s ease, color 0.25s ease;
 }
 
-.aviation-services-two__arrow:focus-visible,
-.aviation-services-two__pagination-item:focus-visible,
-.aviation-services-two__cta:focus-visible {
-  outline: 3px solid var(--aviation-accent);
-  outline-offset: 4px;
+.AviationServicesTwo__navBtn:hover {
+  background-color: var(--AviationServicesTwo-red);
+  color: #ffffff;
 }
 
-.aviation-services-two__slide-count {
-  display: flex;
-  align-items: center;
-  gap: 7px;
-  color: #8593a1;
-  font-size: 12px;
+.AviationServicesTwo__navBtn svg {
+  width: 18px;
+  height: 18px;
 }
 
-.aviation-services-two__slide-count strong {
-  color: var(--aviation-primary);
-  font-size: 16px;
+/* ========================================================
+   RIGHT CONTENT: STAGGERED TEXT ANIMATIONS
+======================================================== */
+
+.AviationServicesTwo__content {
+  flex: 1 1 48%;
+  max-width: 580px;
+  z-index: 2;
 }
 
-/* =========================================
-   RIGHT CONTENT
-========================================= */
-
-.aviation-services-two__content {
-  min-width: 0;
-  padding: 10px 0;
-  animation: aviationContentAppear 0.5s ease both;
-}
-
-@keyframes aviationContentAppear {
-  from {
-    opacity: 0;
-    transform: translateX(18px);
-  }
-
-  to {
-    opacity: 1;
-    transform: translateX(0);
-  }
-}
-
-.aviation-services-two__eyebrow {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  margin-bottom: 22px;
-  color: var(--aviation-secondary);
-  font-size: 12px;
-  font-weight: 800;
-  letter-spacing: 1.8px;
-  line-height: 1.6;
-  text-transform: uppercase;
-}
-
-.aviation-services-two__eyebrow-line {
-  display: inline-block;
-  width: 35px;
-  height: 2px;
-  flex-shrink: 0;
-  background: var(--aviation-accent);
-}
-
-.aviation-services-two__title {
-  margin: 0 0 22px;
-  color: var(--aviation-primary);
-  font-size: clamp(30px, 3.1vw, 46px);
-  font-weight: 800;
-  line-height: 1.18;
-  letter-spacing: -1.1px;
-  overflow-wrap: break-word;
-}
-
-.aviation-services-two__description {
-  max-width: 560px;
-  margin: 0 0 28px;
-  color: var(--aviation-muted);
-  font-size: 15px;
-  line-height: 1.9;
-  overflow-wrap: break-word;
-}
-
-/* =========================================
-   FEATURE LIST
-========================================= */
-
-.aviation-services-two__features {
-  display: flex;
-  flex-direction: column;
-  gap: 17px;
-  margin-bottom: 35px;
-}
-
-.aviation-services-two__feature {
-  display: flex;
-  align-items: center;
-  gap: 13px;
-  color: var(--aviation-text);
-  font-size: 14px;
-  font-weight: 600;
-  line-height: 1.6;
-  animation: aviationFeatureAppear 0.45s ease both;
-  animation-delay: calc(var(--feature-index, 0) * 100ms);
-}
-
-@keyframes aviationFeatureAppear {
-  from {
-    opacity: 0;
-    transform: translateX(-12px);
-  }
-
-  to {
-    opacity: 1;
-    transform: translateX(0);
-  }
-}
-
-.aviation-services-two__feature-icon {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 25px;
-  height: 25px;
-  flex-shrink: 0;
-  border-radius: 50%;
-  background: #e8f7fa;
-  color: var(--aviation-secondary);
-}
-
-.aviation-services-two__feature-icon svg {
-  display: block;
-  width: 15px;
-  height: 15px;
-}
-
-/* =========================================
-   CTA AND PAGINATION
-========================================= */
-
-.aviation-services-two__footer {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 20px;
-  flex-wrap: wrap;
-}
-
-.aviation-services-two__cta {
+/* Eyebrow */
+.AviationServicesTwo__eyebrowWrap {
   display: inline-flex;
   align-items: center;
-  justify-content: center;
-  gap: 22px;
-  min-height: 54px;
-  padding: 13px 18px 13px 23px;
-  border: 1px solid var(--aviation-primary);
-  border-radius: 3px;
-  background: var(--aviation-primary);
+  gap: 12px;
+  margin-bottom: 14px;
+  animation: contentSlideInAviation 0.5s var(--AviationServicesTwo-ease) forwards;
+}
+
+.AviationServicesTwo__eyebrowLine {
+  width: 28px;
+  height: 3px;
+  background-color: var(--AviationServicesTwo-red);
+  border-radius: 2px;
+  flex-shrink: 0;
+}
+
+.AviationServicesTwo__eyebrow {
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 2.6px;
+  color: #63676c;
+}
+
+/* Title */
+.AviationServicesTwo__title {
+  margin: 0 0 16px;
+  font-size: clamp(34px, 3.8vw, 52px);
+  font-weight: 700;
+  line-height: 1.12;
+  letter-spacing: -1.4px;
+  animation: contentSlideInAviation 0.6s var(--AviationServicesTwo-ease) forwards;
+}
+
+.AviationServicesTwo__titlePrimary {
+  color: var(--AviationServicesTwo-red);
+  font-family: Georgia, "Times New Roman", serif;
+  font-weight: 600;
+}
+
+.AviationServicesTwo__titleAccent {
+  color: var(--AviationServicesTwo-red);
+  font-family: Georgia, "Times New Roman", serif;
+  font-weight: 600;
+}
+
+/* Description */
+.AviationServicesTwo__description {
+  margin: 0 0 28px;
+  font-size: 15.5px;
+  line-height: 1.75;
+  color: var(--AviationServicesTwo-gray);
+  max-width: 520px;
+  animation: contentSlideInAviation 0.7s var(--AviationServicesTwo-ease) forwards;
+}
+
+/* Features List */
+.AviationServicesTwo__features {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 32px;
+  animation: contentSlideInAviation 0.8s var(--AviationServicesTwo-ease) forwards;
+}
+
+.AviationServicesTwo__featureItem {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 13.5px;
+  font-weight: 600;
+  color: var(--AviationServicesTwo-charcoal);
+}
+
+.AviationServicesTwo__featureDot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background-color: var(--AviationServicesTwo-red);
+  flex-shrink: 0;
+}
+
+/* Keyframes */
+@keyframes contentSlideInAviation {
+  from {
+    opacity: 0;
+    transform: translateX(25px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* Action CTA & Progress Bar */
+.AviationServicesTwo__actionRow {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  animation: contentSlideInAviation 0.9s var(--AviationServicesTwo-ease) forwards;
+}
+
+.AviationServicesTwo__btnPrimary {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background-color: var(--AviationServicesTwo-red);
   color: #ffffff;
+  padding: 13px 26px;
+  border-radius: 3px;
   font-size: 13px;
   font-weight: 700;
+  letter-spacing: 0.5px;
   text-decoration: none;
-  transition:
-    background 0.3s ease,
-    border-color 0.3s ease,
-    transform 0.3s ease,
-    box-shadow 0.3s ease;
+  box-shadow: 0 10px 24px rgba(215, 25, 45, 0.28);
+  transition: background-color 0.25s ease, transform 0.2s ease, box-shadow 0.25s ease;
+  white-space: nowrap;
 }
 
-.aviation-services-two__cta:hover {
-  background: var(--aviation-secondary);
-  border-color: var(--aviation-secondary);
-  box-shadow: 0 8px 22px rgba(22, 118, 184, 0.2);
-  transform: translateY(-3px);
+.AviationServicesTwo__btnPrimary svg {
+  width: 16px;
+  height: 16px;
+  transition: transform 0.25s ease;
 }
 
-.aviation-services-two__cta-icon {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 28px;
-  height: 28px;
-  border-radius: 50%;
-  background: rgba(255, 255, 255, 0.15);
-  font-size: 17px;
-  transition: transform 0.3s ease;
+.AviationServicesTwo__btnPrimary:hover {
+  background-color: var(--AviationServicesTwo-red-hover);
+  transform: translateY(-2px);
+  box-shadow: 0 14px 28px rgba(215, 25, 45, 0.36);
 }
 
-.aviation-services-two__cta:hover .aviation-services-two__cta-icon {
-  transform: rotate(45deg);
+.AviationServicesTwo__btnPrimary:hover svg {
+  transform: translateX(4px);
 }
 
-.aviation-services-two__pagination {
-  display: flex;
-  align-items: center;
-  gap: 9px;
-}
-
-.aviation-services-two__pagination-item {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 27px;
-  height: 25px;
-  padding: 0;
-  border: none;
-  background: transparent;
-  cursor: pointer;
-}
-
-.aviation-services-two__pagination-item span {
-  display: block;
-  width: 7px;
-  height: 7px;
-  border-radius: 20px;
-  background: #cbd6df;
-  transition:
-    width 0.3s ease,
-    background 0.3s ease;
-}
-
-.aviation-services-two__pagination-item--active span {
-  width: 25px;
-  background: var(--aviation-secondary);
-}
-
-/* =========================================
-   PROGRESS BAR
-========================================= */
-
-.aviation-services-two__progress-track {
-  width: 100%;
+/* Synchronized Progress Track */
+.AviationServicesTwo__progressTrack {
+  position: relative;
+  flex: 1;
+  max-width: 150px;
   height: 3px;
-  margin-top: 35px;
+  background-color: var(--AviationServicesTwo-border);
+  border-radius: 2px;
   overflow: hidden;
-  background: #eaf0f5;
 }
 
-.aviation-services-two__progress-bar {
+.AviationServicesTwo__progressBar {
   width: 100%;
   height: 100%;
-  background: var(--aviation-accent);
-  transform-origin: left;
-  animation: aviationProgress 5s linear forwards;
+  background-color: var(--AviationServicesTwo-red);
+  transform: scaleX(0);
+  transform-origin: left center;
+  animation-name: AviationProgressBar;
+  animation-timing-function: linear;
+  animation-fill-mode: forwards;
 }
 
-@keyframes aviationProgress {
+.AviationServicesTwo__progressBar.is-paused {
+  animation-play-state: paused;
+}
+
+@keyframes AviationProgressBar {
   from {
     transform: scaleX(0);
   }
-
   to {
     transform: scaleX(1);
   }
 }
 
-/* =========================================
-   TABLET
-========================================= */
+/* ========================================================
+   RESPONSIVE DESIGN (ALL DEVICES)
+======================================================== */
 
-@media (max-width: 1024px) {
-  .aviation-services-two {
-    padding: 60px 4%;
-  }
-
-  .aviation-services-two__container {
-    grid-template-columns: minmax(0, 0.9fr) minmax(0, 1fr);
+@media (max-width: 1200px) {
+  .AviationServicesTwo__container {
     gap: 40px;
+    padding: 0 30px;
   }
 
-  .aviation-services-two__image-frame {
-    height: 440px;
-    min-height: 360px;
-    border-top-right-radius: 65px;
+  .AviationServicesTwo__media {
+    height: 480px;
   }
 
-  .aviation-services-two__image-badge {
-    left: -10px;
-    min-width: 225px;
-    padding: 17px;
-  }
-
-  .aviation-services-two__badge-number {
-    font-size: 29px;
-  }
-
-  .aviation-services-two__title {
-    font-size: clamp(30px, 3.7vw, 39px);
-  }
-
-  .aviation-services-two__description {
-    font-size: 14px;
-    line-height: 1.8;
-  }
-
-  .aviation-services-two__features {
-    gap: 14px;
-    margin-bottom: 28px;
-  }
-
-  .aviation-services-two__footer {
-    align-items: flex-start;
+  .AviationServicesTwo__imageClip {
+    clip-path: polygon(0% 0%, 100% 0%, 82% 100%, 0% 100%);
   }
 }
 
-/* =========================================
-   MOBILE AND SMALL TABLETS
-========================================= */
-
-@media (max-width: 768px) {
-  .aviation-services-two {
-    padding: 48px 22px;
+@media (max-width: 900px) {
+  .AviationServicesTwo {
+    padding: 70px 0 80px;
   }
 
-  .aviation-services-two__container {
-    max-width: 600px;
-    grid-template-columns: minmax(0, 1fr);
-    gap: 50px;
+  .AviationServicesTwo__container {
+    flex-direction: column-reverse;
+    gap: 45px;
   }
 
-  .aviation-services-two__visual {
+  .AviationServicesTwo__media,
+  .AviationServicesTwo__content {
     width: 100%;
-    padding: 0 12px 32px 0;
+    max-width: 100%;
+    flex: none;
   }
 
-  .aviation-services-two__image-frame {
-    height: clamp(340px, 78vw, 480px);
-    min-height: 320px;
-    border-top-right-radius: 65px;
+  .AviationServicesTwo__media {
+    height: 380px;
   }
 
-  .aviation-services-two__image-decoration {
-    transform: translate(11px, 12px);
+  .AviationServicesTwo__imageClip {
+    clip-path: none;
+    border-radius: 12px;
   }
 
-  .aviation-services-two__image-label {
-    top: 18px;
-    left: 18px;
-    padding: 10px 12px;
-    font-size: 10px;
-  }
-
-  .aviation-services-two__image-badge {
-    left: -7px;
-    bottom: 57px;
-    min-width: 230px;
-    padding: 17px 19px;
-  }
-
-  .aviation-services-two__image-controls {
-    gap: 10px;
-  }
-
-  .aviation-services-two__arrow {
-    width: 39px;
-    height: 39px;
-    font-size: 19px;
-  }
-
-  .aviation-services-two__content {
-    padding: 0;
-  }
-
-  .aviation-services-two__eyebrow {
-    margin-bottom: 18px;
-    font-size: 11px;
-    letter-spacing: 1.5px;
-  }
-
-  .aviation-services-two__title {
-    max-width: 540px;
-    margin-bottom: 18px;
-    font-size: clamp(31px, 6vw, 42px);
-    line-height: 1.2;
-    letter-spacing: -0.7px;
-  }
-
-  .aviation-services-two__description {
-    max-width: none;
-    margin-bottom: 25px;
-    font-size: 14px;
-  }
-
-  .aviation-services-two__features {
-    gap: 15px;
-    margin-bottom: 30px;
-  }
-
-  .aviation-services-two__feature {
-    font-size: 13px;
-  }
-
-  .aviation-services-two__progress-track {
-    margin-top: 28px;
+  .AviationServicesTwo__nav {
+    bottom: 16px;
+    left: 16px;
   }
 }
 
-/* =========================================
-   SMALL MOBILE
-========================================= */
-
-@media (max-width: 480px) {
-  .aviation-services-two {
-    padding: 38px 17px;
+@media (max-width: 560px) {
+  .AviationServicesTwo {
+    padding: 50px 0 60px;
   }
 
-  .aviation-services-two__container {
-    gap: 38px;
+  .AviationServicesTwo__container {
+    padding: 0 20px;
   }
 
-  .aviation-services-two__visual {
-    padding-right: 8px;
-    padding-bottom: 30px;
+  .AviationServicesTwo__title {
+    font-size: 30px;
+    letter-spacing: -1.2px;
   }
 
-  .aviation-services-two__image-frame {
-    height: 340px;
-    min-height: 300px;
-    border-top-right-radius: 48px;
+  .AviationServicesTwo__description {
+    font-size: 14.5px;
+    margin-bottom: 20px;
   }
 
-  .aviation-services-two__image-decoration {
-    width: 48%;
-    height: 38%;
-    transform: translate(8px, 9px);
-    border-width: 2px;
+  .AviationServicesTwo__media {
+    height: 270px;
   }
 
-  .aviation-services-two__image-label {
-    top: 13px;
-    left: 12px;
-    gap: 7px;
-    padding: 9px 10px;
-    max-width: calc(100% - 24px);
-    font-size: 9px;
-    letter-spacing: 0.3px;
+  .AviationServicesTwo__actionRow {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 16px;
   }
 
-  .aviation-services-two__label-dot {
-    width: 7px;
-    height: 7px;
-  }
-
-  .aviation-services-two__image-badge {
-    left: -5px;
-    bottom: 50px;
-    min-width: 0;
-    width: min(260px, calc(100% - 8px));
-    gap: 12px;
-    padding: 15px;
-  }
-
-  .aviation-services-two__badge-number {
-    font-size: 28px;
-  }
-
-  .aviation-services-two__badge-divider {
-    height: 38px;
-  }
-
-  .aviation-services-two__badge-content strong {
-    font-size: 12px;
-  }
-
-  .aviation-services-two__badge-content span {
-    font-size: 10px;
-  }
-
-  .aviation-services-two__image-controls {
-    gap: 7px;
-  }
-
-  .aviation-services-two__arrow {
-    width: 34px;
-    height: 34px;
-    font-size: 17px;
-  }
-
-  .aviation-services-two__slide-count {
-    gap: 4px;
-    font-size: 10px;
-  }
-
-  .aviation-services-two__slide-count strong {
-    font-size: 13px;
-  }
-
-  .aviation-services-two__eyebrow {
-    gap: 9px;
-    font-size: 10px;
-    letter-spacing: 1.1px;
-  }
-
-  .aviation-services-two__eyebrow-line {
-    width: 26px;
-  }
-
-  .aviation-services-two__title {
-    font-size: clamp(28px, 8vw, 35px);
-    line-height: 1.22;
-  }
-
-  .aviation-services-two__description {
-    font-size: 13px;
-    line-height: 1.85;
-  }
-
-  .aviation-services-two__features {
-    gap: 13px;
-  }
-
-  .aviation-services-two__feature {
-    align-items: flex-start;
-    gap: 10px;
-    font-size: 12px;
-  }
-
-  .aviation-services-two__feature-icon {
-    width: 23px;
-    height: 23px;
-  }
-
-  .aviation-services-two__feature-icon svg {
-    width: 14px;
-    height: 14px;
-  }
-
-  .aviation-services-two__footer {
-    align-items: flex-start;
-    gap: 19px;
-  }
-
-  .aviation-services-two__cta {
+  .AviationServicesTwo__btnPrimary {
     width: 100%;
-    justify-content: space-between;
-    min-height: 50px;
-    padding: 11px 13px 11px 17px;
-    font-size: 12px;
+    justify-content: center;
   }
 
-  .aviation-services-two__pagination {
-    gap: 6px;
+  .AviationServicesTwo__progressTrack {
+    max-width: 100%;
   }
 
-  .aviation-services-two__pagination-item {
-    width: 24px;
-  }
-
-  .aviation-services-two__progress-track {
-    margin-top: 23px;
+  .AviationServicesTwo__badge {
+    top: 14px;
+    left: 14px;
+    padding: 8px 12px;
   }
 }
 
-/* =========================================
-   REDUCED MOTION ACCESSIBILITY
-========================================= */
-
+/* Accessibility */
 @media (prefers-reduced-motion: reduce) {
-  .aviation-services-two *,
-  .aviation-services-two *::before,
-  .aviation-services-two *::after {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    scroll-behavior: auto !important;
-    transition-duration: 0.01ms !important;
+  .AviationServicesTwo__image,
+  .AviationServicesTwo__eyebrowWrap,
+  .AviationServicesTwo__title,
+  .AviationServicesTwo__description,
+  .AviationServicesTwo__features,
+  .AviationServicesTwo__actionRow,
+  .AviationServicesTwo__badge {
+    transition: none !important;
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+
+  .AviationServicesTwo__progressBar {
+    animation: none !important;
+    transform: scaleX(1);
   }
 }

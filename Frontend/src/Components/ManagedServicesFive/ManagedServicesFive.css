@@ -1,20 +1,27 @@
+/* ==========================================
+   MANAGED SERVICES FIVE
+   Prime Site Enterprise Managed Operations
+========================================== */
+
 .ManagedServicesFive {
-  --ManagedServicesFive-primary: #d7192d;
-  --ManagedServicesFive-primary-dark: #b51223;
-  --ManagedServicesFive-accent: #d7192d;
-  --ManagedServicesFive-text: #1f2124;
-  --ManagedServicesFive-muted: #5c6066;
-  --ManagedServicesFive-border: #dde1e5;
-  --ManagedServicesFive-light: #f7f7f7;
+  --MSF5-red: #e51e2b;
+  --MSF5-dark: #222832;
+  --MSF5-muted: #656b74;
+  --MSF5-card-bg: #f8f9fa;
+  --MSF5-border: #ededed;
 
   position: relative;
+  isolation: isolate;
   width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  padding: 76px 24px 55px;
   overflow: hidden;
-  padding: 90px 0;
   background: #ffffff;
-  color: var(--ManagedServicesFive-text);
-  font-family: inherit;
+  color: var(--MSF5-dark);
+  font-family: "Inter", "Segoe UI", Arial, sans-serif;
 }
+
 .ManagedServicesFive *,
 .ManagedServicesFive *::before,
 .ManagedServicesFive *::after {
@@ -22,729 +29,554 @@
 }
 
 .ManagedServicesFive__container {
-  width: min(1240px, calc(100% - 48px));
+  width: 100%;
+  max-width: 1320px;
+  min-width: 0;
   margin: 0 auto;
 }
 
-/* HERO SECTION */
+/* ==========================================
+   HEADER
+========================================== */
 
-.ManagedServicesFive__hero {
-  display: grid;
-  grid-template-columns: 1fr 0.92fr;
-  align-items: center;
-  gap: 75px;
-  margin-bottom: 105px;
+.ManagedServicesFive__header {
+  margin-bottom: 45px;
+  opacity: 0;
+  transform: translateY(22px);
 }
 
-.ManagedServicesFive__content {
-  position: relative;
-  z-index: 2;
+.ManagedServicesFive--visible .ManagedServicesFive__header {
+  animation: MSF5HeaderIn 0.75s ease forwards;
+}
+
+@keyframes MSF5HeaderIn {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .ManagedServicesFive__eyebrow {
-  display: inline-flex;
+  display: flex;
   align-items: center;
-  gap: 10px;
-  margin-bottom: 22px;
-  color: var(--ManagedServicesFive-primary);
+  gap: 16px;
+  margin-bottom: 12px;
+  color: #343943;
   font-size: 11px;
-  font-weight: 800;
-  letter-spacing: 2.2px;
-  line-height: 1.5;
+  font-weight: 600;
+  letter-spacing: 4.5px;
 }
 
-.ManagedServicesFive__eyebrow::before {
-  content: "";
-  display: inline-block;
-  width: 27px;
+.ManagedServicesFive__eyebrowLine {
+  width: 48px;
   height: 2px;
-  background: var(--ManagedServicesFive-accent);
+  flex-shrink: 0;
+  background: var(--MSF5-red);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.65s ease;
+}
+
+.ManagedServicesFive--visible .ManagedServicesFive__eyebrowLine {
+  transform: scaleX(1);
+}
+
+.ManagedServicesFive__headerRow {
+  display: grid;
+  grid-template-columns: 1.15fr 1fr;
+  gap: 40px;
+  align-items: flex-end;
 }
 
 .ManagedServicesFive__title {
-  margin: 0 0 25px;
-  color: var(--ManagedServicesFive-text);
-  font-size: clamp(38px, 4.5vw, 64px);
-  font-weight: 750;
-  line-height: 1.08;
-  letter-spacing: -2.5px;
-}
-
-.ManagedServicesFive__title span {
-  color: var(--ManagedServicesFive-primary);
-}
-
-.ManagedServicesFive__description {
-  max-width: 535px;
   margin: 0;
-  color: var(--ManagedServicesFive-muted);
-  font-size: 15px;
-  font-weight: 400;
-  line-height: 1.95;
-}
-
-.ManagedServicesFive__actions {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 25px;
-  margin-top: 34px;
-}
-
-.ManagedServicesFive__button {
-  display: inline-flex;
-  min-height: 54px;
-  align-items: center;
-  justify-content: center;
-  gap: 24px;
-  padding: 0 24px;
-  border: 1px solid var(--ManagedServicesFive-primary);
-  border-radius: 3px;
-  background: var(--ManagedServicesFive-primary);
-  color: #ffffff;
-  font-size: 13px;
-  font-weight: 700;
-  text-decoration: none;
-  transition:
-    background 0.3s ease,
-    color 0.3s ease,
-    transform 0.3s ease;
-}
-
-.ManagedServicesFive__button:hover {
-  transform: translateY(-3px);
-  background: var(--ManagedServicesFive-primary-dark);
-  color: #ffffff;
-}
-
-.ManagedServicesFive__button span {
-  font-size: 19px;
-  line-height: 1;
-}
-
-.ManagedServicesFive__trust {
-  display: inline-flex;
-  align-items: center;
-  gap: 9px;
-  color: var(--ManagedServicesFive-muted);
-  font-size: 12px;
+  color: var(--MSF5-dark);
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(32px, 3.2vw, 44px);
   font-weight: 600;
-}
-
-.ManagedServicesFive__trustIcon {
-  display: flex;
-  width: 22px;
-  height: 22px;
-  align-items: center;
-  justify-content: center;
-  border-radius: 50%;
-  background: #eaf4d5;
-  color: var(--ManagedServicesFive-primary);
-  font-size: 12px;
-  font-weight: 800;
-}
-
-/* HERO IMAGE */
-
-.ManagedServicesFive__visual {
-  position: relative;
-  min-width: 0;
-  padding: 0 0 45px 30px;
-}
-
-.ManagedServicesFive__imageWrap {
-  position: relative;
-  height: 480px;
-  overflow: hidden;
-  border-radius: 4px;
-  background: #e8eeea;
-}
-
-.ManagedServicesFive__image {
-  display: block;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: center;
-  transition: transform 0.7s ease;
-}
-
-.ManagedServicesFive__imageWrap:hover .ManagedServicesFive__image {
-  transform: scale(1.045);
-}
-
-.ManagedServicesFive__imageOverlay {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(
-    180deg,
-    rgba(9, 37, 29, 0.02) 35%,
-    rgba(9, 37, 29, 0.24) 100%
-  );
-  pointer-events: none;
-}
-
-.ManagedServicesFive__floatingCard {
-  position: absolute;
-  right: -18px;
-  bottom: 5px;
-  z-index: 2;
-  width: min(310px, 85%);
-  padding: 25px;
-  border: 1px solid rgba(255, 255, 255, 0.7);
-  border-radius: 4px;
-  background: #ffffff;
-  box-shadow: 0 20px 55px rgba(14, 42, 32, 0.14);
-}
-
-.ManagedServicesFive__status {
-  display: flex;
-  align-items: center;
-  gap: 9px;
-  color: var(--ManagedServicesFive-muted);
-  font-size: 9px;
-  font-weight: 800;
-  letter-spacing: 1.5px;
-}
-
-.ManagedServicesFive__statusDot {
-  width: 8px;
-  height: 8px;
-  flex: 0 0 8px;
-  border-radius: 50%;
-  background: #7cb84c;
-  box-shadow: 0 0 0 4px rgba(124, 184, 76, 0.13);
-}
-
-.ManagedServicesFive__floatingTitle {
-  margin-top: 17px;
-  color: var(--ManagedServicesFive-text);
-  font-size: 24px;
-  font-weight: 750;
-  line-height: 1.35;
-  letter-spacing: -0.7px;
-}
-
-.ManagedServicesFive__floatingTitle span {
-  color: var(--ManagedServicesFive-primary);
-}
-
-.ManagedServicesFive__floatingFooter {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-  margin-top: 20px;
-  padding-top: 17px;
-  border-top: 1px solid var(--ManagedServicesFive-border);
-}
-
-.ManagedServicesFive__floatingFooter span {
-  padding: 7px 9px;
-  border-radius: 2px;
-  background: var(--ManagedServicesFive-light);
-  color: var(--ManagedServicesFive-primary);
-  font-size: 9px;
-  font-weight: 700;
-}
-
-.ManagedServicesFive__decor {
-  position: absolute;
-  z-index: -1;
-  pointer-events: none;
-}
-
-.ManagedServicesFive__decor--one {
-  top: -18px;
-  right: -18px;
-  width: 100px;
-  height: 100px;
-  border-top: 2px solid var(--ManagedServicesFive-accent);
-  border-right: 2px solid var(--ManagedServicesFive-accent);
-}
-
-.ManagedServicesFive__decor--two {
-  bottom: 23px;
-  left: 0;
-  width: 95px;
-  height: 95px;
-  background-image: radial-gradient(
-    var(--ManagedServicesFive-primary) 1px,
-    transparent 1px
-  );
-  background-size: 12px 12px;
-  opacity: 0.17;
-}
-
-/* SERVICES SECTION */
-
-.ManagedServicesFive__bottom {
-  padding-top: 12px;
-}
-
-.ManagedServicesFive__sectionHeading {
-  display: flex;
-  align-items: flex-end;
-  justify-content: space-between;
-  gap: 45px;
-  margin-bottom: 38px;
-}
-
-.ManagedServicesFive__sectionHeading .ManagedServicesFive__eyebrow {
-  margin-bottom: 15px;
-}
-
-.ManagedServicesFive__sectionTitle {
-  max-width: 650px;
-  margin: 0;
-  color: var(--ManagedServicesFive-text);
-  font-size: clamp(28px, 3vw, 42px);
-  font-weight: 750;
-  line-height: 1.2;
-  letter-spacing: -1.4px;
-}
-
-.ManagedServicesFive__sectionTitle span {
-  color: var(--ManagedServicesFive-primary);
-}
-
-.ManagedServicesFive__sectionDescription {
-  max-width: 365px;
-  margin: 0 0 3px;
-  color: var(--ManagedServicesFive-muted);
-  font-size: 13px;
-  line-height: 1.9;
-}
-
-.ManagedServicesFive__grid {
-  display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  border-top: 1px solid var(--ManagedServicesFive-border);
-  border-bottom: 1px solid var(--ManagedServicesFive-border);
-}
-
-.ManagedServicesFive__card {
-  display: flex;
-  min-width: 0;
-  flex-direction: column;
-  align-items: flex-start;
-  padding: 30px 24px 27px;
-  border-right: 1px solid var(--ManagedServicesFive-border);
-  background: #ffffff;
-  transition:
-    background 0.3s ease,
-    transform 0.3s ease,
-    box-shadow 0.3s ease;
-}
-
-.ManagedServicesFive__card:first-child {
-  border-left: 1px solid var(--ManagedServicesFive-border);
-}
-
-.ManagedServicesFive__card:hover {
-  position: relative;
-  z-index: 1;
-  transform: translateY(-5px);
-  background: var(--ManagedServicesFive-light);
-  box-shadow: 0 14px 30px rgba(14, 42, 32, 0.07);
-}
-
-.ManagedServicesFive__cardTop {
-  display: flex;
-  width: 100%;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 29px;
-}
-
-.ManagedServicesFive__icon {
-  display: flex;
-  width: 52px;
-  height: 52px;
-  align-items: center;
-  justify-content: center;
-  border-radius: 3px;
-  background: #edf4e5;
-  color: var(--ManagedServicesFive-primary);
-  font-size: 28px;
-  transition:
-    background 0.3s ease,
-    color 0.3s ease;
-}
-
-.ManagedServicesFive__card:hover .ManagedServicesFive__icon {
-  background: var(--ManagedServicesFive-primary);
-  color: #ffffff;
-}
-
-.ManagedServicesFive__number {
-  color: #a5b0aa;
-  font-size: 11px;
-  font-weight: 800;
-  letter-spacing: 1px;
-}
-
-.ManagedServicesFive__cardTitle {
-  margin: 0 0 13px;
-  color: var(--ManagedServicesFive-text);
-  font-size: 17px;
-  font-weight: 750;
-  line-height: 1.45;
-}
-
-.ManagedServicesFive__cardDescription {
-  flex-grow: 1;
-  margin: 0;
-  color: var(--ManagedServicesFive-muted);
-  font-size: 12px;
-  line-height: 1.9;
-}
-
-.ManagedServicesFive__cardLink {
-  display: inline-flex;
-  align-items: center;
-  gap: 12px;
-  margin-top: 23px;
-  color: var(--ManagedServicesFive-primary);
-  font-size: 11px;
-  font-weight: 800;
-  text-decoration: none;
-  transition: gap 0.25s ease;
-}
-
-.ManagedServicesFive__cardLink:hover {
-  gap: 17px;
-}
-
-.ManagedServicesFive__cardLink span {
-  font-size: 17px;
-  line-height: 1;
-}
-
-/* CTA SECTION */
-
-.ManagedServicesFive__cta {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 35px;
-  margin-top: 80px;
-  padding: 38px 45px;
-  border-radius: 3px;
-  background: var(--ManagedServicesFive-primary);
-  color: #ffffff;
-}
-
-.ManagedServicesFive__ctaContent {
-  min-width: 0;
-}
-
-.ManagedServicesFive__ctaEyebrow {
-  display: inline-block;
-  margin-bottom: 12px;
-  color: var(--ManagedServicesFive-accent);
-  font-size: 10px;
-  font-weight: 800;
-  letter-spacing: 2px;
-}
-
-.ManagedServicesFive__ctaTitle {
-  margin: 0 0 10px;
-  color: #ffffff;
-  font-size: clamp(23px, 2.7vw, 34px);
-  font-weight: 750;
-  line-height: 1.25;
+  line-height: 1.22;
   letter-spacing: -0.8px;
 }
 
-.ManagedServicesFive__ctaDescription {
+.ManagedServicesFive__title span {
+  color: var(--MSF5-red);
+}
+
+.ManagedServicesFive__intro {
   margin: 0;
-  color: rgba(255, 255, 255, 0.75);
-  font-size: 13px;
-  line-height: 1.8;
+  color: #4a515c;
+  font-size: 14.5px;
+  line-height: 1.85;
 }
 
-.ManagedServicesFive__ctaButton {
-  display: inline-flex;
-  min-width: 190px;
-  min-height: 53px;
-  flex: 0 0 auto;
-  align-items: center;
-  justify-content: center;
-  gap: 19px;
-  padding: 0 20px;
-  border: 1px solid var(--ManagedServicesFive-accent);
-  border-radius: 3px;
-  background: var(--ManagedServicesFive-accent);
-  color: var(--ManagedServicesFive-primary-dark);
-  font-size: 12px;
-  font-weight: 800;
-  text-decoration: none;
+/* ==========================================
+   CARDS GRID
+========================================== */
+
+.ManagedServicesFive__grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 22px 18px;
+  align-items: stretch;
+  margin-bottom: 35px;
+}
+
+.ManagedServicesFive__card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  min-height: 380px;
+  padding: 24px 22px 20px;
+  overflow: hidden;
+  border: 1px solid var(--MSF5-border);
+  background: var(--MSF5-card-bg);
+  isolation: isolate;
+
+  opacity: 0;
+  transform: translateY(28px);
+
   transition:
-    background 0.3s ease,
-    color 0.3s ease;
+    background 0.4s ease,
+    border-color 0.4s ease,
+    box-shadow 0.4s ease,
+    transform 0.4s ease;
 }
 
-.ManagedServicesFive__ctaButton:hover {
-  background: transparent;
+.ManagedServicesFive--visible .ManagedServicesFive__card {
+  animation: MSF5CardIn 0.7s cubic-bezier(0.2, 0.7, 0.2, 1)
+    var(--ManagedServicesFive-delay, 0ms) forwards;
+}
+
+@keyframes MSF5CardIn {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.ManagedServicesFive__card:hover,
+.ManagedServicesFive__card--active {
+  z-index: 2;
+  border-color: rgba(229, 30, 43, 0.25);
+  background: #ffffff;
+  box-shadow: 0 18px 42px rgba(30, 35, 44, 0.09);
+  transform: translateY(-5px);
+}
+
+/* Red top accent line */
+.ManagedServicesFive__card::before {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 3;
+  width: 100%;
+  height: 3px;
+  background: var(--MSF5-red);
+  content: "";
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.45s ease;
+}
+
+.ManagedServicesFive__card:hover::before,
+.ManagedServicesFive__card--active::before {
+  transform: scaleX(1);
+}
+
+.ManagedServicesFive__cardHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.ManagedServicesFive__cardTag {
+  color: #777c85;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 1.6px;
+}
+
+.ManagedServicesFive__cardMetric {
+  display: flex;
+  align-items: baseline;
+  gap: 4px;
+  padding: 3px 8px;
+  border: 1px solid #e7c8cb;
+  background: #ffffff;
+  transition: all 0.35s ease;
+}
+
+.ManagedServicesFive__metricValue {
+  color: var(--MSF5-red);
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 12px;
+  font-weight: 700;
+  transition: color 0.35s ease;
+}
+
+.ManagedServicesFive__metricLabel {
+  color: #7b8089;
+  font-size: 8px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  transition: color 0.35s ease;
+}
+
+.ManagedServicesFive__card:hover .ManagedServicesFive__cardMetric {
+  border-color: var(--MSF5-red);
+  background: var(--MSF5-red);
+}
+
+.ManagedServicesFive__card:hover .ManagedServicesFive__metricValue,
+.ManagedServicesFive__card:hover .ManagedServicesFive__metricLabel {
   color: #ffffff;
 }
 
-.ManagedServicesFive__ctaButton span {
+/* Round Emblem */
+.ManagedServicesFive__iconBadge {
+  position: relative;
+  display: grid;
+  width: 108px;
+  height: 108px;
+  place-items: center;
+  margin: 20px auto 16px;
+}
+
+.ManagedServicesFive__iconBadgeOuter {
+  display: grid;
+  width: 96px;
+  height: 96px;
+  place-items: center;
+  border: 1px solid #d4c9ad;
+  border-radius: 50%;
+  background: linear-gradient(145deg, #ffffff 0%, #f9f6ef 55%, #eee4d1 100%);
+  box-shadow:
+    inset 0 0 0 4px #f4eee1,
+    inset 0 0 0 5px #d9c9a5,
+    0 5px 15px rgba(38, 38, 38, 0.05);
+  transition: transform 0.65s cubic-bezier(0.2, 0.7, 0.2, 1), box-shadow 0.4s ease;
+}
+
+.ManagedServicesFive__card:hover .ManagedServicesFive__iconBadgeOuter {
+  transform: rotate(-6deg) scale(1.05);
+  box-shadow:
+    inset 0 0 0 4px #f4eee1,
+    inset 0 0 0 5px #d9c9a5,
+    0 10px 24px rgba(229, 30, 43, 0.12);
+}
+
+.ManagedServicesFive__iconBadgeInner {
+  display: grid;
+  width: 64px;
+  height: 64px;
+  place-items: center;
+  border: 1px solid rgba(229, 30, 43, 0.18);
+  border-radius: 50%;
+  background: #ffffff;
+}
+
+.ManagedServicesFive__badgeIcon {
+  width: 32px;
+  height: 32px;
+  color: #b19a65;
+  transition: color 0.4s ease, transform 0.4s ease;
+}
+
+.ManagedServicesFive__card:hover .ManagedServicesFive__badgeIcon {
+  color: var(--MSF5-red);
+  transform: scale(1.1);
+}
+
+.ManagedServicesFive__cardBody {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.ManagedServicesFive__cardTitle {
+  margin: 0 0 8px;
+  color: #252a32;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(18px, 1.4vw, 21px);
+  font-weight: 600;
+  line-height: 1.35;
+  transition: color 0.3s ease;
+}
+
+.ManagedServicesFive__card:hover .ManagedServicesFive__cardTitle {
+  color: var(--MSF5-red);
+}
+
+.ManagedServicesFive__cardDescription {
+  max-width: 320px;
+  margin: 0;
+  color: #606670;
+  font-size: 13px;
+  line-height: 1.75;
+}
+
+.ManagedServicesFive__cardFooter {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 22px;
+  padding-top: 13px;
+  border-top: 1px solid #e2e2e2;
+}
+
+.ManagedServicesFive__footerLine {
+  width: 20px;
+  height: 2px;
+  background: var(--MSF5-red);
+  transition: width 0.35s ease;
+}
+
+.ManagedServicesFive__card:hover .ManagedServicesFive__footerLine {
+  width: 32px;
+}
+
+.ManagedServicesFive__footerText {
+  color: #8a8e95;
+  font-size: 8px;
+  font-weight: 700;
+  letter-spacing: 1.8px;
+}
+
+.ManagedServicesFive__footerAction {
+  display: grid;
+  width: 28px;
+  height: 28px;
+  place-items: center;
+  margin-left: auto;
+  color: #666b74;
+  border: 1px solid #e1e1e1;
+  border-radius: 50%;
+  transition: all 0.35s ease;
+}
+
+.ManagedServicesFive__card:hover .ManagedServicesFive__footerAction {
+  color: #ffffff;
+  border-color: var(--MSF5-red);
+  background: var(--MSF5-red);
+  transform: translateX(3px);
+}
+
+.ManagedServicesFive__cardAccent {
+  position: absolute;
+  right: -35px;
+  bottom: -35px;
+  z-index: -1;
+  width: 105px;
+  height: 105px;
+  border: 1px solid rgba(229, 30, 43, 0.08);
+  border-radius: 50%;
+  transition: transform 0.5s ease;
+}
+
+.ManagedServicesFive__card:hover .ManagedServicesFive__cardAccent {
+  transform: scale(1.6);
+}
+
+/* ==========================================
+   BOTTOM BANNER
+========================================== */
+
+.ManagedServicesFive__banner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 30px;
+  margin-top: 10px;
+  padding: 24px 28px;
+  border: 1px solid #e8e8e8;
+  border-left: 4px solid var(--MSF5-red);
+  background: #fbfbfb;
+}
+
+.ManagedServicesFive__bannerContent {
+  flex: 1;
+}
+
+.ManagedServicesFive__bannerKicker {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 6px;
+  color: var(--MSF5-red);
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+}
+
+.ManagedServicesFive__bannerHeading {
+  margin: 0 0 10px;
+  color: #242933;
+  font-family: Georgia, "Times New Roman", serif;
   font-size: 18px;
+  font-weight: 600;
 }
 
-/* LARGE TABLETS */
-
-@media (max-width: 1100px) {
-  .ManagedServicesFive {
-    padding: 75px 0;
-  }
-
-  .ManagedServicesFive__hero {
-    gap: 45px;
-    margin-bottom: 85px;
-  }
-
-  .ManagedServicesFive__imageWrap {
-    height: 430px;
-  }
-
-  .ManagedServicesFive__title {
-    letter-spacing: -1.8px;
-  }
-
-  .ManagedServicesFive__card {
-    padding: 25px 17px;
-  }
-
-  .ManagedServicesFive__cardTitle {
-    font-size: 15px;
-  }
-
-  .ManagedServicesFive__sectionHeading {
-    gap: 30px;
-  }
+.ManagedServicesFive__bannerList {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px 24px;
 }
 
-/* TABLETS */
+.ManagedServicesFive__bannerItem {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  color: #555b66;
+  font-size: 12.5px;
+}
 
-@media (max-width: 850px) {
-  .ManagedServicesFive__hero {
+.ManagedServicesFive__checkIcon {
+  flex-shrink: 0;
+  color: var(--MSF5-red);
+}
+
+.ManagedServicesFive__statPill {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 18px;
+  border: 1px solid #e5c8cb;
+  background: #ffffff;
+}
+
+.ManagedServicesFive__statPill svg {
+  color: var(--MSF5-red);
+}
+
+.ManagedServicesFive__statPill strong {
+  display: block;
+  color: #222832;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.ManagedServicesFive__statPill small {
+  display: block;
+  color: #6d737d;
+  font-size: 11px;
+}
+
+/* ==========================================
+   FOOTER
+========================================== */
+
+.ManagedServicesFive__footer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 45px;
+  padding-top: 27px;
+  border-top: 1px solid var(--MSF5-border);
+  text-align: center;
+}
+
+.ManagedServicesFive__footerDecoration {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  margin-bottom: 13px;
+}
+
+.ManagedServicesFive__footerDecoration span {
+  display: block;
+  width: 5px;
+  height: 5px;
+  border: 1px solid var(--MSF5-red);
+  transform: rotate(45deg);
+}
+
+.ManagedServicesFive__footerDecoration span:nth-child(2) {
+  width: 8px;
+  height: 8px;
+  background: var(--MSF5-red);
+}
+
+.ManagedServicesFive__footerStatement {
+  margin: 0 0 10px;
+  color: #343943;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(17px, 1.8vw, 22px);
+  font-weight: 500;
+  line-height: 1.6;
+}
+
+.ManagedServicesFive__footerCaption {
+  color: #92969d;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 2.5px;
+}
+
+/* ==========================================
+   RESPONSIVE DESIGN
+========================================== */
+
+@media (max-width: 992px) {
+  .ManagedServicesFive__headerRow {
     grid-template-columns: 1fr;
-    gap: 45px;
-  }
-
-  .ManagedServicesFive__content {
-    max-width: 700px;
-  }
-
-  .ManagedServicesFive__description {
-    max-width: 620px;
-  }
-
-  .ManagedServicesFive__visual {
-    width: min(100%, 620px);
-    margin-left: auto;
-    padding-left: 20px;
-  }
-
-  .ManagedServicesFive__imageWrap {
-    height: 430px;
-  }
-
-  .ManagedServicesFive__sectionHeading {
-    align-items: flex-start;
-    flex-direction: column;
-    gap: 18px;
-  }
-
-  .ManagedServicesFive__sectionDescription {
-    max-width: 550px;
+    gap: 16px;
   }
 
   .ManagedServicesFive__grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
-  .ManagedServicesFive__card:nth-child(3) {
-    border-top: 1px solid var(--ManagedServicesFive-border);
-    border-left: 1px solid var(--ManagedServicesFive-border);
-  }
-
-  .ManagedServicesFive__card:nth-child(4) {
-    border-top: 1px solid var(--ManagedServicesFive-border);
-  }
-
-  .ManagedServicesFive__card {
-    padding: 28px 25px;
-  }
-
-  .ManagedServicesFive__cardTitle {
-    font-size: 17px;
-  }
-
-  .ManagedServicesFive__cta {
-    margin-top: 65px;
-    padding: 32px;
+  .ManagedServicesFive__banner {
+    flex-direction: column;
+    align-items: flex-start;
   }
 }
 
-/* MOBILE */
-
-@media (max-width: 560px) {
+@media (max-width: 600px) {
   .ManagedServicesFive {
-    padding: 55px 0;
-  }
-
-  .ManagedServicesFive__container {
-    width: calc(100% - 34px);
-  }
-
-  .ManagedServicesFive__hero {
-    gap: 35px;
-    margin-bottom: 70px;
+    padding: 42px 17px 35px;
   }
 
   .ManagedServicesFive__eyebrow {
-    margin-bottom: 16px;
-    font-size: 10px;
-    letter-spacing: 1.7px;
+    gap: 12px;
+    font-size: 9px;
+    letter-spacing: 3px;
+  }
+
+  .ManagedServicesFive__eyebrowLine {
+    width: 32px;
   }
 
   .ManagedServicesFive__title {
-    margin-bottom: 19px;
-    font-size: clamp(35px, 9vw, 46px);
-    letter-spacing: -1.7px;
-  }
-
-  .ManagedServicesFive__description {
-    font-size: 13px;
-    line-height: 1.85;
-  }
-
-  .ManagedServicesFive__actions {
-    align-items: flex-start;
-    flex-direction: column;
-    gap: 18px;
-    margin-top: 25px;
-  }
-
-  .ManagedServicesFive__button {
-    width: 100%;
-  }
-
-  .ManagedServicesFive__visual {
-    padding: 0 0 38px 13px;
-  }
-
-  .ManagedServicesFive__imageWrap {
-    height: 320px;
-  }
-
-  .ManagedServicesFive__floatingCard {
-    right: 0;
-    bottom: 0;
-    width: min(275px, 92%);
-    padding: 19px;
-  }
-
-  .ManagedServicesFive__floatingTitle {
-    margin-top: 13px;
-    font-size: 21px;
-  }
-
-  .ManagedServicesFive__floatingFooter {
-    gap: 6px;
-    margin-top: 15px;
-    padding-top: 13px;
-  }
-
-  .ManagedServicesFive__floatingFooter span {
-    padding: 6px 7px;
-    font-size: 8px;
-  }
-
-  .ManagedServicesFive__decor--one {
-    top: -10px;
-    right: -7px;
-    width: 65px;
-    height: 65px;
-  }
-
-  .ManagedServicesFive__decor--two {
-    bottom: 18px;
-    width: 65px;
-    height: 65px;
-  }
-
-  .ManagedServicesFive__sectionTitle {
-    font-size: 30px;
-    letter-spacing: -0.9px;
-  }
-
-  .ManagedServicesFive__sectionDescription {
-    font-size: 12px;
+    font-size: clamp(26px, 7vw, 34px);
   }
 
   .ManagedServicesFive__grid {
     grid-template-columns: 1fr;
   }
 
-  .ManagedServicesFive__card,
-  .ManagedServicesFive__card:first-child,
-  .ManagedServicesFive__card:nth-child(3) {
-    padding: 25px 22px;
-    border-top: 1px solid var(--ManagedServicesFive-border);
-    border-right: 1px solid var(--ManagedServicesFive-border);
-    border-left: 1px solid var(--ManagedServicesFive-border);
+  .ManagedServicesFive__banner {
+    padding: 18px 16px;
   }
 
-  .ManagedServicesFive__card:first-child {
-    border-top: none;
-  }
-
-  .ManagedServicesFive__cardTop {
-    margin-bottom: 20px;
-  }
-
-  .ManagedServicesFive__cardTitle {
-    font-size: 17px;
-  }
-
-  .ManagedServicesFive__cardDescription {
-    font-size: 12px;
-  }
-
-  .ManagedServicesFive__cta {
-    align-items: flex-start;
-    flex-direction: column;
-    gap: 23px;
-    margin-top: 55px;
-    padding: 28px 23px;
-  }
-
-  .ManagedServicesFive__ctaTitle {
-    font-size: 26px;
-  }
-
-  .ManagedServicesFive__ctaDescription {
-    font-size: 12px;
-  }
-
-  .ManagedServicesFive__ctaButton {
+  .ManagedServicesFive__statPill {
     width: 100%;
   }
-}
 
-/* REDUCED MOTION ACCESSIBILITY */
+  .ManagedServicesFive__footerStatement {
+    font-size: 16px;
+  }
+}
 
 @media (prefers-reduced-motion: reduce) {
   .ManagedServicesFive *,
   .ManagedServicesFive *::before,
   .ManagedServicesFive *::after {
-    scroll-behavior: auto !important;
-    transition-duration: 0.01ms !important;
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
+    animation: none !important;
+    transition: none !important;
   }
 }

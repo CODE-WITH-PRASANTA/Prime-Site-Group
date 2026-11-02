@@ -3,7 +3,8 @@ import KitchenMaintenanceSolutionsMain from '../../Components/KitchenMaintenance
 import KitchenMaintenanceSolutionsTwo from '../../Components/KitchenMaintenanceSolutionsTwo/KitchenMaintenanceSolutionsTwo'
 import KitchenMaintenanceSolutionsThree from '../../Components/KitchenMaintenanceSolutionsThree/KitchenMaintenanceSolutionsThree'
 import KitchenMaintenanceSolutionsFour from '../../Components/KitchenMaintenanceSolutionsFour/KitchenMaintenanceSolutionsFour'
-import KitchenMaintenanceSolutionsFive from '../../Components/KitchenMaintenanceSolutionsFive/KitchenMaintenanceSolutionsFive'
+import KitchenMaintenanceSolutionsSix from '../../Components/KitchenMaintenanceSolutionsSix/KitchenMaintenanceSolutionsSix'
+// import KitchenMaintenanceSolutionsFive from '../../Components/KitchenMaintenanceSolutionsFive/KitchenMaintenanceSolutionsFive'
 
 const KitchenMaintenanceSolutions = () => {
   return (
@@ -11,9 +12,10 @@ const KitchenMaintenanceSolutions = () => {
         <KitchenMaintenanceSolutionsMain/>
         <KitchenMaintenanceSolutionsTwo/>
         <KitchenMaintenanceSolutionsThree/>
+        {/* <KitchenMaintenanceSolutionsFive/> */}
         <KitchenMaintenanceSolutionsFour/>
-        <KitchenMaintenanceSolutionsFive/>
         <KitchenMaintenanceSolutionsSix/>
+        
     </div>
   )
 }

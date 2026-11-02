@@ -24,9 +24,9 @@ import FacilityManagement from "./Pages/FacilityManagement/FacilityManagement";
 import AviationServices from "./Pages/AviationServices/AviationServices";
 import ManagedServices from "./Pages/ManagedServices/ManagedServices";
 import TasteOfHome from "./Pages/TasteOfHome/TasteOfHome";
-import TransguardLiving from "./Pages/TransguardLiving/TransguardLiving";
-import TransguardDelivery from "./Pages/TransguardDelivery/TransguardDelivery";
-import KitchenMaintenanceSolutionsFive from "./Pages/KitchenMaintenanceSolutions/KitchenMaintenanceSolutions";
+import KitchenMaintenanceSolutions from "./Pages/KitchenMaintenanceSolutions/KitchenMaintenanceSolutions";
+import PrimeSiteLiving from "./Pages/PrimeSiteLiving/PrimeSiteLiving";
+import PrimeSiteDelivery from "./Pages/PrimeSiteDelivery/PrimeSiteDelivery";
 
 // Component that listens for route changes and scrolls the window to the top
 const ScrollToTop = () => {
@@ -73,9 +73,9 @@ const App = () => {
           <Route path="/services/aviation-services" element={<AviationServices/>} />
           <Route path="/services/managed-services" element={<ManagedServices/>} />
           <Route path="/services/taste-of-home" element={<TasteOfHome/>} />
-          <Route path="/services/transguard-living" element={<TransguardLiving/>} />
-          <Route path="/services/transguard-delivery" element={<TransguardDelivery/>} />
-          <Route path="/services/kitchen-maintenance-solutions" element={<KitchenMaintenanceSolutionsFive/>} />
+          <Route path="/services/prime-site-living" element={<PrimeSiteLiving/>} />
+          <Route path="/services/prime-site-delivery" element={<PrimeSiteDelivery/>} />
+          <Route path="/services/kitchen-maintenance-solutions" element={<KitchenMaintenanceSolutions/>} />
         </Routes>
       </main>
 

@@ -1,258 +1,244 @@
 import React, { useState, useEffect, useCallback } from "react";
 import "./ManagedServicesTwo.css";
 
-const managedSlides = [
+const SLIDE_DURATION = 2000; // 2-second synchronized rotation
+
+const managedServicesData = [
   {
     id: 1,
-    category: "MANAGED SERVICES",
-    title: "Reliable Managed Services for Your Business",
+    tag: "MANAGED SERVICES",
+    titlePrimary: "Enterprise Cloud &",
+    titleAccent: "Infrastructure Ops",
     description:
-      "We provide comprehensive managed services that help businesses improve operational efficiency, streamline daily activities, and focus on their core objectives. Our professional teams deliver dependable support tailored to your business needs.",
-    features: [
-      "Professional Operational Support",
-      "Efficient Service Coordination",
-      "Flexible Business Solutions",
-    ],
+      "Delivering proactive multi-cloud architecture management, automated Kubernetes orchestration, and round-the-clock server provisioning across AWS, Azure, and private datacenter estates.",
+    badgeTitle: "CLOUD INFRASTRUCTURE",
+    badgeSub: "99.99% Uptime SLA Guarantee",
     image:
-      "https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&w=1200&q=85",
-    badgeNumber: "01",
-    badgeText: "Managed Solutions",
+      "https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=2200&q=85",
+    features: [
+      "Multi-Cloud Orchestration & Migration",
+      "Automated Disaster Recovery & Backups",
+      "Continuous Cost & Resource Optimization",
+    ],
   },
   {
     id: 2,
-    category: "BUSINESS OPERATIONS",
-    title: "Streamline Operations with Expert Support",
+    tag: "MANAGED SERVICES",
+    titlePrimary: "24/7 Managed SOC &",
+    titleAccent: "Cyber Resilience",
     description:
-      "Simplify business operations with dependable workforce coordination and professional operational assistance. We help organizations improve productivity, maintain service standards, and manage everyday responsibilities efficiently.",
-    features: [
-      "Streamlined Business Processes",
-      "Dedicated Operational Teams",
-      "Consistent Service Delivery",
-    ],
+      "Protecting corporate assets through AI-driven threat hunting, zero-trust endpoint defenses, continuous vulnerability assessments, and rapid incident containment protocols.",
+    badgeTitle: "MANAGED SOC & SEC",
+    badgeSub: "Proactive Zero-Day Defense",
     image:
-      "https://images.unsplash.com/photo-1521737711867-e3b97375f902?auto=format&fit=crop&w=1200&q=85",
-    badgeNumber: "02",
-    badgeText: "Operations Support",
+      "https://images.unsplash.com/photo-1563986768609-322da13575f3?auto=format&fit=crop&w=2200&q=85",
+    features: [
+      "24/7/365 SIEM & EDR Threat Monitoring",
+      "Automated Incident Containment & Forensics",
+      "ISO 27001 & Compliance Audit Readiness",
+    ],
   },
   {
     id: 3,
-    category: "WORKFORCE SOLUTIONS",
-    title: "Build Stronger Teams for Better Results",
+    tag: "MANAGED SERVICES",
+    titlePrimary: "Global IT Service Desk &",
+    titleAccent: "End-User Support",
     description:
-      "Support your business goals with adaptable workforce and managed service solutions. From daily operational assistance to coordinated service delivery, we help businesses create productive and well-organized working environments.",
-    features: [
-      "Scalable Workforce Solutions",
-      "Skilled Professional Personnel",
-      "Business-Focused Service Delivery",
-    ],
+      "Empowering distributed enterprise workforces with Tier 1–3 omnichannel IT support, automated MDM provisioning, software deployment, and ITIL-aligned issue resolution.",
+    badgeTitle: "ENTERPRISE DESK",
+    badgeSub: "Multi-Tier ITIL Service Desk",
     image:
-      "https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=1200&q=85",
-    badgeNumber: "03",
-    badgeText: "Workforce Support",
+      "https://images.unsplash.com/photo-1531482615713-2afd69097998?auto=format&fit=crop&w=2200&q=85",
+    features: [
+      "Omnichannel Helpdesk & Rapid First-Contact Resolution",
+      "Zero-Touch Remote Device Lifecycle Management",
+      "Identity Access Management (IAM) Governance",
+    ],
+  },
+  {
+    id: 4,
+    tag: "MANAGED SERVICES",
+    titlePrimary: "DevOps Engineering &",
+    titleAccent: "Continuous Delivery",
+    description:
+      "Accelerating software lifecycles through robust CI/CD pipeline automation, Infrastructure as Code (IaC), microservices scaling, and comprehensive APM observability pipelines.",
+    badgeTitle: "DEVOPS & SRE",
+    badgeSub: "Autonomous CI/CD & Observability",
+    image:
+      "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=2200&q=85",
+    features: [
+      "Infrastructure as Code (Terraform / Ansible)",
+      "Automated CI/CD Deployment Pipelines",
+      "Full-Stack Observability & APM Telemetry",
+    ],
   },
 ];
 
 const ManagedServicesTwo = () => {
-  const [activeIndex, setActiveIndex] = useState(0);
+  const [activeSlide, setActiveSlide] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
+  const totalSlides = managedServicesData.length;
+  const currentSlide = managedServicesData[activeSlide];
 
-  const activeSlide = managedSlides[activeIndex];
+  const handleNext = useCallback(() => {
+    setActiveSlide((prev) => (prev + 1) % totalSlides);
+  }, [totalSlides]);
 
-  const nextSlide = useCallback(() => {
-    setActiveIndex((current) => (current + 1) % managedSlides.length);
-  }, []);
+  const handlePrev = useCallback(() => {
+    setActiveSlide((prev) => (prev - 1 + totalSlides) % totalSlides);
+  }, [totalSlides]);
 
-  const previousSlide = useCallback(() => {
-    setActiveIndex(
-      (current) =>
-        (current - 1 + managedSlides.length) % managedSlides.length
-    );
-  }, []);
-
+  // Autoplay rotation
   useEffect(() => {
-    if (isPaused) return undefined;
+    if (isPaused) return;
 
-    const interval = setInterval(nextSlide, 5000);
+    const timer = setInterval(() => {
+      handleNext();
+    }, SLIDE_DURATION);
 
-    return () => clearInterval(interval);
-  }, [isPaused, nextSlide]);
+    return () => clearInterval(timer);
+  }, [isPaused, handleNext]);
 
   return (
     <section
-      className="managed-services-two"
-      aria-label="Managed services"
+      className="ManagedServicesTwo"
+      aria-label="Managed Services Showcase"
       onMouseEnter={() => setIsPaused(true)}
       onMouseLeave={() => setIsPaused(false)}
-      onFocus={() => setIsPaused(true)}
-      onBlur={(event) => {
-        if (!event.currentTarget.contains(event.relatedTarget)) {
+      onFocusCapture={() => setIsPaused(true)}
+      onBlurCapture={(e) => {
+        if (!e.currentTarget.contains(e.relatedTarget)) {
           setIsPaused(false);
         }
       }}
     >
-      <div className="managed-services-two__container">
-        {/* LEFT IMAGE SECTION */}
-        <div className="managed-services-two__visual">
-          <div className="managed-services-two__image-frame">
-            {managedSlides.map((slide, index) => (
+      <div className="ManagedServicesTwo__container">
+        {/* Left Side: Angled Image Visual with Slider */}
+        <div className="ManagedServicesTwo__media">
+          <div className="ManagedServicesTwo__imageClip">
+            {managedServicesData.map((item, index) => (
               <img
-                key={slide.id}
-                src={slide.image}
-                alt={slide.badgeText}
-                className={`managed-services-two__image ${
-                  index === activeIndex
-                    ? "managed-services-two__image--active"
+                key={item.id}
+                src={item.image}
+                alt={`${item.titlePrimary} ${item.titleAccent}`}
+                className={`ManagedServicesTwo__image ${
+                  index === activeSlide
+                    ? "ManagedServicesTwo__image--active"
                     : ""
                 }`}
                 loading={index === 0 ? "eager" : "lazy"}
-                aria-hidden={index !== activeIndex}
               />
             ))}
-
-            <div className="managed-services-two__image-overlay" />
-
-            <div className="managed-services-two__image-label">
-              <span className="managed-services-two__label-dot" />
-              Professional Managed Services
-            </div>
+            <div className="ManagedServicesTwo__imageShade" />
           </div>
 
-          <div className="managed-services-two__image-decoration" />
-
-          {/* IMAGE BADGE */}
+          {/* Floating Operational Badge */}
           <div
-            className="managed-services-two__image-badge"
-            key={activeSlide.id}
+            key={`badge-${activeSlide}`}
+            className="ManagedServicesTwo__badge"
           >
-            <span className="managed-services-two__badge-number">
-              {activeSlide.badgeNumber}
-            </span>
-
-            <div className="managed-services-two__badge-divider" />
-
-            <div className="managed-services-two__badge-content">
-              <strong>{activeSlide.badgeText}</strong>
-              <span>Professional. Reliable. Efficient.</span>
+            <span className="ManagedServicesTwo__badgeDot" />
+            <div className="ManagedServicesTwo__badgeText">
+              <strong>{currentSlide.badgeTitle}</strong>
+              <span>{currentSlide.badgeSub}</span>
             </div>
           </div>
 
-          {/* IMAGE CONTROLS */}
-          <div className="managed-services-two__image-controls">
+          {/* Bottom Left Navigation Buttons */}
+          <div className="ManagedServicesTwo__nav">
             <button
               type="button"
-              className="managed-services-two__arrow"
-              onClick={previousSlide}
+              className="ManagedServicesTwo__navBtn ManagedServicesTwo__navBtn--prev"
+              onClick={handlePrev}
               aria-label="Previous managed service"
             >
-              &#8592;
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                <path
+                  d="M19 12H5m7 7-7-7 7-7"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+              </svg>
             </button>
-
-            <span className="managed-services-two__slide-count">
-              <strong>{String(activeIndex + 1).padStart(2, "0")}</strong>
-              <span>/</span>
-              {String(managedSlides.length).padStart(2, "0")}
-            </span>
-
             <button
               type="button"
-              className="managed-services-two__arrow"
-              onClick={nextSlide}
+              className="ManagedServicesTwo__navBtn ManagedServicesTwo__navBtn--next"
+              onClick={handleNext}
               aria-label="Next managed service"
             >
-              &#8594;
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                <path
+                  d="M5 12h14m-7-7 7 7-7 7"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+              </svg>
             </button>
           </div>
         </div>
 
-        {/* RIGHT CONTENT SECTION */}
+        {/* Right Side: Staggered Content */}
         <div
-          className="managed-services-two__content"
-          key={activeSlide.id}
+          key={`content-${activeSlide}`}
+          className="ManagedServicesTwo__content"
         >
-          <div className="managed-services-two__eyebrow">
-            <span className="managed-services-two__eyebrow-line" />
-            {activeSlide.category}
+          <div className="ManagedServicesTwo__eyebrowWrap">
+            <span className="ManagedServicesTwo__eyebrowLine" />
+            <span className="ManagedServicesTwo__eyebrow">
+              {currentSlide.tag}
+            </span>
           </div>
 
-          <h2 className="managed-services-two__title">
-            {activeSlide.title}
+          <h2 className="ManagedServicesTwo__title">
+            <span className="ManagedServicesTwo__titlePrimary">
+              {currentSlide.titlePrimary}{" "}
+            </span>
+            <span className="ManagedServicesTwo__titleAccent">
+              {currentSlide.titleAccent}
+            </span>
           </h2>
 
-          <p className="managed-services-two__description">
-            {activeSlide.description}
+          <p className="ManagedServicesTwo__description">
+            {currentSlide.description}
           </p>
 
-          {/* FEATURES */}
-          <div className="managed-services-two__features">
-            {activeSlide.features.map((feature, index) => (
-              <div
-                className="managed-services-two__feature"
-                key={feature}
-                style={{ "--feature-index": index }}
-              >
-                <span className="managed-services-two__feature-icon">
-                  <svg
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    aria-hidden="true"
-                  >
-                    <path
-                      d="M5 12.5L9.5 17L19 7"
-                      stroke="currentColor"
-                      strokeWidth="2"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    />
-                  </svg>
-                </span>
-
+          {/* Dynamic Feature Highlights */}
+          <div className="ManagedServicesTwo__features">
+            {currentSlide.features.map((feature, idx) => (
+              <div key={idx} className="ManagedServicesTwo__featureItem">
+                <span className="ManagedServicesTwo__featureDot" />
                 <span>{feature}</span>
               </div>
             ))}
           </div>
 
-          {/* BUTTON AND PAGINATION */}
-          <div className="managed-services-two__footer">
+          {/* CTA & Synchronized Progress Bar */}
+          <div className="ManagedServicesTwo__actionRow">
             <a
-              href="#contact"
-              className="managed-services-two__cta"
+              href="#managed-services-enquiry"
+              className="ManagedServicesTwo__btnPrimary"
             >
-              <span>Explore Our Services</span>
-
-              <span className="managed-services-two__cta-icon">
-                &#8599;
-              </span>
+              <span>Consult an MSP Architect</span>
+              <svg viewBox="0 0 20 20" fill="currentColor">
+                <path
+                  fillRule="evenodd"
+                  d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z"
+                  clipRule="evenodd"
+                />
+              </svg>
             </a>
 
-            <div className="managed-services-two__pagination">
-              {managedSlides.map((slide, index) => (
-                <button
-                  key={slide.id}
-                  type="button"
-                  className={`managed-services-two__pagination-item ${
-                    index === activeIndex
-                      ? "managed-services-two__pagination-item--active"
-                      : ""
-                  }`}
-                  onClick={() => setActiveIndex(index)}
-                  aria-label={`Show managed service ${index + 1}`}
-                  aria-current={index === activeIndex ? "true" : undefined}
-                >
-                  <span />
-                </button>
-              ))}
+            <div className="ManagedServicesTwo__progressTrack">
+              <div
+                key={`progress-${activeSlide}-${isPaused}`}
+                className={`ManagedServicesTwo__progressBar ${
+                  isPaused ? "is-paused" : ""
+                }`}
+                style={{ animationDuration: `${SLIDE_DURATION}ms` }}
+              />
             </div>
-          </div>
-
-          {/* PROGRESS BAR */}
-          <div className="managed-services-two__progress-track">
-            <div
-              key={activeIndex}
-              className="managed-services-two__progress-bar"
-              style={{
-                animationPlayState: isPaused ? "paused" : "running",
-              }}
-            />
           </div>
         </div>
       </div>
