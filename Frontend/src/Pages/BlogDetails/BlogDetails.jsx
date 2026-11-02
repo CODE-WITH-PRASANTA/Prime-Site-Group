@@ -1,10 +1,10 @@
 import React from 'react'
-// import BlogDetailsMain from '../../Components/BlogDetailsMain/BlogDetailsMain'
+import BlogDetailsMain from '../../Components/BlogDetailsMain/BlogDetailsMain'
 
 const BlogDetails = () => {
   return (
     <div>
-      {/* <BlogDetailsMain/> */}
+      <BlogDetailsMain/>
     </div>
   )
 }
