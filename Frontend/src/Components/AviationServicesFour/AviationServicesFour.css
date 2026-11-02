@@ -1,0 +1,686 @@
+/* =========================================
+   AVIATION SERVICES FOUR
+   Original red, white and charcoal theme
+========================================= */
+
+.AviationServicesFour {
+  --aviation-red: #d7192d;
+  --aviation-red-hover: #b51223;
+  --aviation-dark: #1f2124;
+  --aviation-charcoal: #2d3034;
+  --aviation-gray: #5c6066;
+  --aviation-secondary-gray: #63676c;
+  --aviation-border: #dde1e5;
+  --aviation-light-gray: #f1f2f3;
+  --aviation-white: #ffffff;
+
+  width: 100%;
+  padding: 1rem 0.8rem;
+  background: var(--aviation-white);
+  color: var(--aviation-dark);
+  font-family: Arial, Helvetica, sans-serif;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+.AviationServicesFour *,
+.AviationServicesFour *::before,
+.AviationServicesFour *::after {
+  box-sizing: border-box;
+}
+
+.AviationServicesFour__container {
+  width: 100%;
+  max-width: 1240px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+  align-items: center;
+  gap: 55px;
+}
+
+/* =========================================
+   LEFT IMAGE SECTION
+========================================= */
+
+.AviationServicesFour__media {
+  position: relative;
+  min-width: 0;
+  min-height: 550px;
+  padding: 0 0 28px 20px;
+  opacity: 0;
+  transform: translateX(-45px);
+  transition:
+    opacity 0.8s ease,
+    transform 0.8s ease;
+}
+
+.AviationServicesFour--visible .AviationServicesFour__media {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.AviationServicesFour__media::before {
+  content: "";
+  position: absolute;
+  top: -14px;
+  left: 6px;
+  width: 120px;
+  height: 120px;
+  border-top: 5px solid var(--aviation-red);
+  border-left: 5px solid var(--aviation-red);
+  z-index: 0;
+  transition: width 0.5s ease, height 0.5s ease;
+}
+
+.AviationServicesFour__media::after {
+  content: "";
+  position: absolute;
+  right: -8px;
+  bottom: 12px;
+  width: 115px;
+  height: 105px;
+  background: var(--aviation-red);
+  z-index: 0;
+}
+
+.AviationServicesFour--visible .AviationServicesFour__media::before {
+  width: 145px;
+  height: 145px;
+}
+
+.AviationServicesFour__imageClip {
+  position: relative;
+  width: 100%;
+  height: 510px;
+  overflow: hidden;
+  clip-path: polygon(0 0, 100% 0, 100% 84%, 83% 100%, 0 100%);
+  background: var(--aviation-light-gray);
+  z-index: 1;
+}
+
+.AviationServicesFour__image {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  transform: scale(1.06);
+  transition: transform 1.2s ease;
+}
+
+.AviationServicesFour--visible .AviationServicesFour__image {
+  transform: scale(1);
+}
+
+.AviationServicesFour__media:hover .AviationServicesFour__image {
+  transform: scale(1.06);
+}
+
+.AviationServicesFour__imageShade {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(31, 33, 36, 0.02) 35%,
+    rgba(31, 33, 36, 0.42) 100%
+  );
+  pointer-events: none;
+}
+
+/* =========================================
+   FLOATING INFORMATION BADGE
+========================================= */
+
+.AviationServicesFour__badge {
+  position: absolute;
+  left: -2px;
+  bottom: 0;
+  z-index: 3;
+  display: flex;
+  align-items: center;
+  gap: 13px;
+  max-width: calc(100% - 24px);
+  padding: 19px 23px;
+  background: var(--aviation-white);
+  border-left: 4px solid var(--aviation-red);
+  box-shadow: 0 12px 35px rgba(31, 33, 36, 0.15);
+  opacity: 0;
+  transform: translateY(20px);
+  transition:
+    opacity 0.7s ease 0.35s,
+    transform 0.7s ease 0.35s;
+}
+
+.AviationServicesFour--visible .AviationServicesFour__badge {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.AviationServicesFour__badgeDot {
+  position: relative;
+  flex: 0 0 13px;
+  width: 13px;
+  height: 13px;
+  border-radius: 50%;
+  background: var(--aviation-red);
+}
+
+.AviationServicesFour__badgeDot::after {
+  content: "";
+  position: absolute;
+  inset: -5px;
+  border: 1px solid rgba(215, 25, 45, 0.35);
+  border-radius: 50%;
+  animation: AviationServicesFourPulse 2s infinite;
+}
+
+.AviationServicesFour__badgeInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.AviationServicesFour__badgeInfo strong {
+  color: var(--aviation-dark);
+  font-size: 15px;
+  font-weight: 700;
+  line-height: 1.35;
+}
+
+.AviationServicesFour__badgeInfo span {
+  color: var(--aviation-gray);
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+/* =========================================
+   RIGHT CONTENT SECTION
+========================================= */
+
+.AviationServicesFour__content {
+  min-width: 0;
+  padding: 8px 0;
+  opacity: 0;
+  transform: translateX(40px);
+  transition:
+    opacity 0.8s ease 0.12s,
+    transform 0.8s ease 0.12s;
+}
+
+.AviationServicesFour--visible .AviationServicesFour__content {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* Eyebrow */
+
+.AviationServicesFour__eyebrowWrap {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 17px;
+}
+
+.AviationServicesFour__eyebrowLine {
+  display: inline-block;
+  width: 37px;
+  height: 3px;
+  background: var(--aviation-red);
+}
+
+.AviationServicesFour__eyebrow {
+  color: var(--aviation-red);
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 2.1px;
+  line-height: 1.4;
+}
+
+/* Heading */
+
+.AviationServicesFour__title {
+  margin: 0 0 19px;
+  color: var(--aviation-dark);
+  font-size: clamp(30px, 3.1vw, 43px);
+  font-weight: 800;
+  line-height: 1.2;
+  letter-spacing: -1.1px;
+}
+
+.AviationServicesFour__titleAccent {
+  color: var(--aviation-red);
+}
+
+/* Description */
+
+.AviationServicesFour__description {
+  margin: 0 0 25px;
+  color: var(--aviation-gray);
+  font-size: 15px;
+  font-weight: 400;
+  line-height: 1.85;
+}
+
+/* =========================================
+   CHECKLIST
+========================================= */
+
+.AviationServicesFour__list {
+  display: flex;
+  flex-direction: column;
+  gap: 19px;
+}
+
+.AviationServicesFour__item {
+  display: flex;
+  align-items: flex-start;
+  gap: 13px;
+  opacity: 0;
+  transform: translateY(18px);
+  transition:
+    opacity 0.55s ease,
+    transform 0.55s ease;
+}
+
+.AviationServicesFour--visible .AviationServicesFour__item {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.AviationServicesFour--visible
+  .AviationServicesFour__item:nth-child(1) {
+  transition-delay: 0.25s;
+}
+
+.AviationServicesFour--visible
+  .AviationServicesFour__item:nth-child(2) {
+  transition-delay: 0.38s;
+}
+
+.AviationServicesFour--visible
+  .AviationServicesFour__item:nth-child(3) {
+  transition-delay: 0.51s;
+}
+
+.AviationServicesFour--visible
+  .AviationServicesFour__item:nth-child(4) {
+  transition-delay: 0.64s;
+}
+
+.AviationServicesFour__checkIcon {
+  display: flex;
+  flex: 0 0 25px;
+  align-items: center;
+  justify-content: center;
+  width: 25px;
+  height: 25px;
+  margin-top: 1px;
+  border-radius: 50%;
+  background: rgba(215, 25, 45, 0.09);
+  color: var(--aviation-red);
+  transition:
+    background 0.3s ease,
+    color 0.3s ease,
+    transform 0.3s ease;
+}
+
+.AviationServicesFour__checkIcon svg {
+  display: block;
+  width: 15px;
+  height: 15px;
+}
+
+.AviationServicesFour__item:hover .AviationServicesFour__checkIcon {
+  background: var(--aviation-red);
+  color: var(--aviation-white);
+  transform: scale(1.08);
+}
+
+.AviationServicesFour__itemText {
+  min-width: 0;
+  flex: 1;
+}
+
+.AviationServicesFour__itemTitle {
+  margin: 0 0 5px;
+  color: var(--aviation-dark);
+  font-size: 15px;
+  font-weight: 700;
+  line-height: 1.45;
+}
+
+.AviationServicesFour__itemDetail {
+  margin: 0;
+  color: var(--aviation-secondary-gray);
+  font-size: 13px;
+  line-height: 1.7;
+}
+
+/* =========================================
+   PRIMARY BUTTON
+========================================= */
+
+.AviationServicesFour__actionWrap {
+  margin-top: 29px;
+  opacity: 0;
+  transform: translateY(15px);
+  transition:
+    opacity 0.6s ease 0.7s,
+    transform 0.6s ease 0.7s;
+}
+
+.AviationServicesFour--visible .AviationServicesFour__actionWrap {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.AviationServicesFour__linkPrimary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 13px;
+  min-height: 51px;
+  padding: 14px 21px;
+  background: var(--aviation-red);
+  border: 2px solid var(--aviation-red);
+  color: var(--aviation-white);
+  font-size: 13px;
+  font-weight: 700;
+  line-height: 1.4;
+  text-decoration: none;
+  transition:
+    background 0.3s ease,
+    border-color 0.3s ease,
+    box-shadow 0.3s ease,
+    transform 0.3s ease;
+}
+
+.AviationServicesFour__linkPrimary:hover {
+  background: var(--aviation-red-hover);
+  border-color: var(--aviation-red-hover);
+  color: var(--aviation-white);
+  box-shadow: 0 8px 20px rgba(215, 25, 45, 0.2);
+  transform: translateY(-3px);
+}
+
+.AviationServicesFour__linkPrimary:focus-visible {
+  outline: 3px solid rgba(215, 25, 45, 0.35);
+  outline-offset: 4px;
+}
+
+.AviationServicesFour__linkPrimary svg {
+  width: 17px;
+  height: 17px;
+  flex-shrink: 0;
+  transition: transform 0.3s ease;
+}
+
+.AviationServicesFour__linkPrimary:hover svg {
+  transform: translateX(4px);
+}
+
+/* =========================================
+   ANIMATIONS
+========================================= */
+
+@keyframes AviationServicesFourPulse {
+  0% {
+    transform: scale(0.85);
+    opacity: 0.8;
+  }
+
+  70% {
+    transform: scale(1.3);
+    opacity: 0;
+  }
+
+  100% {
+    transform: scale(1.3);
+    opacity: 0;
+  }
+}
+
+/* =========================================
+   RESPONSIVE: TABLETS AND SMALL LAPTOPS
+========================================= */
+
+@media (max-width: 1200px) {
+  .AviationServicesFour__container {
+    max-width: 1050px;
+    gap: 35px;
+  }
+
+  .AviationServicesFour__media {
+    min-height: 500px;
+  }
+
+  .AviationServicesFour__imageClip {
+    height: 465px;
+  }
+
+  .AviationServicesFour__title {
+    font-size: 36px;
+  }
+
+  .AviationServicesFour__description {
+    font-size: 14px;
+    line-height: 1.8;
+  }
+
+  .AviationServicesFour__list {
+    gap: 16px;
+  }
+}
+
+/* =========================================
+   RESPONSIVE: TABLETS
+========================================= */
+
+@media (max-width: 900px) {
+  .AviationServicesFour {
+    padding: 2rem 1rem;
+  }
+
+  .AviationServicesFour__container {
+    max-width: 720px;
+    grid-template-columns: 1fr;
+    gap: 43px;
+  }
+
+  .AviationServicesFour__media {
+    width: 100%;
+    max-width: 620px;
+    min-height: 440px;
+    margin: 0 auto;
+    padding-left: 16px;
+  }
+
+  .AviationServicesFour__imageClip {
+    height: 420px;
+  }
+
+  .AviationServicesFour__media::before {
+    top: -10px;
+    left: 4px;
+  }
+
+  .AviationServicesFour__media::after {
+    right: -4px;
+    bottom: 12px;
+  }
+
+  .AviationServicesFour__badge {
+    left: 0;
+  }
+
+  .AviationServicesFour__content {
+    width: 100%;
+    max-width: 650px;
+    margin: 0 auto;
+  }
+
+  .AviationServicesFour__title {
+    max-width: 600px;
+    font-size: 38px;
+  }
+}
+
+/* =========================================
+   RESPONSIVE: MOBILE
+========================================= */
+
+@media (max-width: 560px) {
+  .AviationServicesFour {
+    padding: 1.5rem 0.9rem;
+  }
+
+  .AviationServicesFour__container {
+    gap: 35px;
+  }
+
+  .AviationServicesFour__media {
+    min-height: 330px;
+    padding-left: 10px;
+    padding-bottom: 25px;
+  }
+
+  .AviationServicesFour__imageClip {
+    height: 310px;
+    clip-path: polygon(0 0, 100% 0, 100% 88%, 84% 100%, 0 100%);
+  }
+
+  .AviationServicesFour__media::before {
+    top: -8px;
+    left: 0;
+    width: 75px;
+    height: 75px;
+    border-width: 4px;
+  }
+
+  .AviationServicesFour--visible .AviationServicesFour__media::before {
+    width: 95px;
+    height: 95px;
+  }
+
+  .AviationServicesFour__media::after {
+    right: -3px;
+    bottom: 8px;
+    width: 65px;
+    height: 65px;
+  }
+
+  .AviationServicesFour__badge {
+    gap: 10px;
+    max-width: calc(100% - 10px);
+    padding: 13px 14px;
+  }
+
+  .AviationServicesFour__badgeDot {
+    flex-basis: 11px;
+    width: 11px;
+    height: 11px;
+  }
+
+  .AviationServicesFour__badgeInfo strong {
+    font-size: 13px;
+  }
+
+  .AviationServicesFour__badgeInfo span {
+    font-size: 11px;
+  }
+
+  .AviationServicesFour__eyebrowWrap {
+    gap: 9px;
+    margin-bottom: 13px;
+  }
+
+  .AviationServicesFour__eyebrowLine {
+    width: 28px;
+  }
+
+  .AviationServicesFour__eyebrow {
+    font-size: 11px;
+    letter-spacing: 1.6px;
+  }
+
+  .AviationServicesFour__title {
+    margin-bottom: 15px;
+    font-size: 30px;
+    line-height: 1.25;
+    letter-spacing: -0.6px;
+  }
+
+  .AviationServicesFour__description {
+    margin-bottom: 22px;
+    font-size: 13px;
+    line-height: 1.8;
+  }
+
+  .AviationServicesFour__list {
+    gap: 18px;
+  }
+
+  .AviationServicesFour__item {
+    gap: 10px;
+  }
+
+  .AviationServicesFour__checkIcon {
+    flex-basis: 23px;
+    width: 23px;
+    height: 23px;
+  }
+
+  .AviationServicesFour__checkIcon svg {
+    width: 14px;
+    height: 14px;
+  }
+
+  .AviationServicesFour__itemTitle {
+    font-size: 14px;
+  }
+
+  .AviationServicesFour__itemDetail {
+    font-size: 12px;
+    line-height: 1.7;
+  }
+
+  .AviationServicesFour__actionWrap {
+    margin-top: 24px;
+  }
+
+  .AviationServicesFour__linkPrimary {
+    width: 100%;
+    min-height: 49px;
+    padding: 13px 15px;
+    font-size: 12px;
+  }
+}
+
+/* =========================================
+   REDUCED MOTION ACCESSIBILITY
+========================================= */
+
+@media (prefers-reduced-motion: reduce) {
+  .AviationServicesFour *,
+  .AviationServicesFour *::before,
+  .AviationServicesFour *::after {
+    animation: none !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+    transition-delay: 0ms !important;
+  }
+
+  .AviationServicesFour__media,
+  .AviationServicesFour__content,
+  .AviationServicesFour__badge,
+  .AviationServicesFour__item,
+  .AviationServicesFour__actionWrap {
+    opacity: 1;
+    transform: none;
+  }
+
+  .AviationServicesFour__image {
+    transform: none;
+  }
+}

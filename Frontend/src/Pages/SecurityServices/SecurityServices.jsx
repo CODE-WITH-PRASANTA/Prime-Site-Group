@@ -3,6 +3,7 @@ import SecurityServicesMain from '../../Components/SecurityServicesMain/Security
 import SecurityServicesTwo from '../../Components/SecurityServicesTwo/SecurityServicesTwo'
 import SecurityServicesFour from '../../Components/SecurityServicesFour/SecurityServicesFour'
 import SecurityServicesThree from '../../Components/SecurityServicesThree/SecurityServicesThree'
+import SecurityServicesFive from '../../Components/SecurityServicesFive/SecurityServicesFive'
 
 const SecurityServices = () => {
   return (
@@ -11,6 +12,7 @@ const SecurityServices = () => {
         <SecurityServicesTwo/>
         <SecurityServicesFour/>
         <SecurityServicesThree/>
+        <SecurityServicesFive/>
     </div>
   )
 }

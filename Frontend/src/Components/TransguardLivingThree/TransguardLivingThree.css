@@ -1,0 +1,474 @@
+.TransguardLivingThree-section {
+  width: 100%;
+  padding: 4rem 0;
+  background: #ffffff;
+  font-family: Arial, Helvetica, sans-serif;
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+.TransguardLivingThree-section *,
+.TransguardLivingThree-section *::before,
+.TransguardLivingThree-section *::after {
+  box-sizing: border-box;
+}
+
+.TransguardLivingThree-container {
+  width: calc(100% - 1.6rem);
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 3.5rem;
+}
+
+/* IMAGE SECTION */
+
+.TransguardLivingThree-image-column {
+  flex: 1 1 50%;
+  min-width: 0;
+  position: relative;
+  padding: 0 0.8rem 1rem 0;
+  opacity: 0;
+  transform: translateX(-55px);
+  transition:
+    opacity 0.8s ease,
+    transform 0.8s ease;
+}
+
+.TransguardLivingThree-visible .TransguardLivingThree-image-column {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.TransguardLivingThree-image-frame {
+  position: relative;
+  width: 100%;
+  height: 520px;
+  overflow: hidden;
+  clip-path: polygon(
+    0 0,
+    91% 0,
+    100% 12%,
+    100% 100%,
+    9% 100%,
+    0 88%
+  );
+  background: #f1f2f3;
+}
+
+.TransguardLivingThree-main-image {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  transition: transform 0.8s ease;
+}
+
+.TransguardLivingThree-image-frame:hover
+  .TransguardLivingThree-main-image {
+  transform: scale(1.055);
+}
+
+.TransguardLivingThree-image-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    135deg,
+    rgba(31, 33, 36, 0.04),
+    rgba(31, 33, 36, 0.18)
+  );
+  pointer-events: none;
+}
+
+.TransguardLivingThree-image-decoration {
+  position: absolute;
+  top: -12px;
+  left: -12px;
+  width: 105px;
+  height: 105px;
+  border-top: 4px solid #d7192d;
+  border-left: 4px solid #d7192d;
+  z-index: -1;
+}
+
+.TransguardLivingThree-floating-badge {
+  position: absolute;
+  right: -5px;
+  bottom: 42px;
+  display: flex;
+  align-items: center;
+  gap: 13px;
+  max-width: calc(100% - 1rem);
+  padding: 18px 22px;
+  background: #ffffff;
+  border-left: 4px solid #d7192d;
+  box-shadow: 0 12px 35px rgba(31, 33, 36, 0.15);
+  animation: TransguardLivingThree-float 4s ease-in-out infinite;
+}
+
+.TransguardLivingThree-badge-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 43px;
+  height: 43px;
+  border-radius: 50%;
+  color: #ffffff;
+  background: #d7192d;
+  font-size: 23px;
+  font-weight: 700;
+}
+
+.TransguardLivingThree-badge-content {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.TransguardLivingThree-badge-content strong {
+  color: #1f2124;
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.TransguardLivingThree-badge-content span {
+  color: #63676c;
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+/* CONTENT SECTION */
+
+.TransguardLivingThree-content {
+  flex: 1 1 50%;
+  min-width: 0;
+  opacity: 0;
+  transform: translateX(55px);
+  transition:
+    opacity 0.8s ease 0.15s,
+    transform 0.8s ease 0.15s;
+}
+
+.TransguardLivingThree-visible .TransguardLivingThree-content {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.TransguardLivingThree-eyebrow {
+  display: inline-block;
+  margin-bottom: 17px;
+  color: #d7192d;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 2px;
+  line-height: 1.5;
+}
+
+.TransguardLivingThree-title {
+  margin: 0 0 22px;
+  color: #1f2124;
+  font-size: clamp(30px, 3.1vw, 43px);
+  font-weight: 800;
+  line-height: 1.19;
+  letter-spacing: -1.1px;
+}
+
+.TransguardLivingThree-title span {
+  color: #d7192d;
+}
+
+.TransguardLivingThree-description {
+  margin: 0 0 25px;
+  color: #5c6066;
+  font-size: 15px;
+  line-height: 1.85;
+}
+
+/* FEATURE LIST */
+
+.TransguardLivingThree-features {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  margin-bottom: 30px;
+}
+
+.TransguardLivingThree-feature {
+  display: flex;
+  align-items: flex-start;
+  gap: 13px;
+  opacity: 0;
+  transform: translateX(-20px);
+}
+
+.TransguardLivingThree-visible .TransguardLivingThree-feature {
+  animation: TransguardLivingThree-feature-appear 0.55s ease forwards;
+  animation-delay: calc(0.3s + var(--feature-index) * 0.15s);
+}
+
+.TransguardLivingThree-check {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 25px;
+  height: 25px;
+  margin-top: 1px;
+  border-radius: 50%;
+  background: rgba(215, 25, 45, 0.1);
+  color: #d7192d;
+  font-size: 15px;
+  font-weight: 800;
+}
+
+.TransguardLivingThree-feature-content {
+  flex: 1;
+  min-width: 0;
+}
+
+.TransguardLivingThree-feature-content h3 {
+  margin: 0 0 5px;
+  color: #2d3034;
+  font-size: 15px;
+  font-weight: 700;
+  line-height: 1.5;
+}
+
+.TransguardLivingThree-feature-content p {
+  margin: 0;
+  color: #63676c;
+  font-size: 13px;
+  line-height: 1.7;
+}
+
+/* CTA BUTTON */
+
+.TransguardLivingThree-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+  min-height: 51px;
+  padding: 14px 23px;
+  background: #d7192d;
+  color: #ffffff;
+  text-decoration: none;
+  font-size: 13px;
+  font-weight: 700;
+  border: 2px solid #d7192d;
+  transition:
+    background 0.3s ease,
+    border-color 0.3s ease,
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
+}
+
+.TransguardLivingThree-button:hover {
+  background: #b51223;
+  border-color: #b51223;
+  color: #ffffff;
+  transform: translateY(-3px);
+  box-shadow: 0 9px 20px rgba(215, 25, 45, 0.2);
+}
+
+.TransguardLivingThree-button-arrow {
+  display: inline-block;
+  font-size: 19px;
+  line-height: 1;
+  transition: transform 0.3s ease;
+}
+
+.TransguardLivingThree-button:hover
+  .TransguardLivingThree-button-arrow {
+  transform: translateX(5px);
+}
+
+/* ANIMATIONS */
+
+@keyframes TransguardLivingThree-feature-appear {
+  from {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes TransguardLivingThree-float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-7px);
+  }
+}
+
+/* RESPONSIVE DESIGN */
+
+@media (max-width: 1200px) {
+  .TransguardLivingThree-container {
+    gap: 2.5rem;
+  }
+
+  .TransguardLivingThree-image-frame {
+    height: 475px;
+  }
+
+  .TransguardLivingThree-title {
+    font-size: 36px;
+  }
+
+  .TransguardLivingThree-description {
+    font-size: 14px;
+  }
+
+  .TransguardLivingThree-features {
+    gap: 15px;
+  }
+}
+
+@media (max-width: 900px) {
+  .TransguardLivingThree-section {
+    padding: 3.5rem 0;
+  }
+
+  .TransguardLivingThree-container {
+    max-width: 720px;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 3rem;
+  }
+
+  .TransguardLivingThree-image-column {
+    width: 100%;
+    flex: auto;
+    padding: 0 0.7rem 0.8rem 0;
+  }
+
+  .TransguardLivingThree-image-frame {
+    height: 430px;
+  }
+
+  .TransguardLivingThree-content {
+    width: 100%;
+    flex: auto;
+  }
+
+  .TransguardLivingThree-title {
+    font-size: 39px;
+  }
+
+  .TransguardLivingThree-floating-badge {
+    right: 0;
+    bottom: 30px;
+  }
+}
+
+@media (max-width: 560px) {
+  .TransguardLivingThree-section {
+    padding: 2.5rem 0;
+  }
+
+  .TransguardLivingThree-container {
+    width: calc(100% - 2rem);
+    gap: 2rem;
+  }
+
+  .TransguardLivingThree-image-frame {
+    height: 310px;
+  }
+
+  .TransguardLivingThree-image-decoration {
+    top: -8px;
+    left: -8px;
+    width: 65px;
+    height: 65px;
+    border-width: 3px;
+  }
+
+  .TransguardLivingThree-floating-badge {
+    bottom: 18px;
+    gap: 9px;
+    padding: 12px 14px;
+  }
+
+  .TransguardLivingThree-badge-icon {
+    width: 35px;
+    height: 35px;
+    font-size: 19px;
+  }
+
+  .TransguardLivingThree-badge-content strong {
+    font-size: 13px;
+  }
+
+  .TransguardLivingThree-badge-content span {
+    font-size: 10px;
+  }
+
+  .TransguardLivingThree-eyebrow {
+    margin-bottom: 12px;
+    font-size: 11px;
+    letter-spacing: 1.5px;
+  }
+
+  .TransguardLivingThree-title {
+    margin-bottom: 17px;
+    font-size: 30px;
+    letter-spacing: -0.5px;
+  }
+
+  .TransguardLivingThree-description {
+    margin-bottom: 22px;
+    font-size: 13px;
+    line-height: 1.8;
+  }
+
+  .TransguardLivingThree-features {
+    gap: 16px;
+    margin-bottom: 25px;
+  }
+
+  .TransguardLivingThree-feature-content h3 {
+    font-size: 14px;
+  }
+
+  .TransguardLivingThree-feature-content p {
+    font-size: 12px;
+  }
+
+  .TransguardLivingThree-button {
+    width: 100%;
+    gap: 10px;
+    padding: 13px 15px;
+    font-size: 12px;
+  }
+}
+
+/* ACCESSIBILITY */
+
+@media (prefers-reduced-motion: reduce) {
+  .TransguardLivingThree-section *,
+  .TransguardLivingThree-section *::before,
+  .TransguardLivingThree-section *::after {
+    animation: none !important;
+    transition: none !important;
+    scroll-behavior: auto !important;
+  }
+
+  .TransguardLivingThree-image-column,
+  .TransguardLivingThree-content,
+  .TransguardLivingThree-feature {
+    opacity: 1;
+    transform: none;
+  }
+}

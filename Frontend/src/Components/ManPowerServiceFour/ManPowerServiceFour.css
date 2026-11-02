@@ -1,0 +1,574 @@
+.ManPowerServiceFour-section {
+  --manpower-four-red: #d7192d;
+  --manpower-four-red-hover: #b51223;
+  --manpower-four-dark: #1f2124;
+  --manpower-four-charcoal: #2d3034;
+  --manpower-four-gray: #5c6066;
+  --manpower-four-secondary-gray: #63676c;
+  --manpower-four-border: #dde1e5;
+  --manpower-four-light-gray: #f1f2f3;
+  --manpower-four-white: #ffffff;
+
+  width: 100%;
+  padding: 75px 24px;
+  background: var(--manpower-four-white);
+  color: var(--manpower-four-dark);
+  font-family: Arial, Helvetica, sans-serif;
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+.ManPowerServiceFour-section *,
+.ManPowerServiceFour-section *::before,
+.ManPowerServiceFour-section *::after {
+  box-sizing: border-box;
+}
+
+.ManPowerServiceFour-container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 0.92fr);
+  align-items: center;
+  gap: 65px;
+}
+
+/* LEFT IMAGE */
+
+.ManPowerServiceFour-visual {
+  position: relative;
+  min-width: 0;
+  padding: 15px 15px 35px 0;
+  opacity: 0;
+  transform: translateX(-55px);
+  transition:
+    opacity 0.8s ease,
+    transform 0.8s ease;
+}
+
+.ManPowerServiceFour-visible .ManPowerServiceFour-visual {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.ManPowerServiceFour-image-frame {
+  position: relative;
+  width: 100%;
+  height: 525px;
+  overflow: hidden;
+  background: var(--manpower-four-light-gray);
+  clip-path: polygon(
+    0 0,
+    100% 0,
+    100% 91%,
+    91% 100%,
+    0 100%
+  );
+}
+
+.ManPowerServiceFour-image {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  transform: scale(1.02);
+  transition: transform 0.8s ease;
+}
+
+.ManPowerServiceFour-visual:hover .ManPowerServiceFour-image {
+  transform: scale(1.08);
+}
+
+.ManPowerServiceFour-image-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    135deg,
+    rgba(31, 33, 36, 0.06) 15%,
+    rgba(31, 33, 36, 0.12) 50%,
+    rgba(31, 33, 36, 0.62) 100%
+  );
+  pointer-events: none;
+}
+
+/* RED DECORATIVE CORNERS */
+
+.ManPowerServiceFour-corner {
+  position: absolute;
+  width: 105px;
+  height: 105px;
+  border-color: var(--manpower-four-red);
+  border-style: solid;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.ManPowerServiceFour-corner-top {
+  top: 0;
+  right: 0;
+  border-width: 5px 5px 0 0;
+}
+
+.ManPowerServiceFour-corner-bottom {
+  left: -8px;
+  bottom: 22px;
+  border-width: 0 0 5px 5px;
+}
+
+/* FLOATING BADGE */
+
+.ManPowerServiceFour-floating-card {
+  position: absolute;
+  right: -12px;
+  bottom: 0;
+  z-index: 3;
+  display: flex;
+  align-items: stretch;
+  gap: 17px;
+  width: min(350px, 88%);
+  padding: 23px 24px;
+  background: var(--manpower-four-white);
+  box-shadow: 0 14px 38px rgba(31, 33, 36, 0.15);
+  border-left: 4px solid var(--manpower-four-red);
+  opacity: 0;
+  transform: translateY(24px);
+  transition:
+    opacity 0.65s ease 0.35s,
+    transform 0.65s ease 0.35s;
+}
+
+.ManPowerServiceFour-visible .ManPowerServiceFour-floating-card {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.ManPowerServiceFour-badge-line {
+  flex: 0 0 4px;
+  align-self: stretch;
+  background: var(--manpower-four-red);
+  display: none;
+}
+
+.ManPowerServiceFour-badge-title {
+  margin: 0 0 8px;
+  color: var(--manpower-four-dark);
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 1.4;
+}
+
+.ManPowerServiceFour-badge-text {
+  margin: 0;
+  color: var(--manpower-four-gray);
+  font-size: 13px;
+  line-height: 1.7;
+}
+
+/* RIGHT CONTENT */
+
+.ManPowerServiceFour-content {
+  min-width: 0;
+  opacity: 0;
+  transform: translateX(45px);
+  transition:
+    opacity 0.8s ease 0.12s,
+    transform 0.8s ease 0.12s;
+}
+
+.ManPowerServiceFour-visible .ManPowerServiceFour-content {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.ManPowerServiceFour-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 17px;
+  color: var(--manpower-four-red);
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  line-height: 1.5;
+}
+
+.ManPowerServiceFour-eyebrow::before {
+  content: "";
+  display: inline-block;
+  width: 32px;
+  height: 3px;
+  background: var(--manpower-four-red);
+}
+
+.ManPowerServiceFour-heading {
+  margin: 0 0 20px;
+  color: var(--manpower-four-dark);
+  font-size: clamp(32px, 3.3vw, 43px);
+  font-weight: 800;
+  line-height: 1.2;
+  letter-spacing: -1.1px;
+}
+
+.ManPowerServiceFour-heading span {
+  color: var(--manpower-four-red);
+}
+
+.ManPowerServiceFour-description {
+  margin: 0 0 27px;
+  color: var(--manpower-four-gray);
+  font-size: 15px;
+  line-height: 1.9;
+}
+
+/* SERVICE CHECKLIST */
+
+.ManPowerServiceFour-service-list {
+  display: flex;
+  flex-direction: column;
+  margin: 0 0 30px;
+}
+
+.ManPowerServiceFour-service-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 15px;
+  padding: 17px 0;
+  border-bottom: 1px solid var(--manpower-four-border);
+  opacity: 0;
+  transform: translateY(18px);
+  transition:
+    opacity 0.55s ease,
+    transform 0.55s ease;
+  transition-delay: calc(0.25s + var(--item-index, 0) * 0.12s);
+}
+
+.ManPowerServiceFour-visible .ManPowerServiceFour-service-item {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.ManPowerServiceFour-service-item:first-child {
+  padding-top: 0;
+}
+
+.ManPowerServiceFour-service-item:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.ManPowerServiceFour-check {
+  flex: 0 0 29px;
+  width: 29px;
+  height: 29px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--manpower-four-white);
+  background: var(--manpower-four-red);
+  border: 1px solid var(--manpower-four-red);
+  border-radius: 50%;
+  transition:
+    color 0.25s ease,
+    background 0.25s ease,
+    transform 0.25s ease;
+}
+
+.ManPowerServiceFour-check svg {
+  display: block;
+  width: 17px;
+  height: 17px;
+}
+
+.ManPowerServiceFour-service-item:hover .ManPowerServiceFour-check {
+  color: var(--manpower-four-red);
+  background: var(--manpower-four-white);
+  transform: rotate(8deg);
+}
+
+.ManPowerServiceFour-service-copy {
+  flex: 1;
+  min-width: 0;
+}
+
+.ManPowerServiceFour-service-copy h3 {
+  margin: 1px 0 6px;
+  color: var(--manpower-four-dark);
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 1.4;
+  transition: color 0.25s ease;
+}
+
+.ManPowerServiceFour-service-item:hover
+  .ManPowerServiceFour-service-copy h3 {
+  color: var(--manpower-four-red);
+}
+
+.ManPowerServiceFour-service-copy p {
+  margin: 0;
+  color: var(--manpower-four-secondary-gray);
+  font-size: 13px;
+  line-height: 1.75;
+}
+
+/* CTA BUTTON */
+
+.ManPowerServiceFour-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 17px;
+  min-height: 54px;
+  padding: 15px 23px;
+  color: var(--manpower-four-white);
+  background: var(--manpower-four-red);
+  border: 2px solid var(--manpower-four-red);
+  text-decoration: none;
+  font-size: 13px;
+  font-weight: 700;
+  line-height: 1.4;
+  transition:
+    background 0.25s ease,
+    border-color 0.25s ease,
+    transform 0.25s ease,
+    box-shadow 0.25s ease;
+  opacity: 0;
+  transform: translateY(16px);
+  transition-delay: 0.7s;
+}
+
+.ManPowerServiceFour-visible .ManPowerServiceFour-button {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.ManPowerServiceFour-button svg {
+  width: 19px;
+  height: 19px;
+  flex: 0 0 19px;
+  transition: transform 0.25s ease;
+}
+
+.ManPowerServiceFour-button:hover {
+  color: var(--manpower-four-white);
+  background: var(--manpower-four-red-hover);
+  border-color: var(--manpower-four-red-hover);
+  box-shadow: 0 8px 20px rgba(215, 25, 45, 0.2);
+  transform: translateY(-3px);
+}
+
+.ManPowerServiceFour-button:hover svg {
+  transform: translateX(4px);
+}
+
+.ManPowerServiceFour-button:focus-visible {
+  outline: 3px solid rgba(215, 25, 45, 0.35);
+  outline-offset: 4px;
+}
+
+/* RESPONSIVE: LAPTOP */
+
+@media (max-width: 1200px) {
+  .ManPowerServiceFour-section {
+    padding: 65px 24px;
+  }
+
+  .ManPowerServiceFour-container {
+    gap: 45px;
+  }
+
+  .ManPowerServiceFour-image-frame {
+    height: 490px;
+  }
+
+  .ManPowerServiceFour-heading {
+    font-size: 37px;
+  }
+
+  .ManPowerServiceFour-floating-card {
+    right: -5px;
+    width: min(330px, 88%);
+  }
+}
+
+/* RESPONSIVE: TABLET */
+
+@media (max-width: 900px) {
+  .ManPowerServiceFour-section {
+    padding: 55px 24px;
+  }
+
+  .ManPowerServiceFour-container {
+    grid-template-columns: 1fr;
+    gap: 48px;
+    max-width: 690px;
+  }
+
+  .ManPowerServiceFour-visual {
+    width: 100%;
+    max-width: 600px;
+    margin: 0 auto;
+    padding-right: 15px;
+  }
+
+  .ManPowerServiceFour-image-frame {
+    height: 460px;
+  }
+
+  .ManPowerServiceFour-content {
+    width: 100%;
+  }
+
+  .ManPowerServiceFour-heading {
+    max-width: 620px;
+    font-size: 40px;
+  }
+
+  .ManPowerServiceFour-description {
+    font-size: 14px;
+  }
+}
+
+/* RESPONSIVE: MOBILE */
+
+@media (max-width: 560px) {
+  .ManPowerServiceFour-section {
+    padding: 42px 18px;
+  }
+
+  .ManPowerServiceFour-container {
+    gap: 38px;
+  }
+
+  .ManPowerServiceFour-visual {
+    padding: 10px 8px 28px 0;
+  }
+
+  .ManPowerServiceFour-image-frame {
+    height: 330px;
+    clip-path: polygon(
+      0 0,
+      100% 0,
+      100% 93%,
+      93% 100%,
+      0 100%
+    );
+  }
+
+  .ManPowerServiceFour-corner {
+    width: 65px;
+    height: 65px;
+  }
+
+  .ManPowerServiceFour-corner-top {
+    top: 0;
+    right: 0;
+    border-width: 4px 4px 0 0;
+  }
+
+  .ManPowerServiceFour-corner-bottom {
+    left: -5px;
+    bottom: 18px;
+    border-width: 0 0 4px 4px;
+  }
+
+  .ManPowerServiceFour-floating-card {
+    right: 0;
+    bottom: 0;
+    width: 90%;
+    padding: 17px 18px;
+    gap: 10px;
+  }
+
+  .ManPowerServiceFour-badge-title {
+    font-size: 15px;
+  }
+
+  .ManPowerServiceFour-badge-text {
+    font-size: 12px;
+  }
+
+  .ManPowerServiceFour-eyebrow {
+    margin-bottom: 13px;
+    font-size: 11px;
+    letter-spacing: 1.7px;
+  }
+
+  .ManPowerServiceFour-eyebrow::before {
+    width: 24px;
+  }
+
+  .ManPowerServiceFour-heading {
+    margin-bottom: 16px;
+    font-size: 31px;
+    letter-spacing: -0.6px;
+  }
+
+  .ManPowerServiceFour-description {
+    margin-bottom: 23px;
+    font-size: 13px;
+    line-height: 1.8;
+  }
+
+  .ManPowerServiceFour-service-list {
+    margin-bottom: 25px;
+  }
+
+  .ManPowerServiceFour-service-item {
+    gap: 12px;
+    padding: 15px 0;
+  }
+
+  .ManPowerServiceFour-check {
+    flex-basis: 26px;
+    width: 26px;
+    height: 26px;
+  }
+
+  .ManPowerServiceFour-check svg {
+    width: 15px;
+    height: 15px;
+  }
+
+  .ManPowerServiceFour-service-copy h3 {
+    font-size: 14px;
+  }
+
+  .ManPowerServiceFour-service-copy p {
+    font-size: 12px;
+    line-height: 1.7;
+  }
+
+  .ManPowerServiceFour-button {
+    width: 100%;
+    min-height: 50px;
+    padding: 13px 15px;
+    gap: 12px;
+    font-size: 12px;
+  }
+}
+
+/* ACCESSIBILITY */
+
+@media (prefers-reduced-motion: reduce) {
+  .ManPowerServiceFour-section *,
+  .ManPowerServiceFour-section *::before,
+  .ManPowerServiceFour-section *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+    transition-delay: 0ms !important;
+  }
+
+  .ManPowerServiceFour-visual,
+  .ManPowerServiceFour-content,
+  .ManPowerServiceFour-floating-card,
+  .ManPowerServiceFour-service-item,
+  .ManPowerServiceFour-button {
+    opacity: 1;
+    transform: none;
+  }
+}

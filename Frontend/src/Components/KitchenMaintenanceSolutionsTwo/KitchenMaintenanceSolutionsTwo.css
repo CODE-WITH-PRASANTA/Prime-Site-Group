@@ -1,0 +1,681 @@
+.kitchen-maintenance-two {
+  --kitchen-two-primary: #d7192d;
+  --kitchen-two-secondary: #b51223;
+  --kitchen-two-accent:#1f2124 ;
+  --kitchen-two-text: #26332f;
+  --kitchen-two-muted: #5c6066;
+  --kitchen-two-border: #e2e9e4;
+  width: 100%;
+  padding: 64px 24px;
+  background: #f7f9f6;
+  font-family: Arial, Helvetica, sans-serif;
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+.kitchen-maintenance-two *,
+.kitchen-maintenance-two *::before,
+.kitchen-maintenance-two *::after {
+  box-sizing: border-box;
+}
+
+.kitchen-maintenance-two-container {
+  max-width: 1160px;
+  margin: 0 auto;
+}
+
+.kitchen-maintenance-two-heading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  margin-bottom: 36px;
+  color: var(--kitchen-two-secondary);
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 2.2px;
+  text-align: center;
+}
+
+.kitchen-maintenance-two-heading-line {
+  width: 34px;
+  height: 2px;
+  flex-shrink: 0;
+  background: var(--kitchen-two-accent);
+}
+
+.kitchen-maintenance-two-slider {
+  display: grid;
+  grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.05fr);
+  align-items: center;
+  gap: 68px;
+}
+
+.kitchen-maintenance-two-image-column {
+  min-width: 0;
+}
+
+.kitchen-maintenance-two-image-frame {
+  position: relative;
+  min-height: 490px;
+  height: 490px;
+  overflow: visible;
+  background: #dce8e0;
+}
+
+.kitchen-maintenance-two-image-frame::before {
+  position: absolute;
+  z-index: 0;
+  top: -13px;
+  left: -13px;
+  width: 90px;
+  height: 90px;
+  border-top: 3px solid var(--kitchen-two-accent);
+  border-left: 3px solid var(--kitchen-two-accent);
+  content: "";
+}
+
+.kitchen-maintenance-two-image-frame::after {
+  position: absolute;
+  z-index: 0;
+  right: -13px;
+  bottom: -13px;
+  width: 90px;
+  height: 90px;
+  border-right: 3px solid var(--kitchen-two-secondary);
+  border-bottom: 3px solid var(--kitchen-two-secondary);
+  content: "";
+}
+
+.kitchen-maintenance-two-image {
+  position: relative;
+  z-index: 1;
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  animation: kitchenTwoImageEnter 0.7s ease both;
+}
+
+.kitchen-maintenance-two-image-overlay {
+  position: absolute;
+  z-index: 2;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(
+    180deg,
+    rgba(13, 36, 29, 0.02) 30%,
+    rgba(13, 36, 29, 0.76) 100%
+  );
+}
+
+.kitchen-maintenance-two-image-caption {
+  position: absolute;
+  z-index: 3;
+  right: 28px;
+  bottom: 32px;
+  left: 28px;
+  color: #fff;
+  animation: kitchenTwoTextEnter 0.6s ease both;
+}
+
+.kitchen-maintenance-two-caption-label {
+  display: inline-block;
+  margin-bottom: 10px;
+  color: #f2d39c;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 2px;
+}
+
+.kitchen-maintenance-two-image-caption h3 {
+  margin: 0 0 9px;
+  font-size: clamp(23px, 2.5vw, 31px);
+  line-height: 1.2;
+  font-weight: 700;
+}
+
+.kitchen-maintenance-two-image-caption p {
+  margin: 0;
+  color: rgba(255, 255, 255, 0.83);
+  font-size: 13px;
+  line-height: 1.7;
+}
+
+.kitchen-maintenance-two-image-number {
+  position: absolute;
+  z-index: 3;
+  top: 22px;
+  right: 22px;
+  display: grid;
+  width: 52px;
+  height: 52px;
+  place-items: center;
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  color: #fff;
+  background: rgba(24, 62, 54, 0.35);
+  backdrop-filter: blur(8px);
+  font-size: 15px;
+  font-weight: 700;
+}
+
+.kitchen-maintenance-two-image-decoration {
+  position: absolute;
+  z-index: 3;
+  top: 0;
+  left: 0;
+  width: 6px;
+  height: 82px;
+  background: var(--kitchen-two-accent);
+}
+
+.kitchen-maintenance-two-image-bottom {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 25px;
+  color: var(--kitchen-two-muted);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.6px;
+}
+
+.kitchen-maintenance-two-bottom-dot {
+  width: 8px;
+  height: 8px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  background: var(--kitchen-two-secondary);
+  box-shadow: 0 0 0 4px rgba(57, 117, 101, 0.12);
+}
+
+.kitchen-maintenance-two-content {
+  min-width: 0;
+  padding: 10px 0;
+  animation: kitchenTwoTextEnter 0.65s ease both;
+}
+
+.kitchen-maintenance-two-category {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  margin-bottom: 22px;
+  color: var(--kitchen-two-secondary);
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 1.1px;
+  text-transform: uppercase;
+}
+
+.kitchen-maintenance-two-category-line {
+  width: 30px;
+  height: 2px;
+  background: var(--kitchen-two-accent);
+}
+
+.kitchen-maintenance-two-eyebrow {
+  margin: 0 0 13px;
+  color: var(--kitchen-two-muted);
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 1.7px;
+  line-height: 1.7;
+}
+
+.kitchen-maintenance-two-title {
+  margin: 0 0 22px;
+  color: var(--kitchen-two-primary);
+  font-size: clamp(30px, 3.4vw, 43px);
+  font-weight: 750;
+  letter-spacing: -1.3px;
+  line-height: 1.17;
+}
+
+.kitchen-maintenance-two-description {
+  margin: 0 0 25px;
+  color: var(--kitchen-two-muted);
+  font-size: 14px;
+  line-height: 1.95;
+}
+
+.kitchen-maintenance-two-feature-list {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  padding: 22px 0;
+  border-top: 1px solid var(--kitchen-two-border);
+  border-bottom: 1px solid var(--kitchen-two-border);
+}
+
+.kitchen-maintenance-two-feature {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: var(--kitchen-two-text);
+  font-size: 13px;
+  line-height: 1.5;
+  animation: kitchenTwoFeatureEnter 0.5s ease both;
+  animation-delay: calc(var(--feature-index) * 100ms);
+}
+
+.kitchen-maintenance-two-feature-check {
+  display: grid;
+  width: 23px;
+  height: 23px;
+  flex-shrink: 0;
+  place-items: center;
+  border-radius: 50%;
+  color: var(--kitchen-two-secondary);
+  background: #e4eee7;
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.kitchen-maintenance-two-content-bottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  margin-top: 27px;
+}
+
+.kitchen-maintenance-two-cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  min-height: 51px;
+  padding: 0 19px;
+  border: 1px solid var(--kitchen-two-primary);
+  color: #fff;
+  background: var(--kitchen-two-primary);
+  font-size: 12px;
+  font-weight: 700;
+  text-decoration: none;
+  transition:
+    color 0.3s ease,
+    background 0.3s ease,
+    border-color 0.3s ease,
+    transform 0.3s ease;
+}
+
+.kitchen-maintenance-two-cta:hover {
+  transform: translateY(-3px);
+  border-color: var(--kitchen-two-secondary);
+  color: #fff;
+  background: var(--kitchen-two-secondary);
+}
+
+.kitchen-maintenance-two-cta-arrow {
+  display: grid;
+  width: 24px;
+  height: 24px;
+  place-items: center;
+  border: 1px solid rgba(255, 255, 255, 0.45);
+  border-radius: 50%;
+  font-size: 15px;
+  transition: transform 0.3s ease;
+}
+
+.kitchen-maintenance-two-cta:hover .kitchen-maintenance-two-cta-arrow {
+  transform: rotate(45deg);
+}
+
+.kitchen-maintenance-two-controls {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.kitchen-maintenance-two-arrow {
+  display: grid;
+  width: 38px;
+  height: 38px;
+  flex-shrink: 0;
+  place-items: center;
+  border: 1px solid var(--kitchen-two-border);
+  border-radius: 50%;
+  color: var(--kitchen-two-primary);
+  background: #fff;
+  cursor: pointer;
+  font-size: 19px;
+  transition:
+    color 0.25s ease,
+    background 0.25s ease,
+    border-color 0.25s ease;
+}
+
+.kitchen-maintenance-two-arrow:hover {
+  border-color: var(--kitchen-two-primary);
+  color: #fff;
+  background: var(--kitchen-two-primary);
+}
+
+.kitchen-maintenance-two-counter {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  color: #87928c;
+  font-size: 11px;
+  white-space: nowrap;
+}
+
+.kitchen-maintenance-two-counter strong {
+  color: var(--kitchen-two-primary);
+  font-size: 15px;
+}
+
+.kitchen-maintenance-two-counter-divider {
+  margin: 0 2px;
+  color: #bdc6c0;
+}
+
+.kitchen-maintenance-two-pagination {
+  display: flex;
+  align-items: center;
+  gap: 22px;
+  margin-top: 44px;
+  padding-top: 23px;
+  border-top: 1px solid var(--kitchen-two-border);
+}
+
+.kitchen-maintenance-two-dots {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+}
+
+.kitchen-maintenance-two-dot {
+  width: 7px;
+  height: 7px;
+  padding: 0;
+  border: 0;
+  border-radius: 10px;
+  background: #cbd6ce;
+  cursor: pointer;
+  transition:
+    width 0.3s ease,
+    background 0.3s ease;
+}
+
+.kitchen-maintenance-two-dot.active {
+  width: 27px;
+  background: var(--kitchen-two-secondary);
+}
+
+.kitchen-maintenance-two-progress-track {
+  position: relative;
+  width: 100px;
+  height: 2px;
+  overflow: hidden;
+  background: #dfe6e0;
+}
+
+.kitchen-maintenance-two-progress-bar {
+  width: 100%;
+  height: 100%;
+  transform-origin: left;
+  background: var(--kitchen-two-accent);
+  animation: kitchenTwoProgress 5s linear both;
+}
+
+.kitchen-maintenance-two-pagination-label {
+  margin-left: auto;
+  color: #929c96;
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 1.6px;
+  text-align: right;
+}
+
+@keyframes kitchenTwoImageEnter {
+  from {
+    opacity: 0.5;
+    transform: scale(1.035);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes kitchenTwoTextEnter {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes kitchenTwoFeatureEnter {
+  from {
+    opacity: 0;
+    transform: translateX(-12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes kitchenTwoProgress {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+
+/* Tablet */
+@media (max-width: 1024px) {
+  .kitchen-maintenance-two {
+    padding: 55px 22px;
+  }
+
+  .kitchen-maintenance-two-slider {
+    gap: 38px;
+  }
+
+  .kitchen-maintenance-two-image-frame {
+    height: 440px;
+    min-height: 440px;
+  }
+
+  .kitchen-maintenance-two-title {
+    font-size: clamp(29px, 3.8vw, 38px);
+  }
+
+  .kitchen-maintenance-two-content-bottom {
+    flex-wrap: wrap;
+  }
+}
+
+/* Mobile and small tablets */
+@media (max-width: 768px) {
+  .kitchen-maintenance-two {
+    padding: 45px 20px;
+  }
+
+  .kitchen-maintenance-two-heading {
+    margin-bottom: 29px;
+    font-size: 10px;
+    letter-spacing: 1.5px;
+  }
+
+  .kitchen-maintenance-two-slider {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 34px;
+  }
+
+  .kitchen-maintenance-two-image-frame {
+    height: 420px;
+    min-height: 420px;
+  }
+
+  .kitchen-maintenance-two-image-column {
+    max-width: 560px;
+    width: calc(100% - 12px);
+    margin: 0 auto;
+  }
+
+  .kitchen-maintenance-two-content {
+    padding: 0;
+  }
+
+  .kitchen-maintenance-two-title {
+    max-width: 600px;
+    font-size: clamp(31px, 6vw, 42px);
+  }
+
+  .kitchen-maintenance-two-description {
+    font-size: 14px;
+  }
+
+  .kitchen-maintenance-two-pagination {
+    margin-top: 35px;
+  }
+}
+
+/* Small mobile */
+@media (max-width: 480px) {
+  .kitchen-maintenance-two {
+    padding: 37px 17px;
+  }
+
+  .kitchen-maintenance-two-heading {
+    gap: 8px;
+    font-size: 9px;
+    letter-spacing: 1px;
+  }
+
+  .kitchen-maintenance-two-heading-line {
+    width: 21px;
+  }
+
+  .kitchen-maintenance-two-image-frame {
+    height: 335px;
+    min-height: 335px;
+  }
+
+  .kitchen-maintenance-two-image-frame::before,
+  .kitchen-maintenance-two-image-frame::after {
+    width: 55px;
+    height: 55px;
+  }
+
+  .kitchen-maintenance-two-image-caption {
+    right: 20px;
+    bottom: 24px;
+    left: 20px;
+  }
+
+  .kitchen-maintenance-two-image-caption h3 {
+    font-size: 24px;
+  }
+
+  .kitchen-maintenance-two-image-caption p {
+    font-size: 12px;
+  }
+
+  .kitchen-maintenance-two-image-number {
+    top: 16px;
+    right: 16px;
+    width: 43px;
+    height: 43px;
+  }
+
+  .kitchen-maintenance-two-category {
+    margin-bottom: 17px;
+    font-size: 10px;
+  }
+
+  .kitchen-maintenance-two-eyebrow {
+    font-size: 9px;
+    letter-spacing: 1.2px;
+  }
+
+  .kitchen-maintenance-two-title {
+    margin-bottom: 17px;
+    font-size: 31px;
+    letter-spacing: -0.8px;
+  }
+
+  .kitchen-maintenance-two-description {
+    margin-bottom: 20px;
+    font-size: 13px;
+    line-height: 1.85;
+  }
+
+  .kitchen-maintenance-two-feature-list {
+    gap: 13px;
+    padding: 18px 0;
+  }
+
+  .kitchen-maintenance-two-feature {
+    align-items: flex-start;
+    font-size: 12px;
+  }
+
+  .kitchen-maintenance-two-content-bottom {
+    align-items: flex-start;
+    gap: 19px;
+  }
+
+  .kitchen-maintenance-two-cta {
+    min-height: 47px;
+    gap: 10px;
+    padding: 0 12px;
+    font-size: 11px;
+  }
+
+  .kitchen-maintenance-two-controls {
+    gap: 7px;
+  }
+
+  .kitchen-maintenance-two-arrow {
+    width: 32px;
+    height: 32px;
+    font-size: 17px;
+  }
+
+  .kitchen-maintenance-two-counter {
+    font-size: 10px;
+  }
+
+  .kitchen-maintenance-two-counter strong {
+    font-size: 13px;
+  }
+
+  .kitchen-maintenance-two-pagination {
+    flex-wrap: wrap;
+    gap: 15px;
+    margin-top: 31px;
+    padding-top: 20px;
+  }
+
+  .kitchen-maintenance-two-progress-track {
+    width: 65px;
+  }
+
+  .kitchen-maintenance-two-pagination-label {
+    width: 100%;
+    margin-left: 0;
+    text-align: left;
+    font-size: 8px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .kitchen-maintenance-two *,
+  .kitchen-maintenance-two *::before,
+  .kitchen-maintenance-two *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+  }
+}
