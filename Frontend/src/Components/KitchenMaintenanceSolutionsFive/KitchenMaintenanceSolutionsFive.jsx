@@ -1,24 +1,24 @@
 import React, { useState, useEffect, useRef } from "react";
 import "./KitchenMaintenanceSolutionsFive.css";
 
-const kitchenHighlights = [
+const maintenanceHighlights = [
   {
     id: 1,
-    title: "Preventive Kitchen Maintenance",
+    title: "Comprehensive Kitchen Maintenance",
     detail:
-      "Regular inspection and preventive maintenance to keep commercial kitchen equipment operating efficiently.",
+      "Complete maintenance solutions to keep commercial kitchens clean, safe, and operating efficiently.",
   },
   {
     id: 2,
-    title: "Equipment Repair & Servicing",
+    title: "Preventive Maintenance Services",
     detail:
-      "Reliable maintenance and repair solutions for kitchen appliances, cooking equipment, and essential systems.",
+      "Regular inspections and preventive servicing to minimize equipment breakdowns and downtime.",
   },
   {
     id: 3,
-    title: "Hygiene & Operational Safety",
+    title: "Reliable Technical Support",
     detail:
-      "Professional maintenance practices that support kitchen cleanliness, workplace safety, and uninterrupted operations.",
+      "Professional support and maintenance solutions to improve kitchen equipment performance and longevity.",
   },
 ];
 
@@ -27,7 +27,7 @@ const KitchenMaintenanceSolutionsFive = () => {
   const sectionRef = useRef(null);
   const mediaRef = useRef(null);
 
-  // Scroll-triggered entrance animation
+  // Entrance animation using Intersection Observer
   useEffect(() => {
     const section = sectionRef.current;
 
@@ -90,6 +90,7 @@ const KitchenMaintenanceSolutionsFive = () => {
     );
   };
 
+  // Reset image position on mouse leave
   const handleMouseLeave = () => {
     const card = mediaRef.current;
     if (!card) return;
@@ -108,16 +109,6 @@ const KitchenMaintenanceSolutionsFive = () => {
       "--KitchenMaintenanceSolutionsFive-scale",
       "1"
     );
-
-    card.style.setProperty(
-      "--KitchenMaintenanceSolutionsFive-shine-x",
-      "50%"
-    );
-
-    card.style.setProperty(
-      "--KitchenMaintenanceSolutionsFive-shine-y",
-      "50%"
-    );
   };
 
   return (
@@ -126,12 +117,14 @@ const KitchenMaintenanceSolutionsFive = () => {
       className={`KitchenMaintenanceSolutionsFive ${
         isVisible ? "KitchenMaintenanceSolutionsFive--visible" : ""
       }`}
-      aria-label="Kitchen Maintenance Solutions and Services"
+      aria-label="Kitchen Maintenance Solutions"
     >
       <div className="KitchenMaintenanceSolutionsFive__container">
+
         {/* Left Side: Content */}
 
         <div className="KitchenMaintenanceSolutionsFive__content">
+
           <div className="KitchenMaintenanceSolutionsFive__eyebrowWrap">
             <span className="KitchenMaintenanceSolutionsFive__eyebrowLine" />
 
@@ -142,32 +135,35 @@ const KitchenMaintenanceSolutionsFive = () => {
 
           <h2 className="KitchenMaintenanceSolutionsFive__title">
             <span className="KitchenMaintenanceSolutionsFive__titlePrimary">
-              Kitchen{" "}
+              Kitchen Maintenance{" "}
             </span>
 
             <span className="KitchenMaintenanceSolutionsFive__titleAccent">
-              Maintenance
+              Solutions
             </span>
           </h2>
 
           <p className="KitchenMaintenanceSolutionsFive__description">
-            We provide dependable kitchen maintenance solutions designed
-            to keep commercial kitchens safe, clean, and running smoothly.
-            From preventive servicing to equipment repairs, our approach
-            focuses on operational efficiency, reliable performance, and
-            long-term equipment care.
+            We deliver dependable kitchen maintenance solutions designed
+            to keep commercial kitchens running smoothly. From preventive
+            maintenance to technical support, our services help improve
+            equipment reliability, operational efficiency, and kitchen safety.
           </p>
 
-          {/* Kitchen Maintenance Highlights */}
+          {/* Maintenance Highlights */}
 
           <div className="KitchenMaintenanceSolutionsFive__list">
-            {kitchenHighlights.map((item) => (
+            {maintenanceHighlights.map((item) => (
               <div
                 key={item.id}
                 className="KitchenMaintenanceSolutionsFive__item"
               >
                 <span className="KitchenMaintenanceSolutionsFive__checkIcon">
-                  <svg viewBox="0 0 20 20" fill="currentColor">
+                  <svg
+                    viewBox="0 0 20 20"
+                    fill="currentColor"
+                    aria-hidden="true"
+                  >
                     <path
                       fillRule="evenodd"
                       d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
@@ -189,16 +185,20 @@ const KitchenMaintenanceSolutionsFive = () => {
             ))}
           </div>
 
-          {/* Call to Action */}
+          {/* Call To Action */}
 
           <div className="KitchenMaintenanceSolutionsFive__actionWrap">
             <a
-              href="#partner-with-us"
+              href="#contact-us"
               className="KitchenMaintenanceSolutionsFive__btnPrimary"
             >
               <span>Get In Touch</span>
 
-              <svg viewBox="0 0 20 20" fill="currentColor">
+              <svg
+                viewBox="0 0 20 20"
+                fill="currentColor"
+                aria-hidden="true"
+              >
                 <path
                   fillRule="evenodd"
                   d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z"
@@ -218,9 +218,10 @@ const KitchenMaintenanceSolutionsFive = () => {
           onMouseLeave={handleMouseLeave}
         >
           <div className="KitchenMaintenanceSolutionsFive__imageClip">
+
             <img
               src="https://images.unsplash.com/photo-1556911220-bff31c812dba?auto=format&fit=crop&w=2200&q=85"
-              alt="Modern kitchen workspace with professional kitchen equipment"
+              alt="Modern kitchen with professional kitchen equipment"
               className="KitchenMaintenanceSolutionsFive__image"
               loading="lazy"
             />
@@ -236,11 +237,13 @@ const KitchenMaintenanceSolutionsFive = () => {
             <span className="KitchenMaintenanceSolutionsFive__badgeDot" />
 
             <div className="KitchenMaintenanceSolutionsFive__badgeInfo">
-              <strong>Reliable Maintenance</strong>
-              <span>Professional Kitchen Care</span>
+              <strong>Professional Maintenance</strong>
+
+              <span>Reliable Kitchen Care Solutions</span>
             </div>
           </div>
         </div>
+
       </div>
     </section>
   );

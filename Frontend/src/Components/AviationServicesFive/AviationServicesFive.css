@@ -1,533 +1,611 @@
-.aviation-services-five {
-  --aviation-five-red: #d7192d;
-  --aviation-five-red-dark: #b51223;
-  --aviation-five-charcoal: #1f2124;
-  --aviation-five-dark: #2d3034;
-  --aviation-five-gray: #5c6066;
-  --aviation-five-gray-light: #777b80;
-  --aviation-five-border: #dedbd4;
-  --aviation-five-cream: #fffaf0;
-  --aviation-five-light: #f1f2f3;
+/* ========================================================
+   AVIATION SERVICES FIVE - PREMIUM ANIMATED SECTION
+======================================================== */
 
+.AviationServicesFive {
+  --AviationServicesFive-red: #d7192d;
+  --AviationServicesFive-red-hover: #b51223;
+  --AviationServicesFive-dark: #1f2124;
+  --AviationServicesFive-charcoal: #2d3034;
+  --AviationServicesFive-gray: #5c6066;
+  --AviationServicesFive-border: #dde1e5;
+  --AviationServicesFive-bg: #ffffff;
+  --AviationServicesFive-ease: cubic-bezier(0.16, 1, 0.3, 1);
+
+  position: relative;
   width: 100%;
-  padding: 78px 24px 65px;
-  background: #ffffff;
-  color: var(--aviation-five-charcoal);
-  font-family: Arial, Helvetica, sans-serif;
+  padding: 10px 0 50px;
+  background-color: var(--AviationServicesFive-bg);
+  font-family: "Inter", "Segoe UI", Arial, sans-serif;
+  color: var(--AviationServicesFive-dark);
   overflow: hidden;
-}
-
-.aviation-services-five *,
-.aviation-services-five *::before,
-.aviation-services-five *::after {
   box-sizing: border-box;
 }
 
-.aviation-services-five-inner {
-  width: 100%;
-  max-width: 1240px;
+.AviationServicesFive *,
+.AviationServicesFive *::before,
+.AviationServicesFive *::after {
+  box-sizing: border-box;
+}
+
+/* ========== MAIN CONTAINER ========== */
+
+.AviationServicesFive__container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 1440px;
   margin: 0 auto;
+  padding: 0 40px;
+  gap: 65px;
 }
 
-/* Header */
+/* ========== LEFT CONTENT ========== */
 
-.aviation-services-five-header {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) 235px;
-  align-items: end;
-  gap: 45px;
-  margin-bottom: 40px;
+.AviationServicesFive__content {
+  flex: 1 1 50%;
+  max-width: 580px;
+  min-width: 0;
+  z-index: 2;
 }
 
-.aviation-services-five-heading {
-  max-width: 800px;
+/* ========== ENTRANCE ANIMATION ========== */
+
+.AviationServicesFive__eyebrowWrap,
+.AviationServicesFive__title,
+.AviationServicesFive__description,
+.AviationServicesFive__list,
+.AviationServicesFive__actionWrap {
+  opacity: 0;
+  transform: translateX(-50px);
+  transition:
+    transform 1.15s var(--AviationServicesFive-ease),
+    opacity 1.15s var(--AviationServicesFive-ease);
+  will-change: transform, opacity;
 }
 
-.aviation-services-five-eyebrow {
+.AviationServicesFive--visible
+  .AviationServicesFive__eyebrowWrap {
+  opacity: 1;
+  transform: translateX(0);
+  transition-delay: 0.1s;
+}
+
+.AviationServicesFive--visible
+  .AviationServicesFive__title {
+  opacity: 1;
+  transform: translateX(0);
+  transition-delay: 0.22s;
+}
+
+.AviationServicesFive--visible
+  .AviationServicesFive__description {
+  opacity: 1;
+  transform: translateX(0);
+  transition-delay: 0.34s;
+}
+
+.AviationServicesFive--visible
+  .AviationServicesFive__list {
+  opacity: 1;
+  transform: translateX(0);
+  transition-delay: 0.46s;
+}
+
+.AviationServicesFive--visible
+  .AviationServicesFive__actionWrap {
+  opacity: 1;
+  transform: translateX(0);
+  transition-delay: 0.58s;
+}
+
+/* ========== EYEBROW ========== */
+
+.AviationServicesFive__eyebrowWrap {
   display: inline-flex;
   align-items: center;
-  gap: 10px;
-  margin-bottom: 18px;
-  color: var(--aviation-five-red);
-  font-size: 11px;
+  gap: 14px;
+  margin-bottom: 16px;
+}
+
+.AviationServicesFive__eyebrowLine {
+  width: 32px;
+  height: 3px;
+  background-color: var(--AviationServicesFive-red);
+  border-radius: 2px;
+  flex-shrink: 0;
+}
+
+.AviationServicesFive__eyebrow {
+  font-size: 11.5px;
   font-weight: 800;
-  letter-spacing: 2.1px;
+  letter-spacing: 2.8px;
+  color: #63676c;
 }
 
-.aviation-services-five-eyebrow-line {
-  width: 28px;
-  height: 2px;
-  background: var(--aviation-five-red);
+/* ========== TITLE ========== */
+
+.AviationServicesFive__title {
+  margin: 0 0 16px;
+  font-size: clamp(36px, 4vw, 56px);
+  font-weight: 700;
+  line-height: 1.12;
+  letter-spacing: -1.6px;
+  color: var(--AviationServicesFive-dark);
 }
 
-.aviation-services-five-heading h2 {
-  max-width: 780px;
+.AviationServicesFive__titlePrimary {
+  color: var(--AviationServicesFive-dark);
+}
+
+.AviationServicesFive__titleAccent {
+  color: var(--AviationServicesFive-red);
+  font-family: Georgia, "Times New Roman", serif;
+  font-weight: 600;
+}
+
+/* ========== DESCRIPTION ========== */
+
+.AviationServicesFive__description {
+  margin: 0 0 30px;
+  font-size: 16px;
+  line-height: 1.75;
+  color: var(--AviationServicesFive-gray);
+  max-width: 520px;
+}
+
+/* ========== SERVICE LIST ========== */
+
+.AviationServicesFive__list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-bottom: 34px;
+}
+
+.AviationServicesFive__item {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+}
+
+.AviationServicesFive__checkIcon {
+  display: inline-grid;
+  place-items: center;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background-color: rgba(215, 25, 45, 0.1);
+  color: var(--AviationServicesFive-red);
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.AviationServicesFive__checkIcon svg {
+  width: 14px;
+  height: 14px;
+}
+
+.AviationServicesFive__itemText {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.AviationServicesFive__itemTitle {
+  margin: 0 0 2px;
+  font-size: 14.5px;
+  font-weight: 700;
+  line-height: 1.5;
+  color: var(--AviationServicesFive-charcoal);
+}
+
+.AviationServicesFive__itemDetail {
   margin: 0;
-  font-size: clamp(34px, 4.2vw, 55px);
-  line-height: 1.1;
-  font-weight: 800;
-  letter-spacing: -1.8px;
+  font-size: 13px;
+  color: var(--AviationServicesFive-gray);
+  line-height: 1.6;
 }
 
-.aviation-services-five-heading h2 span {
-  color: var(--aviation-five-red);
+/* ========== PRIMARY BUTTON ========== */
+
+.AviationServicesFive__actionWrap {
+  display: inline-block;
 }
 
-.aviation-services-five-intro {
-  max-width: 700px;
-  margin: 19px 0 0;
-  color: var(--aviation-five-gray);
-  font-size: 15px;
-  line-height: 1.85;
-}
-
-.aviation-services-five-summary {
-  padding: 21px;
-  border: 1px solid var(--aviation-five-border);
-  background: var(--aviation-five-cream);
+.AviationServicesFive__btnPrimary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  background-color: var(--AviationServicesFive-red);
+  color: #ffffff;
+  padding: 13px 28px;
+  border-radius: 3px;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  text-decoration: none;
+  box-shadow: 0 10px 24px rgba(215, 25, 45, 0.28);
   transition:
-    border-color 0.3s ease,
-    transform 0.3s ease;
+    background-color 0.25s ease,
+    transform 0.2s ease,
+    box-shadow 0.25s ease;
 }
 
-.aviation-services-five-summary:hover {
-  border-color: var(--aviation-five-red);
+.AviationServicesFive__btnPrimary svg {
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+  transition: transform 0.25s ease;
+}
+
+.AviationServicesFive__btnPrimary:hover {
+  background-color: var(--AviationServicesFive-red-hover);
+  transform: translateY(-2px);
+  box-shadow: 0 14px 28px rgba(215, 25, 45, 0.36);
+}
+
+.AviationServicesFive__btnPrimary:hover svg {
+  transform: translateX(4px);
+}
+
+.AviationServicesFive__btnPrimary:focus-visible {
+  outline: 2px solid var(--AviationServicesFive-red);
+  outline-offset: 4px;
+}
+
+/* ========== RIGHT MEDIA: 3D TILT ========== */
+
+.AviationServicesFive__media {
+  --AviationServicesFive-rx: 0deg;
+  --AviationServicesFive-ry: 0deg;
+  --AviationServicesFive-scale: 1;
+  --AviationServicesFive-shine-x: 50%;
+  --AviationServicesFive-shine-y: 50%;
+
+  position: relative;
+  flex: 1 1 50%;
+  min-width: 0;
+  height: 580px;
+  perspective: 1200px;
+  opacity: 0;
+  transform: translateX(80px);
+  transition:
+    transform 1.25s var(--AviationServicesFive-ease),
+    opacity 1.25s var(--AviationServicesFive-ease);
+  will-change: transform, opacity;
+  cursor: pointer;
+}
+
+.AviationServicesFive--visible
+  .AviationServicesFive__media {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* ========== IMAGE CLIP ========== */
+
+.AviationServicesFive__imageClip {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+
+  clip-path: polygon(
+    25% 0%,
+    100% 0%,
+    100% 100%,
+    0% 100%
+  );
+
+  background-color: #1a1c1e;
+  box-shadow: -15px 25px 50px rgba(0, 0, 0, 0.14);
+
+  transform:
+    rotateX(var(--AviationServicesFive-rx))
+    rotateY(var(--AviationServicesFive-ry))
+    scale(var(--AviationServicesFive-scale));
+
+  transition: transform 0.22s ease-out;
+  transform-style: preserve-3d;
+}
+
+.AviationServicesFive__image {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  transform: scale(1.08);
+  transition: transform 0.5s ease-out;
+}
+
+.AviationServicesFive__media:hover
+  .AviationServicesFive__image {
+  transform: scale(1.14);
+}
+
+/* ========== LIGHT SWEEP EFFECT ========== */
+
+.AviationServicesFive__lightSweep {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+
+  background: radial-gradient(
+    circle 320px at
+      var(--AviationServicesFive-shine-x)
+      var(--AviationServicesFive-shine-y),
+    rgba(255, 255, 255, 0.22) 0%,
+    transparent 75%
+  );
+
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  mix-blend-mode: overlay;
+  z-index: 2;
+}
+
+.AviationServicesFive__media:hover
+  .AviationServicesFive__lightSweep {
+  opacity: 1;
+}
+
+/* ========== IMAGE SHADE ========== */
+
+.AviationServicesFive__imageShade {
+  position: absolute;
+  inset: 0;
+
+  background: linear-gradient(
+    135deg,
+    rgba(215, 25, 45, 0.08) 0%,
+    transparent 50%,
+    rgba(20, 22, 25, 0.35) 100%
+  );
+
+  pointer-events: none;
+}
+
+/* ========== FLOATING BADGE ========== */
+
+.AviationServicesFive__badge {
+  position: absolute;
+  bottom: 40px;
+  left: 20px;
+  z-index: 3;
+
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+
+  max-width: calc(100% - 40px);
+  padding: 14px 20px;
+
+  background: rgba(255, 255, 255, 0.94);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+
+  border: 1px solid rgba(255, 255, 255, 0.8);
+  border-radius: 8px;
+
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.12);
+  transition: transform 0.3s ease;
+}
+
+.AviationServicesFive__media:hover
+  .AviationServicesFive__badge {
   transform: translateY(-4px);
 }
 
-.aviation-services-five-summary-top {
+.AviationServicesFive__badgeDot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+
+  background-color: var(--AviationServicesFive-red);
+  box-shadow: 0 0 10px rgba(215, 25, 45, 0.6);
+
+  flex-shrink: 0;
+}
+
+.AviationServicesFive__badgeInfo {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 14px;
-}
-
-.aviation-services-five-summary-number {
-  color: var(--aviation-five-charcoal);
-  font-size: 48px;
-  line-height: 1;
-  font-weight: 800;
-  letter-spacing: -2px;
-}
-
-.aviation-services-five-summary-icon {
-  display: grid;
-  width: 47px;
-  height: 47px;
-  place-items: center;
-  color: #ffffff;
-  background: var(--aviation-five-red);
-}
-
-.aviation-services-five-summary-label {
-  color: var(--aviation-five-red);
-  font-size: 9px;
-  font-weight: 800;
-  letter-spacing: 1.5px;
-}
-
-.aviation-services-five-summary p {
-  margin: 9px 0 0;
-  color: var(--aviation-five-gray);
-  font-size: 12px;
-  line-height: 1.65;
-}
-
-/* Service cards */
-
-.aviation-services-five-grid {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 20px;
-}
-
-.aviation-services-five-card {
-  position: relative;
-  display: flex;
-  min-height: 375px;
   flex-direction: column;
-  padding: 24px 23px 0;
-  overflow: hidden;
-  border: 1px solid var(--aviation-five-border);
-  background: var(--aviation-five-cream);
-  opacity: 0;
-  transform: translateY(25px);
-  transition:
-    opacity 0.65s ease,
-    transform 0.65s ease,
-    border-color 0.3s ease,
-    box-shadow 0.3s ease,
-    background 0.3s ease;
-  transition-delay: calc(var(--aviation-card-index, 0) * 90ms);
+  gap: 3px;
 }
 
-.aviation-services-five-visible .aviation-services-five-card {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-.aviation-services-five-card:hover,
-.aviation-services-five-card-active {
-  border-color: var(--aviation-five-red);
-  background: #ffffff;
-  box-shadow: 0 15px 35px rgba(31, 33, 36, 0.08);
-  transform: translateY(-6px);
-}
-
-.aviation-services-five-card-top {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 12px;
-}
-
-.aviation-services-five-category {
-  color: var(--aviation-five-gray);
-  font-size: 10px;
-  font-weight: 700;
-  letter-spacing: 0.8px;
-  text-transform: uppercase;
-}
-
-.aviation-services-five-card-number {
-  color: #c4c0b8;
+.AviationServicesFive__badgeInfo strong {
   font-size: 13px;
-  font-weight: 800;
-  transition: color 0.3s ease;
-}
-
-.aviation-services-five-card:hover .aviation-services-five-card-number,
-.aviation-services-five-card-active
-  .aviation-services-five-card-number {
-  color: var(--aviation-five-red);
-}
-
-.aviation-services-five-emblem {
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  width: 100%;
-  margin: 26px 0 25px;
-}
-
-.aviation-services-five-emblem-icon {
-  display: grid;
-  width: 61px;
-  height: 61px;
-  place-items: center;
-  color: var(--aviation-five-red);
-  border: 1px solid var(--aviation-five-border);
-  background: #ffffff;
-  transition:
-    color 0.3s ease,
-    background 0.3s ease,
-    border-color 0.3s ease,
-    transform 0.3s ease;
-}
-
-.aviation-services-five-card:hover .aviation-services-five-emblem-icon,
-.aviation-services-five-card-active
-  .aviation-services-five-emblem-icon {
-  color: #ffffff;
-  border-color: var(--aviation-five-red);
-  background: var(--aviation-five-red);
-  transform: rotate(-5deg);
-}
-
-.aviation-services-five-emblem-star {
-  color: #d9d4c9;
-  transition:
-    color 0.3s ease,
-    transform 0.3s ease;
-}
-
-.aviation-services-five-card:hover .aviation-services-five-emblem-star,
-.aviation-services-five-card-active
-  .aviation-services-five-emblem-star {
-  color: var(--aviation-five-red);
-  transform: rotate(35deg);
-}
-
-.aviation-services-five-card-content {
-  flex: 1;
-}
-
-.aviation-services-five-kicker {
-  color: var(--aviation-five-red);
-  font-size: 9px;
-  font-weight: 800;
-  letter-spacing: 1.35px;
-}
-
-.aviation-services-five-card-content h3 {
-  margin: 10px 0 8px;
-  color: var(--aviation-five-charcoal);
-  font-size: 22px;
-  line-height: 1.25;
-  font-weight: 800;
-  letter-spacing: -0.5px;
-  transition: color 0.3s ease;
-}
-
-.aviation-services-five-card:hover .aviation-services-five-card-content h3,
-.aviation-services-five-card-active
-  .aviation-services-five-card-content
-  h3 {
-  color: var(--aviation-five-red);
-}
-
-.aviation-services-five-card-content h4 {
-  margin: 0 0 12px;
-  color: var(--aviation-five-dark);
-  font-size: 12px;
-  line-height: 1.5;
   font-weight: 700;
+  line-height: 1.4;
+  color: var(--AviationServicesFive-dark);
 }
 
-.aviation-services-five-card-content p {
-  margin: 0;
-  color: var(--aviation-five-gray);
-  font-size: 12px;
-  line-height: 1.8;
-}
-
-.aviation-services-five-card-footer {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 12px;
-  margin-top: 24px;
-  padding: 15px 0 18px;
-  border-top: 1px solid var(--aviation-five-border);
-  color: var(--aviation-five-dark);
+.AviationServicesFive__badgeInfo span {
   font-size: 11px;
-  font-weight: 700;
+  line-height: 1.5;
+  color: var(--AviationServicesFive-gray);
 }
 
-.aviation-services-five-arrow {
-  display: grid;
-  width: 33px;
-  height: 33px;
-  flex-shrink: 0;
-  place-items: center;
-  color: var(--aviation-five-red);
-  border: 1px solid var(--aviation-five-border);
-  background: #ffffff;
-  transition:
-    color 0.3s ease,
-    background 0.3s ease,
-    border-color 0.3s ease,
-    transform 0.3s ease;
-}
+/* ========== RESPONSIVE: TABLET / SMALL LAPTOP ========== */
 
-.aviation-services-five-card:hover .aviation-services-five-arrow,
-.aviation-services-five-card-active
-  .aviation-services-five-arrow {
-  color: #ffffff;
-  border-color: var(--aviation-five-red);
-  background: var(--aviation-five-red);
-  transform: translate(2px, -2px);
-}
-
-.aviation-services-five-accent {
-  position: absolute;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  height: 3px;
-  background: var(--aviation-five-red);
-  transform: scaleX(0);
-  transform-origin: left;
-  transition: transform 0.35s ease;
-}
-
-.aviation-services-five-card:hover .aviation-services-five-accent,
-.aviation-services-five-card-active .aviation-services-five-accent {
-  transform: scaleX(1);
-}
-
-/* Bottom statement */
-
-.aviation-services-five-bottom {
-  display: flex;
-  align-items: center;
-  gap: 22px;
-  margin-top: 27px;
-  padding: 24px 27px;
-  border: 1px solid var(--aviation-five-border);
-  background: var(--aviation-five-light);
-  opacity: 0;
-  transform: translateY(15px);
-  transition:
-    opacity 0.7s ease 0.4s,
-    transform 0.7s ease 0.4s;
-}
-
-.aviation-services-five-visible .aviation-services-five-bottom {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-.aviation-services-five-bottom-mark {
-  display: flex;
-  align-items: center;
-  gap: 5px;
-  flex-shrink: 0;
-}
-
-.aviation-services-five-bottom-mark span {
-  display: block;
-  width: 5px;
-  height: 35px;
-  background: var(--aviation-five-red);
-}
-
-.aviation-services-five-bottom-mark span:nth-child(2) {
-  height: 25px;
-  opacity: 0.65;
-}
-
-.aviation-services-five-bottom-mark span:nth-child(3) {
-  height: 15px;
-  opacity: 0.35;
-}
-
-.aviation-services-five-bottom-copy {
-  flex: 1;
-}
-
-.aviation-services-five-bottom-copy h3 {
-  margin: 0 0 6px;
-  color: var(--aviation-five-charcoal);
-  font-size: 17px;
-  font-weight: 800;
-}
-
-.aviation-services-five-bottom-copy p {
-  margin: 0;
-  color: var(--aviation-five-gray);
-  font-size: 12px;
-  line-height: 1.7;
-}
-
-.aviation-services-five-bottom-caption {
-  color: var(--aviation-five-gray-light);
-  font-size: 9px;
-  font-weight: 800;
-  letter-spacing: 1.1px;
-  text-align: right;
-}
-
-/* Responsive */
-
-@media (max-width: 1000px) {
-  .aviation-services-five {
-    padding: 65px 22px 55px;
+@media (max-width: 1200px) {
+  .AviationServicesFive__container {
+    gap: 40px;
+    padding: 0 30px;
   }
 
-  .aviation-services-five-header {
-    grid-template-columns: minmax(0, 1fr) 205px;
-    gap: 25px;
+  .AviationServicesFive__media {
+    height: 500px;
   }
 
-  .aviation-services-five-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 17px;
-  }
-
-  .aviation-services-five-card {
-    min-height: 355px;
-  }
-
-  .aviation-services-five-bottom-caption {
-    max-width: 150px;
-    line-height: 1.7;
+  .AviationServicesFive__imageClip {
+    clip-path: polygon(
+      18% 0%,
+      100% 0%,
+      100% 100%,
+      0% 100%
+    );
   }
 }
 
-@media (max-width: 650px) {
-  .aviation-services-five {
-    padding: 48px 16px 40px;
+/* ========== RESPONSIVE: TABLET ========== */
+
+@media (max-width: 900px) {
+  .AviationServicesFive {
+    padding: 70px 0 80px;
   }
 
-  .aviation-services-five-header {
-    grid-template-columns: 1fr;
-    gap: 24px;
+  .AviationServicesFive__container {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 45px;
+  }
+
+  .AviationServicesFive__content,
+  .AviationServicesFive__media {
+    width: 100%;
+    max-width: 100%;
+    flex: none;
+  }
+
+  .AviationServicesFive__media {
+    height: 380px;
+    perspective: none;
+  }
+
+  .AviationServicesFive__imageClip {
+    clip-path: none;
+    border-radius: 12px;
+    transform: none !important;
+  }
+
+  .AviationServicesFive__badge {
+    left: 20px;
+    bottom: 20px;
+  }
+}
+
+/* ========== RESPONSIVE: MOBILE ========== */
+
+@media (max-width: 560px) {
+  .AviationServicesFive {
+    padding: 50px 0 60px;
+  }
+
+  .AviationServicesFive__container {
+    padding: 0 20px;
+    gap: 35px;
+  }
+
+  .AviationServicesFive__title {
+    font-size: 32px;
+    letter-spacing: -1.2px;
+  }
+
+  .AviationServicesFive__description {
+    font-size: 14.5px;
+    line-height: 1.75;
+    margin-bottom: 20px;
+  }
+
+  .AviationServicesFive__list {
+    gap: 18px;
     margin-bottom: 28px;
   }
 
-  .aviation-services-five-heading h2 {
-    font-size: clamp(32px, 8vw, 43px);
-    letter-spacing: -1px;
+  .AviationServicesFive__item {
+    gap: 12px;
   }
 
-  .aviation-services-five-intro {
-    margin-top: 15px;
-    font-size: 13px;
-    line-height: 1.8;
+  .AviationServicesFive__itemTitle {
+    font-size: 14px;
   }
 
-  .aviation-services-five-summary {
-    padding: 17px;
+  .AviationServicesFive__itemDetail {
+    font-size: 12.5px;
   }
 
-  .aviation-services-five-summary-number {
-    font-size: 40px;
+  .AviationServicesFive__media {
+    height: 270px;
   }
 
-  .aviation-services-five-grid {
-    grid-template-columns: 1fr;
-    gap: 15px;
+  .AviationServicesFive__btnPrimary {
+    width: 100%;
+    justify-content: center;
+    padding: 14px 20px;
   }
 
-  .aviation-services-five-card {
-    min-height: 340px;
-    padding: 21px 20px 0;
+  .AviationServicesFive__badge {
+    left: 12px;
+    bottom: 12px;
+    padding: 10px 14px;
+    gap: 9px;
+    max-width: calc(100% - 24px);
   }
 
-  .aviation-services-five-emblem {
-    margin: 22px 0;
+  .AviationServicesFive__badgeInfo strong {
+    font-size: 12px;
   }
 
-  .aviation-services-five-card-content h3 {
-    font-size: 21px;
-  }
-
-  .aviation-services-five-bottom {
-    align-items: flex-start;
-    gap: 14px;
-    padding: 19px 16px;
-  }
-
-  .aviation-services-five-bottom-copy h3 {
-    font-size: 15px;
-    line-height: 1.5;
-  }
-
-  .aviation-services-five-bottom-caption {
-    display: none;
+  .AviationServicesFive__badgeInfo span {
+    font-size: 10px;
   }
 }
 
+/* ========== EXTRA SMALL MOBILE ========== */
+
+@media (max-width: 360px) {
+  .AviationServicesFive__container {
+    padding: 0 15px;
+  }
+
+  .AviationServicesFive__title {
+    font-size: 29px;
+  }
+
+  .AviationServicesFive__media {
+    height: 230px;
+  }
+
+  .AviationServicesFive__badge {
+    left: 8px;
+    bottom: 8px;
+    padding: 9px 10px;
+  }
+}
+
+/* ========== ACCESSIBILITY ========== */
+
 @media (prefers-reduced-motion: reduce) {
-  .aviation-services-five *,
-  .aviation-services-five *::before,
-  .aviation-services-five *::after {
-    scroll-behavior: auto !important;
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
-    transition-delay: 0ms !important;
+  .AviationServicesFive__eyebrowWrap,
+  .AviationServicesFive__title,
+  .AviationServicesFive__description,
+  .AviationServicesFive__list,
+  .AviationServicesFive__actionWrap,
+  .AviationServicesFive__media,
+  .AviationServicesFive__image,
+  .AviationServicesFive__imageClip,
+  .AviationServicesFive__badge,
+  .AviationServicesFive__btnPrimary,
+  .AviationServicesFive__lightSweep {
+    transition: none !important;
+    animation: none !important;
   }
 
-  .aviation-services-five-card {
-    opacity: 1;
-    transform: none;
+  .AviationServicesFive__eyebrowWrap,
+  .AviationServicesFive__title,
+  .AviationServicesFive__description,
+  .AviationServicesFive__list,
+  .AviationServicesFive__actionWrap,
+  .AviationServicesFive__media {
+    opacity: 1 !important;
+    transform: none !important;
   }
 
-  .aviation-services-five-bottom {
-    opacity: 1;
-    transform: none;
+  .AviationServicesFive__imageClip {
+    transform: none !important;
   }
 }

@@ -1,96 +1,33 @@
-import React, { useEffect, useRef, useState } from "react";
-import {
-  Plane,
-  ShieldCheck,
-  Users,
-  BriefcaseBusiness,
-  Headset,
-  ClipboardCheck,
-  ArrowUpRight,
-  Star,
-} from "lucide-react";
+import React, { useState, useEffect, useRef } from "react";
 import "./AviationServicesFive.css";
 
-const aviationServices = [
+const deliveryHighlights = [
   {
-    id: "01",
-    category: "Airport Operations",
-    year: "01",
-    icon: Plane,
-    kicker: "SEAMLESS OPERATIONS",
-    title: "Airport Ground Handling",
-    subtitle: "Reliable support on the ground.",
-    description:
-      "Efficient ground handling services that support smooth airport operations, aircraft turnaround, and dependable day-to-day coordination.",
-    footer: "Ground Operations",
+    id: 1,
+    title: "End-to-End Aviation Solutions",
+    detail:
+      "Integrated aviation services designed to support efficient and reliable operations.",
   },
   {
-    id: "02",
-    category: "Aviation Security",
-    year: "02",
-    icon: ShieldCheck,
-    kicker: "SAFETY FIRST",
-    title: "Aviation Security",
-    subtitle: "Protection at every checkpoint.",
-    description:
-      "Professional security support designed to strengthen airport safety, maintain access control, and help protect passengers, staff, and facilities.",
-    footer: "Security Solutions",
+    id: 2,
+    title: "Customer-Centric Operations",
+    detail:
+      "Customized aviation solutions aligned with client requirements and operational demands.",
   },
   {
-    id: "03",
-    category: "Passenger Services",
-    year: "03",
-    icon: Users,
-    kicker: "PASSENGER EXPERIENCE",
-    title: "Passenger Assistance",
-    subtitle: "A better journey from arrival to departure.",
-    description:
-      "Friendly passenger assistance for check-in guidance, terminal navigation, boarding coordination, and a more comfortable airport experience.",
-    footer: "Passenger Support",
-  },
-  {
-    id: "04",
-    category: "Airport Staffing",
-    year: "04",
-    icon: BriefcaseBusiness,
-    kicker: "SKILLED PROFESSIONALS",
-    title: "Aviation Workforce",
-    subtitle: "The right people for every operation.",
-    description:
-      "Flexible workforce solutions for aviation environments, helping teams maintain service standards and respond to changing operational needs.",
-    footer: "Workforce Solutions",
-  },
-  {
-    id: "05",
-    category: "Customer Support",
-    year: "05",
-    icon: Headset,
-    kicker: "SERVICE EXCELLENCE",
-    title: "Airport Customer Care",
-    subtitle: "Helpful service at every touchpoint.",
-    description:
-      "Customer-focused assistance that helps passengers find information, resolve service concerns, and navigate airport facilities with confidence.",
-    footer: "Customer Experience",
-  },
-  {
-    id: "06",
-    category: "Quality Management",
-    year: "06",
-    icon: ClipboardCheck,
-    kicker: "OPERATIONAL STANDARDS",
-    title: "Aviation Quality Support",
-    subtitle: "Consistency through careful coordination.",
-    description:
-      "Structured operational checks, service monitoring, and coordination support to help aviation teams maintain reliable service delivery.",
-    footer: "Quality & Coordination",
+    id: 3,
+    title: "Continuous Service Innovation",
+    detail:
+      "Modern processes and innovative solutions to improve operational efficiency and service quality.",
   },
 ];
 
 const AviationServicesFive = () => {
-  const sectionRef = useRef(null);
   const [isVisible, setIsVisible] = useState(false);
-  const [activeCard, setActiveCard] = useState(null);
+  const sectionRef = useRef(null);
+  const mediaRef = useRef(null);
 
+  // Intersection observer for entrance animation
   useEffect(() => {
     const section = sectionRef.current;
 
@@ -103,7 +40,7 @@ const AviationServicesFive = () => {
           observer.unobserve(entry.target);
         }
       },
-      { threshold: 0.12 }
+      { threshold: 0.18 }
     );
 
     observer.observe(section);
@@ -111,135 +48,166 @@ const AviationServicesFive = () => {
     return () => observer.disconnect();
   }, []);
 
+  // Interactive 3D pointer hover effect on image
+  const handleMouseMove = (e) => {
+    const card = mediaRef.current;
+    if (!card) return;
+
+    const rect = card.getBoundingClientRect();
+
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+
+    const centerX = rect.width / 2;
+    const centerY = rect.height / 2;
+
+    const rotateX = ((y - centerY) / centerY) * -6;
+    const rotateY = ((x - centerX) / centerX) * 6;
+
+    card.style.setProperty("--AviationServicesFive-rx", `${rotateX}deg`);
+    card.style.setProperty("--AviationServicesFive-ry", `${rotateY}deg`);
+    card.style.setProperty("--AviationServicesFive-scale", "1.025");
+
+    card.style.setProperty(
+      "--AviationServicesFive-shine-x",
+      `${(x / rect.width) * 100}%`
+    );
+
+    card.style.setProperty(
+      "--AviationServicesFive-shine-y",
+      `${(y / rect.height) * 100}%`
+    );
+  };
+
+  // Reset image when the pointer leaves
+  const handleMouseLeave = () => {
+    const card = mediaRef.current;
+    if (!card) return;
+
+    card.style.setProperty("--AviationServicesFive-rx", "0deg");
+    card.style.setProperty("--AviationServicesFive-ry", "0deg");
+    card.style.setProperty("--AviationServicesFive-scale", "1");
+  };
+
   return (
     <section
-      className={`aviation-services-five ${
-        isVisible ? "aviation-services-five-visible" : ""
-      }`}
       ref={sectionRef}
+      className={`AviationServicesFive ${
+        isVisible ? "AviationServicesFive--visible" : ""
+      }`}
+      aria-label="Aviation Services and Solutions"
     >
-      <div className="aviation-services-five-inner">
-        <div className="aviation-services-five-header">
-          <div className="aviation-services-five-heading">
-            <span className="aviation-services-five-eyebrow">
-              <span className="aviation-services-five-eyebrow-line" />
-              AVIATION SERVICES
+      <div className="AviationServicesFive__container">
+        {/* Left Side: Staggered Content */}
+        <div className="AviationServicesFive__content">
+          <div className="AviationServicesFive__eyebrowWrap">
+            <span className="AviationServicesFive__eyebrowLine" />
+            <span className="AviationServicesFive__eyebrow">
+              OUR SERVICES
             </span>
-
-            <h2>
-              Supporting Every
-              <span> Step of Your Flight.</span>
-            </h2>
-
-            <p className="aviation-services-five-intro">
-              From airport operations and security to passenger assistance and
-              workforce coordination, our aviation services are designed to
-              support safe, smooth, and dependable airport experiences.
-            </p>
           </div>
 
-          <div className="aviation-services-five-summary">
-            <div className="aviation-services-five-summary-top">
-              <span className="aviation-services-five-summary-number">
-                06
-              </span>
-
-              <div className="aviation-services-five-summary-icon">
-                <ShieldCheck size={25} strokeWidth={1.6} />
-              </div>
-            </div>
-
-            <span className="aviation-services-five-summary-label">
-              AVIATION SERVICE AREAS
+          <h2 className="AviationServicesFive__title">
+            <span className="AviationServicesFive__titlePrimary">
+              What We{" "}
             </span>
+            <span className="AviationServicesFive__titleAccent">
+              Deliver
+            </span>
+          </h2>
 
-            <p>Reliable support for modern aviation environments.</p>
-          </div>
-        </div>
+          <p className="AviationServicesFive__description">
+            We provide comprehensive aviation services focused on safety,
+            efficiency, and customer satisfaction. Our team delivers reliable,
+            innovative solutions designed to meet the evolving needs of the
+            aviation industry.
+          </p>
 
-        <div className="aviation-services-five-grid">
-          {aviationServices.map((service, index) => {
-            const Icon = service.icon;
-
-            return (
-              <article
-                key={service.id}
-                className={`aviation-services-five-card ${
-                  activeCard === service.id
-                    ? "aviation-services-five-card-active"
-                    : ""
-                }`}
-                style={{ "--aviation-card-index": index }}
-                onMouseEnter={() => setActiveCard(service.id)}
-                onMouseLeave={() => setActiveCard(null)}
-                onFocus={() => setActiveCard(service.id)}
-                onBlur={() => setActiveCard(null)}
+          {/* Aviation Service Highlights */}
+          <div className="AviationServicesFive__list">
+            {deliveryHighlights.map((item) => (
+              <div
+                key={item.id}
+                className="AviationServicesFive__item"
               >
-                <div className="aviation-services-five-card-top">
-                  <span className="aviation-services-five-category">
-                    {service.category}
-                  </span>
-                  <span className="aviation-services-five-card-number">
-                    {service.year}
-                  </span>
-                </div>
-
-                <div className="aviation-services-five-emblem">
-                  <div className="aviation-services-five-emblem-icon">
-                    <Icon size={29} strokeWidth={1.6} />
-                  </div>
-
-                  <Star
-                    className="aviation-services-five-emblem-star"
-                    size={15}
+                <span className="AviationServicesFive__checkIcon">
+                  <svg
+                    viewBox="0 0 20 20"
                     fill="currentColor"
-                  />
+                    aria-hidden="true"
+                  >
+                    <path
+                      fillRule="evenodd"
+                      d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                      clipRule="evenodd"
+                    />
+                  </svg>
+                </span>
+
+                <div className="AviationServicesFive__itemText">
+                  <h4 className="AviationServicesFive__itemTitle">
+                    {item.title}
+                  </h4>
+
+                  <p className="AviationServicesFive__itemDetail">
+                    {item.detail}
+                  </p>
                 </div>
+              </div>
+            ))}
+          </div>
 
-                <div className="aviation-services-five-card-content">
-                  <span className="aviation-services-five-kicker">
-                    {service.kicker}
-                  </span>
+          {/* Action CTA Button */}
+          <div className="AviationServicesFive__actionWrap">
+            <a
+              href="#partner-with-us"
+              className="AviationServicesFive__btnPrimary"
+            >
+              <span>Explore Our Services</span>
 
-                  <h3>{service.title}</h3>
-
-                  <h4>{service.subtitle}</h4>
-
-                  <p>{service.description}</p>
-                </div>
-
-                <div className="aviation-services-five-card-footer">
-                  <span>{service.footer}</span>
-
-                  <span className="aviation-services-five-arrow">
-                    <ArrowUpRight size={19} strokeWidth={1.8} />
-                  </span>
-                </div>
-
-                <span className="aviation-services-five-accent" />
-              </article>
-            );
-          })}
+              <svg
+                viewBox="0 0 20 20"
+                fill="currentColor"
+                aria-hidden="true"
+              >
+                <path
+                  fillRule="evenodd"
+                  d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z"
+                  clipRule="evenodd"
+                />
+              </svg>
+            </a>
+          </div>
         </div>
 
-        <div className="aviation-services-five-bottom">
-          <div className="aviation-services-five-bottom-mark">
-            <span />
-            <span />
-            <span />
+        {/* Right Side: Interactive 3D Image */}
+        <div
+          ref={mediaRef}
+          className="AviationServicesFive__media"
+          onMouseMove={handleMouseMove}
+          onMouseLeave={handleMouseLeave}
+        >
+          <div className="AviationServicesFive__imageClip">
+            <img
+              src="https://images.unsplash.com/photo-1436491865332-7a61a109cc05?auto=format&fit=crop&w=2200&q=85"
+              alt="Aircraft flying through the sky"
+              className="AviationServicesFive__image"
+              loading="lazy"
+            />
+
+            <div className="AviationServicesFive__lightSweep" />
+            <div className="AviationServicesFive__imageShade" />
           </div>
 
-          <div className="aviation-services-five-bottom-copy">
-            <h3>Built Around Safety. Driven by Service.</h3>
-            <p>
-              Professional support that helps aviation operations move forward
-              with confidence.
-            </p>
-          </div>
+          {/* Floating Badge */}
+          <div className="AviationServicesFive__badge">
+            <span className="AviationServicesFive__badgeDot" />
 
-          <span className="aviation-services-five-bottom-caption">
-            AVIATION • OPERATIONS • EXCELLENCE
-          </span>
+            <div className="AviationServicesFive__badgeInfo">
+              <strong>Excellence in Aviation</strong>
+              <span>Reliable Aviation Solutions</span>
+            </div>
+          </div>
         </div>
       </div>
     </section>

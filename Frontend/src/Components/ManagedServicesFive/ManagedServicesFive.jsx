@@ -1,246 +1,191 @@
-import React, { useEffect, useRef, useState } from "react";
-import {
-  Settings,
-  Users,
-  ClipboardCheck,
-  Workflow,
-  Handshake,
-  Headset,
-  ArrowUpRight,
-  Star,
-} from "lucide-react";
+import React from "react";
 import "./ManagedServicesFive.css";
 
 const managedServices = [
   {
-    id: "01",
-    category: "Operations Management",
-    icon: Settings,
-    kicker: "STREAMLINED OPERATIONS",
-    title: "Business Operations",
-    subtitle: "Keep your daily operations running smoothly.",
+    id: 1,
+    number: "01",
+    title: "IT Infrastructure Management",
     description:
-      "Organized operational support that helps businesses coordinate daily activities, improve efficiency, and maintain consistent service delivery.",
-    footer: "Operational Excellence",
+      "Keep your business running smoothly with reliable infrastructure monitoring, maintenance, and performance optimization.",
+    icon: "▦",
   },
   {
-    id: "02",
-    category: "Workforce Solutions",
-    icon: Users,
-    kicker: "PEOPLE & PERFORMANCE",
-    title: "Workforce Management",
-    subtitle: "The right people, working together.",
+    id: 2,
+    number: "02",
+    title: "Cloud Services Management",
     description:
-      "Workforce coordination and staffing support designed to align team capabilities with business requirements and operational goals.",
-    footer: "Workforce Coordination",
+      "Simplify cloud operations with scalable solutions, efficient resource management, and secure cloud environments.",
+    icon: "☁",
   },
   {
-    id: "03",
-    category: "Quality Assurance",
-    icon: ClipboardCheck,
-    kicker: "QUALITY YOU CAN TRUST",
-    title: "Quality Management",
-    subtitle: "Consistent standards across every process.",
+    id: 3,
+    number: "03",
+    title: "Security & Risk Management",
     description:
-      "Structured quality checks, performance monitoring, and process reviews that help teams maintain reliable standards and identify opportunities for improvement.",
-    footer: "Quality & Compliance",
+      "Protect your business with proactive security monitoring, risk assessment, and dependable data protection practices.",
+    icon: "◇",
   },
   {
-    id: "04",
-    category: "Process Optimization",
-    icon: Workflow,
-    kicker: "SMARTER WORKFLOWS",
-    title: "Process Improvement",
-    subtitle: "Make every process work better.",
+    id: 4,
+    number: "04",
+    title: "Technical Support",
     description:
-      "Practical workflow improvements that reduce unnecessary complexity, strengthen coordination, and help teams use their resources more effectively.",
-    footer: "Process Optimization",
-  },
-  {
-    id: "05",
-    category: "Client Partnerships",
-    icon: Handshake,
-    kicker: "BUILT ON COLLABORATION",
-    title: "Client Relationship Management",
-    subtitle: "Partnerships built around your needs.",
-    description:
-      "Responsive client coordination that keeps communication clear, expectations aligned, and managed services focused on your business priorities.",
-    footer: "Client Partnership",
-  },
-  {
-    id: "06",
-    category: "Service Support",
-    icon: Headset,
-    kicker: "SUPPORT THAT RESPONDS",
-    title: "Managed Support Services",
-    subtitle: "Dependable assistance when it matters.",
-    description:
-      "Centralized service support and issue coordination to help teams resolve day-to-day challenges and maintain continuity across operations.",
-    footer: "Service & Support",
+      "Resolve technical issues faster with responsive support, troubleshooting, and ongoing system assistance.",
+    icon: "⌘",
   },
 ];
 
 const ManagedServicesFive = () => {
-  const sectionRef = useRef(null);
-  const [isVisible, setIsVisible] = useState(false);
-  const [activeCard, setActiveCard] = useState(null);
-
-  useEffect(() => {
-    const section = sectionRef.current;
-
-    if (!section) return;
-
-    if (typeof IntersectionObserver === "undefined") {
-      setIsVisible(true);
-      return;
-    }
-
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsVisible(true);
-          observer.unobserve(entry.target);
-        }
-      },
-      { threshold: 0.08 }
-    );
-
-    observer.observe(section);
-
-    return () => observer.disconnect();
-  }, []);
-
   return (
-    <section
-      ref={sectionRef}
-      className={`managed-services-five ${
-        isVisible ? "managed-services-five-visible" : ""
-      }`}
-    >
-      <div className="managed-services-five-inner">
-        <div className="managed-services-five-header">
-          <div className="managed-services-five-heading">
-            <span className="managed-services-five-eyebrow">
-              <span className="managed-services-five-eyebrow-line" />
+    <section className="ManagedServicesFive">
+      <div className="ManagedServicesFive__container">
+        <div className="ManagedServicesFive__hero">
+          <div className="ManagedServicesFive__content">
+            <span className="ManagedServicesFive__eyebrow">
               MANAGED SERVICES
             </span>
 
-            <h2>
-              Better Management.
-              <span> Stronger Performance.</span>
+            <h2 className="ManagedServicesFive__title">
+              Smarter Services.
+              <br />
+              <span>Stronger Business.</span>
             </h2>
 
-            <p className="managed-services-five-intro">
-              Simplify your business operations with dependable managed
-              services. From workforce coordination to process improvement,
-              we help your organization work smarter, stay organized, and
-              focus on what matters most.
+            <p className="ManagedServicesFive__description">
+              Focus on growing your business while we manage the technology,
+              systems, and services that keep your operations moving forward.
+              Our proactive approach helps improve efficiency, reliability,
+              and long-term performance.
             </p>
+
+            <div className="ManagedServicesFive__actions">
+              <a
+                href="#contact-us"
+                className="ManagedServicesFive__button"
+              >
+                Explore Our Services
+                <span aria-hidden="true">↗</span>
+              </a>
+
+              <div className="ManagedServicesFive__trust">
+                <span className="ManagedServicesFive__trustIcon">✓</span>
+                <span>Reliable support. Real results.</span>
+              </div>
+            </div>
           </div>
 
-          <div className="managed-services-five-summary">
-            <div className="managed-services-five-summary-top">
-              <span className="managed-services-five-summary-number">06</span>
+          <div className="ManagedServicesFive__visual">
+            <div className="ManagedServicesFive__imageWrap">
+              <img
+                src="https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&w=1400&q=85"
+                alt="Modern professional workspace"
+                className="ManagedServicesFive__image"
+              />
 
-              <div className="managed-services-five-summary-icon">
-                <Settings size={25} strokeWidth={1.6} />
+              <div className="ManagedServicesFive__imageOverlay" />
+            </div>
+
+            <div className="ManagedServicesFive__floatingCard">
+              <div className="ManagedServicesFive__status">
+                <span className="ManagedServicesFive__statusDot" />
+                SERVICES ACTIVE
+              </div>
+
+              <div className="ManagedServicesFive__floatingTitle">
+                Your operations,
+                <br />
+                <span>our priority.</span>
+              </div>
+
+              <div className="ManagedServicesFive__floatingFooter">
+                <span>Efficiency</span>
+                <span>Reliability</span>
+                <span>Security</span>
               </div>
             </div>
 
-            <span className="managed-services-five-summary-label">
-              SERVICE SOLUTIONS
-            </span>
-
-            <p>
-              Integrated management support for everyday business needs.
-            </p>
+            <div className="ManagedServicesFive__decor ManagedServicesFive__decor--one" />
+            <div className="ManagedServicesFive__decor ManagedServicesFive__decor--two" />
           </div>
         </div>
 
-        <div className="managed-services-five-grid">
-          {managedServices.map((service, index) => {
-            const Icon = service.icon;
+        <div className="ManagedServicesFive__bottom">
+          <div className="ManagedServicesFive__sectionHeading">
+            <div>
+              <span className="ManagedServicesFive__eyebrow">
+                WHAT WE DELIVER
+              </span>
 
-            return (
+              <h3 className="ManagedServicesFive__sectionTitle">
+                Services built around <span>your success.</span>
+              </h3>
+            </div>
+
+            <p className="ManagedServicesFive__sectionDescription">
+              Flexible, dependable solutions designed to support your
+              day-to-day operations and future business goals.
+            </p>
+          </div>
+
+          <div className="ManagedServicesFive__grid">
+            {managedServices.map((service) => (
               <article
+                className="ManagedServicesFive__card"
                 key={service.id}
-                className={`managed-services-five-card ${
-                  activeCard === service.id
-                    ? "managed-services-five-card-active"
-                    : ""
-                }`}
-                style={{ "--managed-card-index": index }}
-                onMouseEnter={() => setActiveCard(service.id)}
-                onMouseLeave={() => setActiveCard(null)}
-                onFocus={() => setActiveCard(service.id)}
-                onBlur={() => setActiveCard(null)}
               >
-                <div className="managed-services-five-card-top">
-                  <span className="managed-services-five-category">
-                    {service.category}
-                  </span>
-
-                  <span className="managed-services-five-card-number">
-                    {service.id}
-                  </span>
-                </div>
-
-                <div className="managed-services-five-emblem">
-                  <div className="managed-services-five-emblem-icon">
-                    <Icon size={29} strokeWidth={1.6} />
+                <div className="ManagedServicesFive__cardTop">
+                  <div className="ManagedServicesFive__icon">
+                    {service.icon}
                   </div>
 
-                  <Star
-                    className="managed-services-five-emblem-star"
-                    size={15}
-                    fill="currentColor"
-                  />
-                </div>
-
-                <div className="managed-services-five-card-content">
-                  <span className="managed-services-five-kicker">
-                    {service.kicker}
-                  </span>
-
-                  <h3>{service.title}</h3>
-
-                  <h4>{service.subtitle}</h4>
-
-                  <p>{service.description}</p>
-                </div>
-
-                <div className="managed-services-five-card-footer">
-                  <span>{service.footer}</span>
-
-                  <span className="managed-services-five-arrow">
-                    <ArrowUpRight size={19} strokeWidth={1.8} />
+                  <span className="ManagedServicesFive__number">
+                    {service.number}
                   </span>
                 </div>
 
-                <span className="managed-services-five-accent" />
+                <h4 className="ManagedServicesFive__cardTitle">
+                  {service.title}
+                </h4>
+
+                <p className="ManagedServicesFive__cardDescription">
+                  {service.description}
+                </p>
+
+                <a
+                  href="#contact-us"
+                  className="ManagedServicesFive__cardLink"
+                  aria-label={`Learn more about ${service.title}`}
+                >
+                  Learn more <span aria-hidden="true">↗</span>
+                </a>
               </article>
-            );
-          })}
+            ))}
+          </div>
         </div>
 
-        <div className="managed-services-five-bottom">
-          <div className="managed-services-five-bottom-mark">
-            <span />
-            <span />
-            <span />
-          </div>
+        <div className="ManagedServicesFive__cta">
+          <div className="ManagedServicesFive__ctaContent">
+            <span className="ManagedServicesFive__ctaEyebrow">
+              LET'S MOVE FORWARD
+            </span>
 
-          <div className="managed-services-five-bottom-copy">
-            <h3>We Manage the Details. You Focus on Growth.</h3>
-            <p>
-              Practical service solutions built around efficiency,
-              accountability, and long-term business success.
+            <h3 className="ManagedServicesFive__ctaTitle">
+              Ready to simplify your operations?
+            </h3>
+
+            <p className="ManagedServicesFive__ctaDescription">
+              Let's build a managed services strategy that works for your
+              business.
             </p>
           </div>
 
-          <span className="managed-services-five-bottom-caption">
-            MANAGEMENT • EFFICIENCY • GROWTH
-          </span>
+          <a
+            href="#contact-us"
+            className="ManagedServicesFive__ctaButton"
+          >
+            Talk to Our Team <span aria-hidden="true">↗</span>
+          </a>
         </div>
       </div>
     </section>
