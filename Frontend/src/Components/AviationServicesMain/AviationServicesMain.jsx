@@ -43,7 +43,7 @@ const AviationServicesMain = () => {
           </div>
 
           <h1 className="AviationServicesMain__title">
-            Transguard <span className="AviationServicesMain__titleAccent">Aviation Services</span>
+            Prime Site <span className="AviationServicesMain__titleAccent">Aviation Services</span>
           </h1>
 
           <p className="AviationServicesMain__lead">

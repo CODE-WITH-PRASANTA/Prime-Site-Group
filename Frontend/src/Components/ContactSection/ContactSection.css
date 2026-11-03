@@ -1,4 +1,10 @@
+/* ==========================================================================
+   CONTACT SECTION - PRIME SITE (Red theme)
+   Breakpoints: 1500 / 1100 / 860 / 540 / 380
+   ========================================================================== */
+
 .ContactSection {
+  /* Change these colours to restyle the whole section */
   --ContactSection-red: #e51e2a;
   --ContactSection-red-dark: #bb1420;
   --ContactSection-ink: #192538;
@@ -6,8 +12,10 @@
   --ContactSection-border: #e0e3e8;
 
   width: 100%;
+  max-width: 100%;
   padding: 38px 24px;
   overflow: hidden;
+  overflow-x: clip;
   background: #f7f8fa;
   color: var(--ContactSection-ink);
   font-family: inherit;
@@ -36,6 +44,7 @@
 }
 
 .ContactSection-topLine span:first-child {
+  flex-shrink: 0;
   width: 32px;
   height: 2.5px;
   background: var(--ContactSection-red);
@@ -76,26 +85,28 @@
 
 .ContactSection-brand {
   display: flex;
+  flex-wrap: wrap; /* on very small screens the name drops under the logo */
   align-items: center;
-  gap: 14px;
+  gap: 14px 18px;
   margin-bottom: 30px;
   text-decoration: none;
 }
 
+/* Bigger logo: width scales with the screen, height follows the image */
 .ContactSection-logoWrap {
   display: flex;
   align-items: center;
   justify-content: center;
-  flex: 0 0 82px;
-  width: 82px;
-  height: 84px;
+  flex: 0 0 auto;
+  width: clamp(150px, 13vw, 210px);
   overflow: hidden;
 }
 
 .ContactSection-logo {
   display: block;
   width: 100%;
-  height: 100%;
+  height: auto;
+  max-width: 100%;
   object-fit: contain;
   transition: transform 0.35s ease;
 }
@@ -109,13 +120,18 @@
   flex-direction: column;
   color: #2b313d;
   font-family: Georgia, "Times New Roman", serif;
-  font-size: clamp(28px, 2.4vw, 36px);
+  font-size: clamp(30px, 2.6vw, 40px);
   font-weight: 700;
   line-height: 1.05;
   letter-spacing: -0.8px;
 }
 
-.ContactSection-brandText span:last-of-type {
+/* "Prime Site" always stays on ONE line */
+.ContactSection-brandName {
+  white-space: nowrap;
+}
+
+.ContactSection-brandName span {
   color: var(--ContactSection-red);
 }
 
@@ -143,6 +159,7 @@
 }
 
 .ContactSection-eyebrowLine {
+  flex-shrink: 0;
   width: 28px;
   height: 2px;
   background: var(--ContactSection-red);
@@ -163,7 +180,7 @@
 }
 
 .ContactSection-infoDescription {
-  max-width: 420px;
+  max-width: 440px;
   margin: 14px 0 0;
   color: var(--ContactSection-muted);
   font-size: 14px;
@@ -281,6 +298,7 @@
   display: flex;
   flex-direction: column;
   gap: 3px;
+  min-width: 0;
 }
 
 .ContactSection-trust strong {
@@ -351,6 +369,7 @@
 }
 
 .ContactSection-liveDot {
+  flex-shrink: 0;
   width: 7px;
   height: 7px;
   border-radius: 50%;
@@ -373,7 +392,7 @@
 }
 
 .ContactSection-formDescription {
-  max-width: 460px;
+  max-width: 480px;
   margin: 12px 0 0;
   color: #646f80;
   font-size: 14.5px;
@@ -460,7 +479,8 @@
   appearance: auto;
 }
 
-.ContactSection-field select:invalid {
+/* grey "placeholder" colour until an option is chosen */
+.ContactSection-field select:not(.has-value) {
   color: #8c96a4;
 }
 
@@ -630,6 +650,17 @@
   color: var(--ContactSection-red);
 }
 
+/* success message gets a green tone so it is clearly a "done" state */
+.ContactSection-status--success {
+  border-color: rgba(22, 163, 74, 0.3);
+  background: #f0fdf4;
+  color: #14532d;
+}
+
+.ContactSection-status--success svg {
+  color: #16a34a;
+}
+
 /* ==========================================================================
    BOTTOM ACCENT
    ========================================================================== */
@@ -713,9 +744,7 @@
   }
 
   .ContactSection-logoWrap {
-    flex-basis: 72px;
-    width: 72px;
-    height: 74px;
+    width: 150px;
   }
 
   .ContactSection-brand {
@@ -724,7 +753,7 @@
   }
 
   .ContactSection-brandText {
-    font-size: 29px;
+    font-size: 30px;
   }
 
   .ContactSection-infoTitle {
@@ -746,7 +775,7 @@
 
 @media (max-width: 860px) {
   .ContactSection-container {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
     max-width: 680px;
     margin: 0 auto;
   }
@@ -787,14 +816,16 @@
     padding: 28px 20px 24px;
   }
 
+  .ContactSection-watermark {
+    display: none;
+  }
+
   .ContactSection-logoWrap {
-    flex-basis: 64px;
-    width: 64px;
-    height: 66px;
+    width: 130px;
   }
 
   .ContactSection-brandText {
-    font-size: 26px;
+    font-size: 28px;
   }
 
   .ContactSection-infoTitle {
@@ -806,7 +837,7 @@
   }
 
   .ContactSection-contactList {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
     gap: 10px;
   }
 
@@ -823,7 +854,7 @@
   }
 
   .ContactSection-fields {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
     gap: 16px;
   }
 
@@ -835,15 +866,16 @@
     font-size: 13px;
   }
 
+  /* 16px inputs stop iPhones from zooming in when a field is tapped */
   .ContactSection-field input,
   .ContactSection-field select {
-    height: 42px;
-    font-size: 14px;
+    height: 44px;
+    font-size: 16px;
   }
 
   .ContactSection-field textarea {
-    min-height: 80px;
-    font-size: 14px;
+    min-height: 90px;
+    font-size: 16px;
   }
 
   .ContactSection-submitRow {
@@ -856,6 +888,31 @@
     width: 100%;
     min-height: 48px;
     font-size: 14px;
+  }
+}
+
+@media (max-width: 380px) {
+  .ContactSection {
+    padding-right: 10px;
+    padding-left: 10px;
+  }
+
+  .ContactSection-info,
+  .ContactSection-formPanel {
+    padding-right: 14px;
+    padding-left: 14px;
+  }
+
+  .ContactSection-logoWrap {
+    width: 115px;
+  }
+
+  .ContactSection-brandText {
+    font-size: 25px;
+  }
+
+  .ContactSection-formTitle {
+    font-size: 32px;
   }
 }
 

@@ -1,0 +1,940 @@
+/* ==========================================
+   CAREER THREE - FULLY RESPONSIVE
+   Breakpoints: 1400 / 1050 / 800 / 520 / 380 / 340
+========================================== */
+
+.CareerThree {
+  /* Change these colours to restyle the whole section */
+  --CareerThree-red: #e31832;
+  --CareerThree-red-dark: #c8102e;
+  --CareerThree-dark: #191b20;
+  --CareerThree-text: #515660;
+  --CareerThree-muted: #777d86;
+  --CareerThree-border: #e9e9ed;
+  --CareerThree-ease: cubic-bezier(0.22, 1, 0.36, 1);
+
+  position: relative;
+  width: 100%;
+  max-width: 100%;
+  padding: clamp(44px, 6vw, 76px) clamp(16px, 4vw, 32px)
+    clamp(54px, 7vw, 90px);
+  overflow: hidden;
+  overflow-x: clip;
+  background:
+    radial-gradient(
+      circle at 0% 10%,
+      rgba(227, 24, 50, 0.035),
+      transparent 30%
+    ),
+    #ffffff;
+  color: var(--CareerThree-dark);
+  font-family: "Inter", "Segoe UI", Arial, sans-serif;
+  -webkit-text-size-adjust: 100%;
+}
+
+/* The section itself must be border-box too, otherwise width:100% + padding
+   makes it wider than the screen and the right side is cut off. */
+.CareerThree,
+.CareerThree *,
+.CareerThree *::before,
+.CareerThree *::after {
+  box-sizing: border-box;
+}
+
+.CareerThree__container {
+  width: 100%;
+  max-width: 1450px;
+  min-width: 0;
+  margin: 0 auto;
+}
+
+/* ==========================================
+   TOP SECTION
+========================================== */
+
+.CareerThree__top {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  align-items: center;
+  gap: clamp(32px, 6vw, 82px);
+  margin-bottom: clamp(40px, 5vw, 70px);
+}
+
+/* Office image */
+
+.CareerThree__imageColumn {
+  min-width: 0;
+  opacity: 0;
+  transform: translateX(-55px);
+  transition:
+    opacity 0.9s var(--CareerThree-ease),
+    transform 1s var(--CareerThree-ease);
+}
+
+.CareerThree--visible .CareerThree__imageColumn {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.CareerThree__imageFrame {
+  position: relative;
+  width: 100%;
+  height: clamp(270px, 28vw, 410px);
+  overflow: hidden;
+  isolation: isolate;
+  border-radius: 17px;
+  border-left: 6px solid var(--CareerThree-red);
+  background: #f1f2f4;
+  box-shadow:
+    0 20px 55px rgba(20, 25, 35, 0.09),
+    0 3px 12px rgba(20, 25, 35, 0.04);
+}
+
+.CareerThree__image {
+  display: block;
+  width: 100%;
+  height: 100%;
+  max-width: 100%;
+  object-fit: cover;
+  object-position: center;
+  transition: transform 1.2s var(--CareerThree-ease);
+}
+
+.CareerThree__imageFrame:hover .CareerThree__image {
+  transform: scale(1.055);
+}
+
+.CareerThree__imageOverlay {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background: linear-gradient(
+    180deg,
+    rgba(12, 19, 33, 0.02) 35%,
+    rgba(12, 19, 33, 0.48) 100%
+  );
+}
+
+.CareerThree__imageBadge {
+  position: absolute;
+  right: 20px;
+  bottom: 20px;
+  left: 20px;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-width: 0;
+  padding: 15px 17px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.94);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+.CareerThree__badgeDot {
+  flex-shrink: 0;
+  width: 11px;
+  height: 11px;
+  border-radius: 50%;
+  background: var(--CareerThree-red);
+  box-shadow: 0 0 0 5px rgba(227, 24, 50, 0.1);
+}
+
+.CareerThree__imageBadge div {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  min-width: 0;
+}
+
+.CareerThree__imageBadge strong {
+  color: var(--CareerThree-dark);
+  font-size: 14px;
+  font-weight: 800;
+}
+
+.CareerThree__imageBadge span:last-child {
+  color: var(--CareerThree-muted);
+  font-size: 11px;
+  letter-spacing: 0.3px;
+}
+
+/* ==========================================
+   CONTENT
+========================================== */
+
+.CareerThree__content {
+  position: relative;
+  min-width: 0;
+  padding: 15px 0;
+  opacity: 0;
+  transform: translateX(45px);
+  transition:
+    opacity 0.9s var(--CareerThree-ease) 0.12s,
+    transform 1s var(--CareerThree-ease) 0.12s;
+}
+
+.CareerThree--visible .CareerThree__content {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.CareerThree__eyebrow {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 17px;
+  color: var(--CareerThree-red);
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 2.4px;
+  line-height: 1.5;
+  text-transform: uppercase;
+}
+
+.CareerThree__eyebrowLine {
+  display: inline-block;
+  flex-shrink: 0;
+  width: 28px;
+  height: 3px;
+  border-radius: 3px;
+  background: var(--CareerThree-red);
+}
+
+.CareerThree__heading {
+  position: relative;
+  z-index: 1;
+  margin: 0 0 15px;
+  color: var(--CareerThree-dark);
+  font-size: clamp(30px, 3.2vw, 46px);
+  font-weight: 800;
+  line-height: 1.12;
+  letter-spacing: -1.4px;
+  overflow-wrap: break-word;
+}
+
+.CareerThree__heading span {
+  display: inline-block;
+  color: var(--CareerThree-red);
+  font-family: Georgia, "Times New Roman", serif;
+  font-weight: 700;
+  font-style: italic;
+}
+
+.CareerThree__description {
+  position: relative;
+  z-index: 1;
+  max-width: 610px;
+  margin: 0 0 23px;
+  color: var(--CareerThree-text);
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.85;
+  overflow-wrap: break-word;
+}
+
+/* Reasons list */
+
+.CareerThree__reasons {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 13px;
+  margin: 0 0 25px;
+  padding: 0;
+  list-style: none;
+}
+
+.CareerThree__reason {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: #30343b;
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 1.6;
+  opacity: 0;
+  transform: translateY(10px);
+}
+
+.CareerThree--visible .CareerThree__reason {
+  animation: CareerThree-reason-enter 0.55s var(--CareerThree-ease) forwards;
+  animation-delay: calc(0.35s + var(--reason-index) * 0.1s);
+}
+
+.CareerThree__check {
+  display: inline-flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  width: 21px;
+  height: 21px;
+  border-radius: 50%;
+  background: var(--CareerThree-red);
+  color: #ffffff;
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease;
+}
+
+.CareerThree__reason:hover .CareerThree__check {
+  transform: scale(1.12);
+  box-shadow: 0 4px 12px rgba(227, 24, 50, 0.22);
+}
+
+.CareerThree__check svg {
+  width: 13px;
+  height: 13px;
+  stroke: currentColor;
+  stroke-width: 2.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* Contact link */
+
+.CareerThree__contactLink {
+  position: relative;
+  z-index: 2;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  max-width: 100%;
+  min-height: 46px;
+  padding: 12px 19px;
+  border: 1px solid var(--CareerThree-red);
+  border-radius: 5px;
+  background: var(--CareerThree-red);
+  box-shadow: 0 8px 18px rgba(227, 24, 50, 0.13);
+  color: #ffffff;
+  font-size: 12px;
+  font-weight: 750;
+  text-decoration: none;
+  transition:
+    background 0.3s ease,
+    border-color 0.3s ease,
+    box-shadow 0.3s ease,
+    transform 0.3s ease;
+}
+
+.CareerThree__contactLink:hover {
+  transform: translateY(-3px);
+  border-color: var(--CareerThree-red-dark);
+  background: var(--CareerThree-red-dark);
+  box-shadow: 0 12px 25px rgba(227, 24, 50, 0.24);
+}
+
+.CareerThree__contactLink:focus-visible {
+  outline: 3px solid var(--CareerThree-dark);
+  outline-offset: 3px;
+}
+
+.CareerThree__contactLink svg {
+  flex-shrink: 0;
+  width: 17px;
+  height: 17px;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  transition: transform 0.3s ease;
+}
+
+.CareerThree__contactLink:hover svg {
+  transform: translateX(4px);
+}
+
+/* Decorative watermark */
+
+.CareerThree__watermark {
+  position: absolute;
+  right: -5px;
+  bottom: -12px;
+  z-index: 0;
+  max-width: 100%;
+  color: rgba(25, 27, 32, 0.025);
+  font-size: clamp(48px, 8vw, 110px);
+  font-weight: 900;
+  line-height: 1;
+  letter-spacing: -5px;
+  pointer-events: none;
+  user-select: none;
+}
+
+/* ==========================================
+   BENEFITS SECTION
+========================================== */
+
+.CareerThree__benefits {
+  position: relative;
+  padding: clamp(24px, 3vw, 35px) clamp(12px, 2.4vw, 28px) clamp(18px, 2vw, 25px);
+  overflow: hidden;
+  border: 1px solid rgba(227, 24, 50, 0.045);
+  border-radius: 22px;
+  background:
+    radial-gradient(
+      circle at 50% 0%,
+      rgba(255, 255, 255, 0.98),
+      transparent 70%
+    ),
+    linear-gradient(135deg, #fff6f7 0%, #fbf3f5 55%, #fff8f9 100%);
+  opacity: 0;
+  transform: translateY(28px);
+  transition:
+    opacity 0.85s var(--CareerThree-ease) 0.2s,
+    transform 0.85s var(--CareerThree-ease) 0.2s;
+}
+
+.CareerThree--visible .CareerThree__benefits {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.CareerThree__benefitsHeader {
+  margin-bottom: 27px;
+  text-align: center;
+}
+
+.CareerThree__eyebrow--center {
+  justify-content: center;
+  margin-bottom: 11px;
+}
+
+.CareerThree__benefitsTitle {
+  margin: 0;
+  color: var(--CareerThree-dark);
+  font-size: clamp(24px, 3vw, 36px);
+  font-weight: 800;
+  line-height: 1.25;
+  letter-spacing: -1px;
+}
+
+.CareerThree__benefitsTitle span {
+  color: var(--CareerThree-red);
+  font-family: Georgia, "Times New Roman", serif;
+  font-style: italic;
+}
+
+.CareerThree__benefitsSubtitle {
+  margin: 9px 0 0;
+  color: var(--CareerThree-muted);
+  font-size: 13px;
+  line-height: 1.7;
+}
+
+/* Five benefit cards (desktop: one row of 5) */
+
+.CareerThree__benefitsGrid {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  align-items: stretch;
+}
+
+.CareerThree__benefitCard {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 0;
+  padding: 9px 13px 15px;
+  text-align: center;
+  opacity: 0;
+  transform: translateY(15px);
+  transition:
+    opacity 0.65s var(--CareerThree-ease),
+    transform 0.65s var(--CareerThree-ease),
+    background 0.3s ease;
+}
+
+.CareerThree--visible .CareerThree__benefitCard {
+  opacity: 1;
+  transform: translateY(0);
+  transition-delay: calc(0.3s + var(--benefit-index) * 0.09s);
+}
+
+.CareerThree__benefitCard:not(:last-child)::after {
+  position: absolute;
+  top: 20px;
+  right: 0;
+  width: 1px;
+  height: 55px;
+  background: #d8d8dd;
+  content: "";
+}
+
+.CareerThree__benefitIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 54px;
+  height: 50px;
+  margin-bottom: 9px;
+  border-radius: 13px;
+  background: rgba(227, 24, 50, 0.055);
+  color: var(--CareerThree-red);
+  transition:
+    transform 0.3s ease,
+    background 0.3s ease,
+    color 0.3s ease,
+    box-shadow 0.3s ease;
+}
+
+.CareerThree__benefitIcon svg {
+  width: 34px;
+  height: 34px;
+  stroke: currentColor;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.CareerThree__benefitCard:hover .CareerThree__benefitIcon {
+  transform: translateY(-4px);
+  background: var(--CareerThree-red);
+  color: #ffffff;
+  box-shadow: 0 8px 18px rgba(227, 24, 50, 0.2);
+}
+
+.CareerThree__benefitTitle {
+  margin: 0 0 5px;
+  color: #252830;
+  font-size: 13px;
+  font-weight: 800;
+  line-height: 1.5;
+  overflow-wrap: break-word;
+}
+
+.CareerThree__benefitDescription {
+  margin: 0;
+  color: var(--CareerThree-muted);
+  font-size: 11px;
+  line-height: 1.65;
+  overflow-wrap: break-word;
+}
+
+/* Bottom note */
+
+.CareerThree__bottomNote {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  margin-top: 20px;
+  padding-top: 17px;
+  border-top: 1px solid rgba(25, 27, 32, 0.07);
+}
+
+.CareerThree__bottomNote p {
+  margin: 0;
+  color: #5e626b;
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 1.6;
+  text-align: center;
+}
+
+.CareerThree__bottomDot {
+  flex-shrink: 0;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--CareerThree-red);
+}
+
+/* ==========================================
+   ANIMATIONS
+========================================== */
+
+@keyframes CareerThree-reason-enter {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ==========================================
+   EXTRA LARGE SCREENS
+========================================== */
+
+@media (min-width: 1600px) {
+  .CareerThree__description {
+    font-size: 15px;
+  }
+
+  .CareerThree__reason {
+    font-size: 14px;
+  }
+
+  .CareerThree__benefitTitle {
+    font-size: 14px;
+  }
+
+  .CareerThree__benefitDescription {
+    font-size: 12px;
+  }
+}
+
+/* ==========================================
+   LAPTOPS / LARGE TABLETS  (<= 1050px)
+========================================== */
+
+@media (max-width: 1050px) {
+  .CareerThree__top {
+    gap: 38px;
+  }
+
+  .CareerThree__imageFrame {
+    height: clamp(260px, 34vw, 330px);
+  }
+
+  .CareerThree__description {
+    font-size: 13px;
+    line-height: 1.8;
+  }
+
+  .CareerThree__benefitCard {
+    padding-right: 8px;
+    padding-left: 8px;
+  }
+
+  .CareerThree__benefitTitle {
+    font-size: 12px;
+  }
+
+  .CareerThree__benefitDescription {
+    font-size: 10.5px;
+  }
+}
+
+/* ==========================================
+   TABLETS  (<= 800px): stacked layout
+========================================== */
+
+@media (max-width: 800px) {
+  .CareerThree__top {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 30px;
+  }
+
+  /* slide up instead of sideways, so nothing pokes out of the screen */
+  .CareerThree__imageColumn {
+    transform: translateY(30px);
+  }
+
+  .CareerThree__content {
+    padding: 0 2px;
+    transform: translateY(30px);
+  }
+
+  .CareerThree--visible .CareerThree__imageColumn,
+  .CareerThree--visible .CareerThree__content {
+    transform: translateY(0);
+  }
+
+  .CareerThree__imageFrame {
+    height: auto;
+    aspect-ratio: 16 / 10;
+    max-height: 440px;
+  }
+
+  .CareerThree__heading {
+    font-size: clamp(32px, 6vw, 42px);
+  }
+
+  .CareerThree__description {
+    max-width: 100%;
+    font-size: 14px;
+  }
+
+  .CareerThree__reason {
+    font-size: 13.5px;
+  }
+
+  /* benefits: 6-column grid so 3 + 2 cards fill each row evenly */
+  .CareerThree__benefitsGrid {
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+    gap: 14px;
+  }
+
+  .CareerThree__benefitCard {
+    grid-column: span 2;
+    padding: 18px 12px 16px;
+    border: 1px solid rgba(25, 27, 32, 0.06);
+    border-radius: 14px;
+    background: rgba(255, 255, 255, 0.72);
+  }
+
+  .CareerThree__benefitCard:nth-child(4),
+  .CareerThree__benefitCard:nth-child(5) {
+    grid-column: span 3;
+  }
+
+  /* tiles don't need divider lines */
+  .CareerThree__benefitCard:not(:last-child)::after {
+    display: none;
+  }
+
+  .CareerThree__benefitTitle {
+    font-size: 13px;
+  }
+
+  .CareerThree__benefitDescription {
+    font-size: 11.5px;
+  }
+}
+
+/* ==========================================
+   PHONES  (<= 520px)
+========================================== */
+
+@media (max-width: 520px) {
+  .CareerThree__top {
+    gap: 26px;
+  }
+
+  .CareerThree__imageFrame {
+    aspect-ratio: 4 / 3;
+    border-left-width: 4px;
+    border-radius: 12px;
+  }
+
+  .CareerThree__imageBadge {
+    right: 10px;
+    bottom: 10px;
+    left: 10px;
+    gap: 10px;
+    padding: 10px 12px;
+    border-radius: 9px;
+  }
+
+  .CareerThree__imageBadge strong {
+    font-size: 13px;
+  }
+
+  .CareerThree__imageBadge span:last-child {
+    font-size: 10px;
+  }
+
+  .CareerThree__eyebrow {
+    gap: 9px;
+    margin-bottom: 12px;
+    font-size: 10px;
+    letter-spacing: 1.8px;
+  }
+
+  .CareerThree__eyebrowLine {
+    width: 22px;
+    height: 2px;
+  }
+
+  .CareerThree__heading {
+    margin-bottom: 12px;
+    font-size: clamp(29px, 8.5vw, 36px);
+    letter-spacing: -0.8px;
+  }
+
+  .CareerThree__description {
+    margin-bottom: 18px;
+    font-size: 13.5px;
+    line-height: 1.75;
+  }
+
+  .CareerThree__reasons {
+    gap: 12px;
+    margin-bottom: 22px;
+  }
+
+  .CareerThree__reason {
+    align-items: flex-start;
+    gap: 10px;
+    font-size: 13px;
+  }
+
+  .CareerThree__check {
+    width: 20px;
+    height: 20px;
+    margin-top: 1px;
+  }
+
+  /* full-width, easy-to-tap button */
+  .CareerThree__contactLink {
+    width: 100%;
+    min-height: 48px;
+    padding: 12px 16px;
+    font-size: 13px;
+  }
+
+  /* the big faint watermark only crowds a small screen */
+  .CareerThree__watermark {
+    display: none;
+  }
+
+  .CareerThree__benefits {
+    border-radius: 16px;
+  }
+
+  .CareerThree__benefitsHeader {
+    margin-bottom: 20px;
+  }
+
+  .CareerThree__benefitsTitle {
+    font-size: clamp(23px, 6.4vw, 29px);
+    letter-spacing: -0.6px;
+  }
+
+  .CareerThree__benefitsSubtitle {
+    font-size: 12px;
+  }
+
+  /* benefits: 2 columns, last card spans the full row */
+  .CareerThree__benefitsGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+  }
+
+  .CareerThree__benefitCard,
+  .CareerThree__benefitCard:nth-child(4) {
+    grid-column: span 1;
+    padding: 14px 8px;
+    border-radius: 12px;
+  }
+
+  .CareerThree__benefitCard:nth-child(5) {
+    grid-column: 1 / -1;
+  }
+
+  .CareerThree__benefitIcon {
+    width: 46px;
+    height: 44px;
+    margin-bottom: 8px;
+    border-radius: 10px;
+  }
+
+  .CareerThree__benefitIcon svg {
+    width: 28px;
+    height: 28px;
+  }
+
+  .CareerThree__benefitTitle {
+    font-size: 12.5px;
+  }
+
+  .CareerThree__benefitDescription {
+    font-size: 11px;
+    line-height: 1.55;
+  }
+
+  .CareerThree__bottomNote {
+    gap: 8px;
+    margin-top: 16px;
+    padding-top: 14px;
+  }
+
+  .CareerThree__bottomNote p {
+    font-size: 11px;
+  }
+}
+
+/* ==========================================
+   SMALL PHONES  (<= 380px)
+========================================== */
+
+@media (max-width: 380px) {
+  .CareerThree {
+    padding-right: 12px;
+    padding-left: 12px;
+  }
+
+  .CareerThree__heading {
+    font-size: 28px;
+  }
+
+  .CareerThree__description,
+  .CareerThree__reason {
+    font-size: 12.5px;
+  }
+
+  .CareerThree__benefits {
+    padding-right: 10px;
+    padding-left: 10px;
+  }
+
+  .CareerThree__benefitsGrid {
+    gap: 8px;
+  }
+
+  .CareerThree__benefitTitle {
+    font-size: 12px;
+  }
+
+  .CareerThree__benefitDescription {
+    font-size: 10.5px;
+  }
+}
+
+/* ==========================================
+   VERY SMALL PHONES  (<= 340px)
+========================================== */
+
+@media (max-width: 340px) {
+  .CareerThree__heading {
+    font-size: 26px;
+  }
+
+  .CareerThree__benefitsGrid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .CareerThree__benefitCard:nth-child(5) {
+    grid-column: auto;
+  }
+}
+
+/* ==========================================
+   SHORT LANDSCAPE PHONES
+========================================== */
+
+@media (max-height: 480px) and (orientation: landscape) {
+  .CareerThree {
+    padding-top: 36px;
+    padding-bottom: 44px;
+  }
+}
+
+/* ==========================================
+   ACCESSIBILITY
+========================================== */
+
+@media (prefers-reduced-motion: reduce) {
+  .CareerThree *,
+  .CareerThree *::before,
+  .CareerThree *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    transition-delay: 0ms !important;
+  }
+
+  .CareerThree__imageColumn,
+  .CareerThree__content,
+  .CareerThree__benefits,
+  .CareerThree__reason,
+  .CareerThree__benefitCard {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}

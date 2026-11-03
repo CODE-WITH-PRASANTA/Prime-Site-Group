@@ -1,9 +1,9 @@
-
 import React from "react";
 import {
   UsersRound,
   Handshake,
-  MessageCircle,
+  ShieldCheck,
+  Award,
   ArrowUpRight,
 } from "lucide-react";
 import "./AboutOurValues.css";
@@ -11,24 +11,29 @@ import "./AboutOurValues.css";
 const AboutOurValues = () => {
   const values = [
     {
-      title: "Team",
-      description: "Together we achieve more. Always work as one team.",
+      title: "Integrity",
+      description: "Transparency and uncompromising ethics guide every decision and site partnership.",
+      icon: ShieldCheck,
+    },
+    {
+      title: "Collaboration",
+      description: "Together we achieve more. Fostering unity across diverse workforce disciplines.",
       icon: UsersRound,
     },
     {
-      title: "Relate",
-      description: "Relationships matter. Be open, honest and connect.",
-      icon: Handshake,
+      title: "Excellence",
+      description: "Delivering world-class service standards, zero-compromise safety, and continuous innovation.",
+      icon: Award,
     },
     {
       title: "Respect",
-      description: "Value every individual and appreciate different perspectives.",
-      icon: MessageCircle,
+      description: "Valuing every individual, prioritizing employee welfare, and embracing diverse perspectives.",
+      icon: Handshake,
     },
   ];
 
   return (
-    <section className="AboutOurValues">
+    <section className="AboutOurValues" aria-label="Prime Site Corporate Values">
       <div className="AboutOurValues__container">
         {/* Left image section */}
         <div className="AboutOurValues__imageSection">
@@ -36,7 +41,7 @@ const AboutOurValues = () => {
             <img
               className="AboutOurValues__image"
               src="https://images.unsplash.com/photo-1521737711867-e3b97375f902?auto=format&fit=crop&w=1800&q=90"
-              alt="Professional team working together in a corporate environment"
+              alt="Prime Site professional leadership and workforce team collaborating"
               loading="lazy"
             />
             <div className="AboutOurValues__imageOverlay" />
@@ -44,7 +49,7 @@ const AboutOurValues = () => {
 
           <div className="AboutOurValues__imageCaption">
             <span className="AboutOurValues__captionLine" />
-            <span>ONE TEAM. SHARED VALUES.</span>
+            <span>PRIME SITE. ONE TEAM. SHARED VALUES.</span>
           </div>
         </div>
 
@@ -53,7 +58,7 @@ const AboutOurValues = () => {
           <div className="AboutOurValues__content">
             <div className="AboutOurValues__eyebrow">
               <span className="AboutOurValues__eyebrowLine" />
-              <span>ABOUT</span>
+              <span>ABOUT PRIME SITE</span>
             </div>
 
             <h2 className="AboutOurValues__title">
@@ -98,7 +103,7 @@ const AboutOurValues = () => {
 
             <div className="AboutOurValues__bottom">
               <span className="AboutOurValues__bottomLine" />
-              <span>United by purpose. Guided by values.</span>
+              <span>Prime Site — United by purpose. Guided by values.</span>
             </div>
           </div>
 

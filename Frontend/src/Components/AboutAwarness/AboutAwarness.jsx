@@ -5,17 +5,17 @@ const partnerPillars = [
   {
     id: 1,
     title: "Government & Civic Alliances",
-    desc: "Active joint programmes with Dubai Police and Road Transport Authority.",
+    desc: "Active joint programmes with local authorities, Dubai Police, and the Road Transport Authority.",
   },
   {
     id: 2,
     title: "Continuous Field Training",
-    desc: "Interactive workshops empowering workforce safety and well-being.",
+    desc: "Interactive workshops empowering workforce safety, hazard mitigation, and wellbeing.",
   },
   {
     id: 3,
     title: "Community Outreach",
-    desc: "Spreading public awareness across commercial and residential hubs.",
+    desc: "Spreading public awareness, road safety, and wellness across commercial and residential hubs.",
   },
 ];
 
@@ -44,28 +44,28 @@ const AboutAwarness = () => {
     <section
       ref={sectionRef}
       className={`AboutAwarness ${isVisible ? "AboutAwarness--visible" : ""}`}
-      aria-label="HSE Awareness and Community Partnerships"
+      aria-label="Prime Site HSE Awareness and Community Partnerships"
     >
       <div className="AboutAwarness__container">
         {/* Left Side: Staggered Running Content */}
         <div className="AboutAwarness__content">
           <div className="AboutAwarness__eyebrowWrap">
             <span className="AboutAwarness__eyebrowLine" />
-            <span className="AboutAwarness__eyebrow">AWARENESS[cite: 10]</span>
+            <span className="AboutAwarness__eyebrow">PRIME SITE AWARENESS</span>
           </div>
 
           <h2 className="AboutAwarness__title">
-            HSE Awareness[cite: 10]{" "}
+            HSE Awareness{" "}
             <span className="AboutAwarness__titleAccent">
-              Community Partnerships[cite: 10]
+              & Community Partnerships
             </span>
           </h2>
 
           <p className="AboutAwarness__description">
-            We run regular HSE events in partnership with Dubai Police, the Road
-            Transport Association and many other local and governmental
-            organisations, who like us, are dedicated to ensuring a safer
-            environment for our workforce and communities[cite: 10].
+            At Prime Site, we host regular Health, Safety, and Environment (HSE) 
+            initiatives in collaboration with civic partners, Dubai Police, the Road 
+            Transport Authority, and industry leaders dedicated to fostering safe, 
+            sustainable workplaces and empowered communities.
           </p>
 
           {/* Partnership Pillars */}
@@ -92,7 +92,7 @@ const AboutAwarness = () => {
           {/* Action Row */}
           <div className="AboutAwarness__actionWrap">
             <a href="#initiatives" className="AboutAwarness__linkPrimary">
-              <span>View Community Initiatives</span>
+              <span>View Prime Site Initiatives</span>
               <svg viewBox="0 0 20 20" fill="currentColor">
                 <path
                   fillRule="evenodd"
@@ -109,7 +109,7 @@ const AboutAwarness = () => {
           <div className="AboutAwarness__imageClip">
             <img
               src="https://images.unsplash.com/photo-1531482615713-2afd69097998?auto=format&fit=crop&w=2200&q=85"
-              alt="HSE training session with workforce specialists"
+              alt="Prime Site HSE training session with workforce specialists"
               className="AboutAwarness__image"
               loading="lazy"
             />
@@ -120,7 +120,7 @@ const AboutAwarness = () => {
           <div className="AboutAwarness__badge">
             <span className="AboutAwarness__badgeDot" />
             <div className="AboutAwarness__badgeInfo">
-              <strong>Community First</strong>
+              <strong>Prime Site Community</strong>
               <span>Dubai Police & RTA Alliances</span>
             </div>
           </div>

@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { NavLink, Link } from "react-router-dom";
+import React, { useState, useEffect, useRef } from "react";
+import { NavLink, Link, useLocation } from "react-router-dom";
 import {
   Menu,
   X,
@@ -19,25 +19,46 @@ const serviceItems = [
     title: "Security Services",
     path: "/services/security-services",
     submenu: [
-      { title: "Manned Guarding", path: "/services/security-services/manned-guarding" },
-      { title: "Electronic Security", path: "/services/security-services/electronic-security" },
-      { title: "Security Consulting", path: "/services/security-services/security-consulting" },
+      {
+        title: "Manned Guarding",
+        path: "/services/security-services/manned-guarding",
+      },
+      {
+        title: "Electronic Security",
+        path: "/services/security-services/electronic-security",
+      },
+      {
+        title: "Security Consulting",
+        path: "/services/security-services/security-consulting",
+      },
     ],
   },
   {
     title: "Manpower Services",
     path: "/services/manpower-services",
     submenu: [
-      { title: "General Staffing", path: "/services/manpower-services/general-staffing" },
-      { title: "Recruitment Services", path: "/services/manpower-services/recruitment" },
+      {
+        title: "General Staffing",
+        path: "/services/manpower-services/general-staffing",
+      },
+      {
+        title: "Recruitment Services",
+        path: "/services/manpower-services/recruitment",
+      },
     ],
   },
   {
     title: "Workforce Solutions",
     path: "/services/workforce-solutions",
     submenu: [
-      { title: "Payroll Management", path: "/services/workforce-solutions/payroll" },
-      { title: "Workforce Outsourcing", path: "/services/workforce-solutions/outsourcing" },
+      {
+        title: "Payroll Management",
+        path: "/services/workforce-solutions/payroll",
+      },
+      {
+        title: "Workforce Outsourcing",
+        path: "/services/workforce-solutions/outsourcing",
+      },
     ],
   },
   {
@@ -84,8 +105,66 @@ const Navbar = () => {
   const [servicesOpen, setServicesOpen] = useState(false);
   const [activeSubmenu, setActiveSubmenu] = useState(null);
 
-  const closeMenu = () => {
+  const navbarRef = useRef(null);
+  const location = useLocation();
+
+  // Close the navigation after an actual route change.
+  useEffect(() => {
     setMobileMenuOpen(false);
+    setServicesOpen(false);
+    setActiveSubmenu(null);
+  }, [location.pathname]);
+
+  // Close menus when clicking outside the navbar.
+  useEffect(() => {
+    const handleOutsideClick = (event) => {
+      if (
+        navbarRef.current &&
+        !navbarRef.current.contains(event.target)
+      ) {
+        setServicesOpen(false);
+        setActiveSubmenu(null);
+        setMobileMenuOpen(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleOutsideClick);
+
+    return () => {
+      document.removeEventListener(
+        "mousedown",
+        handleOutsideClick
+      );
+    };
+  }, []);
+
+  // Close menus when the user presses Escape.
+  useEffect(() => {
+    const handleEscape = (event) => {
+      if (event.key === "Escape") {
+        setServicesOpen(false);
+        setActiveSubmenu(null);
+        setMobileMenuOpen(false);
+      }
+    };
+
+    document.addEventListener("keydown", handleEscape);
+
+    return () => {
+      document.removeEventListener("keydown", handleEscape);
+    };
+  }, []);
+
+  const closeMobileMenu = () => {
+    setMobileMenuOpen(false);
+    setServicesOpen(false);
+    setActiveSubmenu(null);
+  };
+
+  const toggleMobileMenu = () => {
+    setMobileMenuOpen((previous) => !previous);
+
+    // Reset dropdowns only when toggling the main mobile menu.
     setServicesOpen(false);
     setActiveSubmenu(null);
   };
@@ -95,57 +174,90 @@ const Navbar = () => {
     setActiveSubmenu(null);
   };
 
+  const toggleSubmenu = (title) => {
+    setActiveSubmenu((previous) =>
+      previous === title ? null : title
+    );
+  };
+
+  const handleServicesMouseEnter = () => {
+    if (window.matchMedia("(min-width: 992px)").matches) {
+      setServicesOpen(true);
+    }
+  };
+
+  const handleServicesMouseLeave = () => {
+    if (window.matchMedia("(min-width: 992px)").matches) {
+      setServicesOpen(false);
+      setActiveSubmenu(null);
+    }
+  };
+
   return (
-    <header className="navbar">
+    <header className="navbar" ref={navbarRef}>
       <div className="navbar__container">
         {/* Logo */}
         <Link
           to="/"
           className="navbar__logo"
           aria-label="Go to home page"
-          onClick={closeMenu}
+          onClick={closeMobileMenu}
         >
           <img
             src={logo}
-            alt="Company Logo"
+            alt="Prime Site Logo"
             className="navbar__logo-image"
           />
         </Link>
 
-        {/* Mobile menu toggle */}
+        {/* Mobile menu button */}
         <button
           type="button"
           className="navbar__mobile-toggle"
-          onClick={() => {
-            setMobileMenuOpen((previous) => !previous);
-            setServicesOpen(false);
-            setActiveSubmenu(null);
-          }}
-          aria-label={mobileMenuOpen ? "Close navigation" : "Open navigation"}
+          onClick={toggleMobileMenu}
+          aria-label={
+            mobileMenuOpen
+              ? "Close navigation"
+              : "Open navigation"
+          }
           aria-expanded={mobileMenuOpen}
           aria-controls="navbar-navigation"
         >
-          {mobileMenuOpen ? <X size={27} /> : <Menu size={27} />}
+          {mobileMenuOpen ? (
+            <X size={27} />
+          ) : (
+            <Menu size={27} />
+          )}
         </button>
 
         {/* Navigation */}
         <nav
           id="navbar-navigation"
           className={`navbar__navigation ${
-            mobileMenuOpen ? "navbar__navigation--open" : ""
+            mobileMenuOpen
+              ? "navbar__navigation--open"
+              : ""
           }`}
           aria-label="Main navigation"
         >
           <ul className="navbar__list">
+            {/* Home and About */}
             {navigationItems.slice(0, 2).map((item) => (
-              <li className="navbar__item" key={item.path}>
+              <li
+                className="navbar__item"
+                key={item.path}
+              >
                 <NavLink
                   to={item.path}
                   end={item.path === "/"}
                   className={({ isActive }) =>
-                    `navbar__link ${isActive ? "navbar__link--active" : ""}`
+                    `navbar__link ${
+                      isActive
+                        ? "navbar__link--active"
+                        : ""
+                    }`
                   }
-                  onClick={closeMenu}
+                  onClick={closeMobileMenu}
                 >
                   {item.title}
                 </NavLink>
@@ -155,31 +267,24 @@ const Navbar = () => {
             {/* Services dropdown */}
             <li
               className={`navbar__item navbar__item--services ${
-                servicesOpen ? "navbar__item--expanded" : ""
+                servicesOpen
+                  ? "navbar__item--expanded"
+                  : ""
               }`}
-              onMouseEnter={() => {
-                if (window.matchMedia("(min-width: 992px)").matches) {
-                  setServicesOpen(true);
-                }
-              }}
-              onMouseLeave={() => {
-                if (window.matchMedia("(min-width: 992px)").matches) {
-                  setServicesOpen(false);
-                  setActiveSubmenu(null);
-                }
-              }}
+              onMouseEnter={handleServicesMouseEnter}
+              onMouseLeave={handleServicesMouseLeave}
             >
               <div className="navbar__services-heading">
                 <NavLink
                   to="/services"
                   className={({ isActive }) =>
                     `navbar__link navbar__services-link ${
-                      isActive || servicesOpen
+                      isActive
                         ? "navbar__link--active"
                         : ""
                     }`
                   }
-                  onClick={closeMenu}
+                  onClick={closeMobileMenu}
                 >
                   Services
                 </NavLink>
@@ -190,123 +295,154 @@ const Navbar = () => {
                   onClick={toggleServices}
                   aria-label="Toggle services menu"
                   aria-expanded={servicesOpen}
+                  aria-controls="navbar-services-menu"
                 >
                   <ChevronDown
-                    size={16}
+                    size={17}
                     className={`navbar__chevron ${
-                      servicesOpen ? "navbar__chevron--open" : ""
+                      servicesOpen
+                        ? "navbar__chevron--open"
+                        : ""
                     }`}
                   />
                 </button>
               </div>
 
+              {/* Keep this element mounted for smooth animation. */}
               <div
+                id="navbar-services-menu"
                 className={`navbar__mega-menu ${
-                  servicesOpen ? "navbar__mega-menu--open" : ""
+                  servicesOpen
+                    ? "navbar__mega-menu--open"
+                    : ""
                 }`}
+                aria-hidden={!servicesOpen}
+                inert={!servicesOpen}
               >
-                <div className="navbar__mega-header">
-                  <span className="navbar__mega-eyebrow">
-                    OUR EXPERTISE
-                  </span>
-                  <h3 className="navbar__mega-title">
-                    Services & Solutions
-                  </h3>
-                  <p className="navbar__mega-description">
-                    Discover our services, built around your business needs.
-                  </p>
-                </div>
+                <div className="navbar__mega-content">
+                  {/* Menu heading */}
+                  <div className="navbar__mega-header">
+                    <span className="navbar__mega-eyebrow">
+                      OUR EXPERTISE
+                    </span>
 
-                <div className="navbar__service-grid">
-                  {serviceItems.map((service) => (
-                    <div
-                      className={`navbar__service-item ${
-                        activeSubmenu === service.title
-                          ? "navbar__service-item--expanded"
-                          : ""
-                      }`}
-                      key={service.path}
-                    >
-                      <div className="navbar__service-row">
-                        <Link
-                          to={service.path}
-                          className="navbar__service-link"
-                          onClick={closeMenu}
-                        >
-                          {service.title}
-                        </Link>
+                    <h3 className="navbar__mega-title">
+                      Services &amp; Solutions
+                    </h3>
 
-                        {service.submenu && (
-                          <button
-                            type="button"
-                            className="navbar__service-arrow"
-                            aria-label={`Toggle ${service.title} submenu`}
-                            aria-expanded={
-                              activeSubmenu === service.title
-                            }
-                            onClick={() =>
-                              setActiveSubmenu((previous) =>
-                                previous === service.title
-                                  ? null
-                                  : service.title
-                              )
-                            }
-                          >
-                            <ChevronRight
-                              size={17}
-                              className={
-                                activeSubmenu === service.title
-                                  ? "navbar__submenu-chevron--open"
-                                  : ""
-                              }
-                            />
-                          </button>
-                        )}
-                      </div>
+                    <p className="navbar__mega-description">
+                      Discover our services, built around your
+                      business needs.
+                    </p>
+                  </div>
 
-                      {service.submenu && (
+                  {/* Service list */}
+                  <div className="navbar__service-grid">
+                    {serviceItems.map((service) => {
+                      const submenuIsOpen =
+                        activeSubmenu === service.title;
+
+                      return (
                         <div
-                          className={`navbar__nested-menu ${
-                            activeSubmenu === service.title
-                              ? "navbar__nested-menu--open"
+                          className={`navbar__service-item ${
+                            submenuIsOpen
+                              ? "navbar__service-item--expanded"
                               : ""
                           }`}
+                          key={service.path}
                         >
-                          {service.submenu.map((subItem) => (
+                          <div className="navbar__service-row">
                             <Link
-                              key={subItem.path}
-                              to={subItem.path}
-                              className="navbar__nested-link"
-                              onClick={closeMenu}
+                              to={service.path}
+                              className="navbar__service-link"
                             >
-                              <span>{subItem.title}</span>
+                              <span>{service.title}</span>
                             </Link>
-                          ))}
-                        </div>
-                      )}
-                    </div>
-                  ))}
-                </div>
 
-                <Link
-                  to="/services"
-                  className="navbar__all-services"
-                  onClick={closeMenu}
-                >
-                  Explore All Services
-                  <ChevronRight size={17} />
-                </Link>
+                            {service.submenu && (
+                              <button
+                                type="button"
+                                className="navbar__service-arrow"
+                                onClick={() =>
+                                  toggleSubmenu(service.title)
+                                }
+                                aria-label={`Toggle ${service.title} submenu`}
+                                aria-expanded={submenuIsOpen}
+                              >
+                                <ChevronRight
+                                  size={17}
+                                  className={
+                                    submenuIsOpen
+                                      ? "navbar__submenu-chevron--open"
+                                      : ""
+                                  }
+                                />
+                              </button>
+                            )}
+                          </div>
+
+                          {/* Nested submenu */}
+                          {service.submenu && (
+                            <div
+                              className={`navbar__nested-menu ${
+                                submenuIsOpen
+                                  ? "navbar__nested-menu--open"
+                                  : ""
+                              }`}
+                              aria-hidden={!submenuIsOpen}
+                              inert={!submenuIsOpen}
+                            >
+                              <div className="navbar__nested-inner">
+                                {service.submenu.map(
+                                  (subItem) => (
+                                    <Link
+                                      key={subItem.path}
+                                      to={subItem.path}
+                                      className="navbar__nested-link"
+                                    >
+                                      <span className="navbar__nested-dot" />
+                                      <span>
+                                        {subItem.title}
+                                      </span>
+                                    </Link>
+                                  )
+                                )}
+                              </div>
+                            </div>
+                          )}
+                        </div>
+                      );
+                    })}
+                  </div>
+
+                  {/* All services link */}
+                  <Link
+                    to="/services"
+                    className="navbar__all-services"
+                  >
+                    <span>Explore All Services</span>
+                    <ChevronRight size={18} />
+                  </Link>
+                </div>
               </div>
             </li>
 
+            {/* Blog, Career, FAQ and Contact */}
             {navigationItems.slice(2).map((item) => (
-              <li className="navbar__item" key={item.path}>
+              <li
+                className="navbar__item"
+                key={item.path}
+              >
                 <NavLink
                   to={item.path}
                   className={({ isActive }) =>
-                    `navbar__link ${isActive ? "navbar__link--active" : ""}`
+                    `navbar__link ${
+                      isActive
+                        ? "navbar__link--active"
+                        : ""
+                    }`
                   }
-                  onClick={closeMenu}
+                  onClick={closeMobileMenu}
                 >
                   {item.title}
                 </NavLink>

@@ -1,27 +1,24 @@
-
 import React from "react";
-import { MapPin, ExternalLink, ArrowUpRight } from "lucide-react";
+import { MapPin, ArrowUpRight } from "lucide-react";
 import "./ContactMap.css";
 
-import TeamImage from "../../assets/contact-team.jpg";
+import TeamImage from "../../assets/contact-team.png";
 
 const ContactMap = () => {
-  const mapLocation = "Transguard Group, Dubai, UAE";
-
   const mapEmbedUrl =
-    "https://maps.google.com/maps?q=Transguard%20Group%20Dubai%20UAE&z=14&output=embed";
+    "https://maps.google.com/maps?q=Prime%20Site%20Dubai%20UAE&z=14&output=embed";
 
   const openMapUrl =
-    "https://www.google.com/maps/search/?api=1&query=Transguard+Group+Dubai+UAE";
+    "https://www.google.com/maps/search/?api=1&query=Prime+Site+Dubai+UAE";
 
   return (
-    <section className="ContactMap">
+    <section className="ContactMap" aria-label="Prime Site Office and Operations Location">
       <div className="ContactMap-wrapper">
         {/* Map layer */}
         <div className="ContactMap-mapPanel">
           <iframe
             className="ContactMap-mapFrame"
-            title="Transguard Group location map"
+            title="Prime Site location map"
             src={mapEmbedUrl}
             loading="lazy"
             referrerPolicy="no-referrer-when-downgrade"
@@ -36,13 +33,12 @@ const ContactMap = () => {
             href={openMapUrl}
             target="_blank"
             rel="noopener noreferrer"
-            aria-label="Open Transguard Group location in Google Maps"
+            aria-label="Open Prime Site location in Google Maps"
           >
             <MapPin size={17} />
-            <span>Explore Location</span>
+            <span>Explore Prime Site Hub</span>
             <ArrowUpRight size={17} />
           </a>
-
 
           <div className="ContactMap-mapCorner" />
         </div>
@@ -51,7 +47,7 @@ const ContactMap = () => {
         <div className="ContactMap-imagePanel">
           <img
             src={TeamImage}
-            alt="Our professional team working together"
+            alt="Prime Site specialist leadership and workforce team"
             className="ContactMap-teamImage"
             loading="lazy"
           />
@@ -61,7 +57,7 @@ const ContactMap = () => {
           <div className="ContactMap-imageContent">
             <span className="ContactMap-imageEyebrow">
               <span className="ContactMap-eyebrowLine" />
-              OUR LOCATION
+              PRIME SITE HEADQUARTERS
             </span>
 
             <h2 className="ContactMap-imageTitle">
@@ -75,8 +71,8 @@ const ContactMap = () => {
             </h2>
 
             <p className="ContactMap-imageDescription">
-              Bringing people, expertise and exceptional
-              service together.
+              Bringing dedicated personnel, specialized technical expertise, 
+              and seamless business solutions together under one unified partner.
             </p>
 
             <a
@@ -85,7 +81,7 @@ const ContactMap = () => {
               rel="noopener noreferrer"
               className="ContactMap-imageLink"
             >
-              Discover our location
+              Get Directions to Prime Site
               <ArrowUpRight size={17} />
             </a>
           </div>

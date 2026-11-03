@@ -41,7 +41,7 @@ const AboutVideo = () => {
     setIsMuted(videoRef.current.muted);
   };
 
-  // Fullscreen Handlers (using Container to keep custom controls visible)
+  // Fullscreen Handlers (using container to retain custom controls)
   const toggleFullscreen = (e) => {
     e.stopPropagation();
     const container = playerContainerRef.current;
@@ -64,7 +64,7 @@ const AboutVideo = () => {
     }
   };
 
-  // Listen to Fullscreen Change Events
+  // Fullscreen Change Listeners
   useEffect(() => {
     const handleFullscreenChange = () => {
       setIsFullscreen(Boolean(document.fullscreenElement));
@@ -99,7 +99,7 @@ const AboutVideo = () => {
     }
   };
 
-  // Auto-hide controls when mouse is inactive during playback
+  // Auto-hide controls when inactive during playback
   const handleMouseMove = () => {
     setControlsVisible(true);
     if (hideControlsTimeout.current) clearTimeout(hideControlsTimeout.current);
@@ -114,10 +114,10 @@ const AboutVideo = () => {
   const progressPercent = duration ? (currentTime / duration) * 100 : 0;
 
   return (
-    <section className="AboutVideo" aria-label="Corporate Video Presentation">
+    <section className="AboutVideo" aria-label="Prime Site Corporate Video Presentation">
       <div className="AboutVideo__container">
         
-        {/* Left Side: Modern Interactive Custom Player */}
+        {/* Left Side: Interactive Custom Player */}
         <div className="AboutVideo__mediaColumn">
           <div
             ref={playerContainerRef}
@@ -131,10 +131,10 @@ const AboutVideo = () => {
             {/* Top Bar with Branding */}
             <div className="AboutVideo__topBar">
               <div className="AboutVideo__brandBadge">
-                <span className="AboutVideo__brandIcon">T</span>
+                <span className="AboutVideo__brandIcon">P</span>
                 <div className="AboutVideo__brandInfo">
-                  <span className="AboutVideo__brandTitle">Prime Corporate Video</span>
-                  <span className="AboutVideo__brandSub">Global Operations Overview</span>
+                  <span className="AboutVideo__brandTitle">Prime Site Corporate Profile</span>
+                  <span className="AboutVideo__brandSub">Integrated Solutions & Operations Overview</span>
                 </div>
               </div>
             </div>
@@ -241,7 +241,6 @@ const AboutVideo = () => {
                 </div>
 
                 <div className="AboutVideo__rightActions">
-                  {/* Fullscreen Button */}
                   <button
                     type="button"
                     className="AboutVideo__btnIcon AboutVideo__btnIcon--fullscreen"
@@ -268,18 +267,18 @@ const AboutVideo = () => {
         <div className="AboutVideo__contentColumn">
           <div className="AboutVideo__eyebrowWrap">
             <span className="AboutVideo__eyebrowLine" />
-            <span className="AboutVideo__eyebrow">VIDEO</span>
+            <span className="AboutVideo__eyebrow">ABOUT PRIME SITE</span>
           </div>
 
           <h2 className="AboutVideo__heading">
-            Transguard Group{" "}
+            Prime Site{" "}
             <span className="AboutVideo__headingAccent">Corporate Video</span>
           </h2>
 
           <p className="AboutVideo__description">
-            Discover how precision, diverse human talent, and innovative infrastructure
-            converge to deliver industry-leading support services across aviation,
-            hospitality, cash management, and critical infrastructure.
+            Discover how precision engineering, vetted specialist talent, and forward-thinking 
+            infrastructure converge at Prime Site to deliver unmatched managed solutions across 
+            security operations, facility management, manpower logistics, and enterprise support.
           </p>
 
           <div className="AboutVideo__featureList">
@@ -289,11 +288,11 @@ const AboutVideo = () => {
             </div>
             <div className="AboutVideo__featureItem">
               <span className="AboutVideo__featureDot" />
-              <span>Behind-the-Scenes Workforce Logistics</span>
+              <span>Behind-the-Scenes Workforce Logistics & Management</span>
             </div>
             <div className="AboutVideo__featureItem">
               <span className="AboutVideo__featureDot" />
-              <span>Executive Vision & Strategic Roadmap</span>
+              <span>Executive Vision & Multi-Sector Roadmap</span>
             </div>
           </div>
         </div>

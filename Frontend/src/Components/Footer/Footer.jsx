@@ -1,15 +1,13 @@
-
 import React from "react";
 import { Link } from "react-router-dom";
 import {
   MapPin,
   Phone,
-  Mail,
   MessageCircle,
   ArrowUpRight,
-  ArrowUp,
   Building2,
   HardHat,
+  CheckCircle2,
 } from "lucide-react";
 
 import "./Footer.css";
@@ -17,8 +15,8 @@ import logo from "../../assets/PRIME SITE LOGO.png";
 
 const SocialIcon = ({ name }) => {
   const commonProps = {
-    width: 18,
-    height: 18,
+    width: 19,
+    height: 19,
     viewBox: "0 0 24 24",
     fill: "currentColor",
     "aria-hidden": true,
@@ -79,6 +77,7 @@ const SocialIcon = ({ name }) => {
 const Footer = () => {
   const currentYear = new Date().getFullYear();
 
+  // Contact information
   const phoneNumber = "+9718828732";
   const whatsappNumber = "9718828734";
 
@@ -117,22 +116,31 @@ const Footer = () => {
 
   return (
     <footer className="footer">
-      {/* DECORATIVE BACKGROUND */}
-      <div className="footer__background-decoration footer__background-decoration--one" />
-      <div className="footer__background-decoration footer__background-decoration--two" />
+      {/* Decorative background */}
+      <div
+        className="footer__background-decoration footer__background-decoration--one"
+        aria-hidden="true"
+      />
 
-      {/* TOP CTA */}
-      <div className="footer__cta">
+      <div
+        className="footer__background-decoration footer__background-decoration--two"
+        aria-hidden="true"
+      />
+
+      {/* Call-to-action section */}
+      <section className="footer__cta">
         <div className="footer__cta-container">
           <div className="footer__cta-icon">
-            <HardHat size={27} />
+            <HardHat size={28} strokeWidth={1.7} />
           </div>
 
           <div className="footer__cta-content">
             <span className="footer__eyebrow">
-              LET'S BUILD SOMETHING GREAT
+              LET&apos;S BUILD SOMETHING GREAT
             </span>
+
             <h2>Planning Your Next Construction Project?</h2>
+
             <p>
               Talk to our team about your project requirements and
               construction needs.
@@ -140,17 +148,17 @@ const Footer = () => {
           </div>
 
           <Link to="/contact" className="footer__cta-button">
-            Discuss Your Project
+            <span>Discuss Your Project</span>
             <ArrowUpRight size={18} />
           </Link>
         </div>
-      </div>
+      </section>
 
-      {/* MAIN FOOTER */}
+      {/* Main footer */}
       <div className="footer__main">
         <div className="footer__container">
           <div className="footer__grid">
-            {/* BRAND */}
+            {/* Brand column */}
             <div className="footer__brand">
               <Link
                 to="/"
@@ -164,15 +172,14 @@ const Footer = () => {
                 />
               </Link>
 
-              <span className="footer__brand-name">
+              <h3 className="footer__brand-name">
                 PrimeSite Facilities Group LLC
-              </span>
+              </h3>
 
               <p className="footer__description">
                 Building with purpose. Delivering with confidence.
-                PrimeSite Facilities Group LLC is committed to
-                professional construction solutions, dependable
-                service and lasting value.
+                PrimeSite Facilities Group LLC is committed to professional
+                construction solutions, dependable service and lasting value.
               </p>
 
               <div className="footer__socials">
@@ -192,9 +199,10 @@ const Footer = () => {
               </div>
             </div>
 
-            {/* QUICK LINKS */}
-            <div className="footer__column">
+            {/* Quick links column */}
+            <div className="footer__column footer__quick-column">
               <h3 className="footer__heading">Quick Links</h3>
+
               <span className="footer__heading-line" />
 
               <ul className="footer__links">
@@ -202,9 +210,11 @@ const Footer = () => {
                   <li key={link.path} className="footer__link-item">
                     <Link to={link.path} className="footer__link">
                       <ArrowUpRight
-                        size={14}
+                        size={15}
                         className="footer__link-icon"
+                        aria-hidden="true"
                       />
+
                       <span>{link.title}</span>
                     </Link>
                   </li>
@@ -212,29 +222,31 @@ const Footer = () => {
               </ul>
 
               <div className="footer__trust-note">
-                <Building2 size={19} />
-                <span>Construction & Facilities Solutions</span>
+                <Building2 size={21} />
+
+                <span>Construction &amp; Facilities Solutions</span>
               </div>
             </div>
 
-            {/* CONTACT DETAILS */}
+            {/* Contact column */}
             <div className="footer__column footer__contact-column">
               <h3 className="footer__heading">Get In Touch</h3>
+
               <span className="footer__heading-line" />
 
               <p className="footer__contact-intro">
-                Have a project in mind? Connect with our team.
-                We would be happy to hear from you.
+                Have a project in mind? Connect with our team. We would be
+                happy to hear from you.
               </p>
 
               <div className="footer__contact-list">
-                {/* PHONE */}
+                {/* Primary phone */}
                 <a
                   href={`tel:${phoneNumber}`}
                   className="footer__contact-item"
                 >
                   <span className="footer__contact-icon">
-                    <Phone size={18} />
+                    <Phone size={20} />
                   </span>
 
                   <span className="footer__contact-text">
@@ -243,7 +255,7 @@ const Footer = () => {
                   </span>
                 </a>
 
-                {/* WHATSAPP */}
+                {/* WhatsApp */}
                 <a
                   href={whatsappUrl}
                   target="_blank"
@@ -251,7 +263,7 @@ const Footer = () => {
                   className="footer__contact-item"
                 >
                   <span className="footer__contact-icon footer__contact-icon--whatsapp">
-                    <MessageCircle size={19} />
+                    <MessageCircle size={21} />
                   </span>
 
                   <span className="footer__contact-text">
@@ -260,7 +272,7 @@ const Footer = () => {
                   </span>
                 </a>
 
-                {/* OFFICE ADDRESS */}
+                {/* Office address */}
                 <a
                   href={mapUrl}
                   target="_blank"
@@ -268,38 +280,37 @@ const Footer = () => {
                   className="footer__contact-item footer__contact-item--address"
                 >
                   <span className="footer__contact-icon">
-                    <MapPin size={19} />
+                    <MapPin size={21} />
                   </span>
 
                   <span className="footer__contact-text">
                     <strong>Office Address</strong>
-                    <span>
-                      Dar Al Salam Building, Liwa Street,
-                      1st Floor, Office #3, Corniche Road East,
-                      Al Danah, Zone 1, Abu Dhabi,
-                      United Arab Emirates
-                    </span>
+
+                    <span>{officeAddress}</span>
+
                     <small className="footer__map-label">
-                      View on Google Maps <ArrowUpRight size={12} />
+                      View on Google Maps
+                      <ArrowUpRight size={14} />
                     </small>
                   </span>
                 </a>
               </div>
 
               <Link to="/contact" className="footer__contact-button">
-                Contact Our Team
-                <ArrowUpRight size={17} />
+                <span>Contact Our Team</span>
+
+                <ArrowUpRight size={18} />
               </Link>
             </div>
           </div>
         </div>
       </div>
 
-      {/* BOTTOM FOOTER */}
+      {/* Bottom footer */}
       <div className="footer__bottom">
         <div className="footer__bottom-container">
           <p className="footer__copyright">
-            © {currentYear} PrimeSite Facilities Group LLC.
+            &copy; {currentYear} PrimeSite Facilities Group LLC.
             All Rights Reserved.
           </p>
 
@@ -314,23 +325,15 @@ const Footer = () => {
               to="/terms-and-conditions"
               className="footer__legal-link"
             >
-              Terms & Conditions
+              Terms &amp; Conditions
             </Link>
           </div>
-
-          <button
-            type="button"
-            className="footer__back-to-top"
-            onClick={scrollToTop}
-            aria-label="Back to top"
-            title="Back to top"
-          >
-            <ArrowUp size={19} />
-          </button>
         </div>
 
         <div className="footer__developer">
-          Designed & Developed by <strong>PR WEBSTOCK</strong>
+          <span>Designed &amp; Developed by</span>{" "}
+          <strong>PR WEBSTOCK</strong>
+          <CheckCircle2 size={13} aria-hidden="true" />
         </div>
       </div>
     </footer>

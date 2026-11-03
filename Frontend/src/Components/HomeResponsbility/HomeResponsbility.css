@@ -21,6 +21,12 @@
   color: var(--HomeResponsbility-dark);
 }
 
+.HomeResponsbility *,
+.HomeResponsbility *::before,
+.HomeResponsbility *::after {
+  box-sizing: border-box;
+}
+
 .HomeResponsbility__container {
   display: flex;
   align-items: center;
@@ -338,6 +344,11 @@
 
   .HomeResponsbility__media {
     height: 440px;
+    transform: none;
+  }
+
+  .HomeResponsbility__content {
+    transform: none;
   }
 
   .HomeResponsbility__imageClip {

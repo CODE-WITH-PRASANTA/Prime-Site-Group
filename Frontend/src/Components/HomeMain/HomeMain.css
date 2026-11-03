@@ -413,7 +413,6 @@
    RESPONSIVE DESIGN (ALL BREAKPOINTS)
 ======================================================== */
 
-/* Ultrawide Displays */
 @media (min-width: 1920px) {
   .HomeMain {
     height: 740px;
@@ -429,7 +428,6 @@
   }
 }
 
-/* Standard Laptops & Tablets Landscape */
 @media (max-width: 1080px) {
   .HomeMain {
     height: 80svh;
@@ -460,7 +458,6 @@
   }
 }
 
-/* Portrait Tablets & Large Phones */
 @media (max-width: 860px) {
   .HomeMain {
     height: 100svh;
@@ -532,7 +529,6 @@
   }
 }
 
-/* Compact Mobile Devices (Phones 320px - 480px) */
 @media (max-width: 480px) {
   .HomeMain {
     min-height: 600px;
@@ -599,7 +595,7 @@
   }
 }
 
-/* Reduced Motion */
+/* Accessibility */
 @media (prefers-reduced-motion: reduce) {
   .HomeMain__track,
   .HomeMain__backgroundImage,
@@ -612,4 +608,4 @@
     animation: none !important;
     transform: scaleX(1);
   }
-}   
+}
