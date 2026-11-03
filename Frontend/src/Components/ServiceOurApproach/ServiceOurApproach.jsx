@@ -57,7 +57,7 @@ const ServiceOurApproach = () => {
           </div>
 
           <h2 className="ServiceOurApproach__title">
-            Our <span className="ServiceOurApproach__titleAccent">Approach[cite: 13]</span>
+            Our <span className="ServiceOurApproach__titleAccent">Approach</span>
           </h2>
 
           <p className="ServiceOurApproach__description">

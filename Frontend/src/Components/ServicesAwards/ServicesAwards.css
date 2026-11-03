@@ -1,6 +1,5 @@
-
 /* ==========================================
-   SERVICES AWARDS
+   PRIME SITE SERVICES AWARDS
    Premium corporate recognition section
 ========================================== */
 
@@ -8,7 +7,7 @@
   --ServicesAwards-red: #e51e2b;
   --ServicesAwards-dark: #222832;
   --ServicesAwards-muted: #656b74;
-  --ServicesAwards-card: #f4f4f4;
+  --ServicesAwards-card: #f8f9fa;
 
   position: relative;
   isolation: isolate;
@@ -17,7 +16,7 @@
   min-width: 0;
   padding: 76px 24px 55px;
   overflow: hidden;
-  background: #fff;
+  background: #ffffff;
   color: var(--ServicesAwards-dark);
   font-family: "Inter", "Segoe UI", Arial, sans-serif;
 }
@@ -199,7 +198,7 @@
 .ServicesAwards__card--active {
   z-index: 2;
   border-color: rgba(229, 30, 43, 0.2);
-  background: #fff;
+  background: #ffffff;
   box-shadow: 0 18px 42px rgba(30, 35, 44, 0.09);
   transform: translateY(-5px);
 }
@@ -247,7 +246,7 @@
   padding: 4px 8px;
   color: var(--ServicesAwards-red);
   border: 1px solid #e5c8cb;
-  background: #fff;
+  background: #ffffff;
   font-size: 10px;
   font-weight: 700;
   letter-spacing: 0.5px;
@@ -258,7 +257,7 @@
 }
 
 .ServicesAwards__card:hover .ServicesAwards__year {
-  color: #fff;
+  color: #ffffff;
   border-color: var(--ServicesAwards-red);
   background: var(--ServicesAwards-red);
 }
@@ -286,7 +285,7 @@
   border-radius: 50%;
   background: linear-gradient(
     145deg,
-    #fff 0%,
+    #ffffff 0%,
     #f9f6ef 55%,
     #eee4d1 100%
   );
@@ -314,7 +313,7 @@
   place-items: center;
   border: 1px solid rgba(229, 30, 43, 0.2);
   border-radius: 50%;
-  background: #fff;
+  background: #ffffff;
 }
 
 .ServicesAwards__awardIcon {
@@ -339,7 +338,7 @@
   width: 29px;
   height: 29px;
   place-items: center;
-  color: #fff;
+  color: #ffffff;
   border: 3px solid var(--ServicesAwards-card);
   border-radius: 50%;
   background: #b19a65;
@@ -453,7 +452,7 @@
 }
 
 .ServicesAwards__card:hover .ServicesAwards__footerArrow {
-  color: #fff;
+  color: #ffffff;
   border-color: var(--ServicesAwards-red);
   background: var(--ServicesAwards-red);
   transform: rotate(45deg);

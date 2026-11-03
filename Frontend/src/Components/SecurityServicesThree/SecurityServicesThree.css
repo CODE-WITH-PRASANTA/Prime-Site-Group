@@ -1,23 +1,23 @@
 /* ========================================================
-   SECURITY SERVICES THREE - HIGH-SECURITY FACILITIES SECTION
+   PRIME SITE - EXECUTIVE SERVICES & LOGISTICS SECTION
 ======================================================== */
 
 .SecurityServicesThree {
-  --SecurityServicesThree-red: #d7192d;
-  --SecurityServicesThree-red-hover: #b51223;
-  --SecurityServicesThree-dark: #1f2124;
-  --SecurityServicesThree-charcoal: #2d3034;
-  --SecurityServicesThree-gray: #5c6066;
-  --SecurityServicesThree-border: #dde1e5;
-  --SecurityServicesThree-bg: #ffffff;
-  --SecurityServicesThree-ease: cubic-bezier(0.16, 1, 0.3, 1);
+  --prime-red: #d7192d;
+  --prime-red-hover: #b51223;
+  --prime-dark: #1f2124;
+  --prime-charcoal: #2d3034;
+  --prime-gray: #5c6066;
+  --prime-border: #dde1e5;
+  --prime-bg: #ffffff;
+  --prime-ease: cubic-bezier(0.16, 1, 0.3, 1);
 
   position: relative;
   width: 100%;
-  padding: 10px 0 90px;
-  background-color: var(--SecurityServicesThree-bg);
+  padding: 10px 0 105px;
+  background-color: var(--prime-bg);
   font-family: "Inter", "Segoe UI", Arial, sans-serif;
-  color: var(--SecurityServicesThree-dark);
+  color: var(--prime-dark);
   overflow: hidden;
   box-sizing: border-box;
 }
@@ -39,7 +39,194 @@
 }
 
 /* ========================================================
-   LEFT MEDIA: ANGLED CUT & SMOOTH IMAGE ZOOM
+   LEFT CONTENT: ENTRANCE ANIMATION & TYPOGRAPHY
+======================================================== */
+
+.SecurityServicesThree__content {
+  flex: 1 1 50%;
+  max-width: 580px;
+  z-index: 2;
+}
+
+.SecurityServicesThree__eyebrowWrap,
+.SecurityServicesThree__title,
+.SecurityServicesThree__description,
+.SecurityServicesThree__pillars,
+.SecurityServicesThree__actionWrap {
+  opacity: 0;
+  transform: translateX(-45px);
+  transition: transform 1.1s var(--prime-ease),
+              opacity 1.1s var(--prime-ease);
+  will-change: transform, opacity;
+}
+
+.SecurityServicesThree--visible .SecurityServicesThree__eyebrowWrap {
+  opacity: 1;
+  transform: translateX(0);
+  transition-delay: 0.1s;
+}
+
+.SecurityServicesThree--visible .SecurityServicesThree__title {
+  opacity: 1;
+  transform: translateX(0);
+  transition-delay: 0.22s;
+}
+
+.SecurityServicesThree--visible .SecurityServicesThree__description {
+  opacity: 1;
+  transform: translateX(0);
+  transition-delay: 0.34s;
+}
+
+.SecurityServicesThree--visible .SecurityServicesThree__pillars {
+  opacity: 1;
+  transform: translateX(0);
+  transition-delay: 0.46s;
+}
+
+.SecurityServicesThree--visible .SecurityServicesThree__actionWrap {
+  opacity: 1;
+  transform: translateX(0);
+  transition-delay: 0.58s;
+}
+
+/* Eyebrow */
+.SecurityServicesThree__eyebrowWrap {
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 16px;
+}
+
+.SecurityServicesThree__eyebrowLine {
+  width: 32px;
+  height: 3px;
+  background-color: var(--prime-red);
+  border-radius: 2px;
+  flex-shrink: 0;
+}
+
+.SecurityServicesThree__eyebrow {
+  font-size: 11.5px;
+  font-weight: 800;
+  letter-spacing: 2.8px;
+  color: #63676c;
+}
+
+/* Title */
+.SecurityServicesThree__title {
+  margin: 0 0 16px;
+  font-size: clamp(36px, 4vw, 54px);
+  font-weight: 700;
+  line-height: 1.12;
+  letter-spacing: -1.6px;
+  color: var(--prime-dark);
+}
+
+.SecurityServicesThree__titleAccent {
+  color: var(--prime-red);
+  font-family: Georgia, "Times New Roman", serif;
+  font-weight: 600;
+}
+
+/* Description */
+.SecurityServicesThree__description {
+  margin: 0 0 28px;
+  font-size: 16px;
+  line-height: 1.75;
+  color: var(--prime-gray);
+  max-width: 520px;
+}
+
+/* Pillar List */
+.SecurityServicesThree__pillars {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-bottom: 34px;
+}
+
+.SecurityServicesThree__pillarItem {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+}
+
+.SecurityServicesThree__pillarIcon {
+  display: inline-grid;
+  place-items: center;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background-color: rgba(215, 25, 45, 0.1);
+  color: var(--prime-red);
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.SecurityServicesThree__pillarIcon svg {
+  width: 14px;
+  height: 14px;
+}
+
+.SecurityServicesThree__pillarText {
+  display: flex;
+  flex-direction: column;
+}
+
+.SecurityServicesThree__pillarTitle {
+  margin: 0 0 2px;
+  font-size: 14.5px;
+  font-weight: 700;
+  color: var(--prime-charcoal);
+}
+
+.SecurityServicesThree__pillarDesc {
+  margin: 0;
+  font-size: 13px;
+  color: var(--prime-gray);
+  line-height: 1.5;
+}
+
+/* Primary Action Button */
+.SecurityServicesThree__actionWrap {
+  display: inline-block;
+}
+
+.SecurityServicesThree__linkPrimary {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background-color: var(--prime-red);
+  color: #ffffff;
+  padding: 13px 26px;
+  border-radius: 3px;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  text-decoration: none;
+  box-shadow: 0 10px 24px rgba(215, 25, 45, 0.28);
+  transition: background-color 0.25s ease, transform 0.2s ease, box-shadow 0.25s ease;
+}
+
+.SecurityServicesThree__linkPrimary svg {
+  width: 16px;
+  height: 16px;
+  transition: transform 0.25s ease;
+}
+
+.SecurityServicesThree__linkPrimary:hover {
+  background-color: var(--prime-red-hover);
+  transform: translateY(-2px);
+  box-shadow: 0 14px 28px rgba(215, 25, 45, 0.36);
+}
+
+.SecurityServicesThree__linkPrimary:hover svg {
+  transform: translateX(4px);
+}
+
+/* ========================================================
+   RIGHT MEDIA: ANGLED CUT & PARALLAX ZOOM ENTRANCE
 ======================================================== */
 
 .SecurityServicesThree__media {
@@ -47,9 +234,9 @@
   flex: 1 1 50%;
   height: 580px;
   opacity: 0;
-  transform: translateX(-80px);
-  transition: transform 1.25s var(--SecurityServicesThree-ease),
-              opacity 1.25s var(--SecurityServicesThree-ease);
+  transform: translateX(80px);
+  transition: transform 1.25s var(--prime-ease),
+              opacity 1.25s var(--prime-ease);
   will-change: transform, opacity;
 }
 
@@ -63,9 +250,9 @@
   width: 100%;
   height: 100%;
   overflow: hidden;
-  clip-path: polygon(0% 0%, 100% 0%, 75% 100%, 0% 100%);
-  background-color: #1a1c1e;
-  box-shadow: 15px 25px 50px rgba(0, 0, 0, 0.12);
+  clip-path: polygon(25% 0%, 100% 0%, 100% 100%, 0% 100%);
+  background-color: #1f2429;
+  box-shadow: -15px 25px 50px rgba(0, 0, 0, 0.14);
 }
 
 .SecurityServicesThree__image {
@@ -89,7 +276,7 @@
     135deg,
     rgba(215, 25, 45, 0.08) 0%,
     transparent 50%,
-    rgba(20, 22, 25, 0.35) 100%
+    rgba(23, 25, 28, 0.35) 100%
   );
   pointer-events: none;
 }
@@ -98,7 +285,7 @@
 .SecurityServicesThree__badge {
   position: absolute;
   bottom: 40px;
-  right: 25px;
+  left: 20px;
   z-index: 3;
   display: inline-flex;
   align-items: center;
@@ -107,7 +294,7 @@
   background: rgba(255, 255, 255, 0.94);
   backdrop-filter: blur(14px);
   -webkit-backdrop-filter: blur(14px);
-  border: 1px solid rgba(255, 255, 255, 0.8);
+  border: 1px solid rgba(255, 255, 255, 0.7);
   border-radius: 8px;
   box-shadow: 0 16px 36px rgba(0, 0, 0, 0.12);
 }
@@ -116,7 +303,7 @@
   width: 10px;
   height: 10px;
   border-radius: 50%;
-  background: var(--SecurityServicesThree-red);
+  background: var(--prime-red);
   box-shadow: 0 0 10px rgba(215, 25, 45, 0.6);
   flex-shrink: 0;
 }
@@ -129,199 +316,12 @@
 .SecurityServicesThree__badgeInfo strong {
   font-size: 13px;
   font-weight: 700;
-  color: var(--SecurityServicesThree-dark);
+  color: var(--prime-dark);
 }
 
 .SecurityServicesThree__badgeInfo span {
   font-size: 11px;
-  color: var(--SecurityServicesThree-gray);
-}
-
-/* ========================================================
-   RIGHT CONTENT: STAGGERED ENTRANCE ANIMATIONS
-======================================================== */
-
-.SecurityServicesThree__content {
-  flex: 1 1 50%;
-  max-width: 580px;
-  z-index: 2;
-}
-
-.SecurityServicesThree__eyebrowWrap,
-.SecurityServicesThree__title,
-.SecurityServicesThree__description,
-.SecurityServicesThree__list,
-.SecurityServicesThree__actionWrap {
-  opacity: 0;
-  transform: translateX(45px);
-  transition: transform 1.1s var(--SecurityServicesThree-ease),
-              opacity 1.1s var(--SecurityServicesThree-ease);
-  will-change: transform, opacity;
-}
-
-.SecurityServicesThree--visible .SecurityServicesThree__eyebrowWrap {
-  opacity: 1;
-  transform: translateX(0);
-  transition-delay: 0.1s;
-}
-
-.SecurityServicesThree--visible .SecurityServicesThree__title {
-  opacity: 1;
-  transform: translateX(0);
-  transition-delay: 0.22s;
-}
-
-.SecurityServicesThree--visible .SecurityServicesThree__description {
-  opacity: 1;
-  transform: translateX(0);
-  transition-delay: 0.34s;
-}
-
-.SecurityServicesThree--visible .SecurityServicesThree__list {
-  opacity: 1;
-  transform: translateX(0);
-  transition-delay: 0.46s;
-}
-
-.SecurityServicesThree--visible .SecurityServicesThree__actionWrap {
-  opacity: 1;
-  transform: translateX(0);
-  transition-delay: 0.58s;
-}
-
-/* Eyebrow */
-.SecurityServicesThree__eyebrowWrap {
-  display: inline-flex;
-  align-items: center;
-  gap: 14px;
-  margin-bottom: 16px;
-}
-
-.SecurityServicesThree__eyebrowLine {
-  width: 32px;
-  height: 3px;
-  background-color: var(--SecurityServicesThree-red);
-  border-radius: 2px;
-  flex-shrink: 0;
-}
-
-.SecurityServicesThree__eyebrow {
-  font-size: 11.5px;
-  font-weight: 800;
-  letter-spacing: 2.8px;
-  color: #63676c;
-}
-
-/* Title */
-.SecurityServicesThree__title {
-  margin: 0 0 16px;
-  font-size: clamp(36px, 4vw, 54px);
-  font-weight: 700;
-  line-height: 1.12;
-  letter-spacing: -1.6px;
-  color: var(--SecurityServicesThree-dark);
-}
-
-.SecurityServicesThree__titleAccent {
-  color: var(--SecurityServicesThree-red);
-  font-family: Georgia, "Times New Roman", serif;
-  font-weight: 600;
-}
-
-/* Description */
-.SecurityServicesThree__description {
-  margin: 0 0 28px;
-  font-size: 16px;
-  line-height: 1.75;
-  color: var(--SecurityServicesThree-gray);
-  max-width: 520px;
-}
-
-/* List with check icons */
-.SecurityServicesThree__list {
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-  margin-bottom: 34px;
-}
-
-.SecurityServicesThree__item {
-  display: flex;
-  align-items: flex-start;
-  gap: 14px;
-}
-
-.SecurityServicesThree__checkIcon {
-  display: inline-grid;
-  place-items: center;
-  width: 24px;
-  height: 24px;
-  border-radius: 50%;
-  background-color: rgba(215, 25, 45, 0.1);
-  color: var(--SecurityServicesThree-red);
-  flex-shrink: 0;
-  margin-top: 2px;
-}
-
-.SecurityServicesThree__checkIcon svg {
-  width: 14px;
-  height: 14px;
-}
-
-.SecurityServicesThree__itemText {
-  display: flex;
-  flex-direction: column;
-}
-
-.SecurityServicesThree__itemTitle {
-  margin: 0 0 2px;
-  font-size: 14.5px;
-  font-weight: 700;
-  color: var(--SecurityServicesThree-charcoal);
-}
-
-.SecurityServicesThree__itemDetail {
-  margin: 0;
-  font-size: 13px;
-  color: var(--SecurityServicesThree-gray);
-  line-height: 1.5;
-}
-
-/* Primary Action Button */
-.SecurityServicesThree__actionWrap {
-  display: inline-block;
-}
-
-.SecurityServicesThree__linkPrimary {
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-  background-color: var(--SecurityServicesThree-red);
-  color: #ffffff;
-  padding: 13px 26px;
-  border-radius: 3px;
-  font-size: 13px;
-  font-weight: 700;
-  letter-spacing: 0.5px;
-  text-decoration: none;
-  box-shadow: 0 10px 24px rgba(215, 25, 45, 0.28);
-  transition: background-color 0.25s ease, transform 0.2s ease, box-shadow 0.25s ease;
-}
-
-.SecurityServicesThree__linkPrimary svg {
-  width: 16px;
-  height: 16px;
-  transition: transform 0.25s ease;
-}
-
-.SecurityServicesThree__linkPrimary:hover {
-  background-color: var(--SecurityServicesThree-red-hover);
-  transform: translateY(-2px);
-  box-shadow: 0 14px 28px rgba(215, 25, 45, 0.36);
-}
-
-.SecurityServicesThree__linkPrimary:hover svg {
-  transform: translateX(4px);
+  color: var(--prime-gray);
 }
 
 /* ========================================================
@@ -339,7 +339,7 @@
   }
 
   .SecurityServicesThree__imageClip {
-    clip-path: polygon(0% 0%, 100% 0%, 82% 100%, 0% 100%);
+    clip-path: polygon(18% 0%, 100% 0%, 100% 100%, 0% 100%);
   }
 }
 
@@ -349,12 +349,12 @@
   }
 
   .SecurityServicesThree__container {
-    flex-direction: column-reverse;
+    flex-direction: column;
     gap: 45px;
   }
 
-  .SecurityServicesThree__media,
-  .SecurityServicesThree__content {
+  .SecurityServicesThree__content,
+  .SecurityServicesThree__media {
     width: 100%;
     max-width: 100%;
     flex: none;
@@ -375,7 +375,7 @@
   }
 
   .SecurityServicesThree__badge {
-    right: 20px;
+    left: 20px;
     bottom: 20px;
   }
 }
@@ -426,7 +426,7 @@
   .SecurityServicesThree__eyebrowWrap,
   .SecurityServicesThree__title,
   .SecurityServicesThree__description,
-  .SecurityServicesThree__list,
+  .SecurityServicesThree__pillars,
   .SecurityServicesThree__actionWrap,
   .SecurityServicesThree__media,
   .SecurityServicesThree__image {

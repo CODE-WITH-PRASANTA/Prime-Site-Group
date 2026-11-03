@@ -43,7 +43,7 @@ const FacilityManagementMain = () => {
           </div>
 
           <h1 className="FacilityManagementMain__title">
-            Transguard <span className="FacilityManagementMain__titleAccent">Facility Management</span>
+            Prime Site <span className="FacilityManagementMain__titleAccent">Facility Management</span>
           </h1>
 
           <p className="FacilityManagementMain__lead">

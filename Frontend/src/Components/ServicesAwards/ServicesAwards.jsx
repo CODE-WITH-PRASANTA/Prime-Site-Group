@@ -1,4 +1,3 @@
-
 import React, { useEffect, useRef, useState } from "react";
 import {
   Award,
@@ -19,61 +18,61 @@ const ServicesAwards = () => {
   const awards = [
     {
       id: 1,
-      year: "2018",
-      title: "Dubai Quality Award",
-      subtitle: "Excellence in Quality Management",
+      year: "2020",
+      title: "Global Real Estate Excellence",
+      subtitle: "Best Digital Property Platform",
       description:
-        "Recognises organisations that demonstrate a strong commitment to continuous improvement, quality management and business excellence.",
+        "Recognising Prime Site for transforming property discovery through cutting-edge digital search, high-fidelity listings, and verified inventory.",
       icon: Trophy,
-      category: "QUALITY",
+      category: "INNOVATION",
     },
     {
       id: 2,
-      year: "2018",
-      title: "Sheikh Khalifa Excellence Award",
-      subtitle: "Gold Category",
+      year: "2021",
+      title: "National Property Quality Award",
+      subtitle: "Gold Standard in Advisory",
       description:
-        "Celebrating organisational excellence, effective leadership and sustained improvements in business performance.",
+        "Honouring Prime Site's outstanding market transparency, rigorous due-diligence protocols, and customer-first property advisory practices.",
       icon: Award,
       category: "EXCELLENCE",
     },
     {
       id: 3,
-      year: "2021",
-      title: "Mohammed Bin Rashid Al Maktoum Business Award",
-      subtitle: "Business Performance",
+      year: "2022",
+      title: "Sustainable Architecture & Living",
+      subtitle: "Eco-Friendly Community Partner",
       description:
-        "Recognises organisations demonstrating strong business practices, sustainable growth and outstanding performance.",
+        "Celebrating Prime Site's commitment to promoting green certifications, energy-efficient residences, and sustainable commercial developments.",
       icon: Medal,
-      category: "BUSINESS",
+      category: "SUSTAINABILITY",
     },
     {
       id: 4,
-      year: "2021",
-      title: "Business Innovation Award",
-      subtitle: "Innovation & Transformation",
+      year: "2023",
+      title: "Commercial Asset Leadership",
+      subtitle: "Portfolio Management Distinction",
       description:
-        "Celebrating innovative thinking, continuous development and initiatives that contribute to long-term business success.",
+        "Recognising Prime Site for high-yield portfolio strategies, seamless commercial transactions, and premier corporate tenant management.",
       icon: Star,
-      category: "INNOVATION",
+      category: "COMMERCIAL",
     },
     {
       id: 5,
-      year: "2021",
-      title: "Customer Excellence Award",
-      subtitle: "Customer Experience",
+      year: "2024",
+      title: "Client Trust & Security Award",
+      subtitle: "Customer Experience & Escrow Safety",
       description:
-        "Recognises a customer-first approach, consistent service quality and efforts to build lasting customer relationships.",
+        "Commending Prime Site for zero-compromise transaction integrity, seamless digital escrow integration, and dedicated client advisory.",
       icon: ShieldCheck,
-      category: "CUSTOMER CARE",
+      category: "TRUST & SAFETY",
     },
     {
       id: 6,
-      year: "2022",
-      title: "Dubai Quality Gold Award",
-      subtitle: "Commitment to Excellence",
+      year: "2025",
+      title: "Luxury Development Benchmark",
+      subtitle: "Premier Prime Residences",
       description:
-        "A quality-focused recognition theme representing continuous improvement, operational excellence and high standards.",
+        "Awarded to Prime Site for curating the most prestigious residential developments, high-net-worth services, and landmark architectural investments.",
       icon: BadgeCheck,
       category: "GOLD STANDARD",
     },
@@ -111,7 +110,7 @@ const ServicesAwards = () => {
         <header className="ServicesAwards__header">
           <div className="ServicesAwards__eyebrow">
             <span className="ServicesAwards__eyebrowLine" />
-            <span>AWARDS & RECOGNITION</span>
+            <span>HONOURS & INDUSTRY RECOGNITION</span>
           </div>
 
           <h2 className="ServicesAwards__title">
@@ -119,18 +118,18 @@ const ServicesAwards = () => {
           </h2>
 
           <p className="ServicesAwards__intro">
-            Since 2018, Transguard Cash has been recognised for its
-            commitment to organisational excellence, continuous
-            improvement, innovation and customer service. These
-            recognitions reflect the importance of maintaining
-            high standards and building lasting business relationships.
+            Since inception, Prime Site has been recognised across international
+            and regional platforms for redefining property advisory, commercial
+            management, digital innovation, and client satisfaction. These honours
+            reaffirm our promise of providing secure, high-value real estate
+            solutions and building enduring relationships.
           </p>
 
           <div className="ServicesAwards__summary">
             <div className="ServicesAwards__summaryItem">
               <span className="ServicesAwards__summaryNumber">06</span>
               <span className="ServicesAwards__summaryLabel">
-                FEATURED AWARDS
+                ACCREDITED ACCOLADES
               </span>
             </div>
 
@@ -141,7 +140,7 @@ const ServicesAwards = () => {
                 <Award size={19} />
               </span>
               <span className="ServicesAwards__summaryLabel">
-                A COMMITMENT TO EXCELLENCE
+                BENCHMARK OF PRIME EXCELLENCE
               </span>
             </div>
           </div>
@@ -193,7 +192,7 @@ const ServicesAwards = () => {
 
                 <div className="ServicesAwards__cardContent">
                   <span className="ServicesAwards__cardKicker">
-                    RECOGNITION · {item.year}
+                    PRIME SITE · {item.year}
                   </span>
 
                   <h3 className="ServicesAwards__cardTitle">
@@ -213,7 +212,7 @@ const ServicesAwards = () => {
                   <span className="ServicesAwards__footerLine" />
 
                   <span className="ServicesAwards__footerText">
-                    EXCELLENCE
+                    DISTINCTION
                   </span>
 
                   <span className="ServicesAwards__footerArrow">
@@ -239,11 +238,11 @@ const ServicesAwards = () => {
           </div>
 
           <p className="ServicesAwards__footerStatement">
-            Recognising achievement. Inspiring excellence. Building trust.
+            Celebrating achievement. Inspiring distinction. Delivering prime value.
           </p>
 
           <span className="ServicesAwards__footerCaption">
-            OUR STANDARD. OUR COMMITMENT.
+            PRIME SITE · BUILT ON TRUST & INTEGRITY
           </span>
         </footer>
       </div>

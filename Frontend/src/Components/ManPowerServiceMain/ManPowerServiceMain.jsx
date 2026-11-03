@@ -43,7 +43,7 @@ const ManPowerServiceMain = () => {
           </div>
 
           <h1 className="ManPowerServiceMain__title">
-            Transguard <span className="ManPowerServiceMain__titleAccent">Manpower Services</span>
+            PRIME SITE <span className="ManPowerServiceMain__titleAccent">Manpower Services</span>
           </h1>
 
           <p className="ManPowerServiceMain__lead">

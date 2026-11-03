@@ -1,0 +1,356 @@
+/* ========================================================
+   WORKFORCE SOLUTION FOUR - PRIME SITE ENTERPRISE STYLING
+======================================================== */
+
+.WorkforceSoluationFour {
+  --WS4-red: #d7192d;
+  --WS4-red-hover: #b51223;
+  --WS4-dark: #1f2124;
+  --WS4-charcoal: #2d3034;
+  --WS4-gray: #5c6066;
+  --WS4-light-gray: #f8fafc;
+  --WS4-border: #dde1e5;
+  --WS4-bg: #ffffff;
+  --WS4-ease: cubic-bezier(0.16, 1, 0.3, 1);
+
+  position: relative;
+  width: 100%;
+  padding: 80px 0 90px;
+  background-color: var(--WS4-bg);
+  font-family: "Inter", "Segoe UI", Arial, sans-serif;
+  color: var(--WS4-dark);
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+.WorkforceSoluationFour *,
+.WorkforceSoluationFour *::before,
+.WorkforceSoluationFour *::after {
+  box-sizing: border-box;
+}
+
+.WorkforceSoluationFour__container {
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 0 40px;
+}
+
+/* ========================================================
+   HEADER SECTION
+======================================================== */
+
+.WorkforceSoluationFour__header {
+  text-align: center;
+  max-width: 760px;
+  margin: 0 auto 50px;
+  opacity: 0;
+  transform: translateY(30px);
+  transition: transform 1.1s var(--WS4-ease), opacity 1.1s var(--WS4-ease);
+  will-change: transform, opacity;
+}
+
+.WorkforceSoluationFour--visible .WorkforceSoluationFour__header {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.WorkforceSoluationFour__eyebrowWrap {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  margin-bottom: 14px;
+}
+
+.WorkforceSoluationFour__eyebrowLine {
+  width: 28px;
+  height: 3px;
+  background-color: var(--WS4-red);
+  border-radius: 2px;
+  flex-shrink: 0;
+}
+
+.WorkforceSoluationFour__eyebrow {
+  font-size: 11.5px;
+  font-weight: 800;
+  letter-spacing: 2.8px;
+  color: #63676c;
+}
+
+.WorkforceSoluationFour__title {
+  margin: 0 0 16px;
+  font-size: clamp(34px, 4vw, 50px);
+  font-weight: 700;
+  line-height: 1.14;
+  letter-spacing: -1.4px;
+  color: var(--WS4-dark);
+}
+
+.WorkforceSoluationFour__titleAccent {
+  color: var(--WS4-red);
+  font-family: Georgia, "Times New Roman", serif;
+  font-weight: 600;
+}
+
+.WorkforceSoluationFour__description {
+  margin: 0;
+  font-size: 16px;
+  line-height: 1.75;
+  color: var(--WS4-gray);
+}
+
+/* ========================================================
+   METRICS BAR
+======================================================== */
+
+.WorkforceSoluationFour__metrics {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+  margin-bottom: 50px;
+  opacity: 0;
+  transform: translateY(35px);
+  transition: transform 1.1s var(--WS4-ease), opacity 1.1s var(--WS4-ease);
+  transition-delay: 0.15s;
+}
+
+.WorkforceSoluationFour--visible .WorkforceSoluationFour__metrics {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.WorkforceSoluationFour__metricCard {
+  background-color: var(--WS4-light-gray);
+  border: 1px solid var(--WS4-border);
+  border-radius: 6px;
+  padding: 24px 20px;
+  text-align: center;
+  transition: border-color 0.25s ease, transform 0.25s ease;
+}
+
+.WorkforceSoluationFour__metricCard:hover {
+  border-color: rgba(215, 25, 45, 0.4);
+  transform: translateY(-3px);
+}
+
+.WorkforceSoluationFour__metricValue {
+  display: block;
+  font-size: 38px;
+  font-weight: 800;
+  color: var(--WS4-red);
+  line-height: 1;
+  margin-bottom: 8px;
+  letter-spacing: -1px;
+}
+
+.WorkforceSoluationFour__metricLabel {
+  display: block;
+  font-size: 14.5px;
+  font-weight: 700;
+  color: var(--WS4-charcoal);
+  margin-bottom: 6px;
+}
+
+.WorkforceSoluationFour__metricSubtext {
+  margin: 0;
+  font-size: 12.5px;
+  color: var(--WS4-gray);
+  line-height: 1.5;
+}
+
+/* ========================================================
+   CARDS GRID
+======================================================== */
+
+.WorkforceSoluationFour__cardsGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 28px;
+  margin-bottom: 54px;
+  opacity: 0;
+  transform: translateY(40px);
+  transition: transform 1.1s var(--WS4-ease), opacity 1.1s var(--WS4-ease);
+  transition-delay: 0.3s;
+}
+
+.WorkforceSoluationFour--visible .WorkforceSoluationFour__cardsGrid {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.WorkforceSoluationFour__card {
+  background: #ffffff;
+  border: 1px solid var(--WS4-border);
+  border-radius: 8px;
+  padding: 36px 30px;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+}
+
+.WorkforceSoluationFour__card:hover {
+  transform: translateY(-6px);
+  border-color: rgba(215, 25, 45, 0.3);
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.08);
+}
+
+.WorkforceSoluationFour__cardTag {
+  display: inline-block;
+  align-self: flex-start;
+  padding: 4px 10px;
+  border-radius: 3px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+  color: var(--WS4-red);
+  background-color: rgba(215, 25, 45, 0.08);
+  margin-bottom: 18px;
+}
+
+.WorkforceSoluationFour__cardTitle {
+  margin: 0 0 12px;
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--WS4-charcoal);
+  line-height: 1.35;
+}
+
+.WorkforceSoluationFour__cardDesc {
+  margin: 0 0 24px;
+  font-size: 14px;
+  color: var(--WS4-gray);
+  line-height: 1.65;
+  flex-grow: 1;
+}
+
+.WorkforceSoluationFour__cardFooter {
+  padding-top: 18px;
+  border-top: 1px solid #f0f2f5;
+}
+
+.WorkforceSoluationFour__cardLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--WS4-dark);
+  text-decoration: none;
+  transition: color 0.2s ease, transform 0.2s ease;
+}
+
+.WorkforceSoluationFour__cardLink svg {
+  width: 15px;
+  height: 15px;
+  transition: transform 0.2s ease;
+}
+
+.WorkforceSoluationFour__cardLink:hover {
+  color: var(--WS4-red);
+}
+
+.WorkforceSoluationFour__cardLink:hover svg {
+  transform: translateX(4px);
+}
+
+/* ========================================================
+   PRIMARY ACTION / CTA
+======================================================== */
+
+.WorkforceSoluationFour__actionWrap {
+  text-align: center;
+  opacity: 0;
+  transform: translateY(30px);
+  transition: transform 1.1s var(--WS4-ease), opacity 1.1s var(--WS4-ease);
+  transition-delay: 0.45s;
+}
+
+.WorkforceSoluationFour--visible .WorkforceSoluationFour__actionWrap {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.WorkforceSoluationFour__linkPrimary {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background-color: var(--WS4-red);
+  color: #ffffff;
+  padding: 14px 32px;
+  border-radius: 3px;
+  font-size: 13.5px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  text-decoration: none;
+  box-shadow: 0 10px 24px rgba(215, 25, 45, 0.28);
+  transition: background-color 0.25s ease, transform 0.2s ease, box-shadow 0.25s ease;
+}
+
+.WorkforceSoluationFour__linkPrimary svg {
+  width: 16px;
+  height: 16px;
+  transition: transform 0.25s ease;
+}
+
+.WorkforceSoluationFour__linkPrimary:hover {
+  background-color: var(--WS4-red-hover);
+  transform: translateY(-2px);
+  box-shadow: 0 14px 28px rgba(215, 25, 45, 0.36);
+}
+
+.WorkforceSoluationFour__linkPrimary:hover svg {
+  transform: translateX(4px);
+}
+
+/* ========================================================
+   RESPONSIVE DESIGN
+======================================================== */
+
+@media (max-width: 1024px) {
+  .WorkforceSoluationFour__metrics {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .WorkforceSoluationFour__cardsGrid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+}
+
+@media (max-width: 650px) {
+  .WorkforceSoluationFour {
+    padding: 60px 0 70px;
+  }
+
+  .WorkforceSoluationFour__container {
+    padding: 0 20px;
+  }
+
+  .WorkforceSoluationFour__metrics {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+
+  .WorkforceSoluationFour__title {
+    font-size: 30px;
+  }
+
+  .WorkforceSoluationFour__linkPrimary {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+/* Accessibility */
+@media (prefers-reduced-motion: reduce) {
+  .WorkforceSoluationFour__header,
+  .WorkforceSoluationFour__metrics,
+  .WorkforceSoluationFour__cardsGrid,
+  .WorkforceSoluationFour__actionWrap {
+    transition: none !important;
+    transform: none !important;
+    opacity: 1 !important;
+  }
+}

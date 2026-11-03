@@ -1,0 +1,598 @@
+/* ========================================================
+   KITCHEN MAINTENANCE SOLUTIONS FIVE
+   PREMIUM DESIGN + ANIMATIONS + 3D HOVER
+======================================================== */
+
+.KitchenMaintenanceSolutionsFive {
+  --KitchenMaintenanceSolutionsFive-red: #d7192d;
+  --KitchenMaintenanceSolutionsFive-red-hover: #b51223;
+  --KitchenMaintenanceSolutionsFive-dark: #1f2124;
+  --KitchenMaintenanceSolutionsFive-charcoal: #2d3034;
+  --KitchenMaintenanceSolutionsFive-gray: #5c6066;
+  --KitchenMaintenanceSolutionsFive-border: #dde1e5;
+  --KitchenMaintenanceSolutionsFive-bg: #ffffff;
+  --KitchenMaintenanceSolutionsFive-ease: cubic-bezier(0.16, 1, 0.3, 1);
+
+  position: relative;
+  width: 100%;
+  padding: 10px 0 50px;
+  background-color: var(--KitchenMaintenanceSolutionsFive-bg);
+  font-family: "Inter", "Segoe UI", Arial, sans-serif;
+  color: var(--KitchenMaintenanceSolutionsFive-dark);
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+.KitchenMaintenanceSolutionsFive *,
+.KitchenMaintenanceSolutionsFive *::before,
+.KitchenMaintenanceSolutionsFive *::after {
+  box-sizing: border-box;
+}
+
+/* ========== MAIN CONTAINER ========== */
+
+.KitchenMaintenanceSolutionsFive__container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 0 40px;
+  gap: 65px;
+}
+
+/* ========== LEFT CONTENT ========== */
+
+.KitchenMaintenanceSolutionsFive__content {
+  flex: 1 1 50%;
+  max-width: 580px;
+  min-width: 0;
+  z-index: 2;
+}
+
+/* ========== ENTRANCE ANIMATION ========== */
+
+.KitchenMaintenanceSolutionsFive__eyebrowWrap,
+.KitchenMaintenanceSolutionsFive__title,
+.KitchenMaintenanceSolutionsFive__description,
+.KitchenMaintenanceSolutionsFive__list,
+.KitchenMaintenanceSolutionsFive__actionWrap {
+  opacity: 0;
+  transform: translateX(-50px);
+  transition:
+    transform 1.15s var(--KitchenMaintenanceSolutionsFive-ease),
+    opacity 1.15s var(--KitchenMaintenanceSolutionsFive-ease);
+  will-change: transform, opacity;
+}
+
+.KitchenMaintenanceSolutionsFive--visible
+  .KitchenMaintenanceSolutionsFive__eyebrowWrap {
+  opacity: 1;
+  transform: translateX(0);
+  transition-delay: 0.1s;
+}
+
+.KitchenMaintenanceSolutionsFive--visible
+  .KitchenMaintenanceSolutionsFive__title {
+  opacity: 1;
+  transform: translateX(0);
+  transition-delay: 0.22s;
+}
+
+.KitchenMaintenanceSolutionsFive--visible
+  .KitchenMaintenanceSolutionsFive__description {
+  opacity: 1;
+  transform: translateX(0);
+  transition-delay: 0.34s;
+}
+
+.KitchenMaintenanceSolutionsFive--visible
+  .KitchenMaintenanceSolutionsFive__list {
+  opacity: 1;
+  transform: translateX(0);
+  transition-delay: 0.46s;
+}
+
+.KitchenMaintenanceSolutionsFive--visible
+  .KitchenMaintenanceSolutionsFive__actionWrap {
+  opacity: 1;
+  transform: translateX(0);
+  transition-delay: 0.58s;
+}
+
+/* ========== EYEBROW ========== */
+
+.KitchenMaintenanceSolutionsFive__eyebrowWrap {
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 16px;
+}
+
+.KitchenMaintenanceSolutionsFive__eyebrowLine {
+  width: 32px;
+  height: 3px;
+  background-color: var(--KitchenMaintenanceSolutionsFive-red);
+  border-radius: 2px;
+  flex-shrink: 0;
+}
+
+.KitchenMaintenanceSolutionsFive__eyebrow {
+  font-size: 11.5px;
+  font-weight: 800;
+  letter-spacing: 2.8px;
+  color: #63676c;
+}
+
+/* ========== TITLE ========== */
+
+.KitchenMaintenanceSolutionsFive__title {
+  margin: 0 0 16px;
+  font-size: clamp(36px, 4vw, 56px);
+  font-weight: 700;
+  line-height: 1.12;
+  letter-spacing: -1.6px;
+  color: var(--KitchenMaintenanceSolutionsFive-dark);
+}
+
+.KitchenMaintenanceSolutionsFive__titlePrimary {
+  color: var(--KitchenMaintenanceSolutionsFive-dark);
+}
+
+.KitchenMaintenanceSolutionsFive__titleAccent {
+  color: var(--KitchenMaintenanceSolutionsFive-red);
+  font-family: Georgia, "Times New Roman", serif;
+  font-weight: 600;
+}
+
+/* ========== DESCRIPTION ========== */
+
+.KitchenMaintenanceSolutionsFive__description {
+  margin: 0 0 30px;
+  font-size: 16px;
+  line-height: 1.75;
+  color: var(--KitchenMaintenanceSolutionsFive-gray);
+  max-width: 520px;
+}
+
+/* ========== MAINTENANCE LIST ========== */
+
+.KitchenMaintenanceSolutionsFive__list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-bottom: 34px;
+}
+
+.KitchenMaintenanceSolutionsFive__item {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+}
+
+.KitchenMaintenanceSolutionsFive__checkIcon {
+  display: inline-grid;
+  place-items: center;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background-color: rgba(215, 25, 45, 0.1);
+  color: var(--KitchenMaintenanceSolutionsFive-red);
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.KitchenMaintenanceSolutionsFive__checkIcon svg {
+  width: 14px;
+  height: 14px;
+}
+
+.KitchenMaintenanceSolutionsFive__itemText {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.KitchenMaintenanceSolutionsFive__itemTitle {
+  margin: 0 0 2px;
+  font-size: 14.5px;
+  font-weight: 700;
+  line-height: 1.5;
+  color: var(--KitchenMaintenanceSolutionsFive-charcoal);
+}
+
+.KitchenMaintenanceSolutionsFive__itemDetail {
+  margin: 0;
+  font-size: 13px;
+  color: var(--KitchenMaintenanceSolutionsFive-gray);
+  line-height: 1.6;
+}
+
+/* ========== CTA BUTTON ========== */
+
+.KitchenMaintenanceSolutionsFive__actionWrap {
+  display: inline-block;
+}
+
+.KitchenMaintenanceSolutionsFive__btnPrimary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  background-color: var(--KitchenMaintenanceSolutionsFive-red);
+  color: #ffffff;
+  padding: 13px 28px;
+  border-radius: 3px;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  text-decoration: none;
+  box-shadow: 0 10px 24px rgba(215, 25, 45, 0.28);
+  transition:
+    background-color 0.25s ease,
+    transform 0.2s ease,
+    box-shadow 0.25s ease;
+}
+
+.KitchenMaintenanceSolutionsFive__btnPrimary svg {
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+  transition: transform 0.25s ease;
+}
+
+.KitchenMaintenanceSolutionsFive__btnPrimary:hover {
+  background-color: var(--KitchenMaintenanceSolutionsFive-red-hover);
+  transform: translateY(-2px);
+  box-shadow: 0 14px 28px rgba(215, 25, 45, 0.36);
+}
+
+.KitchenMaintenanceSolutionsFive__btnPrimary:hover svg {
+  transform: translateX(4px);
+}
+
+.KitchenMaintenanceSolutionsFive__btnPrimary:focus-visible {
+  outline: 2px solid var(--KitchenMaintenanceSolutionsFive-red);
+  outline-offset: 4px;
+}
+
+/* ========== RIGHT MEDIA: 3D IMAGE ========== */
+
+.KitchenMaintenanceSolutionsFive__media {
+  --KitchenMaintenanceSolutionsFive-rx: 0deg;
+  --KitchenMaintenanceSolutionsFive-ry: 0deg;
+  --KitchenMaintenanceSolutionsFive-scale: 1;
+  --KitchenMaintenanceSolutionsFive-shine-x: 50%;
+  --KitchenMaintenanceSolutionsFive-shine-y: 50%;
+
+  position: relative;
+  flex: 1 1 50%;
+  min-width: 0;
+  height: 580px;
+  perspective: 1200px;
+  opacity: 0;
+  transform: translateX(80px);
+  transition:
+    transform 1.25s var(--KitchenMaintenanceSolutionsFive-ease),
+    opacity 1.25s var(--KitchenMaintenanceSolutionsFive-ease);
+  will-change: transform, opacity;
+  cursor: pointer;
+}
+
+.KitchenMaintenanceSolutionsFive--visible
+  .KitchenMaintenanceSolutionsFive__media {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* ========== IMAGE CLIPPING ========== */
+
+.KitchenMaintenanceSolutionsFive__imageClip {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  clip-path: polygon(25% 0%, 100% 0%, 100% 100%, 0% 100%);
+  background-color: #1a1c1e;
+  box-shadow: -15px 25px 50px rgba(0, 0, 0, 0.14);
+
+  transform:
+    rotateX(var(--KitchenMaintenanceSolutionsFive-rx))
+    rotateY(var(--KitchenMaintenanceSolutionsFive-ry))
+    scale(var(--KitchenMaintenanceSolutionsFive-scale));
+
+  transition: transform 0.22s ease-out;
+  transform-style: preserve-3d;
+}
+
+.KitchenMaintenanceSolutionsFive__image {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  transform: scale(1.08);
+  transition: transform 0.5s ease-out;
+}
+
+.KitchenMaintenanceSolutionsFive__media:hover
+  .KitchenMaintenanceSolutionsFive__image {
+  transform: scale(1.14);
+}
+
+/* ========== LIGHT SWEEP ========== */
+
+.KitchenMaintenanceSolutionsFive__lightSweep {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+
+  background: radial-gradient(
+    circle 320px at
+      var(--KitchenMaintenanceSolutionsFive-shine-x)
+      var(--KitchenMaintenanceSolutionsFive-shine-y),
+    rgba(255, 255, 255, 0.22) 0%,
+    transparent 75%
+  );
+
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  mix-blend-mode: overlay;
+  z-index: 2;
+}
+
+.KitchenMaintenanceSolutionsFive__media:hover
+  .KitchenMaintenanceSolutionsFive__lightSweep {
+  opacity: 1;
+}
+
+/* ========== IMAGE SHADE ========== */
+
+.KitchenMaintenanceSolutionsFive__imageShade {
+  position: absolute;
+  inset: 0;
+
+  background: linear-gradient(
+    135deg,
+    rgba(215, 25, 45, 0.08) 0%,
+    transparent 50%,
+    rgba(20, 22, 25, 0.35) 100%
+  );
+
+  pointer-events: none;
+}
+
+/* ========== FLOATING BADGE ========== */
+
+.KitchenMaintenanceSolutionsFive__badge {
+  position: absolute;
+  bottom: 40px;
+  left: 20px;
+  z-index: 3;
+
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+
+  max-width: calc(100% - 40px);
+  padding: 14px 20px;
+
+  background: rgba(255, 255, 255, 0.94);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+
+  border: 1px solid rgba(255, 255, 255, 0.8);
+  border-radius: 8px;
+
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.12);
+  transition: transform 0.3s ease;
+}
+
+.KitchenMaintenanceSolutionsFive__media:hover
+  .KitchenMaintenanceSolutionsFive__badge {
+  transform: translateY(-4px);
+}
+
+.KitchenMaintenanceSolutionsFive__badgeDot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: var(--KitchenMaintenanceSolutionsFive-red);
+  box-shadow: 0 0 10px rgba(215, 25, 45, 0.6);
+  flex-shrink: 0;
+}
+
+.KitchenMaintenanceSolutionsFive__badgeInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.KitchenMaintenanceSolutionsFive__badgeInfo strong {
+  font-size: 13px;
+  font-weight: 700;
+  line-height: 1.4;
+  color: var(--KitchenMaintenanceSolutionsFive-dark);
+}
+
+.KitchenMaintenanceSolutionsFive__badgeInfo span {
+  font-size: 11px;
+  line-height: 1.5;
+  color: var(--KitchenMaintenanceSolutionsFive-gray);
+}
+
+/* ========== RESPONSIVE: LAPTOP ========== */
+
+@media (max-width: 1200px) {
+  .KitchenMaintenanceSolutionsFive__container {
+    gap: 40px;
+    padding: 0 30px;
+  }
+
+  .KitchenMaintenanceSolutionsFive__media {
+    height: 500px;
+  }
+
+  .KitchenMaintenanceSolutionsFive__imageClip {
+    clip-path: polygon(18% 0%, 100% 0%, 100% 100%, 0% 100%);
+  }
+}
+
+/* ========== RESPONSIVE: TABLET ========== */
+
+@media (max-width: 900px) {
+  .KitchenMaintenanceSolutionsFive {
+    padding: 70px 0 80px;
+  }
+
+  .KitchenMaintenanceSolutionsFive__container {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 45px;
+  }
+
+  .KitchenMaintenanceSolutionsFive__content,
+  .KitchenMaintenanceSolutionsFive__media {
+    width: 100%;
+    max-width: 100%;
+    flex: none;
+  }
+
+  .KitchenMaintenanceSolutionsFive__media {
+    height: 380px;
+    perspective: none;
+  }
+
+  .KitchenMaintenanceSolutionsFive__imageClip {
+    clip-path: none;
+    border-radius: 12px;
+    transform: none !important;
+  }
+
+  .KitchenMaintenanceSolutionsFive__badge {
+    left: 20px;
+    bottom: 20px;
+  }
+}
+
+/* ========== RESPONSIVE: MOBILE ========== */
+
+@media (max-width: 560px) {
+  .KitchenMaintenanceSolutionsFive {
+    padding: 50px 0 60px;
+  }
+
+  .KitchenMaintenanceSolutionsFive__container {
+    padding: 0 20px;
+    gap: 35px;
+  }
+
+  .KitchenMaintenanceSolutionsFive__title {
+    font-size: 32px;
+    letter-spacing: -1.2px;
+  }
+
+  .KitchenMaintenanceSolutionsFive__description {
+    font-size: 14.5px;
+    line-height: 1.75;
+    margin-bottom: 20px;
+  }
+
+  .KitchenMaintenanceSolutionsFive__list {
+    gap: 18px;
+    margin-bottom: 28px;
+  }
+
+  .KitchenMaintenanceSolutionsFive__item {
+    gap: 12px;
+  }
+
+  .KitchenMaintenanceSolutionsFive__itemTitle {
+    font-size: 14px;
+  }
+
+  .KitchenMaintenanceSolutionsFive__itemDetail {
+    font-size: 12.5px;
+  }
+
+  .KitchenMaintenanceSolutionsFive__media {
+    height: 270px;
+  }
+
+  .KitchenMaintenanceSolutionsFive__btnPrimary {
+    width: 100%;
+    justify-content: center;
+    padding: 14px 20px;
+  }
+
+  .KitchenMaintenanceSolutionsFive__badge {
+    left: 12px;
+    bottom: 12px;
+    padding: 10px 14px;
+    gap: 9px;
+    max-width: calc(100% - 24px);
+  }
+
+  .KitchenMaintenanceSolutionsFive__badgeInfo strong {
+    font-size: 12px;
+  }
+
+  .KitchenMaintenanceSolutionsFive__badgeInfo span {
+    font-size: 10px;
+  }
+}
+
+/* ========== RESPONSIVE: SMALL MOBILE ========== */
+
+@media (max-width: 360px) {
+  .KitchenMaintenanceSolutionsFive__container {
+    padding: 0 15px;
+  }
+
+  .KitchenMaintenanceSolutionsFive__title {
+    font-size: 29px;
+  }
+
+  .KitchenMaintenanceSolutionsFive__media {
+    height: 230px;
+  }
+
+  .KitchenMaintenanceSolutionsFive__badge {
+    left: 8px;
+    bottom: 8px;
+    padding: 9px 10px;
+  }
+}
+
+/* ========== ACCESSIBILITY ========== */
+
+@media (prefers-reduced-motion: reduce) {
+  .KitchenMaintenanceSolutionsFive__eyebrowWrap,
+  .KitchenMaintenanceSolutionsFive__title,
+  .KitchenMaintenanceSolutionsFive__description,
+  .KitchenMaintenanceSolutionsFive__list,
+  .KitchenMaintenanceSolutionsFive__actionWrap,
+  .KitchenMaintenanceSolutionsFive__media,
+  .KitchenMaintenanceSolutionsFive__image,
+  .KitchenMaintenanceSolutionsFive__imageClip,
+  .KitchenMaintenanceSolutionsFive__badge,
+  .KitchenMaintenanceSolutionsFive__btnPrimary,
+  .KitchenMaintenanceSolutionsFive__lightSweep {
+    transition: none !important;
+    animation: none !important;
+  }
+
+  .KitchenMaintenanceSolutionsFive__eyebrowWrap,
+  .KitchenMaintenanceSolutionsFive__title,
+  .KitchenMaintenanceSolutionsFive__description,
+  .KitchenMaintenanceSolutionsFive__list,
+  .KitchenMaintenanceSolutionsFive__actionWrap,
+  .KitchenMaintenanceSolutionsFive__media {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+
+  .KitchenMaintenanceSolutionsFive__imageClip {
+    transform: none !important;
+  }
+}

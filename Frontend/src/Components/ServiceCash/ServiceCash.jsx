@@ -12,7 +12,7 @@ const ServiceCash = () => {
   return (
     <section
       className={`ServiceCash ${isLoaded ? "ServiceCash--loaded" : ""}`}
-      aria-label="Transguard Cash Services Overview"
+      aria-label="Prime site Cash Services Overview"
     >
       {/* 45% Visual Right Media (Armoured Fleet Background) */}
       <div className="ServiceCash__mediaWrap">
@@ -43,11 +43,11 @@ const ServiceCash = () => {
           </div>
 
           <h1 className="ServiceCash__title">
-            Transguard <span className="ServiceCash__titleAccent">Cash Services[cite: 11]</span>
+            PRIME SITE <span className="ServiceCash__titleAccent">Cash Services[cite: 11]</span>
           </h1>
 
           <p className="ServiceCash__lead">
-            A market leader in cash management and ATM services, Transguard Cash
+            A market leader in cash management and ATM services, Prime site Cash
             offers complete end-to-end cash management solutions to banks,
             financial institutions, major retailers as well as corporate and VIP
             customers[cite: 11].

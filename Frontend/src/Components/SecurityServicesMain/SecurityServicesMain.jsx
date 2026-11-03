@@ -12,7 +12,7 @@ const SecurityServicesMain = () => {
   return (
     <section
       className={`SecurityServicesMain ${isLoaded ? "SecurityServicesMain--loaded" : ""}`}
-      aria-label="Transguard Security Services Overview"
+      aria-label="Prime Site Security Services Overview"
     >
       {/* 45% Visual Right Media */}
       <div className="SecurityServicesMain__mediaWrap">
@@ -43,7 +43,7 @@ const SecurityServicesMain = () => {
           </div>
 
           <h1 className="SecurityServicesMain__title">
-            Transguard <span className="SecurityServicesMain__titleAccent">Security Services</span>
+            Prime Site <span className="SecurityServicesMain__titleAccent">Security Services</span>
           </h1>
 
           <p className="SecurityServicesMain__lead">

@@ -78,12 +78,12 @@ const serviceItems = [
     path: "/services/taste-of-home",
   },
   {
-    title: "Transguard Living",
-    path: "/services/transguard-living",
+    title: "Prime Site Living",
+    path: "/services/prime-site-living",
   },
   {
-    title: "Transguard Delivery",
-    path: "/services/transguard-delivery",
+    title: "Prime Site Delivery",
+    path: "/services/prime-site-delivery",
   },
   {
     title: "Kitchen Maintenance Solutions",

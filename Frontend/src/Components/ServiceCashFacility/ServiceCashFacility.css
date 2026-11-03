@@ -1,25 +1,26 @@
 /* ========================================================
-   SERVICE CASH FACILITY - HIGH-SECURITY FACILITIES SECTION
+   SERVICE CASH FACILITY - PRIME SITE DESIGN SYSTEM
 ======================================================== */
 
 .ServiceCashFacility {
-  --ServiceCashFacility-red: #d7192d;
-  --ServiceCashFacility-red-hover: #b51223;
-  --ServiceCashFacility-dark: #1f2124;
-  --ServiceCashFacility-charcoal: #2d3034;
-  --ServiceCashFacility-gray: #5c6066;
-  --ServiceCashFacility-border: #dde1e5;
-  --ServiceCashFacility-bg: #ffffff;
-  --ServiceCashFacility-ease: cubic-bezier(0.16, 1, 0.3, 1);
+  --SCF-red: #d7192d;
+  --SCF-red-hover: #b51223;
+  --SCF-dark: #1f2124;
+  --SCF-charcoal: #2d3034;
+  --SCF-gray: #5c6066;
+  --SCF-card-bg: #f8fafc;
+  --SCF-border: #dde1e5;
+  --SCF-bg: #ffffff;
+  --SCF-ease: cubic-bezier(0.16, 1, 0.3, 1);
 
   position: relative;
   width: 100%;
-  padding: 10px 0 90px;
-  background-color: var(--ServiceCashFacility-bg);
+  padding: 80px 0 90px;
+  background-color: var(--SCF-bg);
   font-family: "Inter", "Segoe UI", Arial, sans-serif;
-  color: var(--ServiceCashFacility-dark);
-  overflow: hidden;
+  color: var(--SCF-dark);
   box-sizing: border-box;
+  overflow: hidden;
 }
 
 .ServiceCashFacility *,
@@ -29,179 +30,39 @@
 }
 
 .ServiceCashFacility__container {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
   max-width: 1440px;
   margin: 0 auto;
   padding: 0 40px;
-  gap: 65px;
 }
 
-/* ========================================================
-   LEFT MEDIA: ANGLED CUT & SMOOTH IMAGE ZOOM
-======================================================== */
-
-.ServiceCashFacility__media {
-  position: relative;
-  flex: 1 1 50%;
-  height: 580px;
+/* Header */
+.ServiceCashFacility__header {
+  text-align: center;
+  max-width: 780px;
+  margin: 0 auto 56px;
   opacity: 0;
-  transform: translateX(-80px);
-  transition: transform 1.25s var(--ServiceCashFacility-ease),
-              opacity 1.25s var(--ServiceCashFacility-ease);
+  transform: translateY(30px);
+  transition: transform 1.1s var(--SCF-ease), opacity 1.1s var(--SCF-ease);
   will-change: transform, opacity;
 }
 
-.ServiceCashFacility--visible .ServiceCashFacility__media {
+.ServiceCashFacility--visible .ServiceCashFacility__header {
   opacity: 1;
-  transform: translateX(0);
+  transform: translateY(0);
 }
 
-.ServiceCashFacility__imageClip {
-  position: relative;
-  width: 100%;
-  height: 100%;
-  overflow: hidden;
-  /* Slanted diagonal cutting inward on the right border */
-  clip-path: polygon(0% 0%, 100% 0%, 75% 100%, 0% 100%);
-  background-color: #1a1c1e;
-  box-shadow: 15px 25px 50px rgba(0, 0, 0, 0.12);
-}
-
-.ServiceCashFacility__image {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: center;
-  transform: scale(1.08);
-  transition: transform 4.5s ease-out;
-  display: block;
-}
-
-.ServiceCashFacility--visible .ServiceCashFacility__image {
-  transform: scale(1);
-}
-
-.ServiceCashFacility__imageShade {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(
-    135deg,
-    rgba(215, 25, 45, 0.08) 0%,
-    transparent 50%,
-    rgba(20, 22, 25, 0.35) 100%
-  );
-  pointer-events: none;
-}
-
-/* Floating Status Badge */
-.ServiceCashFacility__badge {
-  position: absolute;
-  bottom: 40px;
-  right: 25px;
-  z-index: 3;
-  display: inline-flex;
-  align-items: center;
-  gap: 12px;
-  padding: 14px 20px;
-  background: rgba(255, 255, 255, 0.94);
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
-  border: 1px solid rgba(255, 255, 255, 0.8);
-  border-radius: 8px;
-  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.12);
-}
-
-.ServiceCashFacility__badgeDot {
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
-  background: var(--ServiceCashFacility-red);
-  box-shadow: 0 0 10px rgba(215, 25, 45, 0.6);
-  flex-shrink: 0;
-}
-
-.ServiceCashFacility__badgeInfo {
-  display: flex;
-  flex-direction: column;
-}
-
-.ServiceCashFacility__badgeInfo strong {
-  font-size: 13px;
-  font-weight: 700;
-  color: var(--ServiceCashFacility-dark);
-}
-
-.ServiceCashFacility__badgeInfo span {
-  font-size: 11px;
-  color: var(--ServiceCashFacility-gray);
-}
-
-/* ========================================================
-   RIGHT CONTENT: STAGGERED ENTRANCE ANIMATIONS
-======================================================== */
-
-.ServiceCashFacility__content {
-  flex: 1 1 50%;
-  max-width: 580px;
-  z-index: 2;
-}
-
-.ServiceCashFacility__eyebrowWrap,
-.ServiceCashFacility__title,
-.ServiceCashFacility__description,
-.ServiceCashFacility__list,
-.ServiceCashFacility__actionWrap {
-  opacity: 0;
-  transform: translateX(45px);
-  transition: transform 1.1s var(--ServiceCashFacility-ease),
-              opacity 1.1s var(--ServiceCashFacility-ease);
-  will-change: transform, opacity;
-}
-
-.ServiceCashFacility--visible .ServiceCashFacility__eyebrowWrap {
-  opacity: 1;
-  transform: translateX(0);
-  transition-delay: 0.1s;
-}
-
-.ServiceCashFacility--visible .ServiceCashFacility__title {
-  opacity: 1;
-  transform: translateX(0);
-  transition-delay: 0.22s;
-}
-
-.ServiceCashFacility--visible .ServiceCashFacility__description {
-  opacity: 1;
-  transform: translateX(0);
-  transition-delay: 0.34s;
-}
-
-.ServiceCashFacility--visible .ServiceCashFacility__list {
-  opacity: 1;
-  transform: translateX(0);
-  transition-delay: 0.46s;
-}
-
-.ServiceCashFacility--visible .ServiceCashFacility__actionWrap {
-  opacity: 1;
-  transform: translateX(0);
-  transition-delay: 0.58s;
-}
-
-/* Eyebrow */
 .ServiceCashFacility__eyebrowWrap {
   display: inline-flex;
   align-items: center;
-  gap: 14px;
-  margin-bottom: 16px;
+  justify-content: center;
+  gap: 12px;
+  margin-bottom: 14px;
 }
 
 .ServiceCashFacility__eyebrowLine {
-  width: 32px;
+  width: 28px;
   height: 3px;
-  background-color: var(--ServiceCashFacility-red);
+  background-color: var(--SCF-red);
   border-radius: 2px;
   flex-shrink: 0;
 }
@@ -213,100 +74,221 @@
   color: #63676c;
 }
 
-/* Title */
 .ServiceCashFacility__title {
   margin: 0 0 16px;
-  font-size: clamp(36px, 4vw, 54px);
+  font-size: clamp(34px, 4vw, 50px);
   font-weight: 700;
-  line-height: 1.12;
-  letter-spacing: -1.6px;
-  color: var(--ServiceCashFacility-dark);
+  line-height: 1.14;
+  letter-spacing: -1.4px;
+  color: var(--SCF-dark);
 }
 
 .ServiceCashFacility__titleAccent {
-  color: var(--ServiceCashFacility-red);
+  color: var(--SCF-red);
   font-family: Georgia, "Times New Roman", serif;
   font-weight: 600;
 }
 
-/* Description */
 .ServiceCashFacility__description {
-  margin: 0 0 28px;
+  margin: 0;
   font-size: 16px;
   line-height: 1.75;
-  color: var(--ServiceCashFacility-gray);
-  max-width: 520px;
+  color: var(--SCF-gray);
 }
 
-/* List with check icons */
-.ServiceCashFacility__list {
+/* Grid */
+.ServiceCashFacility__grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+  margin-bottom: 45px;
+  opacity: 0;
+  transform: translateY(35px);
+  transition: transform 1.1s var(--SCF-ease), opacity 1.1s var(--SCF-ease);
+  transition-delay: 0.15s;
+  will-change: transform, opacity;
+}
+
+.ServiceCashFacility--visible .ServiceCashFacility__grid {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.ServiceCashFacility__card {
+  background: var(--SCF-card-bg);
+  border: 1px solid var(--SCF-border);
+  border-radius: 8px;
+  padding: 30px 24px;
   display: flex;
   flex-direction: column;
-  gap: 16px;
-  margin-bottom: 34px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease,
+    background 0.3s ease;
 }
 
-.ServiceCashFacility__item {
+.ServiceCashFacility__card:hover {
+  background: #ffffff;
+  border-color: rgba(215, 25, 45, 0.35);
+  transform: translateY(-6px);
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.08);
+}
+
+.ServiceCashFacility__cardTop {
   display: flex;
-  align-items: flex-start;
-  gap: 14px;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 18px;
 }
 
-.ServiceCashFacility__checkIcon {
-  display: inline-grid;
-  place-items: center;
-  width: 24px;
-  height: 24px;
-  border-radius: 50%;
-  background-color: rgba(215, 25, 45, 0.1);
-  color: var(--ServiceCashFacility-red);
-  flex-shrink: 0;
-  margin-top: 2px;
+.ServiceCashFacility__iconBox {
+  width: 46px;
+  height: 46px;
+  border-radius: 6px;
+  background-color: rgba(215, 25, 45, 0.08);
+  color: var(--SCF-red);
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.ServiceCashFacility__checkIcon svg {
+.ServiceCashFacility__iconBox svg {
+  width: 22px;
+  height: 22px;
+}
+
+.ServiceCashFacility__cardTag {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  color: var(--SCF-charcoal);
+  background-color: #e9ecef;
+  padding: 4px 8px;
+  border-radius: 3px;
+}
+
+.ServiceCashFacility__cardTitle {
+  margin: 0 0 12px;
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--SCF-charcoal);
+  line-height: 1.35;
+}
+
+.ServiceCashFacility__cardDetail {
+  margin: 0 0 24px;
+  font-size: 13.5px;
+  line-height: 1.65;
+  color: var(--SCF-gray);
+  flex-grow: 1;
+}
+
+.ServiceCashFacility__cardFooter {
+  padding-top: 18px;
+  border-top: 1px solid var(--SCF-border);
+}
+
+.ServiceCashFacility__cardLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12.5px;
+  font-weight: 700;
+  color: var(--SCF-dark);
+  text-decoration: none;
+  transition: color 0.2s ease, transform 0.2s ease;
+}
+
+.ServiceCashFacility__cardLink svg {
   width: 14px;
   height: 14px;
+  transition: transform 0.2s ease;
 }
 
-.ServiceCashFacility__itemText {
-  display: flex;
-  flex-direction: column;
+.ServiceCashFacility__cardLink:hover {
+  color: var(--SCF-red);
 }
 
-.ServiceCashFacility__itemTitle {
-  margin: 0 0 2px;
-  font-size: 14.5px;
-  font-weight: 700;
-  color: var(--ServiceCashFacility-charcoal);
+.ServiceCashFacility__cardLink:hover svg {
+  transform: translateX(4px);
 }
 
-.ServiceCashFacility__itemDetail {
-  margin: 0;
-  font-size: 13px;
-  color: var(--ServiceCashFacility-gray);
-  line-height: 1.5;
+/* Stats Strip */
+.ServiceCashFacility__statsStrip {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  background-color: #1a1c1e;
+  border-radius: 8px;
+  padding: 32px 28px;
+  margin-bottom: 50px;
+  opacity: 0;
+  transform: translateY(30px);
+  transition: transform 1.1s var(--SCF-ease), opacity 1.1s var(--SCF-ease);
+  transition-delay: 0.3s;
 }
 
-/* Primary Action Button */
+.ServiceCashFacility--visible .ServiceCashFacility__statsStrip {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.ServiceCashFacility__statItem {
+  text-align: center;
+  border-right: 1px solid rgba(255, 255, 255, 0.12);
+  padding: 0 16px;
+}
+
+.ServiceCashFacility__statItem:last-child {
+  border-right: none;
+}
+
+.ServiceCashFacility__statValue {
+  display: block;
+  font-size: 32px;
+  font-weight: 800;
+  color: #ffffff;
+  letter-spacing: -0.8px;
+  margin-bottom: 6px;
+}
+
+.ServiceCashFacility__statLabel {
+  display: block;
+  font-size: 12px;
+  color: #a0a6b1;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  line-height: 1.4;
+}
+
+/* Action CTA */
 .ServiceCashFacility__actionWrap {
-  display: inline-block;
+  text-align: center;
+  opacity: 0;
+  transform: translateY(25px);
+  transition: transform 1.1s var(--SCF-ease), opacity 1.1s var(--SCF-ease);
+  transition-delay: 0.45s;
+}
+
+.ServiceCashFacility--visible .ServiceCashFacility__actionWrap {
+  opacity: 1;
+  transform: translateY(0);
 }
 
 .ServiceCashFacility__linkPrimary {
   display: inline-flex;
   align-items: center;
   gap: 10px;
-  background-color: var(--ServiceCashFacility-red);
+  background-color: var(--SCF-red);
   color: #ffffff;
-  padding: 13px 26px;
+  padding: 14px 32px;
   border-radius: 3px;
-  font-size: 13px;
+  font-size: 13.5px;
   font-weight: 700;
   letter-spacing: 0.5px;
   text-decoration: none;
   box-shadow: 0 10px 24px rgba(215, 25, 45, 0.28);
-  transition: background-color 0.25s ease, transform 0.2s ease, box-shadow 0.25s ease;
+  transition: background-color 0.25s ease, transform 0.2s ease,
+    box-shadow 0.25s ease;
 }
 
 .ServiceCashFacility__linkPrimary svg {
@@ -316,7 +298,7 @@
 }
 
 .ServiceCashFacility__linkPrimary:hover {
-  background-color: var(--ServiceCashFacility-red-hover);
+  background-color: var(--SCF-red-hover);
   transform: translateY(-2px);
   box-shadow: 0 14px 28px rgba(215, 25, 45, 0.36);
 }
@@ -325,112 +307,69 @@
   transform: translateX(4px);
 }
 
-/* ========================================================
-   RESPONSIVE DESIGN (ALL BREAKPOINTS)
-======================================================== */
-
+/* Responsive */
 @media (max-width: 1200px) {
-  .ServiceCashFacility__container {
-    gap: 40px;
-    padding: 0 30px;
+  .ServiceCashFacility__grid {
+    grid-template-columns: repeat(2, 1fr);
   }
 
-  .ServiceCashFacility__media {
-    height: 500px;
+  .ServiceCashFacility__statsStrip {
+    grid-template-columns: repeat(2, 1fr);
+    row-gap: 24px;
   }
 
-  .ServiceCashFacility__imageClip {
-    clip-path: polygon(0% 0%, 100% 0%, 82% 100%, 0% 100%);
-  }
-}
-
-@media (max-width: 900px) {
-  .ServiceCashFacility {
-    padding: 70px 0 80px;
-  }
-
-  .ServiceCashFacility__container {
-    flex-direction: column-reverse;
-    gap: 45px;
-  }
-
-  .ServiceCashFacility__media,
-  .ServiceCashFacility__content {
-    width: 100%;
-    max-width: 100%;
-    flex: none;
-  }
-
-  .ServiceCashFacility__media {
-    height: 380px;
-    transform: none;
-  }
-
-  .ServiceCashFacility__content {
-    transform: none;
-  }
-
-  .ServiceCashFacility__imageClip {
-    clip-path: none;
-    border-radius: 12px;
-  }
-
-  .ServiceCashFacility__badge {
-    right: 20px;
-    bottom: 20px;
+  .ServiceCashFacility__statItem:nth-child(2) {
+    border-right: none;
   }
 }
 
-@media (max-width: 560px) {
+@media (max-width: 650px) {
   .ServiceCashFacility {
-    padding: 50px 0 60px;
+    padding: 60px 0 70px;
   }
 
   .ServiceCashFacility__container {
     padding: 0 20px;
   }
 
+  .ServiceCashFacility__grid {
+    grid-template-columns: 1fr;
+    gap: 18px;
+  }
+
+  .ServiceCashFacility__statsStrip {
+    grid-template-columns: 1fr;
+    row-gap: 20px;
+    padding: 24px 18px;
+  }
+
+  .ServiceCashFacility__statItem {
+    border-right: none;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    padding-bottom: 16px;
+  }
+
+  .ServiceCashFacility__statItem:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
+  }
+
   .ServiceCashFacility__title {
-    font-size: 32px;
-    letter-spacing: -1.2px;
-  }
-
-  .ServiceCashFacility__description {
-    font-size: 14.5px;
-    margin-bottom: 20px;
-  }
-
-  .ServiceCashFacility__media {
-    height: 270px;
+    font-size: 30px;
   }
 
   .ServiceCashFacility__linkPrimary {
     width: 100%;
     justify-content: center;
   }
-
-  .ServiceCashFacility__badge {
-    padding: 10px 14px;
-  }
-
-  .ServiceCashFacility__badgeInfo strong {
-    font-size: 12px;
-  }
-
-  .ServiceCashFacility__badgeInfo span {
-    font-size: 10px;
-  }
 }
 
 /* Accessibility */
 @media (prefers-reduced-motion: reduce) {
-  .ServiceCashFacility__eyebrowWrap,
-  .ServiceCashFacility__title,
-  .ServiceCashFacility__description,
-  .ServiceCashFacility__list,
-  .ServiceCashFacility__actionWrap,
-  .ServiceCashFacility__media,
-  .ServiceCashFacility__image {
+  .ServiceCashFacility__header,
+  .ServiceCashFacility__grid,
+  .ServiceCashFacility__statsStrip,
+  .ServiceCashFacility__actionWrap {
     transition: none !important;
     transform: none !important;
     opacity: 1 !important;
