@@ -108,7 +108,7 @@ const Navbar = () => {
   const navbarRef = useRef(null);
   const location = useLocation();
 
-  // Close the navigation after an actual route change.
+  // Close all menus after a route change.
   useEffect(() => {
     setMobileMenuOpen(false);
     setServicesOpen(false);
@@ -118,10 +118,7 @@ const Navbar = () => {
   // Close menus when clicking outside the navbar.
   useEffect(() => {
     const handleOutsideClick = (event) => {
-      if (
-        navbarRef.current &&
-        !navbarRef.current.contains(event.target)
-      ) {
+      if (navbarRef.current && !navbarRef.current.contains(event.target)) {
         setServicesOpen(false);
         setActiveSubmenu(null);
         setMobileMenuOpen(false);
@@ -129,16 +126,10 @@ const Navbar = () => {
     };
 
     document.addEventListener("mousedown", handleOutsideClick);
-
-    return () => {
-      document.removeEventListener(
-        "mousedown",
-        handleOutsideClick
-      );
-    };
+    return () => document.removeEventListener("mousedown", handleOutsideClick);
   }, []);
 
-  // Close menus when the user presses Escape.
+  // Close menus with Escape.
   useEffect(() => {
     const handleEscape = (event) => {
       if (event.key === "Escape") {
@@ -149,10 +140,7 @@ const Navbar = () => {
     };
 
     document.addEventListener("keydown", handleEscape);
-
-    return () => {
-      document.removeEventListener("keydown", handleEscape);
-    };
+    return () => document.removeEventListener("keydown", handleEscape);
   }, []);
 
   const closeMobileMenu = () => {
@@ -163,23 +151,23 @@ const Navbar = () => {
 
   const toggleMobileMenu = () => {
     setMobileMenuOpen((previous) => !previous);
-
-    // Reset dropdowns only when toggling the main mobile menu.
     setServicesOpen(false);
     setActiveSubmenu(null);
   };
 
+  // Used only by the Services arrow on tablet/mobile.
   const toggleServices = () => {
     setServicesOpen((previous) => !previous);
     setActiveSubmenu(null);
   };
 
   const toggleSubmenu = (title) => {
-    setActiveSubmenu((previous) =>
+    setActiveSubmenu((previous) => (
       previous === title ? null : title
-    );
+    ));
   };
 
+  // Desktop: open the mega menu only on hover.
   const handleServicesMouseEnter = () => {
     if (window.matchMedia("(min-width: 992px)").matches) {
       setServicesOpen(true);
@@ -215,47 +203,30 @@ const Navbar = () => {
           type="button"
           className="navbar__mobile-toggle"
           onClick={toggleMobileMenu}
-          aria-label={
-            mobileMenuOpen
-              ? "Close navigation"
-              : "Open navigation"
-          }
+          aria-label={mobileMenuOpen ? "Close navigation" : "Open navigation"}
           aria-expanded={mobileMenuOpen}
           aria-controls="navbar-navigation"
         >
-          {mobileMenuOpen ? (
-            <X size={27} />
-          ) : (
-            <Menu size={27} />
-          )}
+          {mobileMenuOpen ? <X size={27} /> : <Menu size={27} />}
         </button>
 
-        {/* Navigation */}
+        {/* Main navigation */}
         <nav
           id="navbar-navigation"
           className={`navbar__navigation ${
-            mobileMenuOpen
-              ? "navbar__navigation--open"
-              : ""
+            mobileMenuOpen ? "navbar__navigation--open" : ""
           }`}
           aria-label="Main navigation"
         >
           <ul className="navbar__list">
             {/* Home and About */}
             {navigationItems.slice(0, 2).map((item) => (
-              <li
-                className="navbar__item"
-                key={item.path}
-              >
+              <li className="navbar__item" key={item.path}>
                 <NavLink
                   to={item.path}
                   end={item.path === "/"}
                   className={({ isActive }) =>
-                    `navbar__link ${
-                      isActive
-                        ? "navbar__link--active"
-                        : ""
-                    }`
+                    `navbar__link ${isActive ? "navbar__link--active" : ""}`
                   }
                   onClick={closeMobileMenu}
                 >
@@ -264,31 +235,20 @@ const Navbar = () => {
               </li>
             ))}
 
-            {/* Services dropdown */}
+            {/* Services: non-clickable label on desktop */}
             <li
               className={`navbar__item navbar__item--services ${
-                servicesOpen
-                  ? "navbar__item--expanded"
-                  : ""
+                servicesOpen ? "navbar__item--expanded" : ""
               }`}
               onMouseEnter={handleServicesMouseEnter}
               onMouseLeave={handleServicesMouseLeave}
             >
               <div className="navbar__services-heading">
-                <NavLink
-                  to="/services"
-                  className={({ isActive }) =>
-                    `navbar__link navbar__services-link ${
-                      isActive
-                        ? "navbar__link--active"
-                        : ""
-                    }`
-                  }
-                  onClick={closeMobileMenu}
-                >
+                <span className="navbar__link navbar__services-link navbar__services-label">
                   Services
-                </NavLink>
+                </span>
 
+                {/* This arrow is available for touch devices only. */}
                 <button
                   type="button"
                   className="navbar__dropdown-toggle"
@@ -300,27 +260,22 @@ const Navbar = () => {
                   <ChevronDown
                     size={17}
                     className={`navbar__chevron ${
-                      servicesOpen
-                        ? "navbar__chevron--open"
-                        : ""
+                      servicesOpen ? "navbar__chevron--open" : ""
                     }`}
                   />
                 </button>
               </div>
 
-              {/* Keep this element mounted for smooth animation. */}
+              {/* Mega menu remains mounted for smooth animation. */}
               <div
                 id="navbar-services-menu"
                 className={`navbar__mega-menu ${
-                  servicesOpen
-                    ? "navbar__mega-menu--open"
-                    : ""
+                  servicesOpen ? "navbar__mega-menu--open" : ""
                 }`}
                 aria-hidden={!servicesOpen}
                 inert={!servicesOpen}
               >
                 <div className="navbar__mega-content">
-                  {/* Menu heading */}
                   <div className="navbar__mega-header">
                     <span className="navbar__mega-eyebrow">
                       OUR EXPERTISE
@@ -331,16 +286,13 @@ const Navbar = () => {
                     </h3>
 
                     <p className="navbar__mega-description">
-                      Discover our services, built around your
-                      business needs.
+                      Discover our services, built around your business needs.
                     </p>
                   </div>
 
-                  {/* Service list */}
                   <div className="navbar__service-grid">
                     {serviceItems.map((service) => {
-                      const submenuIsOpen =
-                        activeSubmenu === service.title;
+                      const submenuIsOpen = activeSubmenu === service.title;
 
                       return (
                         <div
@@ -355,6 +307,7 @@ const Navbar = () => {
                             <Link
                               to={service.path}
                               className="navbar__service-link"
+                              onClick={closeMobileMenu}
                             >
                               <span>{service.title}</span>
                             </Link>
@@ -363,9 +316,7 @@ const Navbar = () => {
                               <button
                                 type="button"
                                 className="navbar__service-arrow"
-                                onClick={() =>
-                                  toggleSubmenu(service.title)
-                                }
+                                onClick={() => toggleSubmenu(service.title)}
                                 aria-label={`Toggle ${service.title} submenu`}
                                 aria-expanded={submenuIsOpen}
                               >
@@ -381,7 +332,6 @@ const Navbar = () => {
                             )}
                           </div>
 
-                          {/* Nested submenu */}
                           {service.submenu && (
                             <div
                               className={`navbar__nested-menu ${
@@ -393,20 +343,17 @@ const Navbar = () => {
                               inert={!submenuIsOpen}
                             >
                               <div className="navbar__nested-inner">
-                                {service.submenu.map(
-                                  (subItem) => (
-                                    <Link
-                                      key={subItem.path}
-                                      to={subItem.path}
-                                      className="navbar__nested-link"
-                                    >
-                                      <span className="navbar__nested-dot" />
-                                      <span>
-                                        {subItem.title}
-                                      </span>
-                                    </Link>
-                                  )
-                                )}
+                                {service.submenu.map((subItem) => (
+                                  <Link
+                                    key={subItem.path}
+                                    to={subItem.path}
+                                    className="navbar__nested-link"
+                                    onClick={closeMobileMenu}
+                                  >
+                                    <span className="navbar__nested-dot" />
+                                    <span>{subItem.title}</span>
+                                  </Link>
+                                ))}
                               </div>
                             </div>
                           )}
@@ -415,10 +362,10 @@ const Navbar = () => {
                     })}
                   </div>
 
-                  {/* All services link */}
                   <Link
                     to="/services"
                     className="navbar__all-services"
+                    onClick={closeMobileMenu}
                   >
                     <span>Explore All Services</span>
                     <ChevronRight size={18} />
@@ -429,18 +376,11 @@ const Navbar = () => {
 
             {/* Blog, Career, FAQ and Contact */}
             {navigationItems.slice(2).map((item) => (
-              <li
-                className="navbar__item"
-                key={item.path}
-              >
+              <li className="navbar__item" key={item.path}>
                 <NavLink
                   to={item.path}
                   className={({ isActive }) =>
-                    `navbar__link ${
-                      isActive
-                        ? "navbar__link--active"
-                        : ""
-                    }`
+                    `navbar__link ${isActive ? "navbar__link--active" : ""}`
                   }
                   onClick={closeMobileMenu}
                 >

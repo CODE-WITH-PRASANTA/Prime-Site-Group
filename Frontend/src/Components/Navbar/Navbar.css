@@ -149,8 +149,8 @@
 
 .navbar__link:hover::after,
 .navbar__link--active::after {
-  right: 0;
-  left: 0;
+  right: 18%;
+  left: 18%;
 }
 
 /* =========================================
@@ -161,6 +161,24 @@
   display: flex;
   align-items: stretch;
   height: 100%;
+}
+
+.navbar__services-label {
+  cursor: default;
+  user-select: none;
+}
+
+/* The arrow is a mobile-only control. Desktop opens Services on hover. */
+.navbar__dropdown-toggle {
+  display: none;
+}
+
+@media (min-width: 992px) {
+  .navbar__services-heading .navbar__dropdown-toggle {
+    display: flex;
+    pointer-events: none;
+    cursor: default;
+  }
 }
 
 .navbar__services-link {
@@ -742,8 +760,16 @@
   }
 
   .navbar__dropdown-toggle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     width: 45px;
     height: 45px;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    color: var(--navbar-text);
+    cursor: pointer;
   }
 
   /* Mobile mega menu.

@@ -1,135 +1,467 @@
-import React, { useState, useMemo, useEffect } from "react";
-import {
-  FaEnvelope, FaSearch, FaRedo, FaEye, FaPen, FaTrashAlt,
-  FaChevronDown, FaChevronLeft, FaChevronRight, FaRegCalendarAlt,
-  FaBriefcase, FaHeadset, FaInfoCircle, FaCalendarAlt, FaTimes,
-  FaExclamationTriangle, FaShieldAlt, FaCheckCircle,
-  FaPhoneAlt, FaClock, FaRegCommentDots, FaSave,
-} from "react-icons/fa";
+import React, {
+  useCallback,
+  useEffect,
+  useLayoutEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
+import { createPortal } from "react-dom";
 import "./ContactenquairyMain.css";
 
 const INITIAL_DATA = [
-  { id: 1, name: "Rahul Sharma", initials: "RS", email: "rahul@gmail.com", phone: "9876543210", type: "General Enquiry", message: "I want to know more about your services...", status: "New", date: "20 Nov 2025", time: "10:30 AM", photo: "https://randomuser.me/api/portraits/men/32.jpg" },
-  { id: 2, name: "Priya Gupta", initials: "PG", email: "priya@gmail.com", phone: "8765432109", type: "Support", message: "Please help me with booking...", status: "Replied", date: "19 Nov 2025", time: "03:20 PM", photo: "https://randomuser.me/api/portraits/women/44.jpg" },
-  { id: 3, name: "Amit Mehta", initials: "AM", email: "amit@gmail.com", phone: "7654321098", type: "Others", message: "Can you provide more details?...", status: "Pending", date: "18 Nov 2025", time: "11:15 AM", photo: "https://randomuser.me/api/portraits/men/46.jpg" },
-  { id: 4, name: "Sneha Nayak", initials: "SN", email: "sneha@gmail.com", phone: "6543210987", type: "Career", message: "I am interested in career opportunities.", status: "Resolved", date: "17 Nov 2025", time: "04:50 PM", photo: "https://randomuser.me/api/portraits/women/68.jpg" },
-  { id: 5, name: "Vikram Kumar", initials: "VK", email: "vikram@gmail.com", phone: "5432109876", type: "Service Booking", message: "Need to book a service...", status: "Pending", date: "16 Nov 2025", time: "09:30 AM", photo: "https://randomuser.me/api/portraits/men/75.jpg" },
+  { id: 1, name: "Rahul Sharma", email: "rahul@gmail.com", phone: "9876543210", type: "General Enquiry", message: "I want to know more about your services. Please share the details.", status: "New", date: "20 Nov 2025", time: "10:30 AM", photo: "https://randomuser.me/api/portraits/men/32.jpg" },
+  { id: 2, name: "Priya Gupta", email: "priya@gmail.com", phone: "8765432109", type: "Support", message: "Please help me with my booking.", status: "Replied", date: "19 Nov 2025", time: "03:20 PM", photo: "https://randomuser.me/api/portraits/women/44.jpg" },
+  { id: 3, name: "Amit Mehta", email: "amit@gmail.com", phone: "7654321098", type: "Others", message: "Can you provide more details about your packages?", status: "Pending", date: "18 Nov 2025", time: "11:15 AM", photo: "https://randomuser.me/api/portraits/men/46.jpg" },
+  { id: 4, name: "Sneha Nayak", email: "sneha@gmail.com", phone: "6543210987", type: "Career", message: "I am interested in career opportunities.", status: "Resolved", date: "17 Nov 2025", time: "04:50 PM", photo: "https://randomuser.me/api/portraits/women/68.jpg" },
+  { id: 5, name: "Vikram Kumar", email: "vikram@gmail.com", phone: "5432109876", type: "Service Booking", message: "I need to book a service for next week.", status: "Pending", date: "16 Nov 2025", time: "09:30 AM", photo: "https://randomuser.me/api/portraits/men/75.jpg" },
 ];
 
 const TYPE_META = {
-  "General Enquiry": { cls: "blue", icon: <FaBriefcase /> },
-  Support: { cls: "purple", icon: <FaHeadset /> },
-  Others: { cls: "green", icon: <FaInfoCircle /> },
-  Career: { cls: "blue", icon: <FaBriefcase /> },
-  "Service Booking": { cls: "red", icon: <FaCalendarAlt /> },
+  "General Enquiry": { cls: "blue", icon: "briefcase" },
+  Support: { cls: "purple", icon: "headset" },
+  Others: { cls: "green", icon: "info" },
+  Career: { cls: "blue", icon: "briefcase" },
+  "Service Booking": { cls: "red", icon: "calendar" },
 };
 
+const TYPES = Object.keys(TYPE_META);
 const STATUSES = ["New", "Replied", "Pending", "Resolved"];
 const PAGE_SIZE = 5;
 
-const getInitials = (name) =>
-  name.trim().split(/\s+/).map((w) => w[0]).slice(0, 2).join("").toUpperCase();
+/* Dropdown option lists */
+const TYPE_FILTER_OPTIONS = [
+  { value: "", label: "All Enquiry Types" },
+  ...TYPES.map((t) => ({ value: t, label: t })),
+];
+const STATUS_FILTER_OPTIONS = [
+  { value: "", label: "All Status" },
+  ...STATUSES.map((s) => ({ value: s, label: s })),
+];
+const TYPE_FORM_OPTIONS = TYPES.map((t) => ({ value: t, label: t }));
+const STATUS_FORM_OPTIONS = STATUSES.map((s) => ({ value: s, label: s }));
 
-const fallbackPhoto = (name) =>
-  "https://ui-avatars.com/api/?background=c8001e&color=fff&size=150&name=" +
-  encodeURIComponent(name);
+const EMPTY_FORM = {
+  name: "",
+  email: "",
+  phone: "",
+  type: "General Enquiry",
+  status: "New",
+  message: "",
+};
 
-/* Photo in table: falls back to initials if the image fails */
-const Avatar = ({ src, name, initials }) => {
+function Icon({ name, size = 18 }) {
+  const common = {
+    width: size,
+    height: size,
+    viewBox: "0 0 24 24",
+    fill: "none",
+    stroke: "currentColor",
+    strokeWidth: 2,
+    strokeLinecap: "round",
+    strokeLinejoin: "round",
+    "aria-hidden": true,
+  };
+
+  const paths = {
+    mail: (
+      <>
+        <rect x="3" y="5" width="18" height="14" rx="2" />
+        <path d="m3 7 9 6 9-6" />
+      </>
+    ),
+    search: (
+      <>
+        <circle cx="11" cy="11" r="7" />
+        <path d="m20 20-4-4" />
+      </>
+    ),
+    reset: (
+      <>
+        <path d="M3 12a9 9 0 1 0 2.6-6.4L3 8" />
+        <path d="M3 3v5h5" />
+      </>
+    ),
+    eye: (
+      <>
+        <path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12Z" />
+        <circle cx="12" cy="12" r="3" />
+      </>
+    ),
+    edit: <path d="m15 5 4 4M4 20l4-.8L19 8a2.8 2.8 0 0 0-4-4L4 15l0 5Z" />,
+    trash: <path d="M3 6h18M8 6V4h8v2m3 0-1 15H6L5 6m4 4v7m6-7v7" />,
+    down: <path d="m6 9 6 6 6-6" />,
+    chevron: <path d="m9 18 6-6-6-6" />,
+    calendar: (
+      <>
+        <rect x="3" y="5" width="18" height="16" rx="2" />
+        <path d="M16 3v4M8 3v4M3 10h18" />
+      </>
+    ),
+    briefcase: (
+      <>
+        <rect x="3" y="7" width="18" height="14" rx="2" />
+        <path d="M8 7V5h8v2" />
+      </>
+    ),
+    headset: (
+      <>
+        <path d="M4 14v-2a8 8 0 0 1 16 0v2" />
+        <rect x="3" y="14" width="4" height="6" rx="1.5" />
+        <rect x="17" y="14" width="4" height="6" rx="1.5" />
+      </>
+    ),
+    info: (
+      <>
+        <circle cx="12" cy="12" r="9" />
+        <path d="M12 11v5m0-8h.01" />
+      </>
+    ),
+    phone: (
+      <path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.4 19.4 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7l.5 2.8a2 2 0 0 1-.6 1.8L7.7 9.6a16 16 0 0 0 6.7 6.7l1.3-1.3a2 2 0 0 1 1.8-.6l2.8.5a2 2 0 0 1 1.7 2Z" />
+    ),
+    download: (
+      <>
+        <path d="M12 4v11m0 0-4-4m4 4 4-4" />
+        <path d="M4 19h16" />
+      </>
+    ),
+    close: <path d="m18 6-12 12M6 6l12 12" />,
+    check: <path d="m5 12 4 4L19 6" />,
+    alert: (
+      <>
+        <path d="M10.3 3.9 2.5 17.4A2 2 0 0 0 4.2 20h15.6a2 2 0 0 0 1.7-2.6L13.7 3.9a2 2 0 0 0-3.4 0Z" />
+        <path d="M12 9v4m0 3h.01" />
+      </>
+    ),
+  };
+
+  return <svg {...common}>{paths[name] || paths.info}</svg>;
+}
+
+const getInitials = (name = "") =>
+  name
+    .trim()
+    .split(/\s+/)
+    .slice(0, 2)
+    .map((part) => part[0]?.toUpperCase() || "")
+    .join("") || "?";
+
+const csvCell = (value) => `"${String(value ?? "").replace(/"/g, '""')}"`;
+
+/* Table photo, falls back to initials if the image fails */
+function Avatar({ src, name }) {
   const [failed, setFailed] = useState(false);
+
   return (
     <span className="ce-avatar">
       {src && !failed ? (
-        <img src={src} alt={name} onError={() => setFailed(true)} referrerPolicy="no-referrer" />
+        <img
+          src={src}
+          alt={name}
+          referrerPolicy="no-referrer"
+          onError={() => setFailed(true)}
+        />
       ) : (
-        initials
+        getInitials(name)
       )}
     </span>
   );
-};
+}
 
-/* Photo in modals: falls back to generated avatar */
-const ModalPhoto = ({ src, name }) => (
-  <img
-    src={src || fallbackPhoto(name)}
-    alt={name}
-    referrerPolicy="no-referrer"
-    onError={(e) => {
-      e.currentTarget.onerror = null;
-      e.currentTarget.src = fallbackPhoto(name);
-    }}
-  />
-);
+/* ------------------------------------------------
+   Custom Dropdown (used everywhere)
+   - menu is rendered in document.body, so it is never
+     clipped by the table, modal body or overflow areas
+   - selected item = light red bg + dark red text + check
+   - no red glow / ring on click or focus
+------------------------------------------------- */
+function Dropdown({
+  value,
+  options,
+  onChange,
+  ariaLabel,
+  variant = "filter", // "filter" | "form"
+}) {
+  const [open, setOpen] = useState(false);
+  const [pos, setPos] = useState(null);
+  const [active, setActive] = useState(-1);
 
-const ContactenquairyMain = () => {
+  const btnRef = useRef(null);
+  const menuRef = useRef(null);
+
+  const selectedIndex = options.findIndex((o) => o.value === value);
+  const current = options[selectedIndex] || options[0];
+
+  const place = useCallback(() => {
+    const btn = btnRef.current;
+    if (!btn) return;
+
+    const rect = btn.getBoundingClientRect();
+    const width = Math.max(rect.width, 170);
+    const wanted = Math.min(options.length * 50 + 16, 280);
+    const spaceBelow = window.innerHeight - rect.bottom;
+    const openUp = spaceBelow < wanted + 12 && rect.top > spaceBelow;
+
+    const left = Math.max(8, Math.min(rect.left, window.innerWidth - width - 8));
+    const room = (openUp ? rect.top : spaceBelow) - 16;
+
+    setPos({
+      left,
+      width,
+      top: openUp ? undefined : rect.bottom + 8,
+      bottom: openUp ? window.innerHeight - rect.top + 8 : undefined,
+      maxHeight: Math.max(120, Math.min(280, room)),
+    });
+  }, [options.length]);
+
+  const openMenu = () => {
+    setActive(selectedIndex >= 0 ? selectedIndex : 0);
+    setOpen(true);
+  };
+
+  const closeMenu = useCallback(() => setOpen(false), []);
+
+  const choose = (val) => {
+    onChange(val);
+    setOpen(false);
+    btnRef.current?.focus();
+  };
+
+  /* position when opening + keep it attached on scroll / resize */
+  useLayoutEffect(() => {
+    if (!open) return;
+
+    place();
+
+    const onScroll = (e) => {
+      if (menuRef.current && menuRef.current.contains(e.target)) return;
+      place();
+    };
+
+    window.addEventListener("resize", place);
+    window.addEventListener("scroll", onScroll, true);
+
+    return () => {
+      window.removeEventListener("resize", place);
+      window.removeEventListener("scroll", onScroll, true);
+    };
+  }, [open, place]);
+
+  /* outside click + Escape (closes only the dropdown, not the modal) */
+  useEffect(() => {
+    if (!open) return;
+
+    const onDown = (e) => {
+      if (btnRef.current?.contains(e.target)) return;
+      if (menuRef.current?.contains(e.target)) return;
+      closeMenu();
+    };
+
+    const onKey = (e) => {
+      if (e.key === "Escape") {
+        e.stopPropagation();
+        closeMenu();
+        btnRef.current?.focus();
+      }
+    };
+
+    document.addEventListener("mousedown", onDown);
+    window.addEventListener("keydown", onKey, true);
+
+    return () => {
+      document.removeEventListener("mousedown", onDown);
+      window.removeEventListener("keydown", onKey, true);
+    };
+  }, [open, closeMenu]);
+
+  /* keep keyboard-active item visible */
+  useEffect(() => {
+    if (!open || active < 0) return;
+    menuRef.current?.children[active]?.scrollIntoView({ block: "nearest" });
+  }, [active, open, pos]);
+
+  const onKeyDown = (e) => {
+    if (!open) {
+      if (["ArrowDown", "ArrowUp", "Enter", " "].includes(e.key)) {
+        e.preventDefault();
+        openMenu();
+      }
+      return;
+    }
+
+    if (e.key === "ArrowDown") {
+      e.preventDefault();
+      setActive((i) => Math.min(i + 1, options.length - 1));
+    } else if (e.key === "ArrowUp") {
+      e.preventDefault();
+      setActive((i) => Math.max(i - 1, 0));
+    } else if (e.key === "Enter" || e.key === " ") {
+      e.preventDefault();
+      if (options[active]) choose(options[active].value);
+    } else if (e.key === "Tab") {
+      closeMenu();
+    }
+  };
+
+  return (
+    <>
+      <button
+        ref={btnRef}
+        type="button"
+        className={`dd-trigger dd-${variant}${open ? " is-open" : ""}`}
+        onClick={() => (open ? closeMenu() : openMenu())}
+        onKeyDown={onKeyDown}
+        aria-haspopup="listbox"
+        aria-expanded={open}
+        aria-label={ariaLabel}
+      >
+        <span className="dd-value">{current?.label}</span>
+        <span className="dd-chevron">
+          <Icon name="down" size={16} />
+        </span>
+      </button>
+
+      {open &&
+        pos &&
+        createPortal(
+          <div
+            ref={menuRef}
+            className="dd-menu"
+            role="listbox"
+            style={{
+              left: pos.left,
+              width: pos.width,
+              top: pos.top,
+              bottom: pos.bottom,
+              maxHeight: pos.maxHeight,
+            }}
+          >
+            {options.map((o, i) => {
+              const isSelected = o.value === value;
+
+              return (
+                <button
+                  type="button"
+                  key={o.value || "__all"}
+                  role="option"
+                  aria-selected={isSelected}
+                  tabIndex={-1}
+                  className={`dd-item${isSelected ? " is-selected" : ""}${
+                    i === active ? " is-active" : ""
+                  }`}
+                  onMouseDown={(e) => e.preventDefault()}
+                  onMouseEnter={() => setActive(i)}
+                  onClick={() => choose(o.value)}
+                >
+                  <span>{o.label}</span>
+                  {isSelected && <Icon name="check" size={18} />}
+                </button>
+              );
+            })}
+          </div>,
+          document.body
+        )}
+    </>
+  );
+}
+
+/* ------------------------------------------------
+   Shared modal, rendered in document.body so it is
+   always centered over the blurred page
+------------------------------------------------- */
+function ModalShell({
+  title,
+  subtitle,
+  size = "md",
+  onClose,
+  closeDisabled = false,
+  children,
+  footer,
+}) {
+  return createPortal(
+    <div
+      className="cm-overlay"
+      onMouseDown={(e) => {
+        if (e.target === e.currentTarget && !closeDisabled) onClose();
+      }}
+    >
+      <div
+        className={`cm-modal cm-${size}`}
+        role="dialog"
+        aria-modal="true"
+        aria-label={title}
+      >
+        <div className="cm-head">
+          <div className="cm-head-text">
+            <h2>{title}</h2>
+            {subtitle && <p>{subtitle}</p>}
+          </div>
+
+          <button
+            type="button"
+            className="cm-close"
+            onClick={onClose}
+            disabled={closeDisabled}
+            aria-label="Close"
+          >
+            <Icon name="close" size={18} />
+          </button>
+        </div>
+
+        <div className="cm-body">{children}</div>
+
+        {footer && <div className="cm-foot">{footer}</div>}
+      </div>
+    </div>,
+    document.body
+  );
+}
+
+export default function ContactenquairyMain() {
   const [rows, setRows] = useState(INITIAL_DATA);
+
   const [search, setSearch] = useState("");
   const [typeFilter, setTypeFilter] = useState("");
   const [statusFilter, setStatusFilter] = useState("");
-  const [applied, setApplied] = useState({ search: "", type: "", status: "" });
   const [page, setPage] = useState(1);
 
-  // delete
-  const [deleteTarget, setDeleteTarget] = useState(null);
-  const [closing, setClosing] = useState(false);
-  const [deleting, setDeleting] = useState(false);
-  const [removingId, setRemovingId] = useState(null);
-
-  // view
-  const [viewTarget, setViewTarget] = useState(null);
-  const [viewClosing, setViewClosing] = useState(false);
-
-  // edit
-  const [editTarget, setEditTarget] = useState(null);
-  const [editClosing, setEditClosing] = useState(false);
-  const [form, setForm] = useState({});
+  const [modal, setModal] = useState("");
+  const [selected, setSelected] = useState(null);
+  const [form, setForm] = useState(EMPTY_FORM);
   const [errors, setErrors] = useState({});
-
+  const [deleting, setDeleting] = useState(false);
   const [toast, setToast] = useState("");
 
+  /* Live filtering: results update as you type */
   const filtered = useMemo(() => {
-    const q = applied.search.toLowerCase();
-    return rows.filter(
-      (r) =>
-        (!q ||
-          r.name.toLowerCase().includes(q) ||
-          r.email.toLowerCase().includes(q) ||
-          r.message.toLowerCase().includes(q)) &&
-        (!applied.type || r.type === applied.type) &&
-        (!applied.status || r.status === applied.status)
-    );
-  }, [rows, applied]);
+    const q = search.trim().toLowerCase();
+
+    return rows.filter((r) => {
+      const matchesSearch =
+        !q ||
+        [r.name, r.email, r.phone, r.message, r.type, r.status].some((value) =>
+          String(value || "").toLowerCase().includes(q)
+        );
+
+      return (
+        matchesSearch &&
+        (!typeFilter || r.type === typeFilter) &&
+        (!statusFilter || r.status === statusFilter)
+      );
+    });
+  }, [rows, search, typeFilter, statusFilter]);
 
   const totalPages = Math.max(1, Math.ceil(filtered.length / PAGE_SIZE));
-  const start = (page - 1) * PAGE_SIZE;
-  const pageRows = filtered.slice(start, start + PAGE_SIZE);
+  const safePage = Math.min(page, totalPages);
+  const startIndex = (safePage - 1) * PAGE_SIZE;
+  const pageRows = filtered.slice(startIndex, startIndex + PAGE_SIZE);
 
-  useEffect(() => {
-    if (page > totalPages) setPage(totalPages);
-  }, [totalPages, page]);
+  const startEntry = filtered.length ? startIndex + 1 : 0;
+  const endEntry = Math.min(startIndex + PAGE_SIZE, filtered.length);
 
-  // Esc closes whichever modal is open
-  useEffect(() => {
-    if (!deleteTarget && !viewTarget && !editTarget) return;
-    const onKey = (e) => {
-      if (e.key !== "Escape") return;
-      if (deleteTarget) closeDelete();
-      else if (editTarget) closeEdit();
-      else closeView();
-    };
-    window.addEventListener("keydown", onKey);
-    return () => window.removeEventListener("keydown", onKey);
-    // eslint-disable-next-line
-  }, [deleteTarget, viewTarget, editTarget, deleting]);
-
-  useEffect(() => {
-    if (!toast) return;
-    const t = setTimeout(() => setToast(""), 2800);
-    return () => clearTimeout(t);
-  }, [toast]);
-
-  const handleSearch = () => {
-    setApplied({ search, type: typeFilter, status: statusFilter });
+  const handleSearch = (e) => {
+    e.preventDefault();
     setPage(1);
   };
 
@@ -137,46 +469,52 @@ const ContactenquairyMain = () => {
     setSearch("");
     setTypeFilter("");
     setStatusFilter("");
-    setApplied({ search: "", type: "", status: "" });
     setPage(1);
   };
 
   const handleExport = () => {
+    if (!filtered.length) {
+      setToast("No enquiries to export");
+      return;
+    }
+
     const header = ["#", "Name", "Email", "Phone", "Type", "Message", "Status", "Date"];
+
     const lines = filtered.map((r, i) =>
-      [i + 1, r.name, r.email, r.phone, r.type, `"${r.message}"`, r.status, `${r.date} ${r.time}`].join(",")
+      [i + 1, r.name, r.email, r.phone, r.type, r.message, r.status, `${r.date} ${r.time}`]
+        .map(csvCell)
+        .join(",")
     );
-    const blob = new Blob([[header.join(","), ...lines].join("\n")], { type: "text/csv" });
+
+    const blob = new Blob([[header.map(csvCell).join(","), ...lines].join("\n")], {
+      type: "text/csv;charset=utf-8;",
+    });
+
+    const url = URL.createObjectURL(blob);
     const a = document.createElement("a");
-    a.href = URL.createObjectURL(blob);
+    a.href = url;
     a.download = "contact-enquiries.csv";
     a.click();
+    URL.revokeObjectURL(url);
+
+    setToast("Enquiries exported successfully");
   };
 
-  /* ---------- VIEW ---------- */
-  const openView = (row, serial) => {
-    setViewTarget({ ...row, serial });
-    setViewClosing(false);
+  /* ---------- MODALS ---------- */
+  const closeModal = () => {
+    if (deleting) return;
+    setModal("");
+    setSelected(null);
+    setErrors({});
   };
 
-  const closeView = () => {
-    setViewClosing(true);
-    setTimeout(() => {
-      setViewTarget(null);
-      setViewClosing(false);
-    }, 250);
+  const openView = (row) => {
+    setSelected(row);
+    setModal("view");
   };
 
-  const editFromView = () => {
-    const row = rows.find((r) => r.id === viewTarget.id);
-    setViewTarget(null);
-    setViewClosing(false);
-    openEdit(row);
-  };
-
-  /* ---------- EDIT ---------- */
   const openEdit = (row) => {
-    setEditTarget(row);
+    setSelected(row);
     setForm({
       name: row.name,
       email: row.email,
@@ -186,144 +524,193 @@ const ContactenquairyMain = () => {
       message: row.message,
     });
     setErrors({});
-    setEditClosing(false);
+    setModal("edit");
   };
 
-  const closeEdit = () => {
-    setEditClosing(true);
-    setTimeout(() => {
-      setEditTarget(null);
-      setEditClosing(false);
-    }, 250);
+  const openDelete = (row) => {
+    setSelected(row);
+    setDeleting(false);
+    setModal("delete");
   };
 
   const handleFormChange = (e) => {
     const { name, value } = e.target;
-    setForm((p) => ({ ...p, [name]: value }));
-    setErrors((p) => ({ ...p, [name]: "" }));
+    setForm((prev) => ({ ...prev, [name]: value }));
+    setErrors((prev) => ({ ...prev, [name]: "" }));
+  };
+
+  /* used by the custom dropdowns inside the edit form */
+  const setFormValue = (name, value) => {
+    setForm((prev) => ({ ...prev, [name]: value }));
   };
 
   const validate = () => {
-    const er = {};
-    if (!form.name.trim()) er.name = "Name is required";
-    if (!form.email.trim()) er.email = "Email is required";
-    else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email)) er.email = "Enter a valid email";
-    if (!form.phone.trim()) er.phone = "Phone is required";
-    else if (!/^[0-9+\-\s]{10,15}$/.test(form.phone.trim())) er.phone = "Enter a valid phone number";
-    if (!form.message.trim()) er.message = "Message is required";
-    setErrors(er);
-    return Object.keys(er).length === 0;
+    const next = {};
+
+    if (!form.name.trim()) next.name = "Name is required";
+
+    if (!form.email.trim()) next.email = "Email is required";
+    else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email.trim()))
+      next.email = "Enter a valid email address";
+
+    if (!form.phone.trim()) next.phone = "Phone number is required";
+    else if (!/^[0-9+\-\s]{10,15}$/.test(form.phone.trim()))
+      next.phone = "Enter a valid phone number";
+
+    if (!form.message.trim()) next.message = "Message is required";
+
+    setErrors(next);
+    return Object.keys(next).length === 0;
   };
 
   const handleSave = (e) => {
     e.preventDefault();
-    if (!validate()) return;
+    if (!validate() || !selected) return;
+
     setRows((prev) =>
       prev.map((r) =>
-        r.id === editTarget.id
-          ? { ...r, ...form, name: form.name.trim(), initials: getInitials(form.name) }
+        r.id === selected.id
+          ? {
+              ...r,
+              ...form,
+              name: form.name.trim(),
+              email: form.email.trim(),
+              phone: form.phone.trim(),
+              message: form.message.trim(),
+            }
           : r
       )
     );
-    closeEdit();
+
+    setModal("");
+    setSelected(null);
     setToast("Enquiry updated successfully");
   };
 
-  /* ---------- DELETE ---------- */
-  const openDelete = (row, serial) => {
-    setDeleteTarget({ ...row, serial });
-    setClosing(false);
-  };
+  const confirmDelete = () => {
+    if (!selected || deleting) return;
 
-  const closeDelete = () => {
-    if (deleting) return;
-    setClosing(true);
-    setTimeout(() => {
-      setDeleteTarget(null);
-      setClosing(false);
+    const id = selected.id;
+    setDeleting(true);
+
+    window.setTimeout(() => {
+      setRows((prev) => prev.filter((r) => r.id !== id));
+      setDeleting(false);
+      setModal("");
+      setSelected(null);
+      setToast("Enquiry deleted successfully");
     }, 250);
   };
 
-  const confirmDelete = () => {
-    setDeleting(true);
-    setTimeout(() => {
-      const id = deleteTarget.id;
-      setDeleting(false);
-      setClosing(true);
-      setTimeout(() => {
-        setDeleteTarget(null);
-        setClosing(false);
-        setRemovingId(id);
-        setTimeout(() => {
-          setRows((prev) => prev.filter((r) => r.id !== id));
-          setRemovingId(null);
-          setToast("Enquiry deleted successfully");
-        }, 450);
-      }, 250);
-    }, 900);
-  };
+  /* Escape closes the open popup */
+  useEffect(() => {
+    if (!modal) return;
+
+    const onKey = (e) => {
+      if (e.key === "Escape") closeModal();
+    };
+
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [modal, deleting]);
+
+  /* Lock background scroll while a popup is open */
+  useEffect(() => {
+    if (!modal) return;
+
+    const previous = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+
+    return () => {
+      document.body.style.overflow = previous;
+    };
+  }, [modal]);
+
+  /* Toast auto hide */
+  useEffect(() => {
+    if (!toast) return;
+    const t = setTimeout(() => setToast(""), 2800);
+    return () => clearTimeout(t);
+  }, [toast]);
 
   return (
-    <div className="ce-page">
-      {/* Header */}
-      <div className="ce-header">
-        <div className="ce-header-left">
-          <div className="ce-logo"><FaEnvelope /></div>
-          <div>
-            <h1 className="ce-title">Contact Enquiry</h1>
-            <p className="ce-subtitle">Manage contact enquiries from website</p>
-          </div>
-        </div>
-        <button className="ce-btn ce-btn-export" onClick={handleExport}>
-          <FaTrashAlt className="ce-export-icon" /> Export Enquiries
-        </button>
-      </div>
+    <main className="ce-page">
+      <section className="ce-shell">
+        {/* HEADER */}
+        <header className="ce-header">
+          <div className="ce-header-left">
+            <div className="ce-logo">
+              <Icon name="mail" size={26} />
+            </div>
 
-      {/* Card */}
-      <div className="ce-card">
-        {/* Filters */}
-        <div className="ce-filters">
-          <div className="ce-search">
-            <FaSearch className="ce-search-icon" />
+            <div>
+              <h1 className="ce-title">Contact Enquiry</h1>
+              <p className="ce-subtitle">Manage contact enquiries from website</p>
+            </div>
+          </div>
+
+          <button type="button" className="ce-btn ce-btn-red" onClick={handleExport}>
+            <Icon name="download" size={17} />
+            Export Enquiries
+          </button>
+        </header>
+
+        {/* FILTERS */}
+        <form className="ce-filters" onSubmit={handleSearch}>
+          <label className="ce-search">
+            <Icon name="search" size={19} />
             <input
               type="text"
               placeholder="Search by name, email or message..."
               value={search}
-              onChange={(e) => setSearch(e.target.value)}
-              onKeyDown={(e) => e.key === "Enter" && handleSearch()}
+              onChange={(e) => {
+                setSearch(e.target.value);
+                setPage(1);
+              }}
+              aria-label="Search enquiries"
             />
-          </div>
+          </label>
 
-          <div className="ce-select">
-            <select value={typeFilter} onChange={(e) => setTypeFilter(e.target.value)}>
-              <option value="">All Enquiry Type</option>
-              {Object.keys(TYPE_META).map((t) => <option key={t} value={t}>{t}</option>)}
-            </select>
-            <FaChevronDown className="ce-select-arrow" />
-          </div>
+          <Dropdown
+            variant="filter"
+            ariaLabel="Filter by enquiry type"
+            value={typeFilter}
+            options={TYPE_FILTER_OPTIONS}
+            onChange={(v) => {
+              setTypeFilter(v);
+              setPage(1);
+            }}
+          />
 
-          <div className="ce-select ce-select-sm">
-            <select value={statusFilter} onChange={(e) => setStatusFilter(e.target.value)}>
-              <option value="">All Status</option>
-              {STATUSES.map((s) => <option key={s} value={s}>{s}</option>)}
-            </select>
-            <FaChevronDown className="ce-select-arrow" />
-          </div>
+          <Dropdown
+            variant="filter"
+            ariaLabel="Filter by status"
+            value={statusFilter}
+            options={STATUS_FILTER_OPTIONS}
+            onChange={(v) => {
+              setStatusFilter(v);
+              setPage(1);
+            }}
+          />
 
-          <button className="ce-btn ce-btn-search" onClick={handleSearch}>
-            <FaSearch /> Search
+          <button type="submit" className="ce-btn ce-btn-red">
+            <Icon name="search" size={17} />
+            Search
           </button>
-          <button className="ce-btn ce-btn-reset" onClick={handleReset}>
-            <FaRedo /> Reset
-          </button>
-        </div>
 
-        {/* Table */}
+          <button type="button" className="ce-btn ce-btn-reset" onClick={handleReset}>
+            <Icon name="reset" size={17} />
+            Reset
+          </button>
+        </form>
+
+        {/* TABLE */}
         <div className="ce-table-wrap">
           <table className="ce-table">
             <thead>
               <tr>
-                <th>#</th>
+                <th className="ce-num">#</th>
                 <th>Name</th>
                 <th>Email</th>
                 <th>Phone</th>
@@ -334,278 +721,401 @@ const ContactenquairyMain = () => {
                 <th className="ce-center">Actions</th>
               </tr>
             </thead>
+
             <tbody>
-              {pageRows.length === 0 && (
-                <tr><td colSpan="9" className="ce-empty">No enquiries found</td></tr>
-              )}
               {pageRows.map((r, i) => {
-                const meta = TYPE_META[r.type];
-                const serial = start + i + 1;
+                const meta = TYPE_META[r.type] || TYPE_META.Others;
+
                 return (
-                  <tr
-                    key={r.id}
-                    className={removingId === r.id ? "ce-row removing" : "ce-row"}
-                    style={{ animationDelay: `${i * 70}ms` }}
-                  >
-                    <td className="ce-num">{serial}</td>
+                  <tr key={r.id}>
+                    <td className="ce-num">{startIndex + i + 1}</td>
+
                     <td>
                       <div className="ce-name-cell">
-                        <Avatar src={r.photo} name={r.name} initials={r.initials} />
+                        <Avatar src={r.photo} name={r.name} />
                         <span className="ce-name">{r.name}</span>
                       </div>
                     </td>
-                    <td className="ce-email">{r.email}</td>
-                    <td className="ce-phone">{r.phone}</td>
+
+                    <td className="ce-nowrap">{r.email}</td>
+                    <td className="ce-nowrap">{r.phone}</td>
+
                     <td>
-                      <span className={`ce-type ${meta.cls}`}>{meta.icon}{r.type}</span>
-                    </td>
-                    <td className="ce-msg">{r.message}</td>
-                    <td>
-                      <span className={`ce-status ${r.status.toLowerCase()}`}>
-                        <i className="ce-dot" />{r.status}
+                      <span className={`ce-type ${meta.cls}`}>
+                        <Icon name={meta.icon} size={14} />
+                        {r.type}
                       </span>
                     </td>
+
+                    <td>
+                      <span className="ce-msg" title={r.message}>
+                        {r.message}
+                      </span>
+                    </td>
+
+                    <td>
+                      <span className={`ce-status ${r.status.toLowerCase()}`}>
+                        <i className="ce-dot" />
+                        {r.status}
+                      </span>
+                    </td>
+
                     <td>
                       <div className="ce-date">
-                        <FaRegCalendarAlt />
-                        <span>{r.date}<br />{r.time}</span>
+                        <Icon name="calendar" size={16} />
+                        <span>
+                          {r.date}
+                          <small>{r.time}</small>
+                        </span>
                       </div>
                     </td>
+
                     <td>
                       <div className="ce-actions">
-                        <button className="ce-act view" title="View" onClick={() => openView(r, serial)}>
-                          <FaEye />
+                        <button
+                          type="button"
+                          className="ce-act view"
+                          title="View enquiry"
+                          aria-label={`View ${r.name}`}
+                          onClick={() => openView(r)}
+                        >
+                          <Icon name="eye" size={17} />
                         </button>
-                        <button className="ce-act edit" title="Edit" onClick={() => openEdit(r)}>
-                          <FaPen />
+
+                        <button
+                          type="button"
+                          className="ce-act edit"
+                          title="Edit enquiry"
+                          aria-label={`Edit ${r.name}`}
+                          onClick={() => openEdit(r)}
+                        >
+                          <Icon name="edit" size={17} />
                         </button>
-                        <button className="ce-act del" title="Delete" onClick={() => openDelete(r, serial)}>
-                          <FaTrashAlt />
+
+                        <button
+                          type="button"
+                          className="ce-act del"
+                          title="Delete enquiry"
+                          aria-label={`Delete ${r.name}`}
+                          onClick={() => openDelete(r)}
+                        >
+                          <Icon name="trash" size={17} />
                         </button>
                       </div>
                     </td>
                   </tr>
                 );
               })}
+
+              {!pageRows.length && (
+                <tr>
+                  <td colSpan="9">
+                    <div className="ce-empty">
+                      <span>
+                        <Icon name="search" size={25} />
+                      </span>
+                      <strong>No enquiries found</strong>
+                      <p>Try changing your search or filters.</p>
+                      <button type="button" onClick={handleReset}>
+                        Clear filters
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+              )}
             </tbody>
           </table>
         </div>
 
-        {/* Footer */}
-        <div className="ce-footer">
-          <span className="ce-showing">
-            Showing {filtered.length === 0 ? 0 : start + 1} to {Math.min(start + PAGE_SIZE, filtered.length)} of {filtered.length} entries
-          </span>
+        {/* PAGINATION */}
+        <footer className="ce-footer">
+          <p>
+            Showing <strong>{startEntry}</strong> to <strong>{endEntry}</strong> of{" "}
+            <strong>{filtered.length}</strong> entries
+          </p>
+
           <div className="ce-pager">
-            <button className="ce-page-btn" disabled={page === 1} onClick={() => setPage(page - 1)}><FaChevronLeft /></button>
-            {Array.from({ length: totalPages }, (_, i) => (
+            <button
+              type="button"
+              aria-label="Previous page"
+              disabled={safePage <= 1}
+              onClick={() => setPage(safePage - 1)}
+            >
+              <Icon name="chevron" size={17} />
+            </button>
+
+            {Array.from({ length: totalPages }, (_, i) => i + 1).map((n) => (
               <button
-                key={i}
-                className={`ce-page-btn ${page === i + 1 ? "active" : ""}`}
-                onClick={() => setPage(i + 1)}
+                type="button"
+                key={n}
+                className={safePage === n ? "active" : ""}
+                onClick={() => setPage(n)}
               >
-                {i + 1}
+                {n}
               </button>
             ))}
-            <button className="ce-page-btn" disabled={page === totalPages} onClick={() => setPage(page + 1)}><FaChevronRight /></button>
+
+            <button
+              type="button"
+              aria-label="Next page"
+              disabled={safePage >= totalPages}
+              onClick={() => setPage(safePage + 1)}
+            >
+              <Icon name="chevron" size={17} />
+            </button>
           </div>
-        </div>
-      </div>
+        </footer>
+      </section>
 
-      {/* ================= VIEW MODAL ================= */}
-      {viewTarget && (
-        <div className={`ce-overlay ${viewClosing ? "out" : ""}`} onClick={closeView}>
-          <div className={`ce-modal ce-view-modal ${viewClosing ? "out" : ""}`} onClick={(e) => e.stopPropagation()}>
-            <div className="ce-modal-topbar" />
-            <span className="ce-modal-corner" />
-            <button className="ce-modal-close" onClick={closeView}><FaTimes /></button>
+      {/* VIEW (compact card) */}
+      {modal === "view" &&
+        selected &&
+        createPortal(
+          <div
+            className="cm-overlay"
+            onMouseDown={(e) => {
+              if (e.target === e.currentTarget) closeModal();
+            }}
+          >
+            <div
+              className="cm-modal cm-view"
+              role="dialog"
+              aria-modal="true"
+              aria-label="Enquiry details"
+            >
+              <div className="cm-view-head">
+                <h2>Enquiry Details</h2>
 
-            <div className="ce-view-head">
-              <p className="ce-modal-tag">ENQUIRY DETAILS</p>
-              <h2 className="ce-view-title">Contact Enquiry <em>#{viewTarget.serial}</em></h2>
-            </div>
-
-            <div className="ce-view-profile">
-              <div className="ce-view-photo">
-                <ModalPhoto src={viewTarget.photo} name={viewTarget.name} />
-                <span className="ce-view-ring" />
-              </div>
-              <div className="ce-view-who">
-                <strong>{viewTarget.name}</strong>
-                <span>{viewTarget.email}</span>
-                <div className="ce-view-tags">
-                  <span className={`ce-type ${TYPE_META[viewTarget.type].cls}`}>
-                    {TYPE_META[viewTarget.type].icon}{viewTarget.type}
-                  </span>
-                  <span className={`ce-status ${viewTarget.status.toLowerCase()}`}>
-                    <i className="ce-dot" />{viewTarget.status}
-                  </span>
-                </div>
-              </div>
-            </div>
-
-            <div className="ce-view-message">
-              <div className="ce-view-label"><FaRegCommentDots /> Message</div>
-              <p>{viewTarget.message}</p>
-            </div>
-
-            <div className="ce-view-grid">
-              <div className="ce-view-item">
-                <span className="ce-view-ico"><FaPhoneAlt /></span>
-                <div><small>Phone</small><b>{viewTarget.phone}</b></div>
-              </div>
-              <div className="ce-view-item">
-                <span className="ce-view-ico"><FaEnvelope /></span>
-                <div><small>Email</small><b>{viewTarget.email}</b></div>
-              </div>
-              <div className="ce-view-item">
-                <span className="ce-view-ico"><FaRegCalendarAlt /></span>
-                <div><small>Submitted Date</small><b>{viewTarget.date}</b></div>
-              </div>
-              <div className="ce-view-item">
-                <span className="ce-view-ico"><FaClock /></span>
-                <div><small>Submitted Time</small><b>{viewTarget.time}</b></div>
-              </div>
-            </div>
-
-            <div className="ce-modal-btns ce-view-btns">
-              <button className="ce-keep" onClick={closeView}>Close</button>
-              <button className="ce-confirm ce-edit-go" onClick={editFromView}>
-                <FaPen /> Edit Enquiry
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
-
-      {/* ================= EDIT MODAL ================= */}
-      {editTarget && (
-        <div className={`ce-overlay ${editClosing ? "out" : ""}`} onClick={closeEdit}>
-          <div className={`ce-modal ce-edit-modal ${editClosing ? "out" : ""}`} onClick={(e) => e.stopPropagation()}>
-            <div className="ce-modal-topbar" />
-            <span className="ce-modal-corner" />
-            <button className="ce-modal-close" onClick={closeEdit}><FaTimes /></button>
-
-            <div className="ce-view-head">
-              <p className="ce-modal-tag">EDIT ENQUIRY</p>
-              <h2 className="ce-view-title">Update Details</h2>
-            </div>
-
-            <form onSubmit={handleSave} noValidate>
-              <div className="ce-edit-top">
-                <div className="ce-edit-photo">
-                  <ModalPhoto src={editTarget.photo} name={editTarget.name} />
-                </div>
-                <div>
-                  <strong>{editTarget.name}</strong>
-                  <span>{editTarget.email}</span>
-                </div>
-              </div>
-
-              <div className="ce-form-grid">
-                <div className="ce-field">
-                  <label>Full Name <b>*</b></label>
-                  <input name="name" value={form.name} onChange={handleFormChange} placeholder="Enter full name" />
-                  {errors.name && <small>{errors.name}</small>}
-                </div>
-
-                <div className="ce-field">
-                  <label>Email <b>*</b></label>
-                  <input name="email" type="email" value={form.email} onChange={handleFormChange} placeholder="example@email.com" />
-                  {errors.email && <small>{errors.email}</small>}
-                </div>
-
-                <div className="ce-field">
-                  <label>Phone <b>*</b></label>
-                  <input name="phone" value={form.phone} onChange={handleFormChange} placeholder="Enter phone number" />
-                  {errors.phone && <small>{errors.phone}</small>}
-                </div>
-
-                <div className="ce-field">
-                  <label>Enquiry Type</label>
-                  <select name="type" value={form.type} onChange={handleFormChange}>
-                    {Object.keys(TYPE_META).map((t) => <option key={t} value={t}>{t}</option>)}
-                  </select>
-                </div>
-
-                <div className="ce-field ce-full">
-                  <label>Status</label>
-                  <select name="status" value={form.status} onChange={handleFormChange}>
-                    {STATUSES.map((s) => <option key={s} value={s}>{s}</option>)}
-                  </select>
-                </div>
-
-                <div className="ce-field ce-full">
-                  <label>Message <b>*</b></label>
-                  <textarea name="message" rows="3" value={form.message} onChange={handleFormChange} placeholder="Enter message..." />
-                  {errors.message && <small>{errors.message}</small>}
-                </div>
-              </div>
-
-              <div className="ce-modal-btns ce-edit-btns">
-                <button type="button" className="ce-keep" onClick={closeEdit}>Cancel</button>
-                <button type="submit" className="ce-confirm ce-save">
-                  <FaSave /> Save Changes
+                <button
+                  type="button"
+                  className="cm-close"
+                  onClick={closeModal}
+                  aria-label="Close"
+                >
+                  <Icon name="close" size={18} />
                 </button>
               </div>
-            </form>
-          </div>
-        </div>
-      )}
 
-      {/* ================= DELETE MODAL ================= */}
-      {deleteTarget && (
-        <div className={`ce-overlay ${closing ? "out" : ""}`} onClick={closeDelete}>
-          <div className={`ce-modal ${closing ? "out" : ""}`} onClick={(e) => e.stopPropagation()}>
-            <div className="ce-modal-topbar" />
-            <span className="ce-modal-corner" />
-            <button className="ce-modal-close" onClick={closeDelete}><FaTimes /></button>
+              <div className="cm-view-body">
+                <div className="cm-profile">
+                  <div className="cm-avatar">{getInitials(selected.name)}</div>
 
-            <div className="ce-modal-icon-wrap">
-              <span className="ce-pulse p1" />
-              <span className="ce-pulse p2" />
-              <div className="ce-modal-icon"><FaTrashAlt /></div>
-            </div>
+                  <h3>{selected.name}</h3>
 
-            <p className="ce-modal-tag">DELETE CONFIRMATION</p>
-            <h2 className="ce-modal-title">Are you absolutely sure?</h2>
-            <p className="ce-modal-text">
-              You're about to permanently delete this service enquiry.<br />
-              This action cannot be undone.
-            </p>
+                  <div className="cm-chips">
+                    <span
+                      className={`ce-type ${(TYPE_META[selected.type] || TYPE_META.Others).cls}`}
+                    >
+                      <Icon
+                        name={(TYPE_META[selected.type] || TYPE_META.Others).icon}
+                        size={13}
+                      />
+                      {selected.type}
+                    </span>
 
-            <div className="ce-modal-user">
-              <ModalPhoto src={deleteTarget.photo} name={deleteTarget.name} />
-              <div>
-                <strong>{deleteTarget.name}</strong>
-                <span>{deleteTarget.email}</span>
+                    <span className={`ce-status ${selected.status.toLowerCase()}`}>
+                      <i className="ce-dot" />
+                      {selected.status}
+                    </span>
+                  </div>
+                </div>
+
+                <div className="cm-rows">
+                  <div className="cm-row">
+                    <span className="cm-row-label">
+                      <Icon name="phone" size={16} />
+                      Phone
+                    </span>
+                    <strong>{selected.phone}</strong>
+                  </div>
+
+                  <div className="cm-row">
+                    <span className="cm-row-label">
+                      <Icon name="mail" size={16} />
+                      Email
+                    </span>
+                    <strong>{selected.email}</strong>
+                  </div>
+
+                  <div className="cm-row">
+                    <span className="cm-row-label">
+                      <Icon name="calendar" size={16} />
+                      Enquiry date
+                    </span>
+                    <strong>
+                      {selected.date}, {selected.time}
+                    </strong>
+                  </div>
+                </div>
               </div>
-              <em>#{deleteTarget.serial}</em>
-            </div>
 
-            <div className="ce-modal-warn">
-              <FaExclamationTriangle />
-              This enquiry and its associated details will be removed.
-            </div>
+              <div className="cm-view-actions">
+                <button
+                  type="button"
+                  className="cm-view-edit"
+                  onClick={() => openEdit(selected)}
+                >
+                  <Icon name="edit" size={16} />
+                  Edit enquiry
+                </button>
 
-            <div className="ce-modal-btns">
-              <button className="ce-keep" onClick={closeDelete} disabled={deleting}>Keep Enquiry</button>
-              <button className="ce-confirm" onClick={confirmDelete} disabled={deleting}>
-                {deleting ? (<><span className="ce-spinner" /> Deleting...</>) : (<><FaTrashAlt /> Delete Permanently</>)}
+                <button type="button" className="cm-view-close" onClick={closeModal}>
+                  Close
+                </button>
+              </div>
+            </div>
+          </div>,
+          document.body
+        )}
+
+      {/* EDIT */}
+      {modal === "edit" && selected && (
+        <ModalShell
+          title="Edit Enquiry"
+          subtitle="Update the enquiry details"
+          size="md"
+          onClose={closeModal}
+          footer={
+            <>
+              <button type="button" className="cm-btn cm-btn-light" onClick={closeModal}>
+                Cancel
               </button>
+              <button type="submit" form="cm-form" className="cm-btn cm-btn-red">
+                Save Changes
+              </button>
+            </>
+          }
+        >
+          <form id="cm-form" className="cm-form" onSubmit={handleSave} noValidate>
+            <div className="cm-field">
+              <label>
+                Full Name <span>*</span>
+              </label>
+              <input
+                name="name"
+                value={form.name}
+                onChange={handleFormChange}
+                placeholder="Enter full name"
+              />
+              {errors.name && <small>{errors.name}</small>}
             </div>
 
-            <p className="ce-modal-note"><FaShieldAlt /> Please confirm before removing this record</p>
+            <div className="cm-field">
+              <label>
+                Email Address <span>*</span>
+              </label>
+              <input
+                name="email"
+                type="email"
+                value={form.email}
+                onChange={handleFormChange}
+                placeholder="example@email.com"
+              />
+              {errors.email && <small>{errors.email}</small>}
+            </div>
+
+            <div className="cm-field">
+              <label>
+                Phone Number <span>*</span>
+              </label>
+              <input
+                name="phone"
+                value={form.phone}
+                onChange={handleFormChange}
+                placeholder="Enter phone number"
+              />
+              {errors.phone && <small>{errors.phone}</small>}
+            </div>
+
+            <div className="cm-field">
+              <label>Enquiry Type</label>
+              <Dropdown
+                variant="form"
+                ariaLabel="Enquiry type"
+                value={form.type}
+                options={TYPE_FORM_OPTIONS}
+                onChange={(v) => setFormValue("type", v)}
+              />
+            </div>
+
+            <div className="cm-field cm-full">
+              <label>Status</label>
+              <Dropdown
+                variant="form"
+                ariaLabel="Status"
+                value={form.status}
+                options={STATUS_FORM_OPTIONS}
+                onChange={(v) => setFormValue("status", v)}
+              />
+            </div>
+
+            <div className="cm-field cm-full">
+              <label>
+                Message <span>*</span>
+              </label>
+              <textarea
+                name="message"
+                rows="3"
+                value={form.message}
+                onChange={handleFormChange}
+                placeholder="Enter enquiry message..."
+              />
+              {errors.message && <small>{errors.message}</small>}
+            </div>
+          </form>
+        </ModalShell>
+      )}
+
+      {/* DELETE */}
+      {modal === "delete" && selected && (
+        <ModalShell
+          title="Delete Enquiry"
+          size="sm"
+          onClose={closeModal}
+          closeDisabled={deleting}
+          footer={
+            <>
+              <button
+                type="button"
+                className="cm-btn cm-btn-light"
+                onClick={closeModal}
+                disabled={deleting}
+              >
+                Cancel
+              </button>
+              <button
+                type="button"
+                className="cm-btn cm-btn-danger"
+                onClick={confirmDelete}
+                disabled={deleting}
+              >
+                {deleting ? "Deleting..." : "Yes, Delete"}
+              </button>
+            </>
+          }
+        >
+          <div className="cm-delete">
+            <div className="cm-delete-icon">
+              <Icon name="alert" size={26} />
+            </div>
+            <h3>Delete {selected.name}?</h3>
+            <p>
+              This action cannot be undone. The enquiry data will be removed
+              permanently.
+            </p>
           </div>
+        </ModalShell>
+      )}
+
+      {/* TOAST */}
+      {toast && (
+        <div className="ce-toast" role="status">
+          <span className="ce-toast-check">
+            <Icon name="check" size={13} />
+          </span>
+          {toast}
         </div>
       )}
-
-      {/* Toast */}
-      {toast && (
-        <div className="ce-toast"><FaCheckCircle /> {toast}</div>
-      )}
-    </div>
+    </main>
   );
-};
-
-export default ContactenquairyMain;
+}

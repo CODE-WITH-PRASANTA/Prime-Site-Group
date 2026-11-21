@@ -1,5 +1,5 @@
 
-import React, { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import {
   Clock3,
   UserRound,
@@ -7,12 +7,12 @@ import {
   Search,
   ChevronRight,
   ArrowUp,
+  ArrowUpRight,
   Copy,
   Check,
   Share2,
   CalendarDays,
   Tag,
-  Camera,
   Globe,
   MessageCircle,
   Bookmark,
@@ -221,30 +221,23 @@ const BlogDetailsMain = () => {
   const shareOn = (platform) => {
     const url = window.location.href;
     const title = activePost.title;
-    let shareUrl = "";
 
-    switch (platform) {
-      case "Facebook":
-        shareUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}`;
-        break;
-      case "X":
-        shareUrl = `https://twitter.com/intent/tweet?url=${encodeURIComponent(url)}&text=${encodeURIComponent(title)}`;
-        break;
-      case "LinkedIn":
-        shareUrl = `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(url)}`;
-        break;
-      case "WhatsApp":
-        shareUrl = `https://wa.me/?text=${encodeURIComponent(`${title} ${url}`)}`;
-        break;
-      default:
-        return;
+    const shareUrls = {
+      Facebook: `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}`,
+      X: `https://twitter.com/intent/tweet?url=${encodeURIComponent(url)}&text=${encodeURIComponent(title)}`,
+      LinkedIn: `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(url)}`,
+      WhatsApp: `https://wa.me/?text=${encodeURIComponent(`${title} ${url}`)}`,
+    };
+
+    const shareUrl = shareUrls[platform];
+
+    if (shareUrl) {
+      window.open(
+        shareUrl,
+        "_blank",
+        "noopener,noreferrer,width=650,height=550"
+      );
     }
-
-    window.open(
-      shareUrl,
-      "_blank",
-      "noopener,noreferrer,width=650,height=550"
-    );
   };
 
   const copyArticleLink = async () => {

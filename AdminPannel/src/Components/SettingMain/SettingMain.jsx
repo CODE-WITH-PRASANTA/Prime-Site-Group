@@ -1,46 +1,31 @@
 
 import React, { useEffect, useState } from "react";
 import {
-  Settings,
-  Mail,
-  Bell,
-  Palette,
-  Shield,
-  UploadCloud,
-  Globe,
-  CalendarDays,
-  Server,
-  UserRound,
-  LockKeyhole,
-  Save,
-  RotateCcw,
-  CheckCircle2,
-  Eye,
-  EyeOff,
-  X,
-  Info,
-  Image as ImageIcon,
-  Clock,
+  Settings, Mail, Bell, Palette, Shield, UploadCloud, Globe,
+  CalendarDays, Server, UserRound, LockKeyhole, Save, RotateCcw,
+  CheckCircle2, Eye, EyeOff, X, Info
 } from "lucide-react";
 
+import primeSiteLogo from "../../assets/primeSiteLogo.png";
 import "./SettingMain.css";
 
+const DEFAULT_LOGO = primeSiteLogo;
+
 const DEFAULT_SETTINGS = {
-  siteTitle: "Prime Site",
-  tagline: "Innovation for a Better Tomorrow",
+  siteTitle: "",
+  tagline: "",
   timezone: "Asia/Kolkata",
   dateFormat: "DD MMM YYYY",
-
-  fromEmail: "info@primesite.com",
-  fromName: "Prime Site",
-  smtpHost: "smtp.gmail.com",
+  fromEmail: "",
+  fromName: "",
+  smtpHost: "",
   smtpPort: "587",
-  smtpUsername: "info@primesite.com",
-  smtpPassword: "primepassword123",
+  smtpUsername: "",
+  smtpPassword: "",
   smtpEnabled: true,
-
   notificationsEnabled: true,
   twoFactorEnabled: false,
+  accentColor: "red",
 };
 
 const TIMEZONES = [
@@ -70,60 +55,96 @@ const TABS = [
   { id: "security", label: "Security", icon: Shield },
 ];
 
+function Field({
+  label,
+  name,
+  icon: Icon,
+  placeholder,
+  type = "text",
+  required = false,
+  value,
+  error,
+  onChange,
+  rightElement,
+  disabled = false,
+}) {
+  return (
+    <div className={`setting-field ${error ? "setting-field-error" : ""}`}>
+      <label htmlFor={`setting-${name}`}>
+        {label}
+        {required && <span className="setting-required"> *</span>}
+      </label>
+
+      <div className="setting-input-wrap">
+        {Icon && <Icon size={18} className="setting-input-icon" />}
+
+        <input
+          id={`setting-${name}`}
+          name={name}
+          type={type}
+          value={value}
+          placeholder={placeholder}
+          disabled={disabled}
+          aria-invalid={Boolean(error)}
+          onChange={(e) => onChange(name, e.target.value)}
+          autoComplete="off"
+        />
+
+        {rightElement}
+      </div>
+
+      {error && <span className="setting-error-text">{error}</span>}
+    </div>
+  );
+}
+
+function SectionHeader({ icon: Icon, title, subtitle }) {
+  return (
+    <div className="setting-section-header">
+      <div className="setting-section-icon">
+        <Icon size={21} />
+      </div>
+
+      <div>
+        <h2>{title}</h2>
+        <p>{subtitle}</p>
+      </div>
+    </div>
+  );
+}
+
+function Toggle({ value, onChange, label, description }) {
+  return (
+    <div className="setting-toggle-box">
+      <button
+        type="button"
+        className={`setting-switch ${value ? "enabled" : ""}`}
+        onClick={() => onChange(!value)}
+        aria-label={`Toggle ${label}`}
+        aria-pressed={value}
+      >
+        <span />
+      </button>
+
+      <div className="setting-toggle-text">
+        <strong>{label}</strong>
+        {description && <p>{description}</p>}
+      </div>
+    </div>
+  );
+}
+
 const SettingMain = () => {
-  const [settings, setSettings] = useState(() => {
-    try {
-      const saved = localStorage.getItem("primeWebsiteSettings");
-      return saved
-        ? { ...DEFAULT_SETTINGS, ...JSON.parse(saved) }
-        : { ...DEFAULT_SETTINGS };
-    } catch {
-      return { ...DEFAULT_SETTINGS };
-    }
-  });
+  const [settings, setSettings] = useState(() => ({ ...DEFAULT_SETTINGS }));
+  const [originalSettings, setOriginalSettings] = useState(() => ({
+    ...DEFAULT_SETTINGS,
+  }));
 
-  const [originalSettings, setOriginalSettings] = useState(() => {
-    try {
-      const saved = localStorage.getItem("primeWebsiteSettings");
-      return saved
-        ? { ...DEFAULT_SETTINGS, ...JSON.parse(saved) }
-        : { ...DEFAULT_SETTINGS };
-    } catch {
-      return { ...DEFAULT_SETTINGS };
-    }
-  });
-
-  const [logo, setLogo] = useState(() => {
-    try {
-      return localStorage.getItem("primeWebsiteLogo") || "";
-    } catch {
-      return "";
-    }
-  });
-
-  const [favicon, setFavicon] = useState(() => {
-    try {
-      return localStorage.getItem("primeWebsiteFavicon") || "";
-    } catch {
-      return "";
-    }
-  });
-
-  const [originalLogo, setOriginalLogo] = useState(() => {
-    try {
-      return localStorage.getItem("primeWebsiteLogo") || "";
-    } catch {
-      return "";
-    }
-  });
-
-  const [originalFavicon, setOriginalFavicon] = useState(() => {
-    try {
-      return localStorage.getItem("primeWebsiteFavicon") || "";
-    } catch {
-      return "";
-    }
-  });
+  // Prime Site logo is displayed by default.
+  const [logo, setLogo] = useState(DEFAULT_LOGO);
+  const [favicon, setFavicon] = useState("");
+  const [originalLogo, setOriginalLogo] = useState(DEFAULT_LOGO);
+  const [originalFavicon, setOriginalFavicon] = useState("");
 
   const [activeTab, setActiveTab] = useState("general");
   const [showPassword, setShowPassword] = useState(false);
@@ -132,20 +153,19 @@ const SettingMain = () => {
   const [saving, setSaving] = useState(false);
 
   useEffect(() => {
-    if (!notification) return;
+    if (!notification) return undefined;
 
-    const timer = setTimeout(() => {
+    const timer = window.setTimeout(() => {
       setNotification(null);
     }, 3200);
 
-    return () => clearTimeout(timer);
+    return () => window.clearTimeout(timer);
   }, [notification]);
 
   const notify = (message, type = "success") => {
     setNotification({ message, type });
   };
 
-  // UPDATE SETTINGS
   const updateField = (field, value) => {
     setSettings((prev) => ({
       ...prev,
@@ -158,23 +178,19 @@ const SettingMain = () => {
     }));
   };
 
-  // IMAGE UPLOAD
-  const handleImageUpload = (e, type) => {
-    const file = e.target.files?.[0];
-
+  const handleImageUpload = (event, type) => {
+    const file = event.target.files?.[0];
     if (!file) return;
 
     if (!file.type.startsWith("image/")) {
       notify("Please select a valid image file.", "error");
-      e.target.value = "";
+      event.target.value = "";
       return;
     }
 
-    const maxSize = 2 * 1024 * 1024;
-
-    if (file.size > maxSize) {
+    if (file.size > 2 * 1024 * 1024) {
       notify("Image size must be less than 2MB.", "error");
-      e.target.value = "";
+      event.target.value = "";
       return;
     }
 
@@ -188,7 +204,7 @@ const SettingMain = () => {
       }
 
       notify(
-        `${type === "logo" ? "Logo" : "Favicon"} preview updated. Click Save Settings to save it.`
+        `${type === "logo" ? "Logo" : "Favicon"} preview updated. Click Save Settings to confirm.`
       );
     };
 
@@ -197,10 +213,9 @@ const SettingMain = () => {
     };
 
     reader.readAsDataURL(file);
-    e.target.value = "";
+    event.target.value = "";
   };
 
-  // VALIDATION
   const validateSettings = () => {
     const newErrors = {};
 
@@ -210,9 +225,7 @@ const SettingMain = () => {
 
     if (!settings.fromEmail.trim()) {
       newErrors.fromEmail = "From email is required.";
-    } else if (
-      !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(settings.fromEmail)
-    ) {
+    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(settings.fromEmail)) {
       newErrors.fromEmail = "Enter a valid email address.";
     }
 
@@ -244,11 +257,9 @@ const SettingMain = () => {
     }
 
     setErrors(newErrors);
-
     return Object.keys(newErrors).length === 0;
   };
 
-  // SAVE SETTINGS
   const handleSave = () => {
     if (!validateSettings()) {
       notify("Please correct the highlighted fields.", "error");
@@ -258,151 +269,50 @@ const SettingMain = () => {
     setSaving(true);
 
     try {
-      localStorage.setItem(
-        "primeWebsiteSettings",
-        JSON.stringify(settings)
-      );
+      const savedSettings = { ...settings };
 
-      localStorage.setItem("primeWebsiteLogo", logo);
-      localStorage.setItem("primeWebsiteFavicon", favicon);
-
-      setOriginalSettings({ ...settings });
+      setOriginalSettings(savedSettings);
       setOriginalLogo(logo);
       setOriginalFavicon(favicon);
 
-      notify("Website settings saved successfully!");
+      notify("Settings saved for this session.");
     } catch {
-      notify(
-        "Unable to save settings. Please use smaller images or clear browser storage.",
-        "error"
-      );
+      notify("Unable to save settings.", "error");
     } finally {
       setSaving(false);
     }
   };
 
-  // RESET SETTINGS
   const handleReset = () => {
     setSettings({ ...originalSettings });
     setLogo(originalLogo);
     setFavicon(originalFavicon);
     setErrors({});
+    setShowPassword(false);
 
     notify("Unsaved changes have been reset.");
   };
 
-  // NAVIGATION
   const handleTabClick = (tabId) => {
     setActiveTab(tabId);
 
-    if (tabId === "appearance") {
-      notify(
-        "Appearance settings are not included in the supplied reference layout.",
-        "info"
-      );
-      return;
-    }
-
-    const section = document.getElementById(
-      `setting-section-${tabId}`
-    );
+    const section = document.getElementById(`setting-section-${tabId}`);
 
     if (section) {
       section.scrollIntoView({
         behavior: "smooth",
-        block: "center",
+        block: "start",
       });
     }
   };
 
-  // REUSABLE FIELD
-  const Field = ({
-    label,
-    name,
-    icon: Icon,
-    placeholder,
-    type = "text",
-    required = false,
-    rightElement,
-  }) => (
-    <div
-      className={`setting-field ${
-        errors[name] ? "setting-field-error" : ""
-      }`}
-    >
-      <label htmlFor={`setting-${name}`}>
-        {label}
-        {required && <span className="setting-required"> *</span>}
-      </label>
-
-      <div className="setting-input-wrap">
-        {Icon && <Icon size={18} className="setting-input-icon" />}
-
-        <input
-          id={`setting-${name}`}
-          type={type}
-          value={settings[name] || ""}
-          placeholder={placeholder}
-          onChange={(e) => updateField(name, e.target.value)}
-        />
-
-        {rightElement}
-      </div>
-
-      {errors[name] && (
-        <span className="setting-error-text">{errors[name]}</span>
-      )}
-    </div>
-  );
-
-  // REUSABLE SECTION HEADER
-  const SectionHeader = ({ icon: Icon, title, subtitle }) => (
-    <div className="setting-section-header">
-      <div className="setting-section-icon">
-        <Icon size={23} />
-      </div>
-
-      <div>
-        <h2>{title}</h2>
-        <p>{subtitle}</p>
-      </div>
-    </div>
-  );
-
-  // REUSABLE TOGGLE
-  const Toggle = ({
-    value,
-    onChange,
-    label,
-    description,
-  }) => (
-    <div className="setting-toggle-box">
-      <button
-        type="button"
-        className={`setting-switch ${value ? "enabled" : ""}`}
-        onClick={() => onChange(!value)}
-        aria-label={`Toggle ${label}`}
-        aria-pressed={value}
-      >
-        <span />
-      </button>
-
-      <div className="setting-toggle-text">
-        <strong>{label}</strong>
-        {description && <p>{description}</p>}
-      </div>
-    </div>
-  );
-
   return (
-    <div className="setting-main">
-
+    <div className={`setting-main accent-${settings.accentColor}`}>
       {/* HEADER */}
       <header className="setting-page-header">
-
         <div className="setting-header-left">
           <div className="setting-header-icon">
-            <Settings size={29} strokeWidth={2.5} />
+            <Settings size={27} />
           </div>
 
           <div>
@@ -410,12 +320,10 @@ const SettingMain = () => {
             <p>Manage your website settings and preferences</p>
           </div>
         </div>
-
       </header>
 
       {/* NAVIGATION */}
-      <nav className="setting-navigation">
-
+      <nav className="setting-navigation" aria-label="Settings navigation">
         {TABS.map((tab) => {
           const Icon = tab.icon;
 
@@ -423,28 +331,24 @@ const SettingMain = () => {
             <button
               key={tab.id}
               type="button"
-              className={
-                activeTab === tab.id ? "active" : ""
-              }
+              className={activeTab === tab.id ? "active" : ""}
               onClick={() => handleTabClick(tab.id)}
+              aria-current={activeTab === tab.id ? "page" : undefined}
             >
               <Icon size={18} />
               <span>{tab.label}</span>
             </button>
           );
         })}
-
       </nav>
 
       {/* SETTINGS GRID */}
       <div className="setting-grid">
-
         {/* GENERAL SETTINGS */}
         <section
           className="setting-card setting-general-card"
           id="setting-section-general"
         >
-
           <SectionHeader
             icon={Settings}
             title="General Settings"
@@ -452,47 +356,39 @@ const SettingMain = () => {
           />
 
           <div className="setting-general-fields">
-
             <Field
               label="Site Title"
               name="siteTitle"
               placeholder="Enter website title"
               required
+              value={settings.siteTitle}
+              error={errors.siteTitle}
+              onChange={updateField}
             />
 
             <Field
               label="Tagline"
               name="tagline"
               placeholder="Enter website tagline"
+              value={settings.tagline}
+              onChange={updateField}
             />
-
           </div>
 
-          {/* LOGO UPLOAD */}
+          {/* LOGO */}
           <div className="setting-upload-group">
-
-            <label className="setting-upload-label">
-              Site Logo
-            </label>
+            <label className="setting-upload-label">Site Logo</label>
 
             <div className="setting-upload-row">
-
               <div className="setting-logo-preview">
                 {logo ? (
-                  <img src={logo} alt="Website logo preview" />
+                  <img src={logo} alt="Prime Site logo preview" />
                 ) : (
-                  <div className="setting-default-logo">
-                    <span className="setting-logo-symbol">P</span>
-                    <div>
-                      <strong>Prime Site</strong>
-                      <small>Your Trusted Partner</small>
-                    </div>
-                  </div>
+                  <span className="setting-empty-preview">Logo preview</span>
                 )}
               </div>
 
               <div className="setting-upload-controls">
-
                 <label
                   htmlFor="setting-logo-upload"
                   className="setting-upload-btn"
@@ -509,31 +405,25 @@ const SettingMain = () => {
                   onChange={(e) => handleImageUpload(e, "logo")}
                 />
 
-                <small>Recommended size: 200x60px</small>
-
+                <small>Recommended size: 200 × 60px · Max 2MB</small>
               </div>
             </div>
           </div>
 
-          {/* FAVICON UPLOAD */}
+          {/* FAVICON */}
           <div className="setting-upload-group">
-
-            <label className="setting-upload-label">
-              Favicon
-            </label>
+            <label className="setting-upload-label">Favicon</label>
 
             <div className="setting-upload-row">
-
               <div className="setting-favicon-preview">
                 {favicon ? (
                   <img src={favicon} alt="Favicon preview" />
                 ) : (
-                  <span>P</span>
+                  <span className="setting-empty-favicon">32px</span>
                 )}
               </div>
 
               <div className="setting-upload-controls">
-
                 <label
                   htmlFor="setting-favicon-upload"
                   className="setting-upload-btn"
@@ -547,22 +437,18 @@ const SettingMain = () => {
                   id="setting-favicon-upload"
                   accept="image/*"
                   hidden
-                  onChange={(e) =>
-                    handleImageUpload(e, "favicon")
-                  }
+                  onChange={(e) => handleImageUpload(e, "favicon")}
                 />
 
-                <small>Recommended size: 32x32px</small>
-
+                <small>Recommended size: 32 × 32px · Max 2MB</small>
               </div>
             </div>
           </div>
 
           {/* TIMEZONE */}
           <div className="setting-select-group">
-
             <label htmlFor="setting-timezone">
-              <Globe size={17} />
+              <Globe size={16} />
               Timezone
             </label>
 
@@ -570,9 +456,7 @@ const SettingMain = () => {
               <select
                 id="setting-timezone"
                 value={settings.timezone}
-                onChange={(e) =>
-                  updateField("timezone", e.target.value)
-                }
+                onChange={(e) => updateField("timezone", e.target.value)}
               >
                 {TIMEZONES.map((zone) => (
                   <option key={zone.value} value={zone.value}>
@@ -581,14 +465,12 @@ const SettingMain = () => {
                 ))}
               </select>
             </div>
-
           </div>
 
           {/* DATE FORMAT */}
           <div className="setting-select-group">
-
             <label htmlFor="setting-date-format">
-              <CalendarDays size={17} />
+              <CalendarDays size={16} />
               Date Format
             </label>
 
@@ -596,9 +478,7 @@ const SettingMain = () => {
               <select
                 id="setting-date-format"
                 value={settings.dateFormat}
-                onChange={(e) =>
-                  updateField("dateFormat", e.target.value)
-                }
+                onChange={(e) => updateField("dateFormat", e.target.value)}
               >
                 {DATE_FORMATS.map((format) => (
                   <option key={format} value={format}>
@@ -607,9 +487,7 @@ const SettingMain = () => {
                 ))}
               </select>
             </div>
-
           </div>
-
         </section>
 
         {/* EMAIL SETTINGS */}
@@ -617,7 +495,6 @@ const SettingMain = () => {
           className="setting-card setting-email-card"
           id="setting-section-email"
         >
-
           <SectionHeader
             icon={Mail}
             title="Email Settings"
@@ -625,13 +502,15 @@ const SettingMain = () => {
           />
 
           <div className="setting-email-grid">
-
             <Field
               label="From Email"
               name="fromEmail"
               icon={Mail}
               placeholder="info@example.com"
               required
+              value={settings.fromEmail}
+              error={errors.fromEmail}
+              onChange={updateField}
             />
 
             <Field
@@ -640,6 +519,9 @@ const SettingMain = () => {
               icon={UserRound}
               placeholder="Website name"
               required
+              value={settings.fromName}
+              error={errors.fromName}
+              onChange={updateField}
             />
 
             <Field
@@ -647,6 +529,10 @@ const SettingMain = () => {
               name="smtpHost"
               icon={Server}
               placeholder="smtp.example.com"
+              value={settings.smtpHost}
+              error={errors.smtpHost}
+              onChange={updateField}
+              disabled={!settings.smtpEnabled}
             />
 
             <Field
@@ -654,13 +540,21 @@ const SettingMain = () => {
               name="smtpPort"
               icon={CalendarDays}
               placeholder="587"
+              value={settings.smtpPort}
+              error={errors.smtpPort}
+              onChange={updateField}
+              disabled={!settings.smtpEnabled}
             />
 
             <Field
               label="SMTP Username"
               name="smtpUsername"
               icon={UserRound}
-              placeholder="Username"
+              placeholder="Enter SMTP username"
+              value={settings.smtpUsername}
+              error={errors.smtpUsername}
+              onChange={updateField}
+              disabled={!settings.smtpEnabled}
             />
 
             <Field
@@ -669,22 +563,24 @@ const SettingMain = () => {
               icon={LockKeyhole}
               type={showPassword ? "text" : "password"}
               placeholder="Enter SMTP password"
+              value={settings.smtpPassword}
+              error={errors.smtpPassword}
+              onChange={updateField}
+              disabled={!settings.smtpEnabled}
               rightElement={
                 <button
                   type="button"
                   className="setting-password-eye"
-                  onClick={() => setShowPassword(!showPassword)}
-                  aria-label="Toggle SMTP password visibility"
+                  onClick={() => setShowPassword((prev) => !prev)}
+                  aria-label={
+                    showPassword ? "Hide SMTP password" : "Show SMTP password"
+                  }
+                  disabled={!settings.smtpEnabled}
                 >
-                  {showPassword ? (
-                    <EyeOff size={18} />
-                  ) : (
-                    <Eye size={18} />
-                  )}
+                  {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
                 </button>
               }
             />
-
           </div>
 
           <Toggle
@@ -693,15 +589,13 @@ const SettingMain = () => {
             label="Enable SMTP Email"
             description="Turn on to send emails from your website"
           />
-
         </section>
 
-        {/* NOTIFICATION SETTINGS */}
+        {/* NOTIFICATIONS */}
         <section
           className="setting-card setting-notification-card"
           id="setting-section-notification"
         >
-
           <SectionHeader
             icon={Bell}
             title="Notification Settings"
@@ -710,21 +604,49 @@ const SettingMain = () => {
 
           <Toggle
             value={settings.notificationsEnabled}
-            onChange={(value) =>
-              updateField("notificationsEnabled", value)
-            }
+            onChange={(value) => updateField("notificationsEnabled", value)}
             label="Enable Notifications"
             description="Get notified about new bookings, enquiries and more"
           />
-
         </section>
 
-        {/* SECURITY SETTINGS */}
+        {/* APPEARANCE */}
+        <section
+          className="setting-card setting-appearance-card"
+          id="setting-section-appearance"
+        >
+          <SectionHeader
+            icon={Palette}
+            title="Appearance Settings"
+            subtitle="Customize your admin panel accent color"
+          />
+
+          <div className="setting-select-group">
+            <label htmlFor="setting-accent-color">
+              <Palette size={16} />
+              Accent Color
+            </label>
+
+            <div className="setting-select-wrap">
+              <select
+                id="setting-accent-color"
+                value={settings.accentColor}
+                onChange={(e) => updateField("accentColor", e.target.value)}
+              >
+                <option value="red">Prime Red</option>
+                <option value="blue">Ocean Blue</option>
+                <option value="green">Forest Green</option>
+                <option value="purple">Royal Purple</option>
+              </select>
+            </div>
+          </div>
+        </section>
+
+        {/* SECURITY */}
         <section
           className="setting-card setting-security-card"
           id="setting-section-security"
         >
-
           <SectionHeader
             icon={Shield}
             title="Security Settings"
@@ -733,26 +655,21 @@ const SettingMain = () => {
 
           <Toggle
             value={settings.twoFactorEnabled}
-            onChange={(value) =>
-              updateField("twoFactorEnabled", value)
-            }
+            onChange={(value) => updateField("twoFactorEnabled", value)}
             label="Enable Two-Factor Authentication (2FA)"
             description="Add an extra layer of security to your account"
           />
-
         </section>
-
       </div>
 
-      {/* BOTTOM ACTION BUTTONS */}
+      {/* ACTION BUTTONS */}
       <div className="setting-actions">
-
         <button
           type="button"
           className="setting-reset-btn"
           onClick={handleReset}
         >
-          <RotateCcw size={19} />
+          <RotateCcw size={18} />
           Reset Settings
         </button>
 
@@ -762,30 +679,22 @@ const SettingMain = () => {
           onClick={handleSave}
           disabled={saving}
         >
-          <Save size={19} />
+          <Save size={18} />
           {saving ? "Saving..." : "Save Settings"}
         </button>
-
       </div>
 
-      {/* NOTIFICATION TOAST */}
+      {/* TOAST */}
       {notification && (
         <div
-          className={`setting-toast ${
-            notification.type === "error"
-              ? "error"
-              : notification.type === "info"
-              ? "info"
-              : "success"
-          }`}
+          className={`setting-toast ${notification.type}`}
+          role="status"
+          aria-live="polite"
         >
-
-          {notification.type === "error" ? (
-            <Info size={20} />
-          ) : notification.type === "info" ? (
-            <Info size={20} />
-          ) : (
+          {notification.type === "success" ? (
             <CheckCircle2 size={20} />
+          ) : (
+            <Info size={20} />
           )}
 
           <span>{notification.message}</span>
@@ -797,10 +706,8 @@ const SettingMain = () => {
           >
             <X size={17} />
           </button>
-
         </div>
       )}
-
     </div>
   );
 };
