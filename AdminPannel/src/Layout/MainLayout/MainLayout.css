@@ -1,4 +1,9 @@
 
+/* =========================================
+   PRIME SITE - MAIN LAYOUT
+   PREMIUM RED & WHITE ADMIN THEME
+========================================= */
+
 * {
   box-sizing: border-box;
 }
@@ -8,6 +13,10 @@ body {
   font-family: "Inter", "Segoe UI", Arial, sans-serif;
   background: #f8f9fb;
 }
+
+/* =========================================
+   MAIN LAYOUT
+========================================= */
 
 .admin-layout {
   --sidebar-width: 270px;
@@ -20,22 +29,57 @@ body {
 .admin-main {
   min-height: 100vh;
   margin-left: var(--sidebar-width);
-  transition: margin-left .35s cubic-bezier(.22, 1, .36, 1);
+  transition: margin-left 0.35s cubic-bezier(0.22, 1, 0.36, 1);
   min-width: 0;
 }
 
+/* COLLAPSED SIDEBAR */
+
 .admin-layout.layout-collapsed {
-  --sidebar-width: 82px;
+  --sidebar-width: 80px;
 }
+
+/* =========================================
+   ADMIN CONTENT
+========================================= */
 
 .admin-content {
-  min-height: calc(100vh - 82px);
-  padding: 30px 32px;
+  min-height: calc(100vh - 64px);
+  padding: 3px 1px;
+
   display: flex;
   flex-direction: column;
+
+  width: 100%;
+  min-width: 0;
 }
 
-/* PAGE HEADING */
+.admin-page-content {
+  flex: 1;
+  width: 100%;
+  min-width: 0;
+  animation: pageFade 0.35s ease;
+}
+
+/* =========================================
+   PAGE TRANSITION
+========================================= */
+
+@keyframes pageFade {
+  from {
+    opacity: 0;
+    transform: translateY(7px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* =========================================
+   PAGE HEADING
+========================================= */
 
 .content-heading {
   display: flex;
@@ -58,7 +102,7 @@ body {
   font-size: clamp(23px, 3vw, 30px);
   font-weight: 750;
   margin: 0 0 7px;
-  letter-spacing: -.7px;
+  letter-spacing: -0.7px;
 }
 
 .content-heading p {
@@ -68,18 +112,25 @@ body {
   line-height: 1.6;
 }
 
+/* =========================================
+   DATE ELEMENT
+========================================= */
+
 .content-date {
   display: flex;
   align-items: center;
   gap: 9px;
-  background: white;
+
+  background: #fff;
   border: 1px solid #eee5e5;
   padding: 13px 19px;
   border-radius: 30px;
+
   color: #555;
   font-size: 12px;
   white-space: nowrap;
-  box-shadow: 0 4px 15px rgba(0,0,0,.035);
+
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.035);
 }
 
 .content-date span {
@@ -87,32 +138,16 @@ body {
   font-size: 12px;
 }
 
-/* PAGE CONTENT */
-
-.admin-page-content {
-  flex: 1;
-  width: 100%;
-  min-width: 0;
-  animation: pageFade .35s ease;
-}
-
-@keyframes pageFade {
-  from {
-    opacity: 0;
-    transform: translateY(7px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-/* FOOTER */
+/* =========================================
+   ADMIN FOOTER
+========================================= */
 
 .admin-footer {
   margin-top: 30px;
   padding: 18px 0 5px;
+
   border-top: 1px solid #eee7e7;
+
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -126,17 +161,21 @@ body {
   font-size: 11px;
 }
 
-/* TABLET */
+/* =========================================
+   TABLET RESPONSIVE
+========================================= */
 
-@media(max-width: 992px) {
+@media (max-width: 992px) {
   .admin-content {
     padding: 25px 20px;
   }
 }
 
-/* MOBILE */
+/* =========================================
+   MOBILE RESPONSIVE
+========================================= */
 
-@media(max-width: 768px) {
+@media (max-width: 768px) {
   .admin-main,
   .admin-layout.layout-collapsed .admin-main {
     margin-left: 0;
@@ -144,7 +183,7 @@ body {
 
   .admin-content {
     padding: 23px 15px;
-    min-height: calc(100vh - 70px);
+    min-height: calc(100vh - 56px);
   }
 
   .content-heading {
@@ -167,7 +206,11 @@ body {
   }
 }
 
-@media(max-width: 420px) {
+/* =========================================
+   SMALL MOBILE
+========================================= */
+
+@media (max-width: 420px) {
   .admin-content {
     padding: 20px 12px;
   }
