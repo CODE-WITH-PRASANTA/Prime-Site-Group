@@ -1,0 +1,589 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap");
+
+.DashboardTwo {
+  --red: #d7263d;
+  --red-deep: #7a0b14;
+  --ink: #2b1a24;
+  --muted: #5b5160;
+  --line: #eee3e5;
+  --ease: cubic-bezier(0.2, 0.7, 0.2, 1);
+
+  width: 100%;
+  container-type: inline-size; /* responsive to the space beside the sidebar */
+  padding: clamp(14px, 1.6vw, 24px) clamp(12px, 2vw, 24px) 0;
+  font-family: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+  background: transparent; /* page background comes from .admin-layout */
+}
+
+.DashboardTwo *,
+.DashboardTwo *::before,
+.DashboardTwo *::after {
+  box-sizing: border-box;
+}
+
+.DashboardTwo-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 2.7fr) minmax(0, 1fr);
+  gap: clamp(14px, 1.6vw, 24px);
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+/* ---------------- Chart card ---------------- */
+.DashboardTwo-card {
+  position: relative;
+  min-width: 0;
+  padding: 22px 22px 14px;
+  border-radius: 20px;
+  background: #fff;
+  box-shadow: 0 8px 26px rgba(120, 30, 45, 0.1), 0 1px 3px rgba(120, 30, 45, 0.06);
+  animation: DashboardTwo-rise 0.8s var(--ease) both;
+}
+
+.DashboardTwo-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 14px;
+}
+
+.DashboardTwo-heading {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-width: 0;
+}
+
+.DashboardTwo-heading-icon {
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 30px;
+  height: 30px;
+  color: var(--red);
+}
+
+.DashboardTwo-heading-icon svg {
+  width: 26px;
+  height: 26px;
+}
+
+.DashboardTwo-heading-title {
+  margin: 0;
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--ink);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* ---------------- Dropdown ---------------- */
+.DashboardTwo-dropdown {
+  position: relative;
+  flex: none;
+}
+
+.DashboardTwo-dropdown-btn {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  gap: 10px;
+  padding: 10px 16px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  cursor: pointer;
+  font: inherit;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--ink);
+  background: #fff;
+  box-shadow: 0 2px 8px rgba(120, 30, 45, 0.06);
+  transition: border-color 0.25s ease, box-shadow 0.25s ease, transform 0.25s ease;
+}
+
+.DashboardTwo-dropdown-btn:hover {
+  border-color: rgba(215, 38, 61, 0.45);
+  box-shadow: 0 6px 18px rgba(215, 38, 61, 0.14);
+}
+
+.DashboardTwo-dropdown.is-open .DashboardTwo-dropdown-btn {
+  border-color: var(--red);
+  box-shadow: 0 0 0 4px rgba(215, 38, 61, 0.12);
+}
+
+.DashboardTwo-dropdown-btn:focus-visible,
+.DashboardTwo-dropdown-item:focus-visible,
+.DashboardTwo-promo-btn:focus-visible {
+  outline: 3px solid rgba(215, 38, 61, 0.55);
+  outline-offset: 2px;
+}
+
+.DashboardTwo-dropdown-chev {
+  display: grid;
+  place-items: center;
+  color: var(--muted);
+  transition: transform 0.35s var(--ease), color 0.25s ease;
+}
+
+.DashboardTwo-dropdown.is-open .DashboardTwo-dropdown-chev {
+  transform: rotate(180deg);
+  color: var(--red);
+}
+
+.DashboardTwo-dropdown-menu {
+  position: absolute;
+  top: calc(100% + 10px);
+  right: 0;
+  z-index: 20;
+  min-width: 100%;
+  margin: 0;
+  padding: 6px;
+  list-style: none;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.96);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  box-shadow: 0 18px 40px rgba(120, 30, 45, 0.18);
+  transform-origin: top right;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-8px) scale(0.96);
+  transition:
+    opacity 0.25s ease,
+    transform 0.35s var(--ease),
+    visibility 0s linear 0.35s;
+}
+
+.DashboardTwo-dropdown.is-open .DashboardTwo-dropdown-menu {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0) scale(1);
+  transition-delay: 0s;
+}
+
+.DashboardTwo-dropdown-menu li {
+  opacity: 0;
+  transform: translateY(-6px);
+  transition: opacity 0.3s ease, transform 0.35s var(--ease);
+}
+
+.DashboardTwo-dropdown.is-open .DashboardTwo-dropdown-menu li {
+  opacity: 1;
+  transform: translateY(0);
+  transition-delay: calc(var(--i) * 0.05s + 0.05s);
+}
+
+.DashboardTwo-dropdown-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  width: 100%;
+  padding: 10px 12px;
+  border: 0;
+  border-radius: 10px;
+  cursor: pointer;
+  font: inherit;
+  font-size: 0.9rem;
+  white-space: nowrap;
+  text-align: left;
+  color: var(--ink);
+  background: transparent;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.DashboardTwo-dropdown-item:hover {
+  background: #fdeced;
+}
+
+.DashboardTwo-dropdown-item.is-active {
+  font-weight: 600;
+  color: var(--red);
+  background: #fdeced;
+}
+
+/* ---------------- Chart ---------------- */
+.DashboardTwo-chart {
+  position: relative;
+  width: 100%;
+}
+
+.DashboardTwo-svg {
+  display: block;
+  overflow: visible;
+  cursor: crosshair;
+  touch-action: pan-y;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.DashboardTwo-svg .DashboardTwo-gridline {
+  stroke: var(--line);
+  stroke-width: 1;
+}
+
+.DashboardTwo-svg .DashboardTwo-gridline--v {
+  stroke-opacity: 0.8;
+}
+
+.DashboardTwo-ylabel,
+.DashboardTwo-xlabel {
+  font-family: "Inter", system-ui, sans-serif;
+  font-size: 12px;
+  font-weight: 500;
+  fill: #4d4350;
+}
+
+.DashboardTwo-xlabel {
+  transition: fill 0.3s ease;
+}
+
+.DashboardTwo-xlabel.is-active {
+  fill: var(--red);
+  font-weight: 700;
+}
+
+.DashboardTwo-area {
+  opacity: 0;
+  animation: DashboardTwo-fade 1.4s ease 0.7s forwards;
+}
+
+.DashboardTwo-line {
+  stroke: var(--red);
+  stroke-width: 2.4;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  filter: drop-shadow(0 4px 6px rgba(215, 38, 61, 0.25));
+  animation: DashboardTwo-draw 1.8s cubic-bezier(0.45, 0, 0.2, 1) 0.1s forwards;
+}
+
+.DashboardTwo-dot {
+  fill: var(--red);
+  stroke: #fff;
+  stroke-width: 1.5;
+  opacity: 0;
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: DashboardTwo-pop 0.5s var(--ease) forwards;
+}
+
+/* moving marker */
+.DashboardTwo-marker {
+  pointer-events: none;
+  transition: transform 0.4s var(--ease);
+}
+
+.DashboardTwo-guide {
+  stroke: var(--red);
+  stroke-width: 1;
+  stroke-dasharray: 4 4;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.DashboardTwo-guide.is-on {
+  opacity: 0.45;
+}
+
+.DashboardTwo-dot-active {
+  fill: var(--red);
+  stroke: #fff;
+  stroke-width: 2.5;
+  filter: drop-shadow(0 3px 6px rgba(215, 38, 61, 0.5));
+}
+
+.DashboardTwo-pulse {
+  fill: var(--red);
+  opacity: 0.25;
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: DashboardTwo-pulse 2s ease-out infinite;
+}
+
+/* tooltip */
+.DashboardTwo-tip {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 5;
+  pointer-events: none;
+  transition: transform 0.4s var(--ease);
+}
+
+.DashboardTwo-tip-box {
+  position: absolute;
+  left: 0;
+  top: 0;
+  min-width: 112px;
+  padding: 10px 14px;
+  border-radius: 12px;
+  background: #fff;
+  box-shadow: 0 12px 30px rgba(120, 30, 45, 0.2), 0 1px 3px rgba(120, 30, 45, 0.1);
+  transform: translate(-50%, calc(-100% - 18px));
+  animation: DashboardTwo-tip-in 0.7s var(--ease) 1.4s both;
+}
+
+.DashboardTwo-tip-box::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: -5px;
+  width: 10px;
+  height: 10px;
+  background: #fff;
+  transform: translateX(-50%) rotate(45deg);
+  border-radius: 2px;
+  box-shadow: 3px 3px 6px rgba(120, 30, 45, 0.08);
+}
+
+.DashboardTwo-tip-box strong {
+  display: block;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--ink);
+}
+
+.DashboardTwo-tip-box span {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 4px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  white-space: nowrap;
+  color: var(--ink);
+}
+
+.DashboardTwo-tip-box i {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--red);
+}
+
+/* ---------------- Promo card ---------------- */
+.DashboardTwo-promo {
+  position: relative;
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  border-radius: 20px;
+  color: #fff;
+  background: linear-gradient(160deg, #b3121f 0%, #8a0d18 55%, #5c0710 100%);
+  box-shadow: 0 14px 34px rgba(122, 11, 20, 0.35);
+  animation: DashboardTwo-rise 0.8s 0.15s var(--ease) both;
+}
+
+.DashboardTwo-promo-bg {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+}
+
+.DashboardTwo-promo-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  animation: DashboardTwo-zoom 16s ease-in-out infinite alternate;
+  transition: transform 0.9s var(--ease);
+}
+
+.DashboardTwo-promo:hover .DashboardTwo-promo-img {
+  transform: scale(1.08);
+}
+
+/* fallback: glass building illustration */
+.DashboardTwo-promo-building {
+  position: absolute;
+  top: -6%;
+  right: -22%;
+  bottom: -6%;
+  width: 82%;
+  background:
+    repeating-linear-gradient(90deg, rgba(255, 255, 255, 0.2) 0 1px, transparent 1px 20px),
+    repeating-linear-gradient(0deg, rgba(255, 255, 255, 0.16) 0 1px, transparent 1px 26px),
+    linear-gradient(160deg, rgba(255, 255, 255, 0.28), rgba(40, 0, 6, 0.55));
+  transform: perspective(700px) rotateY(-26deg) skewY(-5deg);
+  transform-origin: right center;
+  -webkit-mask-image: linear-gradient(90deg, transparent 0%, #000 55%);
+  mask-image: linear-gradient(90deg, transparent 0%, #000 55%);
+  animation: DashboardTwo-sway 10s ease-in-out infinite alternate;
+}
+
+.DashboardTwo-promo-shade {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(90deg, rgba(110, 8, 18, 0.94) 0%, rgba(150, 15, 28, 0.66) 55%, rgba(150, 15, 28, 0.28) 100%),
+    linear-gradient(0deg, rgba(60, 4, 10, 0.5), transparent 45%);
+}
+
+.DashboardTwo-promo-shine {
+  position: absolute;
+  top: -20%;
+  left: -70%;
+  width: 40%;
+  height: 140%;
+  background: linear-gradient(100deg, transparent, rgba(255, 255, 255, 0.16), transparent);
+  transform: skewX(-18deg);
+  animation: DashboardTwo-sweep 6s 1.5s ease-in-out infinite;
+}
+
+.DashboardTwo-promo-body {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  padding: 28px 24px;
+}
+
+.DashboardTwo-brand {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 22px;
+  font-size: 1.15rem;
+  font-weight: 600;
+}
+
+.DashboardTwo-brand svg {
+  width: 32px;
+  height: 32px;
+  flex: none;
+}
+
+.DashboardTwo-brand b {
+  font-weight: 600;
+  color: #ff9a6b;
+}
+
+.DashboardTwo-promo-title {
+  margin: 0 0 12px;
+  max-width: 14ch;
+  font-size: clamp(1.3rem, 1.7vw, 1.65rem);
+  font-weight: 800;
+  line-height: 1.22;
+}
+
+.DashboardTwo-promo-text {
+  margin: 0 0 24px;
+  max-width: 24ch;
+  font-size: 0.92rem;
+  line-height: 1.6;
+  color: rgba(255, 240, 240, 0.9);
+}
+
+.DashboardTwo-promo-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 13px 24px;
+  border: 0;
+  border-radius: 999px;
+  cursor: pointer;
+  font: inherit;
+  font-size: 0.92rem;
+  font-weight: 700;
+  color: var(--red-deep);
+  background: #fff;
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.25);
+  transition: transform 0.3s var(--ease), box-shadow 0.3s ease;
+}
+
+.DashboardTwo-promo-btn svg {
+  transition: transform 0.3s var(--ease);
+}
+
+.DashboardTwo-promo-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 16px 32px rgba(0, 0, 0, 0.32);
+}
+
+.DashboardTwo-promo-btn:hover svg {
+  transform: translateX(4px);
+}
+
+/* ---------------- Keyframes ---------------- */
+@keyframes DashboardTwo-rise {
+  from { opacity: 0; transform: translateY(26px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes DashboardTwo-fade {
+  to { opacity: 1; }
+}
+@keyframes DashboardTwo-draw {
+  to { stroke-dashoffset: 0; }
+}
+@keyframes DashboardTwo-pop {
+  from { opacity: 0; transform: scale(0); }
+  to { opacity: 1; transform: scale(1); }
+}
+@keyframes DashboardTwo-pulse {
+  0% { transform: scale(0.8); opacity: 0.35; }
+  100% { transform: scale(2.6); opacity: 0; }
+}
+@keyframes DashboardTwo-tip-in {
+  from { opacity: 0; transform: translate(-50%, calc(-100% - 6px)); }
+  to { opacity: 1; transform: translate(-50%, calc(-100% - 18px)); }
+}
+@keyframes DashboardTwo-zoom {
+  from { transform: scale(1); }
+  to { transform: scale(1.08); }
+}
+@keyframes DashboardTwo-sway {
+  from { transform: perspective(700px) rotateY(-26deg) skewY(-5deg) translateY(0); }
+  to { transform: perspective(700px) rotateY(-22deg) skewY(-4deg) translateY(-10px); }
+}
+@keyframes DashboardTwo-sweep {
+  0% { left: -70%; }
+  55%, 100% { left: 160%; }
+}
+
+/* ---------------- Responsive ---------------- */
+@container (max-width: 1100px) {
+  .DashboardTwo-grid { grid-template-columns: minmax(0, 2fr) minmax(0, 1fr); }
+  .DashboardTwo-promo-body { padding: 22px 18px; }
+}
+
+@container (max-width: 860px) {
+  .DashboardTwo-grid { grid-template-columns: 1fr; }
+  .DashboardTwo-promo { min-height: 250px; }
+  .DashboardTwo-promo-title { max-width: 20ch; }
+  .DashboardTwo-promo-text { max-width: 36ch; }
+}
+
+@container (max-width: 520px) {
+  .DashboardTwo-card { padding: 16px 12px 10px; border-radius: 16px; }
+  .DashboardTwo-heading-title { font-size: 1rem; }
+  .DashboardTwo-heading-icon svg { width: 22px; height: 22px; }
+  .DashboardTwo-dropdown-btn { padding: 8px 12px; font-size: 0.82rem; gap: 6px; }
+  .DashboardTwo-promo { border-radius: 16px; }
+  .DashboardTwo-promo-body { padding: 22px 18px; }
+}
+
+/* the layout already adds its own side padding on tablets / phones */
+@media (max-width: 992px) {
+  .DashboardTwo { padding-inline: 0; }
+}
+
+@media (hover: none) {
+  .DashboardTwo-promo:hover .DashboardTwo-promo-img { transform: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .DashboardTwo *,
+  .DashboardTwo *::before,
+  .DashboardTwo *::after {
+    animation-duration: 0.01ms !important;
+    animation-delay: 0s !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

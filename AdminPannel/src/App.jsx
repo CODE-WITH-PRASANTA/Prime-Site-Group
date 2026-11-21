@@ -44,15 +44,19 @@ const App = () => {
             <Route path="dashboard" element={<Dashboard />} />
 
             {/* BLOG MANAGEMENT */}
-            <Route path="blog" element={<Blog/>} />
-            <Route path="blog-management" element={<Blogmanagement/>} />
-              <Route path="service-booking" element={<Service/>} />
-            <Route path="add-service" element={<Addservice/>} />
-            <Route path="add-career" element={<Addcareer/>} />
-            <Route path="career-management" element={<Careermanagement/>} />
-            <Route path="contact-enquiry" element={<Contactenquairy/>} />
-            <Route path="profile" element={<Profile/>} />
-             <Route path="Settings" element={<Setting/>} />
+            <Route path="/blog/add" element={<Blog/>} />
+            <Route path="/blog" element={<Blogmanagement/>} />
+
+            <Route path="/service-booking" element={<Service/>} />
+            <Route path="/service/add" element={<Addservice/>} />
+            
+            <Route path="/career/add" element={<Addcareer/>} />
+            <Route path="/career-management" element={<Careermanagement/>} />
+
+            <Route path="/enquiry" element={<Contactenquairy/>} />
+
+            <Route path="/profile" element={<Profile/>} />
+            <Route path="/Settings" element={<Setting/>} />
 
 
 
