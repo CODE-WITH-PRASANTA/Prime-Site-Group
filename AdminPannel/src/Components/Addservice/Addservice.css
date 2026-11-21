@@ -1,0 +1,667 @@
+
+/* ==========================================
+   ADDSERVICE - PREMIUM FORM DESIGN
+   Reference: White / Red / Light Pink
+========================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700;800&display=swap');
+
+.addservice-page {
+  --addservice-red: #d71920;
+  --addservice-dark-red: #b90e18;
+  --addservice-pink: #f7dce1;
+  --addservice-light-pink: #fff7f8;
+  --addservice-text: #171b2b;
+  --addservice-muted: #77798b;
+
+  width: 100%;
+  min-height: 100%;
+  padding: 14px;
+  box-sizing: border-box;
+  font-family: 'DM Sans', sans-serif;
+  color: var(--addservice-text);
+  animation: addservicePageEnter 0.55s ease both;
+}
+
+/* Main Card */
+
+.addservice-card {
+  width: 100%;
+  background: #ffffff;
+  border: 1px solid #f9e5e9;
+  border-radius: 15px;
+  overflow: hidden;
+  box-shadow:
+    0 5px 20px rgba(215, 25, 32, 0.055),
+    0 12px 30px rgba(215, 25, 32, 0.035);
+  transition:
+    box-shadow 0.35s ease,
+    border-color 0.35s ease;
+}
+
+.addservice-card:hover {
+  border-color: #f3cbd2;
+  box-shadow:
+    0 8px 28px rgba(215, 25, 32, 0.075),
+    0 16px 40px rgba(215, 25, 32, 0.045);
+}
+
+/* ==========================================
+   HEADER
+========================================== */
+
+.addservice-header {
+  min-height: 83px;
+  padding: 17px 21px;
+  display: flex;
+  align-items: center;
+  gap: 19px;
+  background: linear-gradient(
+    110deg,
+    #fffafb 0%,
+    #ffffff 45%,
+    #fffdfd 100%
+  );
+  border-bottom: 1px solid #f8e5e9;
+}
+
+.addservice-header-icon {
+  width: 51px;
+  height: 51px;
+  min-width: 51px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+  background: linear-gradient(145deg, #ed2732, #c90013);
+  box-shadow:
+    0 5px 13px rgba(215, 25, 32, 0.25),
+    0 0 0 6px rgba(215, 25, 32, 0.055);
+  transition:
+    transform 0.35s ease,
+    box-shadow 0.35s ease;
+}
+
+.addservice-header:hover .addservice-header-icon {
+  transform: translateY(-3px) rotate(-5deg);
+  box-shadow:
+    0 8px 17px rgba(215, 25, 32, 0.3),
+    0 0 0 8px rgba(215, 25, 32, 0.07);
+}
+
+.addservice-heading-content h2 {
+  margin: 0;
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 23px;
+  font-weight: 800;
+  line-height: 1.3;
+  letter-spacing: -0.5px;
+  color: #15192a;
+}
+
+.addservice-heading-content p {
+  margin: 3px 0 0;
+  font-size: 13px;
+  font-weight: 500;
+  color: #34384d;
+}
+
+/* ==========================================
+   FORM LAYOUT
+========================================== */
+
+.addservice-form {
+  padding: 17px 19px 25px;
+}
+
+.addservice-fields-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  column-gap: 30px;
+  row-gap: 19px;
+}
+
+.addservice-field {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.addservice-field label {
+  margin-bottom: 7px;
+  font-size: 15px;
+  font-weight: 700;
+  line-height: 1.4;
+  color: #181c2b;
+  transition: color 0.25s ease;
+}
+
+.addservice-field label span:not(.optional) {
+  color: var(--addservice-red);
+  font-weight: 800;
+}
+
+.addservice-field label .optional {
+  color: #555a6c;
+  font-size: 13px;
+  font-weight: 500;
+}
+
+/* ==========================================
+   INPUT BOXES
+========================================== */
+
+.addservice-input-wrapper {
+  position: relative;
+  width: 100%;
+  height: 45px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 0 14px;
+  border: 1.5px solid #f0dce0;
+  border-radius: 10px;
+  background: linear-gradient(110deg, #ffffff, #fffefe);
+  box-sizing: border-box;
+  transition:
+    border-color 0.28s ease,
+    box-shadow 0.28s ease,
+    background 0.28s ease,
+    transform 0.28s ease;
+}
+
+.addservice-input-wrapper > svg {
+  flex-shrink: 0;
+  width: 22px;
+  height: 22px;
+  color: var(--addservice-red);
+  stroke-width: 2.4;
+  transition:
+    transform 0.25s ease,
+    color 0.25s ease;
+}
+
+.addservice-input-wrapper input,
+.addservice-input-wrapper select,
+.addservice-input-wrapper textarea {
+  width: 100%;
+  min-width: 0;
+  height: 100%;
+  padding: 0;
+  border: none;
+  outline: none;
+  background: transparent;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 15px;
+  font-weight: 500;
+  color: #171b2b;
+  box-shadow: none;
+}
+
+.addservice-input-wrapper input::placeholder,
+.addservice-input-wrapper textarea::placeholder {
+  color: #858397;
+  opacity: 1;
+  font-weight: 500;
+}
+
+.addservice-input-wrapper:hover {
+  border-color: #eaa8b2;
+  background: #fffafb;
+  box-shadow: 0 3px 10px rgba(215, 25, 32, 0.045);
+}
+
+.addservice-input-wrapper:hover > svg {
+  transform: scale(1.1);
+}
+
+.addservice-input-wrapper:focus-within {
+  border-color: var(--addservice-red);
+  background: #ffffff;
+  box-shadow:
+    0 0 0 3px rgba(215, 25, 32, 0.075),
+    0 5px 14px rgba(215, 25, 32, 0.055);
+}
+
+.addservice-input-wrapper:focus-within > svg {
+  color: #bc101b;
+  transform: scale(1.08);
+}
+
+/* ==========================================
+   DROPDOWN
+========================================== */
+
+.addservice-select-wrapper {
+  cursor: pointer;
+}
+
+.addservice-input-wrapper select {
+  appearance: none;
+  -webkit-appearance: none;
+  cursor: pointer;
+  padding-right: 25px;
+  color: #171b2b;
+}
+
+.addservice-input-wrapper select:invalid {
+  color: #171b2b;
+}
+
+.addservice-input-wrapper select option {
+  padding: 12px;
+  background: #ffffff;
+  color: #171b2b;
+  font-size: 14px;
+}
+
+.addservice-chevron {
+  position: absolute;
+  right: 13px;
+  top: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #6b2731;
+  pointer-events: none;
+  transform: translateY(-50%);
+  transition:
+    transform 0.25s ease,
+    color 0.25s ease;
+}
+
+.addservice-select-wrapper:focus-within .addservice-chevron {
+  color: var(--addservice-red);
+  transform: translateY(-50%) rotate(180deg);
+}
+
+/* ==========================================
+   MESSAGE TEXTAREA
+========================================== */
+
+.addservice-message-field {
+  margin-top: 21px;
+}
+
+.addservice-textarea-wrapper {
+  height: 110px;
+  align-items: flex-start;
+  padding: 13px 14px;
+  gap: 14px;
+}
+
+.addservice-textarea-wrapper > svg {
+  margin-top: 1px;
+}
+
+.addservice-textarea-wrapper textarea {
+  height: 100%;
+  min-height: 80px;
+  resize: vertical;
+  line-height: 1.6;
+  padding-top: 0;
+}
+
+.addservice-textarea-wrapper textarea::-webkit-scrollbar {
+  width: 6px;
+}
+
+.addservice-textarea-wrapper textarea::-webkit-scrollbar-thumb {
+  background: #e9b6be;
+  border-radius: 10px;
+}
+
+/* ==========================================
+   VALIDATION
+========================================== */
+
+.addservice-input-wrapper.has-error {
+  border-color: #e02430;
+  background: #fff9f9;
+  box-shadow: 0 0 0 2px rgba(224, 36, 48, 0.055);
+  animation: addserviceShake 0.3s ease;
+}
+
+.addservice-error {
+  margin-top: 5px;
+  font-size: 11.5px;
+  font-weight: 600;
+  color: #d71920;
+  animation: addserviceFadeIn 0.25s ease both;
+}
+
+.addservice-notification {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 17px;
+  padding: 12px 15px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  animation: addserviceFadeIn 0.3s ease both;
+}
+
+.addservice-notification-success {
+  color: #176c3b;
+  background: #f0faf3;
+  border: 1px solid #ccebd5;
+}
+
+.addservice-notification-error {
+  color: #b90e18;
+  background: #fff5f5;
+  border: 1px solid #f5cdd1;
+}
+
+.addservice-notification-dot {
+  width: 8px;
+  height: 8px;
+  min-width: 8px;
+  border-radius: 50%;
+  background: currentColor;
+}
+
+/* ==========================================
+   ACTION BUTTONS
+========================================== */
+
+.addservice-actions {
+  display: grid;
+  grid-template-columns: 168px minmax(0, 1fr);
+  gap: 21px;
+  margin-top: 25px;
+}
+
+.addservice-actions button {
+  min-height: 52px;
+  border-radius: 11px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  transition:
+    transform 0.28s ease,
+    background 0.28s ease,
+    border-color 0.28s ease,
+    box-shadow 0.28s ease;
+}
+
+/* Reset Button */
+
+.addservice-reset-btn {
+  color: var(--addservice-red);
+  background: #ffffff;
+  border: 1.8px solid #f2aeb9;
+}
+
+.addservice-reset-btn svg {
+  transition: transform 0.45s ease;
+}
+
+.addservice-reset-btn:hover:not(:disabled) {
+  color: #ffffff;
+  background: var(--addservice-red);
+  border-color: var(--addservice-red);
+  transform: translateY(-3px);
+  box-shadow: 0 7px 16px rgba(215, 25, 32, 0.19);
+}
+
+.addservice-reset-btn:hover:not(:disabled) svg {
+  transform: rotate(-180deg);
+}
+
+/* Submit Button */
+
+.addservice-submit-btn {
+  color: #ffffff;
+  border: 1px solid var(--addservice-red);
+  background: linear-gradient(105deg, #df101b 0%, #c90012 100%);
+  box-shadow: 0 3px 8px rgba(215, 25, 32, 0.13);
+}
+
+.addservice-submit-btn::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -120%;
+  width: 70%;
+  height: 100%;
+  background: linear-gradient(
+    100deg,
+    transparent,
+    rgba(255, 255, 255, 0.19),
+    transparent
+  );
+  transform: skewX(-20deg);
+  transition: left 0.65s ease;
+}
+
+.addservice-submit-btn:hover:not(:disabled)::before {
+  left: 150%;
+}
+
+.addservice-submit-btn:hover:not(:disabled) {
+  background: linear-gradient(105deg, #c90012, #a9000d);
+  transform: translateY(-3px);
+  box-shadow: 0 8px 19px rgba(215, 25, 32, 0.25);
+}
+
+.addservice-submit-btn:active:not(:disabled),
+.addservice-reset-btn:active:not(:disabled) {
+  transform: translateY(0) scale(0.985);
+}
+
+.addservice-submit-btn svg {
+  transition: transform 0.3s ease;
+}
+
+.addservice-submit-btn:hover:not(:disabled) svg {
+  transform: translate(3px, -3px) rotate(-5deg);
+}
+
+.addservice-actions button:disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* ==========================================
+   ANIMATIONS
+========================================== */
+
+@keyframes addservicePageEnter {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes addserviceFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(5px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes addserviceShake {
+  0%, 100% {
+    transform: translateX(0);
+  }
+
+  25% {
+    transform: translateX(-3px);
+  }
+
+  75% {
+    transform: translateX(3px);
+  }
+}
+
+/* ==========================================
+   RESPONSIVE DESIGN
+========================================== */
+
+@media (min-width: 1600px) {
+  .addservice-page {
+    padding: 18px;
+  }
+
+  .addservice-form {
+    padding: 22px 25px 28px;
+  }
+
+  .addservice-fields-grid {
+    column-gap: 35px;
+    row-gap: 23px;
+  }
+
+  .addservice-input-wrapper {
+    height: 49px;
+  }
+
+  .addservice-textarea-wrapper {
+    height: 120px;
+  }
+}
+
+@media (max-width: 900px) {
+  .addservice-fields-grid {
+    column-gap: 20px;
+    row-gap: 17px;
+  }
+
+  .addservice-actions {
+    grid-template-columns: 145px minmax(0, 1fr);
+    gap: 15px;
+  }
+}
+
+@media (max-width: 650px) {
+  .addservice-page {
+    padding: 10px;
+  }
+
+  .addservice-header {
+    min-height: 75px;
+    padding: 14px;
+    gap: 14px;
+  }
+
+  .addservice-header-icon {
+    width: 45px;
+    height: 45px;
+    min-width: 45px;
+  }
+
+  .addservice-heading-content h2 {
+    font-size: 20px;
+  }
+
+  .addservice-heading-content p {
+    font-size: 12px;
+  }
+
+  .addservice-form {
+    padding: 17px 14px 20px;
+  }
+
+  .addservice-fields-grid {
+    grid-template-columns: 1fr;
+    row-gap: 16px;
+  }
+
+  .addservice-message-field {
+    margin-top: 17px;
+  }
+
+  .addservice-actions {
+    grid-template-columns: 1fr;
+    gap: 11px;
+    margin-top: 20px;
+  }
+
+  .addservice-actions button {
+    min-height: 48px;
+  }
+
+  .addservice-reset-btn {
+    order: 2;
+  }
+
+  .addservice-submit-btn {
+    order: 1;
+  }
+}
+
+@media (max-width: 380px) {
+  .addservice-page {
+    padding: 7px;
+  }
+
+  .addservice-form {
+    padding: 14px 11px 17px;
+  }
+
+  .addservice-header {
+    padding: 12px;
+  }
+
+  .addservice-heading-content h2 {
+    font-size: 18px;
+  }
+
+  .addservice-field label {
+    font-size: 14px;
+  }
+
+  .addservice-input-wrapper {
+    padding: 0 11px;
+    gap: 10px;
+  }
+
+  .addservice-input-wrapper input,
+  .addservice-input-wrapper select,
+  .addservice-input-wrapper textarea {
+    font-size: 13px;
+  }
+}
+
+/* ==========================================
+   ACCESSIBILITY
+========================================== */
+
+.addservice-actions button:focus-visible {
+  outline: 3px solid rgba(215, 25, 32, 0.25);
+  outline-offset: 3px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .addservice-page,
+  .addservice-card,
+  .addservice-header-icon,
+  .addservice-input-wrapper,
+  .addservice-actions button,
+  .addservice-error,
+  .addservice-notification {
+    animation: none !important;
+    transition: none !important;
+  }
+}
