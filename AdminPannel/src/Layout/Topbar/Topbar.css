@@ -1,0 +1,462 @@
+/* =========================================
+   PRIME SITE - PREMIUM TOPBAR
+   Red & White Theme
+========================================= */
+
+.admin-topbar {
+  --primary: #c62828;
+  --primary-dark: #a11a22;
+  --primary-soft: #fff1f1;
+  --border-color: #f1e6e6;
+
+  height: 64px;
+  min-height: 64px;
+  padding: 0 24px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+
+  position: sticky;
+  top: 0;
+  z-index: 900;
+
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border-color);
+  box-shadow: 0 4px 18px rgba(120, 20, 20, 0.04);
+}
+
+/* thin red accent on the bottom edge */
+.admin-topbar::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -1px;
+  width: 120px;
+  height: 2px;
+  background: linear-gradient(90deg, #e53935, transparent);
+}
+
+.topbar-left,
+.topbar-right {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.topbar-center {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  min-width: 0;
+}
+
+/* =========================================
+   TOGGLE
+========================================= */
+
+.topbar-toggle {
+  width: 40px;
+  height: 40px;
+  border: none;
+  border-radius: 11px;
+  background: linear-gradient(135deg, #e04040, #a11a22);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  cursor: pointer;
+  box-shadow: 0 5px 14px rgba(198, 40, 40, 0.25);
+  transition: 0.25s ease;
+}
+
+.topbar-toggle:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 18px rgba(198, 40, 40, 0.35);
+}
+
+.topbar-toggle span {
+  width: 17px;
+  height: 2px;
+  border-radius: 5px;
+  background: #fff;
+}
+
+.topbar-page-title {
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: -0.3px;
+  color: #1f2430;
+  white-space: nowrap;
+}
+
+/* =========================================
+   SEARCH
+========================================= */
+
+.topbar-search {
+  width: min(380px, 100%);
+  height: 40px;
+  padding: 0 14px;
+
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  background: #fbf7f7;
+  border: 1px solid #f0e3e3;
+  border-radius: 30px;
+  transition: 0.25s ease;
+}
+
+.topbar-search:focus-within {
+  background: #fff;
+  border-color: #d65a5a;
+  box-shadow: 0 0 0 4px rgba(198, 40, 40, 0.08);
+}
+
+.topbar-search svg,
+.topbar-icon-btn svg {
+  width: 19px;
+  height: 19px;
+  stroke: currentColor;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.topbar-search svg {
+  color: #a99;
+  flex-shrink: 0;
+}
+
+.topbar-search input {
+  width: 100%;
+  min-width: 0;
+  border: none;
+  outline: none;
+  background: transparent;
+  font-size: 13px;
+  color: #333;
+}
+
+.topbar-search input::placeholder {
+  color: #b0a5a5;
+}
+
+.topbar-search kbd {
+  background: var(--primary-soft);
+  color: var(--primary);
+  padding: 3px 8px;
+  border-radius: 6px;
+  font-family: inherit;
+  font-size: 10px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+/* =========================================
+   ICON BUTTONS
+========================================= */
+
+.topbar-icon-btn {
+  width: 40px;
+  height: 40px;
+  border: 1px solid #f0e3e3;
+  border-radius: 11px;
+  background: #fff;
+  color: var(--primary);
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  position: relative;
+  transition: 0.25s ease;
+}
+
+.topbar-icon-btn:hover {
+  background: var(--primary-soft);
+  border-color: #e7b5b5;
+  transform: translateY(-2px);
+}
+
+.notification-count {
+  position: absolute;
+  top: -6px;
+  right: -5px;
+  min-width: 19px;
+  height: 19px;
+  padding: 0 5px;
+  display: grid;
+  place-items: center;
+  border-radius: 50px;
+  background: linear-gradient(135deg, #ef4444, #b91c1c);
+  color: #fff;
+  font-size: 10px;
+  font-weight: 800;
+  border: 2px solid #fff;
+}
+
+/* =========================================
+   PROFILE
+========================================= */
+
+.topbar-profile {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 4px 12px 4px 4px;
+  background: #fff;
+  border: 1px solid #f0e3e3;
+  border-radius: 40px;
+  cursor: pointer;
+  transition: 0.25s ease;
+}
+
+.topbar-profile:hover {
+  border-color: #e7b5b5;
+  background: #fffafa;
+}
+
+.profile-avatar {
+  position: relative;
+  width: 34px;
+  height: 34px;
+  min-width: 34px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: linear-gradient(135deg, #ef6a6a, #a11a22);
+  color: #fff;
+  font-weight: 800;
+  font-size: 12px;
+  border: 2px solid #f3c1c1;
+}
+
+.profile-online {
+  position: absolute;
+  right: -2px;
+  bottom: -2px;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #16a34a;
+  border: 2px solid #fff;
+}
+
+.profile-info {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+  gap: 1px;
+}
+
+.profile-info strong {
+  font-size: 12.5px;
+  color: #292929;
+  line-height: 1.2;
+}
+
+.profile-info span {
+  font-size: 10.5px;
+  color: #999;
+  line-height: 1.2;
+}
+
+.profile-chevron {
+  width: 16px;
+  height: 16px;
+  fill: none;
+  stroke: #888;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* =========================================
+   DROPDOWNS
+========================================= */
+
+.topbar-dropdown-wrapper {
+  position: relative;
+}
+
+.topbar-dropdown {
+  position: absolute;
+  top: calc(100% + 12px);
+  right: 0;
+  width: 260px;
+  padding: 16px;
+  background: #fff;
+  border: 1px solid var(--border-color);
+  border-radius: 14px;
+  box-shadow: 0 16px 40px rgba(120, 20, 20, 0.14);
+  animation: dropdownShow 0.2s ease;
+  z-index: 1100;
+}
+
+@keyframes dropdownShow {
+  from {
+    opacity: 0;
+    transform: translateY(-7px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.topbar-dropdown h4 {
+  margin: 0 0 6px;
+  color: #333;
+  font-size: 14px;
+}
+
+.topbar-dropdown p {
+  margin: 0 0 8px;
+  font-size: 12px;
+  color: #888;
+}
+
+.notification-item {
+  padding: 10px 0;
+  border-top: 1px solid #f6eeee;
+  font-size: 12px;
+  color: #555;
+}
+
+.notification-item span {
+  color: #cf3030;
+  margin-right: 8px;
+}
+
+.profile-dropdown {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  width: 220px;
+}
+
+.profile-dropdown-heading {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  padding-bottom: 10px;
+  margin-bottom: 4px;
+  border-bottom: 1px solid #f1e6e6;
+}
+
+.profile-dropdown-heading strong {
+  font-size: 14px;
+  color: #333;
+}
+
+.profile-dropdown-heading span {
+  color: #999;
+  font-size: 12px;
+}
+
+.profile-dropdown > button {
+  text-align: left;
+  border: none;
+  background: transparent;
+  padding: 9px 10px;
+  border-radius: 8px;
+  cursor: pointer;
+  color: #555;
+  font-size: 13px;
+  transition: 0.2s ease;
+}
+
+.profile-dropdown > button:hover {
+  background: var(--primary-soft);
+  color: var(--primary-dark);
+}
+
+.profile-dropdown > .logout-button {
+  color: #d32f2f;
+  font-weight: 600;
+}
+
+.topbar-mobile-search {
+  display: none;
+}
+
+/* =========================================
+   RESPONSIVE
+========================================= */
+
+@media (max-width: 992px) {
+  .topbar-page-title {
+    display: none;
+  }
+}
+
+@media (max-width: 768px) {
+  .admin-topbar {
+    height: 56px;
+    min-height: 56px;
+    padding: 0 12px;
+    gap: 8px;
+  }
+
+  .topbar-toggle,
+  .topbar-icon-btn {
+    width: 38px;
+    height: 38px;
+  }
+
+  .topbar-page-title {
+    display: block;
+    font-size: 16px;
+  }
+
+  .topbar-center {
+    display: none;
+  }
+
+  .topbar-mobile-search {
+    display: block;
+  }
+
+  .topbar-left,
+  .topbar-right {
+    gap: 8px;
+  }
+
+  .topbar-profile {
+    padding: 3px;
+  }
+
+  .profile-avatar {
+    width: 32px;
+    height: 32px;
+    min-width: 32px;
+  }
+
+  .profile-info,
+  .profile-chevron {
+    display: none;
+  }
+
+  .topbar-dropdown {
+    position: fixed;
+    top: 62px;
+    right: 10px;
+    left: 10px;
+    width: auto;
+  }
+}
+
+@media (max-width: 380px) {
+  .topbar-page-title {
+    display: none;
+  }
+
+  .topbar-mobile-search {
+    display: none;
+  }
+}
