@@ -26,17 +26,25 @@ import {
 
 import "./ProfileMain.css";
 
+/* =========================================
+   EMPTY PROFILE
+========================================= */
+
+// New storage key prevents old prefilled data
+// from automatically appearing in the form.
+const STORAGE_KEY = "primeAdminProfile_v2";
+
 const DEFAULT_PROFILE = {
-  name: "Admin User",
-  email: "admin@primesite.com",
-  phone: "9876543210",
-  designation: "Super Admin",
-  location: "Bhubaneswar, Odisha",
-  bio: "Passionate about technology and dedicated to managing the best website experience.",
-  website: "www.primesite.com",
-  company: "Prime Site Group",
-  department: "Administration",
-  memberSince: "Nov 2025",
+  name: "",
+  email: "",
+  phone: "",
+  designation: "",
+  location: "",
+  bio: "",
+  website: "",
+  company: "",
+  department: "",
+  memberSince: "",
   linkedin: "",
   instagram: "",
   facebook: "",
@@ -52,45 +60,127 @@ const INITIAL_PASSWORD = {
 const DEFAULT_IMAGE =
   "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=400&h=400&fit=crop&crop=faces";
 
+/* =========================================
+   STORAGE HELPERS
+========================================= */
+
+const getSavedProfile = () => {
+  try {
+    const saved = localStorage.getItem(STORAGE_KEY);
+
+    return saved
+      ? { ...DEFAULT_PROFILE, ...JSON.parse(saved) }
+      : { ...DEFAULT_PROFILE };
+  } catch {
+    return { ...DEFAULT_PROFILE };
+  }
+};
+
+const getSavedImage = () => {
+  try {
+    return (
+      localStorage.getItem("primeAdminProfileImage") ||
+      DEFAULT_IMAGE
+    );
+  } catch {
+    return DEFAULT_IMAGE;
+  }
+};
+
+/* =========================================
+   REUSABLE FIELD COMPONENT
+   Declared OUTSIDE ProfileMain
+========================================= */
+
+const Field = ({
+  label,
+  name,
+  icon: Icon,
+  placeholder,
+  type = "text",
+  required = false,
+  multiline = false,
+  value,
+  onChange,
+  error,
+}) => {
+  return (
+    <div
+      className={`profile-field ${
+        multiline ? "profile-field--textarea" : ""
+      } ${error ? "profile-field-error" : ""}`}
+    >
+      <label htmlFor={`profile-${name}`}>
+        {label}
+        {required && <span className="required-star"> *</span>}
+      </label>
+
+      <div
+        className={`profile-input-wrap ${
+          multiline ? "textarea-wrap" : ""
+        }`}
+      >
+        {Icon && (
+          <Icon className="profile-field-icon" size={19} />
+        )}
+
+        {multiline ? (
+          <textarea
+            id={`profile-${name}`}
+            value={value || ""}
+            placeholder={placeholder}
+            onChange={(e) => onChange(name, e.target.value)}
+            rows={4}
+          />
+        ) : (
+          <input
+            id={`profile-${name}`}
+            type={type}
+            value={value || ""}
+            placeholder={placeholder}
+            onChange={(e) => onChange(name, e.target.value)}
+          />
+        )}
+      </div>
+
+      {error && (
+        <span className="profile-error-text">{error}</span>
+      )}
+    </div>
+  );
+};
+
+/* =========================================
+   MAIN COMPONENT
+========================================= */
+
 const ProfileMain = () => {
   const [activeTab, setActiveTab] = useState("personal");
 
-  const [profile, setProfile] = useState(() => {
-    try {
-      const saved = localStorage.getItem("primeAdminProfile");
-      return saved
-        ? { ...DEFAULT_PROFILE, ...JSON.parse(saved) }
-        : { ...DEFAULT_PROFILE };
-    } catch {
-      return { ...DEFAULT_PROFILE };
-    }
-  });
+  const [profile, setProfile] = useState(getSavedProfile);
 
-  const [originalProfile, setOriginalProfile] = useState(() => {
-    try {
-      const saved = localStorage.getItem("primeAdminProfile");
-      return saved
-        ? { ...DEFAULT_PROFILE, ...JSON.parse(saved) }
-        : { ...DEFAULT_PROFILE };
-    } catch {
-      return { ...DEFAULT_PROFILE };
-    }
-  });
+  const [originalProfile, setOriginalProfile] =
+    useState(getSavedProfile);
 
-  const [profileImage, setProfileImage] = useState(() => {
-    try {
-      return localStorage.getItem("primeAdminProfileImage") || DEFAULT_IMAGE;
-    } catch {
-      return DEFAULT_IMAGE;
-    }
-  });
+  const [profileImage, setProfileImage] =
+    useState(getSavedImage);
 
-  const [showPasswordModal, setShowPasswordModal] = useState(false);
+  const [showPasswordModal, setShowPasswordModal] =
+    useState(false);
+
   const [showPasswords, setShowPasswords] = useState(false);
+
   const [password, setPassword] = useState(INITIAL_PASSWORD);
+
   const [notification, setNotification] = useState(null);
+
   const [errors, setErrors] = useState({});
+
   const [saving, setSaving] = useState(false);
+
+  /* =========================================
+     TOAST TIMER
+  ========================================= */
 
   useEffect(() => {
     if (!notification) return;
@@ -102,9 +192,17 @@ const ProfileMain = () => {
     return () => clearTimeout(timer);
   }, [notification]);
 
+  /* =========================================
+     NOTIFICATION
+  ========================================= */
+
   const notify = (message, type = "success") => {
     setNotification({ message, type });
   };
+
+  /* =========================================
+     UPDATE FIELD
+  ========================================= */
 
   const updateField = (field, value) => {
     setProfile((prev) => ({
@@ -118,7 +216,10 @@ const ProfileMain = () => {
     }));
   };
 
-  // PROFILE IMAGE UPLOAD
+  /* =========================================
+     PROFILE IMAGE UPLOAD
+  ========================================= */
+
   const handleImageUpload = (e) => {
     const file = e.target.files?.[0];
 
@@ -139,11 +240,14 @@ const ProfileMain = () => {
     const reader = new FileReader();
 
     reader.onload = () => {
-      const image = reader.result;
-
       try {
-        localStorage.setItem("primeAdminProfileImage", image);
-        setProfileImage(image);
+        localStorage.setItem(
+          "primeAdminProfileImage",
+          reader.result
+        );
+
+        setProfileImage(reader.result);
+
         notify("Profile photo updated successfully!");
       } catch {
         notify(
@@ -153,11 +257,19 @@ const ProfileMain = () => {
       }
     };
 
+    reader.onerror = () => {
+      notify("Unable to read the selected image.", "error");
+    };
+
     reader.readAsDataURL(file);
+
     e.target.value = "";
   };
 
-  // PROFILE VALIDATION
+  /* =========================================
+     PROFILE VALIDATION
+  ========================================= */
+
   const validateProfile = () => {
     const newErrors = {};
 
@@ -168,14 +280,16 @@ const ProfileMain = () => {
     if (!profile.email.trim()) {
       newErrors.email = "Email address is required.";
     } else if (
-      !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(profile.email)
+      !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(profile.email.trim())
     ) {
       newErrors.email = "Enter a valid email address.";
     }
 
     if (!profile.phone.trim()) {
       newErrors.phone = "Phone number is required.";
-    } else if (!/^[0-9+\-\s()]{10,16}$/.test(profile.phone)) {
+    } else if (
+      !/^[0-9+\-\s()]{10,16}$/.test(profile.phone.trim())
+    ) {
       newErrors.phone = "Enter a valid phone number.";
     }
 
@@ -188,8 +302,13 @@ const ProfileMain = () => {
     return Object.keys(newErrors).length === 0;
   };
 
-  // UPDATE PROFILE
+  /* =========================================
+     UPDATE PROFILE
+  ========================================= */
+
   const handleUpdate = () => {
+    if (saving) return;
+
     if (!validateProfile()) {
       notify("Please correct the highlighted fields.", "error");
       return;
@@ -199,7 +318,7 @@ const ProfileMain = () => {
 
     try {
       localStorage.setItem(
-        "primeAdminProfile",
+        STORAGE_KEY,
         JSON.stringify(profile)
       );
 
@@ -213,14 +332,21 @@ const ProfileMain = () => {
     }
   };
 
-  // RESET PROFILE
+  /* =========================================
+     RESET UNSAVED CHANGES
+  ========================================= */
+
   const handleReset = () => {
     setProfile({ ...originalProfile });
     setErrors({});
+
     notify("Changes have been reset.");
   };
 
-  // CHANGE PASSWORD
+  /* =========================================
+     CHANGE PASSWORD
+  ========================================= */
+
   const handlePasswordUpdate = (e) => {
     e.preventDefault();
 
@@ -234,7 +360,10 @@ const ProfileMain = () => {
     }
 
     if (password.newPassword.length < 8) {
-      notify("New password must contain at least 8 characters.", "error");
+      notify(
+        "New password must contain at least 8 characters.",
+        "error"
+      );
       return;
     }
 
@@ -243,6 +372,7 @@ const ProfileMain = () => {
       return;
     }
 
+    // Actual password change requires authentication API.
     setPassword(INITIAL_PASSWORD);
     setShowPasswordModal(false);
 
@@ -252,62 +382,28 @@ const ProfileMain = () => {
     );
   };
 
-  // REUSABLE INPUT FIELD
-  const Field = ({
-    label,
-    name,
-    icon: Icon,
-    placeholder,
-    type = "text",
-    required = false,
-    multiline = false,
-  }) => (
-    <div
-      className={`profile-field ${
-        errors[name] ? "profile-field-error" : ""
-      }`}
-    >
-      <label htmlFor={`profile-${name}`}>
-        {label}
-        {required && <span className="required-star"> *</span>}
-      </label>
+  /* =========================================
+     REUSABLE FIELD PROPS
+  ========================================= */
 
-      <div
-        className={`profile-input-wrap ${
-          multiline ? "textarea-wrap" : ""
-        }`}
-      >
-        {Icon && <Icon className="profile-field-icon" size={19} />}
-
-        {multiline ? (
-          <textarea
-            id={`profile-${name}`}
-            value={profile[name] || ""}
-            placeholder={placeholder}
-            onChange={(e) => updateField(name, e.target.value)}
-            rows={4}
-          />
-        ) : (
-          <input
-            id={`profile-${name}`}
-            type={type}
-            value={profile[name] || ""}
-            placeholder={placeholder}
-            onChange={(e) => updateField(name, e.target.value)}
-          />
-        )}
-      </div>
-
-      {errors[name] && (
-        <span className="profile-error-text">{errors[name]}</span>
-      )}
-    </div>
+  const renderField = (props) => (
+    <Field
+      {...props}
+      value={profile[props.name]}
+      onChange={updateField}
+      error={errors[props.name]}
+    />
   );
+
+  /* =========================================
+     RENDER
+  ========================================= */
 
   return (
     <div className="profile-main">
 
       {/* HEADER */}
+
       <div className="profile-page-header">
         <div className="profile-header-left">
           <div className="profile-header-icon">
@@ -330,14 +426,17 @@ const ProfileMain = () => {
       </div>
 
       {/* MAIN LAYOUT */}
+
       <div className="profile-layout">
 
-        {/* LEFT SIDEBAR */}
+        {/* SIDEBAR */}
+
         <aside className="profile-sidebar">
 
           <div className="profile-user-section">
 
             <div className="profile-avatar-wrapper">
+
               <div className="profile-avatar-ring">
                 <img
                   src={profileImage}
@@ -365,6 +464,7 @@ const ProfileMain = () => {
                 onChange={handleImageUpload}
                 hidden
               />
+
             </div>
 
             <h2>{profile.name || "Admin User"}</h2>
@@ -380,7 +480,7 @@ const ProfileMain = () => {
 
               <div>
                 <span>Member Since</span>
-                <strong>{profile.memberSince}</strong>
+                <strong>{profile.memberSince || "Not specified"}</strong>
               </div>
             </div>
 
@@ -392,10 +492,13 @@ const ProfileMain = () => {
               <span />
               {profile.status ? "Active" : "Inactive"}
             </div>
+
           </div>
 
-          {/* QUICK INFORMATION */}
+          {/* QUICK INFO */}
+
           <div className="profile-quick-info">
+
             <h3>
               <Star size={18} fill="currentColor" />
               Quick Info
@@ -415,13 +518,16 @@ const ProfileMain = () => {
               <span>Total Enquiries</span>
               <strong>89</strong>
             </div>
+
           </div>
         </aside>
 
         {/* RIGHT CONTENT */}
+
         <main className="profile-content">
 
-          {/* NAVIGATION TABS */}
+          {/* TABS */}
+
           <div className="profile-tabs">
 
             <button
@@ -451,63 +557,67 @@ const ProfileMain = () => {
           </div>
 
           {/* PERSONAL INFORMATION */}
+
           {activeTab === "personal" && (
             <div className="profile-form-content">
 
               <div className="profile-form-grid">
 
-                <Field
-                  label="Full Name"
-                  name="name"
-                  icon={UserRound}
-                  placeholder="Enter full name"
-                  required
-                />
+                {renderField({
+                  label: "Full Name",
+                  name: "name",
+                  icon: UserRound,
+                  placeholder: "Enter full name",
+                  required: true,
+                })}
 
-                <Field
-                  label="Email Address"
-                  name="email"
-                  icon={Mail}
-                  placeholder="Enter email address"
-                  type="email"
-                  required
-                />
+                {renderField({
+                  label: "Email Address",
+                  name: "email",
+                  icon: Mail,
+                  placeholder: "Enter email address",
+                  type: "email",
+                  required: true,
+                })}
 
-                <Field
-                  label="Phone Number"
-                  name="phone"
-                  icon={Phone}
-                  placeholder="Enter phone number"
-                  required
-                />
+                {renderField({
+                  label: "Phone Number",
+                  name: "phone",
+                  icon: Phone,
+                  placeholder: "Enter phone number",
+                  required: true,
+                })}
 
-                <Field
-                  label="Designation"
-                  name="designation"
-                  icon={BriefcaseBusiness}
-                  placeholder="Enter designation"
-                />
+                {renderField({
+                  label: "Designation",
+                  name: "designation",
+                  icon: BriefcaseBusiness,
+                  placeholder: "Enter designation",
+                  required: true,
+                })}
 
-                <Field
-                  label="Location"
-                  name="location"
-                  icon={MapPin}
-                  placeholder="Enter your location"
-                />
+                {renderField({
+                  label: "Location",
+                  name: "location",
+                  icon: MapPin,
+                  placeholder: "Enter your location",
+                })}
 
-                <Field
-                  label="Bio / About Me"
-                  name="bio"
-                  placeholder="Write something about yourself..."
-                  multiline
-                />
+                {renderField({
+                  label: "Bio / About Me",
+                  name: "bio",
+                  placeholder: "Write something about yourself...",
+                  multiline: true,
+                })}
 
               </div>
 
               <div className="profile-status-control">
+
                 <label>Profile Status</label>
 
                 <div className="profile-toggle-row">
+
                   <button
                     type="button"
                     className={`profile-toggle ${
@@ -525,6 +635,7 @@ const ProfileMain = () => {
                   <span>
                     {profile.status ? "Active" : "Inactive"}
                   </span>
+
                 </div>
               </div>
 
@@ -532,100 +643,104 @@ const ProfileMain = () => {
           )}
 
           {/* CONTACT DETAILS */}
+
           {activeTab === "contact" && (
             <div className="profile-form-content">
 
               <div className="profile-form-grid">
 
-                <Field
-                  label="Email Address"
-                  name="email"
-                  icon={Mail}
-                  placeholder="Enter email address"
-                  type="email"
-                  required
-                />
+                {renderField({
+                  label: "Email Address",
+                  name: "email",
+                  icon: Mail,
+                  placeholder: "Enter email address",
+                  type: "email",
+                  required: true,
+                })}
 
-                <Field
-                  label="Phone Number"
-                  name="phone"
-                  icon={Phone}
-                  placeholder="Enter phone number"
-                  required
-                />
+                {renderField({
+                  label: "Phone Number",
+                  name: "phone",
+                  icon: Phone,
+                  placeholder: "Enter phone number",
+                  required: true,
+                })}
 
-                <Field
-                  label="Location"
-                  name="location"
-                  icon={MapPin}
-                  placeholder="Enter location"
-                />
+                {renderField({
+                  label: "Location",
+                  name: "location",
+                  icon: MapPin,
+                  placeholder: "Enter location",
+                })}
 
-                <Field
-                  label="Website"
-                  name="website"
-                  icon={Globe}
-                  placeholder="Enter website"
-                />
+                {renderField({
+                  label: "Website",
+                  name: "website",
+                  icon: Globe,
+                  placeholder: "Enter website",
+                })}
 
-                <Field
-                  label="LinkedIn Profile"
-                  name="linkedin"
-                  icon={Globe}
-                  placeholder="LinkedIn URL"
-                />
+                {renderField({
+                  label: "LinkedIn Profile",
+                  name: "linkedin",
+                  icon: Globe,
+                  placeholder: "LinkedIn URL",
+                })}
 
-                <Field
-                  label="Instagram Profile"
-                  name="instagram"
-                  icon={Globe}
-                  placeholder="Instagram URL"
-                />
+                {renderField({
+                  label: "Instagram Profile",
+                  name: "instagram",
+                  icon: Globe,
+                  placeholder: "Instagram URL",
+                })}
 
-                <Field
-                  label="Facebook Profile"
-                  name="facebook"
-                  icon={Globe}
-                  placeholder="Facebook URL"
-                />
+                {renderField({
+                  label: "Facebook Profile",
+                  name: "facebook",
+                  icon: Globe,
+                  placeholder: "Facebook URL",
+                })}
 
               </div>
+
             </div>
           )}
 
           {/* ADDITIONAL INFORMATION */}
+
           {activeTab === "additional" && (
             <div className="profile-form-content">
 
               <div className="profile-form-grid">
 
-                <Field
-                  label="Designation"
-                  name="designation"
-                  icon={BriefcaseBusiness}
-                  placeholder="Enter designation"
-                />
+                {renderField({
+                  label: "Designation",
+                  name: "designation",
+                  icon: BriefcaseBusiness,
+                  placeholder: "Enter designation",
+                  required: true,
+                })}
 
-                <Field
-                  label="Company"
-                  name="company"
-                  icon={Building2}
-                  placeholder="Company name"
-                />
+                {renderField({
+                  label: "Company",
+                  name: "company",
+                  icon: Building2,
+                  placeholder: "Company name",
+                })}
 
-                <Field
-                  label="Department"
-                  name="department"
-                  icon={ShieldCheck}
-                  placeholder="Department"
-                />
+                {renderField({
+                  label: "Department",
+                  name: "department",
+                  icon: ShieldCheck,
+                  placeholder: "Department",
+                })}
 
-                <Field
-                  label="Member Since"
-                  name="memberSince"
-                  icon={CalendarDays}
-                  placeholder="Member since"
-                />
+                {renderField({
+                  label: "Member Since",
+                  name: "memberSince",
+                  icon: CalendarDays,
+                  placeholder: "Member since",
+                })}
 
               </div>
 
@@ -651,10 +766,12 @@ const ProfileMain = () => {
                 </div>
 
               </div>
+
             </div>
           )}
 
           {/* ACTION BUTTONS */}
+
           <div className="profile-actions">
 
             <button
@@ -680,6 +797,7 @@ const ProfileMain = () => {
       </div>
 
       {/* NOTIFICATION */}
+
       {notification && (
         <div className={`profile-toast ${notification.type}`}>
 
@@ -701,13 +819,15 @@ const ProfileMain = () => {
         </div>
       )}
 
-      {/* CHANGE PASSWORD MODAL */}
+      {/* PASSWORD MODAL */}
+
       {showPasswordModal && (
         <div
           className="profile-modal-overlay"
           onMouseDown={(e) => {
             if (e.target === e.currentTarget) {
               setShowPasswordModal(false);
+              setShowPasswords(false);
             }
           }}
         >
@@ -717,6 +837,7 @@ const ProfileMain = () => {
             <div className="profile-modal-header">
 
               <div className="profile-modal-heading">
+
                 <div className="profile-modal-icon">
                   <LockKeyhole size={23} />
                 </div>
@@ -725,11 +846,15 @@ const ProfileMain = () => {
                   <h2>Change Password</h2>
                   <p>Update your account password</p>
                 </div>
+
               </div>
 
               <button
                 className="profile-modal-close"
-                onClick={() => setShowPasswordModal(false)}
+                onClick={() => {
+                  setShowPasswordModal(false);
+                  setShowPasswords(false);
+                }}
                 aria-label="Close modal"
               >
                 <X size={21} />
@@ -771,7 +896,7 @@ const ProfileMain = () => {
                     <button
                       type="button"
                       onClick={() =>
-                        setShowPasswords(!showPasswords)
+                        setShowPasswords((prev) => !prev)
                       }
                       aria-label="Toggle password visibility"
                     >
@@ -782,6 +907,7 @@ const ProfileMain = () => {
                       )}
                     </button>
                   </div>
+
                 </div>
 
               ))}
@@ -795,7 +921,11 @@ const ProfileMain = () => {
 
                 <button
                   type="button"
-                  onClick={() => setShowPasswordModal(false)}
+                  onClick={() => {
+                    setShowPasswordModal(false);
+                    setPassword(INITIAL_PASSWORD);
+                    setShowPasswords(false);
+                  }}
                   className="profile-modal-cancel"
                 >
                   Cancel
@@ -812,6 +942,7 @@ const ProfileMain = () => {
               </div>
 
             </form>
+
           </div>
         </div>
       )}
