@@ -99,7 +99,7 @@ const ServiceOurApproach = () => {
           {/* Action Button */}
           <div className="ServiceOurApproach__actionWrap">
             <a
-              href="#consultation"
+              href="/contact"
               className="ServiceOurApproach__linkPrimary"
             >
               <span>Consult Our Project Team</span>

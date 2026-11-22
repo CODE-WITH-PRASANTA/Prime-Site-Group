@@ -188,7 +188,7 @@ const ServiceCashFacility = () => {
         {/* Action CTA Block */}
         <div className="ServiceCashFacility__actionWrap">
           <a
-            href="#request-cash-consult"
+            href="/contact"
             className="ServiceCashFacility__linkPrimary"
           >
             <span>Consult Prime Site Cash Logistics</span>

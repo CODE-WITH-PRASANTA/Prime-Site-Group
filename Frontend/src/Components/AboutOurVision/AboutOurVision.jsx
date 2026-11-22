@@ -44,21 +44,7 @@ const AboutOurVision = () => {
               clients with sustainable, technology-driven solutions built for tomorrow.
             </p>
 
-            <div className="AboutOurVision__bottom">
-              <span className="AboutOurVision__bottomText">
-                Prime Site — Shaping a better tomorrow
-              </span>
-
-              <span className="AboutOurVision__bottomLine" />
-
-              <a 
-                href="#services" 
-                className="AboutOurVision__icon" 
-                aria-label="Discover Prime Site Solutions"
-              >
-                <ArrowUpRight strokeWidth={1.6} />
-              </a>
-            </div>
+            
           </div>
 
           <span

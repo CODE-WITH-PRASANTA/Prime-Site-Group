@@ -203,7 +203,7 @@ const ServicesCashManagement = () => {
           {/* Premium Action Row */}
           <div className="ServicesCashManagement__actionRow">
             <a
-              href="#service-enquiry"
+              href="/contact"
               className="ServicesCashManagement__btnPrimary"
             >
               <span>Request Service Details</span>

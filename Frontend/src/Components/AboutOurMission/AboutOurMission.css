@@ -138,52 +138,6 @@
 }
 
 /* Bottom accent */
-
-.AboutOurMission__bottom {
-  display: flex;
-  align-items: center;
-  gap: 13px;
-  margin-top: 27px;
-  opacity: 0;
-  transform: translateY(10px);
-  transition: opacity 0.45s ease, transform 0.45s ease;
-}
-
-.AboutOurMission__contentSection:hover .AboutOurMission__bottom {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-.AboutOurMission__bottomText {
-  color: #73767d;
-  font-size: 10px;
-  letter-spacing: 0.4px;
-}
-
-.AboutOurMission__bottomLine {
-  width: 34px;
-  height: 1px;
-  background: #d0d1d4;
-}
-
-.AboutOurMission__icon {
-  display: grid;
-  width: 33px;
-  height: 33px;
-  flex-shrink: 0;
-  place-items: center;
-  color: var(--AboutOurMission-red);
-  border: 1px solid rgba(229, 30, 43, 0.25);
-  border-radius: 50%;
-  text-decoration: none;
-  transition: color 0.3s ease, background 0.3s ease, transform 0.3s ease;
-}
-
-.AboutOurMission__icon svg {
-  width: 17px;
-  height: 17px;
-}
-
 .AboutOurMission__contentSection:hover .AboutOurMission__icon {
   color: #ffffff;
   background: var(--AboutOurMission-red);

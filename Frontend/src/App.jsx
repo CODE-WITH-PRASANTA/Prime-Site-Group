@@ -1,6 +1,11 @@
 
 import React, { useEffect, useState } from "react";
-import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
+import {
+  BrowserRouter,
+  Routes,
+  Route,
+  useLocation,
+} from "react-router-dom";
 
 import Navbar from "./Components/Navbar/Navbar";
 import Footer from "./Components/Footer/Footer";
@@ -48,55 +53,102 @@ const AppContent = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // Show loader only on initial website load / refresh
-    const timer = setTimeout(() => {
+    // Loader shows only when website initially opens or refreshes
+    const timer = window.setTimeout(() => {
       setLoading(false);
     }, 2500);
 
-    return () => clearTimeout(timer);
+    return () => window.clearTimeout(timer);
   }, []);
 
   return (
     <>
+      {/* Initial Page Loader */}
       {loading && <Loader />}
 
+      {/* Scroll to Top */}
       <ScrollToTop />
 
+      {/* Navbar */}
       <Navbar />
 
+      {/* Website Pages */}
       <main>
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/about" element={<About />} />
           <Route path="/services/cash-services" element={<Services />} />
+
           <Route path="/blog" element={<Blog />} />
           <Route path="/-detailsblog" element={<BlogDetails />} />
+
           <Route path="/faq" element={<Faq />} />
           <Route path="/career" element={<Career />} />
           <Route path="/contact" element={<Contact />} />
 
-          <Route path="/services/security-services" element={<SecurityServices />} />
-          <Route path="/services/manpower-services" element={<ManPowerService />} />
-          <Route path="/services/workforce-solutions" element={<WorkforceSoluation />} />
-          <Route path="/services/facilities-management" element={<FacilityManagement />} />
-          <Route path="/services/aviation-services" element={<AviationServices />} />
-          <Route path="/services/managed-services" element={<ManagedServices />} />
-          <Route path="/services/taste-of-home" element={<TasteOfHome />} />
-          <Route path="/services/prime-site-living" element={<PrimeSiteLiving />} />
-          <Route path="/services/prime-site-delivery" element={<PrimeSiteDelivery />} />
-          <Route path="/services/kitchen-maintenance-solutions" element={<KitchenMaintenanceSolutions />} />
+          <Route
+            path="/services/security-services"
+            element={<SecurityServices />}
+          />
+
+          <Route
+            path="/services/manpower-services"
+            element={<ManPowerService />}
+          />
+
+          <Route
+            path="/services/workforce-solutions"
+            element={<WorkforceSoluation />}
+          />
+
+          <Route
+            path="/services/facilities-management"
+            element={<FacilityManagement />}
+          />
+
+          <Route
+            path="/services/aviation-services"
+            element={<AviationServices />}
+          />
+
+          <Route
+            path="/services/managed-services"
+            element={<ManagedServices />}
+          />
+
+          <Route
+            path="/services/taste-of-home"
+            element={<TasteOfHome />}
+          />
+
+          <Route
+            path="/services/prime-site-living"
+            element={<PrimeSiteLiving />}
+          />
+
+          <Route
+            path="/services/prime-site-delivery"
+            element={<PrimeSiteDelivery />}
+          />
+
+          <Route
+            path="/services/kitchen-maintenance-solutions"
+            element={<KitchenMaintenanceSolutions />}
+          />
         </Routes>
       </main>
 
+      {/* Footer */}
       <Footer />
 
+      {/* Floating Components */}
       <FloatingForm />
       <FloatingIcon />
     </>
   );
 };
 
-// App
+// Main App
 const App = () => {
   return (
     <BrowserRouter>
