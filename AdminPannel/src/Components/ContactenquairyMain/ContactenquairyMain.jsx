@@ -645,7 +645,7 @@ export default function ContactenquairyMain() {
             </div>
 
             <div>
-              <h1 className="ce-title">Contact Enquiry</h1>
+              <h1 className="ce-title"> Enquiry</h1>
               <p className="ce-subtitle">Manage contact enquiries from website</p>
             </div>
           </div>

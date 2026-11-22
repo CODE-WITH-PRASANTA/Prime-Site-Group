@@ -45,7 +45,7 @@ app.get("/", (req, res) => {
 app.use("/api/careers", careerRoutes);
 app.use("/api/applications", applicationRoutes);
 app.use("/api/contact", contactRoutes);
-
+ 
 
 // Must come AFTER all routes
 app.use(notFound);

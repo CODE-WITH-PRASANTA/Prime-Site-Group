@@ -1,0 +1,246 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap");
+
+.DashboardOne {
+  --ink: #2b1a24;
+  --muted: #3d3340;
+  --green: #12a150;
+  --ease: cubic-bezier(0.2, 0.7, 0.2, 1);
+
+  width: 100%;
+  container-type: inline-size; /* responsive to the space beside the sidebar */
+  padding: clamp(12px, 2vw, 24px) clamp(12px, 2vw, 24px) 0;
+  font-family: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+  background: transparent; /* page background comes from .admin-layout */
+}
+
+.DashboardOne *,
+.DashboardOne *::before,
+.DashboardOne *::after {
+  box-sizing: border-box;
+}
+
+.DashboardOne-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: clamp(14px, 1.6vw, 24px);
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+/* ---------------- Card ---------------- */
+.DashboardOne-card {
+  --c-main: #d7263d;
+  --c-soft: #fde3e5;
+  --c-icon: #d7263d;
+
+  position: relative;
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  column-gap: 18px;
+  align-items: start;
+  min-height: 136px;
+  padding: 22px 22px 20px;
+  overflow: hidden;
+  border-radius: 20px;
+  background: #fff;
+  box-shadow: 0 8px 26px rgba(120, 30, 45, 0.1), 0 1px 3px rgba(120, 30, 45, 0.06);
+  opacity: 0;
+  transform: translateY(26px);
+  transition:
+    transform 0.35s var(--ease),
+    box-shadow 0.35s ease;
+}
+
+.DashboardOne-card.is-on {
+  animation: DashboardOne-rise 0.8s var(--ease) both;
+  animation-delay: calc(var(--i) * 0.12s);
+}
+
+/* red edge on the left */
+.DashboardOne-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 3px;
+  background: var(--c-main);
+  opacity: 0.9;
+}
+
+.DashboardOne-card--rose {
+  --c-main: #e86a7a;
+  --c-soft: #fde1e5;
+  --c-icon: #d7263d;
+}
+.DashboardOne-card--rose::before { opacity: 0.35; }
+
+.DashboardOne-card--red {
+  --c-main: #d7263d;
+  --c-soft: #fde1e4;
+  --c-icon: #d7263d;
+}
+
+.DashboardOne-card--orange {
+  --c-main: #f26a2e;
+  --c-soft: #fee6d8;
+  --c-icon: #ea5a1a;
+}
+
+.DashboardOne-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 18px 40px rgba(120, 30, 45, 0.16), 0 2px 6px rgba(120, 30, 45, 0.06);
+}
+
+/* ---------------- Icon ---------------- */
+.DashboardOne-icon {
+  display: grid;
+  place-items: center;
+  width: 54px;
+  height: 54px;
+  border-radius: 16px;
+  color: var(--c-icon);
+  background: var(--c-soft);
+  transition: transform 0.4s var(--ease);
+}
+
+.DashboardOne-icon svg {
+  width: 26px;
+  height: 26px;
+}
+
+.DashboardOne-card:hover .DashboardOne-icon {
+  transform: scale(1.08) rotate(-4deg);
+}
+
+/* ---------------- Text ---------------- */
+.DashboardOne-info {
+  position: relative;
+  z-index: 1;
+  min-width: 0;
+  padding-top: 2px;
+}
+
+.DashboardOne-title {
+  margin: 0;
+  font-size: 0.95rem;
+  font-weight: 500;
+  line-height: 1.3;
+  color: var(--muted);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.DashboardOne-value {
+  margin: 6px 0 8px;
+  font-size: clamp(1.7rem, 2.3vw, 2.15rem);
+  font-weight: 800;
+  line-height: 1.1;
+  letter-spacing: -0.01em;
+  color: var(--ink);
+  font-variant-numeric: tabular-nums;
+}
+
+.DashboardOne-trend {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 0.86rem;
+  font-weight: 600;
+  color: var(--green);
+}
+
+.DashboardOne-trend b {
+  font-weight: 600;
+}
+
+.DashboardOne-trend svg {
+  animation: DashboardOne-bob 2s ease-in-out infinite;
+}
+
+/* ---------------- Sparkline ---------------- */
+.DashboardOne-spark {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  width: 48%;
+  max-width: 150px;
+  height: 56px;
+  pointer-events: none;
+  overflow: visible;
+}
+
+.DashboardOne-spark-area {
+  opacity: 0;
+  transition: opacity 1.4s ease 0.9s;
+}
+
+.DashboardOne-spark-line {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+}
+
+.DashboardOne-spark.is-on .DashboardOne-spark-area {
+  opacity: 1;
+}
+
+.DashboardOne-spark.is-on .DashboardOne-spark-line {
+  animation: DashboardOne-draw 2.2s cubic-bezier(0.45, 0, 0.2, 1) 0.3s forwards;
+}
+
+/* ---------------- Keyframes ---------------- */
+@keyframes DashboardOne-rise {
+  from { opacity: 0; transform: translateY(26px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes DashboardOne-draw {
+  to { stroke-dashoffset: 0; }
+}
+
+@keyframes DashboardOne-bob {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-2px); }
+}
+
+/* ---------------- Responsive ----------------
+   @container = reacts to the space the page gives the component
+   (sidebar open or closed), not only to the screen width.
+------------------------------------------------------------------- */
+@container (max-width: 1180px) {
+  .DashboardOne-card { padding: 20px 18px 18px; column-gap: 14px; }
+  .DashboardOne-icon { width: 48px; height: 48px; border-radius: 14px; }
+  .DashboardOne-icon svg { width: 23px; height: 23px; }
+}
+
+@container (max-width: 860px) {
+  .DashboardOne-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+@container (max-width: 520px) {
+  .DashboardOne-grid { grid-template-columns: 1fr; gap: 12px; }
+  .DashboardOne-card { min-height: 120px; padding: 18px 16px 16px; }
+  .DashboardOne-spark { width: 44%; }
+}
+
+/* the layout already adds its own side padding on tablets / phones */
+@media (max-width: 992px) {
+  .DashboardOne { padding: 0; }
+}
+
+@media (hover: none) {
+  .DashboardOne-card:hover { transform: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .DashboardOne-card,
+  .DashboardOne-card.is-on {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
+  .DashboardOne-spark-line { stroke-dashoffset: 0; animation: none !important; }
+  .DashboardOne-spark-area { opacity: 1; transition: none; }
+  .DashboardOne-trend svg { animation: none; }
+}

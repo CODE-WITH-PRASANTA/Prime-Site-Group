@@ -1,10 +1,12 @@
-import React, { useEffect } from "react";
+
+import React, { useEffect, useState } from "react";
 import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 
 import Navbar from "./Components/Navbar/Navbar";
 import Footer from "./Components/Footer/Footer";
 import FloatingForm from "./Components/FloatingForm/FloatingForm";
 import FloatingIcon from "./Components/FloatingIcon/FloatingIcon";
+import Loader from "./Components/Loader/Loader";
 
 import Home from "./Pages/Home/Home";
 import About from "./Pages/About/About";
@@ -14,8 +16,6 @@ import BlogDetails from "./Pages/BlogDetails/BlogDetails";
 import Faq from "./Pages/Faq/Faq";
 import Blog from "./Pages/Blog/Blog";
 import Career from "./Pages/Career/Career";
-
-
 
 import SecurityServices from "./Pages/SecurityServices/SecurityServices";
 import ManPowerService from "./Pages/ManPowerService/ManPowerService";
@@ -28,7 +28,7 @@ import KitchenMaintenanceSolutions from "./Pages/KitchenMaintenanceSolutions/Kit
 import PrimeSiteLiving from "./Pages/PrimeSiteLiving/PrimeSiteLiving";
 import PrimeSiteDelivery from "./Pages/PrimeSiteDelivery/PrimeSiteDelivery";
 
-// Component that listens for route changes and scrolls the window to the top
+// Scroll To Top Component
 const ScrollToTop = () => {
   const { pathname } = useLocation();
 
@@ -36,17 +36,30 @@ const ScrollToTop = () => {
     window.scrollTo({
       top: 0,
       left: 0,
-      behavior: "instant", // Use "smooth" if you prefer animated scrolling
+      behavior: "instant",
     });
   }, [pathname]);
 
   return null;
 };
 
-const App = () => {
+// Main App Content
+const AppContent = () => {
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    // Show loader only on initial website load / refresh
+    const timer = setTimeout(() => {
+      setLoading(false);
+    }, 2500);
+
+    return () => clearTimeout(timer);
+  }, []);
+
   return (
-    <BrowserRouter>
-      {/* Ensures viewport resets to top on every navigation */}
+    <>
+      {loading && <Loader />}
+
       <ScrollToTop />
 
       <Navbar />
@@ -62,28 +75,32 @@ const App = () => {
           <Route path="/career" element={<Career />} />
           <Route path="/contact" element={<Contact />} />
 
-
-
-
-          
-          <Route path="/services/security-services" element={<SecurityServices/>} />
-          <Route path="/services/manpower-services" element={<ManPowerService/>} />
-          <Route path="/services/workforce-solutions" element={<WorkforceSoluation/>} />
-          <Route path="/services/facilities-management" element={<FacilityManagement/>} />
-          <Route path="/services/aviation-services" element={<AviationServices/>} />
-          <Route path="/services/managed-services" element={<ManagedServices/>} />
-          <Route path="/services/taste-of-home" element={<TasteOfHome/>} />
-          <Route path="/services/prime-site-living" element={<PrimeSiteLiving/>} />
-          <Route path="/services/prime-site-delivery" element={<PrimeSiteDelivery/>} />
-          <Route path="/services/kitchen-maintenance-solutions" element={<KitchenMaintenanceSolutions/>} />
+          <Route path="/services/security-services" element={<SecurityServices />} />
+          <Route path="/services/manpower-services" element={<ManPowerService />} />
+          <Route path="/services/workforce-solutions" element={<WorkforceSoluation />} />
+          <Route path="/services/facilities-management" element={<FacilityManagement />} />
+          <Route path="/services/aviation-services" element={<AviationServices />} />
+          <Route path="/services/managed-services" element={<ManagedServices />} />
+          <Route path="/services/taste-of-home" element={<TasteOfHome />} />
+          <Route path="/services/prime-site-living" element={<PrimeSiteLiving />} />
+          <Route path="/services/prime-site-delivery" element={<PrimeSiteDelivery />} />
+          <Route path="/services/kitchen-maintenance-solutions" element={<KitchenMaintenanceSolutions />} />
         </Routes>
       </main>
 
       <Footer />
 
-      {/* GLOBAL FLOATING ENQUIRY FORM */}
       <FloatingForm />
       <FloatingIcon />
+    </>
+  );
+};
+
+// App
+const App = () => {
+  return (
+    <BrowserRouter>
+      <AppContent />
     </BrowserRouter>
   );
 };

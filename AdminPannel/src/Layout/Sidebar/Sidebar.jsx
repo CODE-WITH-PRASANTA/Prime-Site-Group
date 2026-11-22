@@ -1,5 +1,5 @@
-import React from "react";
-import { NavLink } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { NavLink, useLocation } from "react-router-dom";
 import logo from "../../assets/admin-logo.png";
 import "./Sidebar.css";
 
@@ -58,16 +58,17 @@ const MenuIcon = ({ type }) => {
     <path d="M8.5 19a3.5 3.5 0 0 1 7 0" />
   </>
 ),
+    chevron: <path d="m6 9 6 6 6-6" />,
   };
 
   return (
     <svg
-      width="20"
-      height="20"
+      width={type === "chevron" ? "16" : "20"}
+      height={type === "chevron" ? "16" : "20"}
       viewBox="0 0 24 24"
       fill="none"
       stroke="currentColor"
-      strokeWidth="1.7"
+      strokeWidth={type === "chevron" ? "2.2" : "1.7"}
       strokeLinecap="round"
       strokeLinejoin="round"
       aria-hidden="true"
@@ -79,11 +80,29 @@ const MenuIcon = ({ type }) => {
 
 const menuItems = [
   { title: "Dashboard", path: "/dashboard", icon: "dashboard" },
-  { title: "Blog Management", path: "/blog", icon: "blog" },
   { title: "Service Booking", path: "/service-booking", icon: "service" },
   { title: "Career Management", path: "/career-management", icon: "career" },
   { title: "Career Applications", path: "/career-applications", icon: "applications" },
   { title: "Contact Enquiry", path: "/contact-enquiry", icon: "enquiry" },
+  {
+    key: "blog",
+    title: "Blog Management",
+    icon: "blog",
+    children: [
+      { title: "Add Blog", path: "/blog/add" },
+      { title: "Blog Management", path: "/blog" },
+    ],
+  },
+  {
+    key: "career",
+    title: "Career",
+    icon: "career",
+    children: [
+      { title: "Add Career", path: "/career/add" },
+      { title: "Career Management", path: "/career-management" },
+    ],
+  },
+  { title: "Enquiry", path: "/enquiry", icon: "enquiry" },
 ];
 
 const accountItems = [
@@ -96,23 +115,103 @@ const Sidebar = ({
   mobileOpen = false,
   onClose = () => {},
 }) => {
+  const location = useLocation();
+  const [openMenus, setOpenMenus] = useState({});
+
+  // Auto-expand the dropdown if the current URL matches one of its children
+  useEffect(() => {
+    const activeParent = menuItems.find(
+      (item) =>
+        item.children &&
+        item.children.some((child) => location.pathname === child.path)
+    );
+
+    if (activeParent) {
+      setOpenMenus((prev) => ({ ...prev, [activeParent.key]: true }));
+    }
+  }, [location.pathname]);
+
+  const toggleDropdown = (key) => {
+    setOpenMenus((prev) => ({
+      ...prev,
+      [key]: !prev[key],
+    }));
+  };
+
   const renderMenuItems = (items) =>
-    items.map((item) => (
-      <NavLink
-        key={item.path}
-        to={item.path}
-        end
-        title={collapsed ? item.title : ""}
-        onClick={onClose}
-        className={({ isActive }) => `sidebar-link ${isActive ? "active" : ""}`}
-      >
-        <span className="sidebar-link-icon">
-          <MenuIcon type={item.icon} />
-        </span>
-        <span className="sidebar-link-title">{item.title}</span>
-        <span className="sidebar-active-indicator" />
-      </NavLink>
-    ));
+    items.map((item) => {
+      // Dropdown Menu Item
+      if (item.children) {
+        const isChildActive = item.children.some(
+          (child) => location.pathname === child.path
+        );
+        const isOpen = !!openMenus[item.key] && !collapsed;
+
+        return (
+          <div
+            key={item.key}
+            className={`sidebar-dropdown ${isOpen ? "open" : ""}`}
+          >
+            <button
+              type="button"
+              title={collapsed ? item.title : ""}
+              onClick={() => toggleDropdown(item.key)}
+              className={`sidebar-link sidebar-dropdown-btn ${
+                isChildActive ? "parent-active" : ""
+              }`}
+              aria-expanded={isOpen}
+            >
+              <span className="sidebar-link-icon">
+                <MenuIcon type={item.icon} />
+              </span>
+              <span className="sidebar-link-title">{item.title}</span>
+              <span className="sidebar-chevron">
+                <MenuIcon type="chevron" />
+              </span>
+            </button>
+
+            <div className="sidebar-submenu-wrapper">
+              <div className="sidebar-submenu">
+                {item.children.map((subItem) => (
+                  <NavLink
+                    key={subItem.path}
+                    to={subItem.path}
+                    end
+                    onClick={onClose}
+                    className={({ isActive }) =>
+                      `sidebar-sublink ${isActive ? "active" : ""}`
+                    }
+                  >
+                    <span className="sidebar-subdot" />
+                    <span className="sidebar-sublink-title">{subItem.title}</span>
+                  </NavLink>
+                ))}
+              </div>
+            </div>
+          </div>
+        );
+      }
+
+      // Regular Menu Item
+      return (
+        <NavLink
+          key={item.path}
+          to={item.path}
+          end
+          title={collapsed ? item.title : ""}
+          onClick={onClose}
+          className={({ isActive }) =>
+            `sidebar-link ${isActive ? "active" : ""}`
+          }
+        >
+          <span className="sidebar-link-icon">
+            <MenuIcon type={item.icon} />
+          </span>
+          <span className="sidebar-link-title">{item.title}</span>
+          <span className="sidebar-active-indicator" />
+        </NavLink>
+      );
+    });
 
   return (
     <>

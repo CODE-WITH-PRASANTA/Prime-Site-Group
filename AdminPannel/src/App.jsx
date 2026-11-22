@@ -11,6 +11,7 @@ import Dashboard from "./Pages/Dashboard/Dashboard";
 import MainLayout from "./Layout/MainLayout/MainLayout";
 import Login from "./Components/Login/Login";
 import ProtectedRoutes from "./Components/ProtectedRoutes/ProtectedRoutes";
+
 import Blog from "./Pages/Blog/Blog";
 import Blogmanagement from "./Components/Blogmanagement/Blogmanagement";
 import Service from "./Pages/Service/Service";
@@ -21,7 +22,7 @@ import Contactenquairy from "./Pages/Contactenquairy/Contactenquairy";
 import Profile from "./Pages/Profile/Profile";
 import Setting from "./Pages/Setting/Setting";
 import CareerApplications from "./Components/CareerApplications/CareerApplications";
-
+import AddblogMain from "./Components/AddblogMain/AddblogMain";
 
 const App = () => {
   return (
@@ -44,19 +45,36 @@ const App = () => {
             {/* DASHBOARD */}
             <Route path="dashboard" element={<Dashboard />} />
 
-            {/* BLOG MANAGEMENT */}
-            <Route path="blog" element={<Blog/>} />
-            <Route path="blog-management" element={<Blogmanagement/>} />
-              <Route path="service-booking" element={<Service/>} />
-            <Route path="add-service" element={<Addservice/>} />
-            <Route path="add-career" element={<Addcareer/>} />
-            <Route path="career-management" element={<Careermanagement/>} />
-            <Route path="contact-enquiry" element={<Contactenquairy/>} />
-            <Route path="profile" element={<Profile/>} />
-             <Route path="Settings" element={<Setting/>} />
-            <Route path="career-applications" element={<CareerApplications />} />
+            {/* BLOG */}
+            <Route path="blog" element={<Blogmanagement />} />
+            <Route path="blog/add" element={<AddblogMain />} />
 
-            
+            {/* SERVICE */}
+            <Route path="service-booking" element={<Service />} />
+            <Route path="service/add" element={<Addservice />} />
+
+            {/* CAREER */}
+            <Route path="career/add" element={<Addcareer />} />
+            <Route
+              path="career-management"
+              element={<Careermanagement />}
+            />
+            <Route
+              path="career-applications"
+              element={<CareerApplications />}
+            />
+
+            {/* ENQUIRY */}
+            <Route
+              path="enquiry"
+              element={<Contactenquairy />}
+            />
+
+            {/* PROFILE */}
+            <Route path="profile" element={<Profile />} />
+
+            {/* SETTINGS */}
+            <Route path="settings" element={<Setting />} />
 
           </Route>
         </Route>
