@@ -1,0 +1,1115 @@
+
+/* =========================================
+   SETTING MAIN - RED & WHITE ADMIN DESIGN
+========================================= */
+
+.setting-main {
+  --setting-red: #e00012;
+  --setting-red-dark: #c90010;
+  --setting-pink: #fff0f1;
+  --setting-border: #f1dfe2;
+  --setting-text: #171b2b;
+  --setting-muted: #667085;
+
+  width: 100%;
+  min-width: 0;
+  min-height: 100vh;
+  padding: 18px 20px;
+  background: #fffafa;
+  color: var(--setting-text);
+  font-family: Arial, Helvetica, sans-serif;
+  box-sizing: border-box;
+}
+
+.setting-main.accent-blue {
+  --setting-red: #2563eb;
+  --setting-red-dark: #1d4ed8;
+  --setting-pink: #eff6ff;
+  --setting-border: #dbeafe;
+}
+
+.setting-main.accent-green {
+  --setting-red: #15803d;
+  --setting-red-dark: #166534;
+  --setting-pink: #f0fdf4;
+  --setting-border: #dcfce7;
+}
+
+.setting-main.accent-purple {
+  --setting-red: #7c3aed;
+  --setting-red-dark: #6d28d9;
+  --setting-pink: #f5f3ff;
+  --setting-border: #ede9fe;
+}
+
+.setting-main *,
+.setting-main *::before,
+.setting-main *::after {
+  box-sizing: border-box;
+}
+
+.setting-main button,
+.setting-main input,
+.setting-main select {
+  font: inherit;
+}
+
+.setting-main button {
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* =========================================
+   FOCUS OUTLINE FIX
+========================================= */
+
+.setting-main input,
+.setting-main select {
+  outline: none !important;
+}
+
+.setting-main input:focus,
+.setting-main input:focus-visible,
+.setting-main select:focus,
+.setting-main select:focus-visible {
+  outline: none !important;
+}
+
+.setting-main button:focus {
+  outline: none;
+}
+
+.setting-main button:focus-visible {
+  outline: 2px solid var(--setting-red);
+  outline-offset: 3px;
+}
+
+/* =========================================
+   PAGE HEADER
+========================================= */
+
+.setting-page-header {
+  min-height: 70px;
+  padding: 11px 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #fff;
+  border: 1px solid var(--setting-border);
+  border-radius: 13px;
+  box-shadow: 0 3px 13px rgba(218, 0, 20, 0.055);
+}
+
+.setting-header-left {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  min-width: 0;
+}
+
+.setting-header-icon {
+  width: 52px;
+  height: 48px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  background: linear-gradient(
+    145deg,
+    var(--setting-red),
+    var(--setting-red-dark)
+  );
+  border-radius: 11px;
+  box-shadow: 0 4px 12px rgba(224, 0, 18, 0.2);
+  transition: transform 0.3s ease;
+}
+
+.setting-header-icon:hover {
+  transform: rotate(-7deg);
+}
+
+.setting-header-left h1 {
+  margin: 0 0 4px;
+  color: #10162b;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 23px;
+  font-weight: 700;
+}
+
+.setting-header-left p {
+  margin: 0;
+  color: #596176;
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+/* =========================================
+   NAVIGATION
+========================================= */
+
+.setting-navigation {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 9px;
+  margin: 12px 0;
+}
+
+.setting-navigation button {
+  min-width: 0;
+  min-height: 42px;
+  padding: 8px 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  border: 1px solid var(--setting-border);
+  border-radius: 9px;
+  background: #fff;
+  color: #202944;
+  font-size: 13px;
+  font-weight: 700;
+  transition: 0.25s ease;
+}
+
+.setting-navigation button:hover {
+  color: var(--setting-red);
+  background: var(--setting-pink);
+  border-color: var(--setting-red);
+  transform: translateY(-1px);
+}
+
+.setting-navigation button.active {
+  color: #fff;
+  background: linear-gradient(
+    110deg,
+    var(--setting-red),
+    var(--setting-red-dark)
+  );
+  border-color: var(--setting-red);
+  box-shadow: 0 3px 9px rgba(224, 0, 18, 0.16);
+}
+
+.setting-navigation button svg {
+  flex-shrink: 0;
+}
+
+/* =========================================
+   MAIN GRID
+========================================= */
+
+.setting-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 13px;
+  align-items: start;
+}
+
+.setting-card {
+  width: 100%;
+  min-width: 0;
+  padding: 16px;
+  background: #fff;
+  border: 1px solid var(--setting-border);
+  border-radius: 12px;
+  box-shadow: 0 2px 10px rgba(218, 0, 20, 0.035);
+  transition:
+    border-color 0.25s ease,
+    box-shadow 0.25s ease;
+  scroll-margin-top: 18px;
+}
+
+.setting-card:hover {
+  border-color: #edc4c9;
+  box-shadow: 0 5px 16px rgba(218, 0, 20, 0.06);
+}
+
+.setting-general-card,
+.setting-email-card {
+  min-height: 0;
+}
+
+.setting-notification-card,
+.setting-security-card,
+.setting-appearance-card {
+  min-height: 145px;
+}
+
+/* =========================================
+   SECTION HEADER
+========================================= */
+
+.setting-section-header {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  margin-bottom: 17px;
+}
+
+.setting-section-icon {
+  width: 36px;
+  height: 36px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--setting-red);
+  background: var(--setting-pink);
+  border-radius: 8px;
+}
+
+.setting-email-card .setting-section-icon,
+.setting-notification-card .setting-section-icon,
+.setting-security-card .setting-section-icon {
+  color: #fff;
+  background: var(--setting-red);
+}
+
+.setting-section-header h2 {
+  margin: 0 0 4px;
+  color: #161c2e;
+  font-size: 15px;
+  font-weight: 700;
+  line-height: 1.35;
+}
+
+.setting-section-header p {
+  margin: 0;
+  color: #687086;
+  font-size: 11px;
+  line-height: 1.45;
+}
+
+/* =========================================
+   INPUT FIELDS
+========================================= */
+
+.setting-general-fields {
+  display: flex;
+  flex-direction: column;
+  gap: 13px;
+}
+
+.setting-field {
+  width: 100%;
+  min-width: 0;
+}
+
+.setting-field > label {
+  display: block;
+  margin-bottom: 6px;
+  color: #181d2c;
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 1.4;
+}
+
+.setting-required {
+  color: var(--setting-red);
+}
+
+.setting-input-wrap {
+  width: 100%;
+  height: 42px;
+  min-width: 0;
+  padding: 0 12px;
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  background: #fff;
+  border: 1.4px solid #eadde0;
+  border-radius: 9px;
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.setting-input-wrap:focus-within {
+  border-color: var(--setting-red);
+  box-shadow: 0 0 0 3px rgba(224, 0, 18, 0.09);
+  outline: none;
+}
+
+.setting-input-icon {
+  flex-shrink: 0;
+  color: #667085;
+}
+
+.setting-input-wrap input {
+  display: block;
+  width: 100%;
+  min-width: 0;
+  height: 100%;
+  padding: 0;
+  margin: 0;
+  border: 0 !important;
+  border-radius: 0;
+  outline: none !important;
+  box-shadow: none !important;
+  background: transparent;
+  color: #202944;
+  font-size: 12px;
+  font-weight: 500;
+  appearance: none;
+  -webkit-appearance: none;
+}
+
+.setting-input-wrap input::placeholder {
+  color: #a0a4b0;
+  opacity: 1;
+}
+
+.setting-input-wrap input:focus,
+.setting-input-wrap input:focus-visible {
+  border: 0 !important;
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+.setting-input-wrap:has(input:disabled) {
+  background: #f7f7f8;
+  cursor: not-allowed;
+}
+
+.setting-input-wrap input:disabled {
+  color: #98a0ad;
+  cursor: not-allowed;
+  opacity: 1;
+}
+
+.setting-field-error .setting-input-wrap {
+  border-color: #dc2626;
+}
+
+.setting-field-error .setting-input-wrap:focus-within {
+  box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.09);
+}
+
+.setting-error-text {
+  display: block;
+  margin-top: 5px;
+  color: #dc2626;
+  font-size: 11px;
+  line-height: 1.4;
+}
+
+/* =========================================
+   LOGO UPLOAD
+========================================= */
+
+.setting-upload-group {
+  margin-top: 16px;
+}
+
+.setting-upload-label {
+  display: block;
+  margin-bottom: 7px;
+  color: #181d2c;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.setting-upload-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 0.85fr);
+  align-items: center;
+  gap: 14px;
+}
+
+.setting-logo-preview {
+  width: 100%;
+  max-width: 280px;
+  height: 58px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  background: #fff;
+  border: 1px solid var(--setting-border);
+  border-radius: 9px;
+}
+
+.setting-logo-preview img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  padding: 5px;
+  object-fit: contain;
+}
+
+.setting-empty-preview {
+  color: #a0a4b0;
+  font-size: 12px;
+}
+
+.setting-upload-controls {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 7px;
+}
+
+.setting-upload-btn {
+  min-height: 35px;
+  padding: 7px 12px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  border: 1.3px solid #edb4bc;
+  border-radius: 8px;
+  background: #fff;
+  color: var(--setting-red);
+  font-size: 11px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.setting-upload-btn:hover {
+  color: #fff;
+  background: var(--setting-red);
+  border-color: var(--setting-red);
+}
+
+.setting-upload-controls small {
+  color: #747d90;
+  font-size: 10px;
+  line-height: 1.4;
+}
+
+/* =========================================
+   FAVICON
+========================================= */
+
+.setting-favicon-preview {
+  width: 58px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  border: 1px solid var(--setting-border);
+  border-radius: 8px;
+  background: #fff;
+}
+
+.setting-favicon-preview img {
+  width: 34px;
+  height: 34px;
+  object-fit: contain;
+}
+
+.setting-empty-favicon {
+  color: #a0a4b0;
+  font-size: 10px;
+}
+
+/* =========================================
+   SELECT FIELDS
+========================================= */
+
+.setting-select-group {
+  width: 100%;
+  min-width: 0;
+  margin-top: 14px;
+}
+
+.setting-select-group > label {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  margin-bottom: 6px;
+  color: #181d2c;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.setting-select-group > label svg {
+  color: var(--setting-red);
+  flex-shrink: 0;
+}
+
+.setting-select-wrap {
+  position: relative;
+  width: 100%;
+}
+
+.setting-select-wrap::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  right: 13px;
+  width: 8px;
+  height: 8px;
+  border-right: 1.7px solid #687086;
+  border-bottom: 1.7px solid #687086;
+  transform: translateY(-70%) rotate(45deg);
+  pointer-events: none;
+}
+
+.setting-select-wrap select {
+  width: 100%;
+  height: 41px;
+  padding: 0 36px 0 12px;
+  appearance: none;
+  -webkit-appearance: none;
+  border: 1.3px solid #eadde0;
+  border-radius: 9px;
+  outline: none !important;
+  box-shadow: none;
+  background: #fff;
+  color: #202944;
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.setting-select-wrap select:focus,
+.setting-select-wrap select:focus-visible {
+  border-color: var(--setting-red);
+  outline: none !important;
+  box-shadow: 0 0 0 3px rgba(224, 0, 18, 0.08);
+}
+
+/* =========================================
+   EMAIL GRID
+========================================= */
+
+.setting-email-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px 13px;
+}
+
+.setting-password-eye {
+  width: 30px;
+  height: 30px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  border: 0;
+  border-radius: 6px;
+  outline: none;
+  background: transparent;
+  color: #687086;
+}
+
+.setting-password-eye:hover {
+  color: var(--setting-red);
+}
+
+.setting-password-eye:disabled {
+  cursor: not-allowed;
+  opacity: 0.45;
+}
+
+/* =========================================
+   TOGGLE BOX
+========================================= */
+
+.setting-toggle-box {
+  min-height: 60px;
+  margin-top: 16px;
+  padding: 10px 12px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  border: 1.3px solid var(--setting-border);
+  border-radius: 9px;
+  background: #fff;
+  transition: 0.2s ease;
+}
+
+.setting-toggle-box:hover {
+  background: #fffafa;
+  border-color: #edb7bf;
+}
+
+.setting-switch {
+  position: relative;
+  width: 38px;
+  height: 21px;
+  flex-shrink: 0;
+  padding: 3px;
+  display: flex;
+  align-items: center;
+  border: 0;
+  border-radius: 30px;
+  outline: none;
+  background: #bfc3ce;
+  transition: background 0.2s ease;
+}
+
+.setting-switch span {
+  width: 15px;
+  height: 15px;
+  display: block;
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15);
+  transition: transform 0.2s ease;
+}
+
+.setting-switch.enabled {
+  background: var(--setting-red);
+}
+
+.setting-switch.enabled span {
+  transform: translateX(17px);
+}
+
+.setting-toggle-text {
+  min-width: 0;
+}
+
+.setting-toggle-text strong {
+  display: block;
+  color: #202944;
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 1.4;
+}
+
+.setting-toggle-text p {
+  margin: 4px 0 0;
+  color: #697187;
+  font-size: 10px;
+  line-height: 1.45;
+}
+
+/* =========================================
+   BOTTOM ACTION BUTTONS
+========================================= */
+
+.setting-actions {
+  display: grid;
+  grid-template-columns: 1fr 1.12fr;
+  gap: 11px;
+  padding: 16px 0 5px;
+}
+
+.setting-actions button {
+  min-width: 0;
+  min-height: 43px;
+  padding: 9px 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  border-radius: 9px;
+  font-size: 13px;
+  font-weight: 700;
+  transition: 0.2s ease;
+}
+
+.setting-reset-btn {
+  color: var(--setting-red);
+  border: 1.4px solid #eeaeb7;
+  background: #fff;
+}
+
+.setting-reset-btn:hover {
+  color: #fff;
+  background: var(--setting-red);
+  border-color: var(--setting-red);
+}
+
+.setting-save-btn {
+  color: #fff;
+  background: linear-gradient(
+    110deg,
+    var(--setting-red),
+    var(--setting-red-dark)
+  );
+  border: 1px solid var(--setting-red-dark);
+  box-shadow: 0 3px 8px rgba(224, 0, 18, 0.12);
+}
+
+.setting-save-btn:hover:not(:disabled) {
+  filter: brightness(0.92);
+  transform: translateY(-1px);
+  box-shadow: 0 5px 13px rgba(224, 0, 18, 0.16);
+}
+
+.setting-save-btn:disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
+}
+
+/* =========================================
+   TOAST
+========================================= */
+
+.setting-toast {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 1500;
+  width: max-content;
+  max-width: min(420px, calc(100vw - 30px));
+  min-height: 50px;
+  padding: 12px 14px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  border-left: 4px solid #16a34a;
+  border-radius: 10px;
+  background: #fff;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.14);
+  animation: settingToastIn 0.25s ease;
+}
+
+.setting-toast.success {
+  border-left-color: #16a34a;
+}
+
+.setting-toast.success > svg {
+  color: #16a34a;
+}
+
+.setting-toast.error {
+  border-left-color: #dc2626;
+}
+
+.setting-toast.error > svg {
+  color: #dc2626;
+}
+
+.setting-toast.info {
+  border-left-color: #2563eb;
+}
+
+.setting-toast.info > svg {
+  color: #2563eb;
+}
+
+.setting-toast > svg {
+  flex-shrink: 0;
+}
+
+.setting-toast span {
+  color: #202944;
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 1.45;
+}
+
+.setting-toast button {
+  width: 25px;
+  height: 25px;
+  margin-left: auto;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  border: 0;
+  border-radius: 5px;
+  background: transparent;
+  color: #667085;
+}
+
+.setting-toast button:hover {
+  background: #f3f4f6;
+}
+
+@keyframes settingToastIn {
+  from {
+    opacity: 0;
+    transform: translateX(15px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* =========================================
+   LARGE DESKTOP
+========================================= */
+
+@media (min-width: 1450px) {
+  .setting-main {
+    padding: 22px 26px;
+  }
+
+  .setting-grid {
+    gap: 16px;
+  }
+
+  .setting-card {
+    padding: 19px;
+  }
+
+  .setting-email-grid {
+    gap: 19px 17px;
+  }
+
+  .setting-input-wrap,
+  .setting-select-wrap select {
+    height: 44px;
+  }
+}
+
+/* =========================================
+   TABLET
+========================================= */
+
+@media (max-width: 1000px) {
+  .setting-main {
+    padding: 14px;
+  }
+
+  .setting-grid {
+    gap: 11px;
+  }
+
+  .setting-card {
+    padding: 13px;
+  }
+
+  .setting-email-grid {
+    gap: 13px 10px;
+  }
+
+  .setting-navigation {
+    gap: 6px;
+  }
+
+  .setting-navigation button {
+    gap: 6px;
+    padding: 8px 5px;
+    font-size: 11px;
+  }
+
+  .setting-upload-row {
+    grid-template-columns: 1fr;
+    gap: 9px;
+  }
+
+  .setting-logo-preview {
+    max-width: 100%;
+  }
+}
+
+/* =========================================
+   SMALL TABLET / LARGE MOBILE
+========================================= */
+
+@media (max-width: 700px) {
+  .setting-main {
+    padding: 11px;
+  }
+
+  .setting-grid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 11px;
+  }
+
+  .setting-card {
+    padding: 14px;
+  }
+
+  .setting-notification-card,
+  .setting-security-card,
+  .setting-appearance-card {
+    min-height: 0;
+  }
+
+  .setting-navigation {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .setting-navigation button {
+    min-height: 42px;
+    font-size: 12px;
+  }
+
+  .setting-navigation button:last-child {
+    grid-column: 1 / -1;
+  }
+
+  .setting-upload-row {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 0.85fr);
+  }
+
+  .setting-logo-preview {
+    max-width: 100%;
+  }
+
+  .setting-toast {
+    top: 12px;
+    right: 12px;
+  }
+}
+
+/* =========================================
+   MOBILE
+========================================= */
+
+@media (max-width: 480px) {
+  .setting-main {
+    padding: 9px;
+  }
+
+  .setting-page-header {
+    min-height: 62px;
+    padding: 10px;
+  }
+
+  .setting-header-left {
+    gap: 10px;
+  }
+
+  .setting-header-icon {
+    width: 43px;
+    height: 43px;
+  }
+
+  .setting-header-left h1 {
+    font-size: 20px;
+  }
+
+  .setting-header-left p {
+    font-size: 11px;
+  }
+
+  .setting-navigation {
+    gap: 6px;
+    margin: 10px 0;
+  }
+
+  .setting-navigation button {
+    min-height: 40px;
+    gap: 6px;
+    font-size: 11px;
+  }
+
+  .setting-card {
+    padding: 12px;
+    border-radius: 10px;
+  }
+
+  .setting-section-header {
+    gap: 9px;
+    margin-bottom: 14px;
+  }
+
+  .setting-section-icon {
+    width: 33px;
+    height: 33px;
+  }
+
+  .setting-section-header h2 {
+    font-size: 14px;
+  }
+
+  .setting-section-header p {
+    font-size: 10px;
+  }
+
+  .setting-email-grid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 13px;
+  }
+
+  .setting-upload-row {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 9px;
+  }
+
+  .setting-upload-controls {
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+
+  .setting-logo-preview {
+    max-width: 100%;
+  }
+
+  .setting-actions {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 9px;
+  }
+
+  .setting-actions button {
+    min-height: 43px;
+  }
+
+  .setting-toggle-box {
+    padding: 10px;
+  }
+
+  .setting-toggle-text strong {
+    font-size: 11px;
+  }
+
+  .setting-toggle-text p {
+    font-size: 10px;
+  }
+
+  .setting-toast {
+    top: 9px;
+    right: 9px;
+    max-width: calc(100vw - 18px);
+    padding: 10px;
+  }
+}
+
+/* =========================================
+   VERY SMALL MOBILE
+========================================= */
+
+@media (max-width: 350px) {
+  .setting-header-left p {
+    max-width: 205px;
+  }
+
+  .setting-navigation button {
+    font-size: 10px;
+    gap: 4px;
+  }
+
+  .setting-navigation button svg {
+    width: 15px;
+    height: 15px;
+  }
+
+  .setting-input-wrap {
+    padding: 0 9px;
+    gap: 7px;
+  }
+
+  .setting-input-wrap input {
+    font-size: 11px;
+  }
+
+  .setting-upload-btn {
+    padding: 7px 9px;
+    font-size: 10px;
+  }
+}
+
+/* =========================================
+   REDUCED MOTION
+========================================= */
+
+@media (prefers-reduced-motion: reduce) {
+  .setting-main *,
+  .setting-main *::before,
+  .setting-main *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

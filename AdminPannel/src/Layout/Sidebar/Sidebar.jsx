@@ -50,6 +50,14 @@ const MenuIcon = ({ type }) => {
         <path d="m19.4 15 .1.1 1.4 1.1-1.5 2.6-1.7-.7a8 8 0 0 1-1.7 1l-.3 1.9h-3l-.3-1.9a8 8 0 0 1-1.7-1l-1.7.7-1.5-2.6 1.4-1.1a7 7 0 0 1 0-2l-1.4-1.1 1.5-2.6 1.7.7a8 8 0 0 1 1.7-1l.3-1.9h3l.3 1.9a8 8 0 0 1 1.7 1l1.7-.7 1.5 2.6-1.4 1.1a7 7 0 0 1 0 2Z" />
       </>
     ),
+    applications: (
+  <>
+    <path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8Z" />
+    <path d="M14 3v5h5" />
+    <circle cx="12" cy="13" r="2" />
+    <path d="M8.5 19a3.5 3.5 0 0 1 7 0" />
+  </>
+),
   };
 
   return (
@@ -74,6 +82,7 @@ const menuItems = [
   { title: "Blog Management", path: "/blog", icon: "blog" },
   { title: "Service Booking", path: "/service-booking", icon: "service" },
   { title: "Career Management", path: "/career-management", icon: "career" },
+  { title: "Career Applications", path: "/career-applications", icon: "applications" },
   { title: "Contact Enquiry", path: "/contact-enquiry", icon: "enquiry" },
 ];
 

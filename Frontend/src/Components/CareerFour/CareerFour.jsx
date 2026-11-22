@@ -1,36 +1,23 @@
 import React, { useEffect, useRef, useState } from "react";
 import "./CareerFour.css";
 import primeCareerImage from "../../assets/prime-four.png";
+import API from "../../api/axios";
 
-const careerJobs = [
-  {
-    id: 1,
-    title: "Operations Executive",
-    location: "Bhubaneswar, Odisha",
-    type: "Full-time",
-    department: "Operations",
-    description:
-      "Oversee day-to-day operations, coordinate with teams, and ensure reliable service delivery for our clients.",
-  },
-  {
-    id: 2,
-    title: "Security Supervisor",
-    location: "Bhubaneswar, Odisha",
-    type: "Full-time",
-    department: "Security Services",
-    description:
-      "Lead and manage security personnel, maintain compliance, and ensure a safe and secure working environment.",
-  },
-  {
-    id: 3,
-    title: "Facility Operations Manager",
-    location: "Bhubaneswar, Odisha",
-    type: "Full-time",
-    department: "Facility Management",
-    description:
-      "Manage facility services, vendor coordination, and operational efficiency across client locations.",
-  },
-];
+const EMPTY_FORM = {
+  fullName: "",
+  email: "",
+  phone: "",
+  position: "",
+  resume: null,
+};
+
+const isCanceled = (err) => err?.code === "ERR_CANCELED" || err?.name === "CanceledError";
+
+const getErrorMessage = (err, fallback = "Something went wrong. Please try again later.") => {
+  if (err?.response?.data?.message) return err.response.data.message;
+  if (err?.request) return "Cannot reach the server. Please check your connection and try again.";
+  return fallback;
+};
 
 const CareerFour = () => {
   const sectionRef = useRef(null);
@@ -42,15 +29,43 @@ const CareerFour = () => {
   const [resumeName, setResumeName] = useState("");
   const [errors, setErrors] = useState({});
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [successMessage, setSuccessMessage] = useState("");
+  const [message, setMessage] = useState({ type: "", text: "" });
 
-  const [formData, setFormData] = useState({
-    fullName: "",
-    email: "",
-    phone: "",
-    position: "",
-    resume: null,
-  });
+  const [formData, setFormData] = useState(EMPTY_FORM);
+
+  /* ---------- jobs from the API ---------- */
+  const [jobs, setJobs] = useState([]);
+  const [jobsLoading, setJobsLoading] = useState(true);
+  const [jobsError, setJobsError] = useState("");
+  const [reloadKey, setReloadKey] = useState(0);
+
+  useEffect(() => {
+    const controller = new AbortController();
+
+    const loadJobs = async () => {
+      setJobsLoading(true);
+      setJobsError("");
+
+      try {
+        const { data } = await API.get("/careers", {
+          params: { status: "Active", limit: 50 },
+          signal: controller.signal,
+        });
+
+        setJobs(data.data || []);
+        setJobsLoading(false);
+      } catch (err) {
+        if (isCanceled(err)) return;
+        setJobsError(getErrorMessage(err, "We could not load the openings right now."));
+        setJobsLoading(false);
+      }
+    };
+
+    loadJobs();
+    return () => controller.abort();
+  }, [reloadKey]);
+
+  /* ---------- reveal animation ---------- */
 
   useEffect(() => {
     const section = sectionRef.current;
@@ -77,6 +92,10 @@ const CareerFour = () => {
     return () => observer.disconnect();
   }, []);
 
+  /* ---------- form handlers ---------- */
+
+  const clearMessage = () => setMessage({ type: "", text: "" });
+
   const handleChange = (event) => {
     const { name, value } = event.target;
 
@@ -90,7 +109,7 @@ const CareerFour = () => {
       [name]: "",
     }));
 
-    setSuccessMessage("");
+    clearMessage();
   };
 
   const handlePositionChange = (event) => {
@@ -108,13 +127,13 @@ const CareerFour = () => {
       position: "",
     }));
 
-    setSuccessMessage("");
+    clearMessage();
   };
 
   const handleResumeChange = (event) => {
     const file = event.target.files?.[0];
 
-    setSuccessMessage("");
+    clearMessage();
 
     if (!file) {
       setFormData((previous) => ({
@@ -184,9 +203,14 @@ const CareerFour = () => {
         ...previous,
         position,
       }));
+
+      setErrors((previous) => ({
+        ...previous,
+        position: "",
+      }));
     }
 
-    setSuccessMessage("");
+    clearMessage();
 
     formRef.current?.scrollIntoView({
       behavior: "smooth",
@@ -232,22 +256,29 @@ const CareerFour = () => {
     return Object.keys(newErrors).length === 0;
   };
 
+  const resetForm = () => {
+    setFormData(EMPTY_FORM);
+    setSelectedPosition("");
+    setResumeName("");
+    setErrors({});
+
+    if (fileInputRef.current) fileInputRef.current.value = "";
+  };
+
+  /* ---------- SUBMIT APPLICATION ---------- */
+
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-    setSuccessMessage("");
+    if (isSubmitting) return;
+
+    clearMessage();
 
     if (!validateForm()) return;
 
     setIsSubmitting(true);
 
     try {
-      /*
-       * Frontend-only demonstration:
-       * Connect this FormData to your backend API to actually
-       * submit applications and upload resumes to your server.
-       */
-
       const applicationData = new FormData();
 
       applicationData.append("fullName", formData.fullName.trim());
@@ -256,30 +287,32 @@ const CareerFour = () => {
       applicationData.append("position", formData.position);
       applicationData.append("resume", formData.resume);
 
-      // Connect your application API here before deploying.
-      // Example:
-      // await API.post("/career/apply", applicationData);
+      // Link the application to the job posting when the position is one of the listed jobs
+      const matchedJob = jobs.find((job) => job.title === formData.position);
+      if (matchedJob) applicationData.append("careerId", matchedJob.id);
 
-      console.info(
-        "Application validated. Connect the backend API to submit it.",
-        {
-          fullName: formData.fullName.trim(),
-          email: formData.email.trim(),
-          phone: formData.phone.trim(),
-          position: formData.position,
-          resume: formData.resume.name,
-        }
-      );
+      await API.post("/applications", applicationData, {
+        headers: { "Content-Type": "multipart/form-data" },
+      });
 
-      setSuccessMessage(
-        "Your application details are valid! Connect the backend API to submit your application."
-      );
+      resetForm();
+      setMessage({
+        type: "success",
+        text: "Thank you! Your application has been submitted. Our recruitment team will be in touch.",
+      });
     } catch (error) {
-      console.error("Application error:", error);
+      const serverErrors = error?.response?.data?.errors;
 
-      setSuccessMessage(
-        "Something went wrong. Please try again later."
-      );
+      if (serverErrors && typeof serverErrors === "object") {
+        // Validation errors from the backend: { fullName, email, phone, position, resume }
+        setErrors(serverErrors);
+        setMessage({
+          type: "error",
+          text: "Please fix the highlighted fields and try again.",
+        });
+      } else {
+        setMessage({ type: "error", text: getErrorMessage(error) });
+      }
     } finally {
       setIsSubmitting(false);
     }
@@ -313,15 +346,67 @@ const CareerFour = () => {
           </p>
         </div>
 
-        <div className="CareerFour__jobs">
-          {careerJobs.map((job, index) => (
-            <article
-              className="CareerFour__jobCard"
-              key={job.id}
-              style={{ "--CareerFour-delay": `${index * 130}ms` }}
+        {jobsLoading ? (
+          <div className="CareerFour__message" role="status" aria-live="polite">
+            Loading current openings...
+          </div>
+        ) : jobsError ? (
+          <div className="CareerFour__message CareerFour__message--error" role="alert">
+            {jobsError}{" "}
+            <button
+              type="button"
+              className="CareerFour__retryButton"
+              onClick={() => setReloadKey((key) => key + 1)}
             >
-              <div className="CareerFour__jobTop">
-                <div className="CareerFour__jobIcon">
+              Try again
+            </button>
+          </div>
+        ) : jobs.length === 0 ? (
+          <div className="CareerFour__message" role="status">
+            There are no open positions right now. You can still send us your resume below
+            by choosing &quot;Other&quot;.
+          </div>
+        ) : (
+          <div className="CareerFour__jobs">
+            {jobs.map((job, index) => (
+              <article
+                className="CareerFour__jobCard"
+                key={job.id}
+                style={{ "--CareerFour-delay": `${index * 130}ms` }}
+              >
+                <div className="CareerFour__jobTop">
+                  <div className="CareerFour__jobIcon">
+                    <svg
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="1.8"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      aria-hidden="true"
+                    >
+                      <rect
+                        x="3"
+                        y="7"
+                        width="18"
+                        height="14"
+                        rx="2"
+                      />
+                      <path d="M8 7V4.5A1.5 1.5 0 0 1 9.5 3h5A1.5 1.5 0 0 1 16 4.5V7" />
+                      <path d="M3 12h18M10 12v2h4v-2" />
+                    </svg>
+                  </div>
+
+                  <span className="CareerFour__jobType">
+                    {job.type}
+                  </span>
+                </div>
+
+                <h3 className="CareerFour__jobTitle">
+                  {job.title}
+                </h3>
+
+                <div className="CareerFour__jobLocation">
                   <svg
                     viewBox="0 0 24 24"
                     fill="none"
@@ -331,77 +416,47 @@ const CareerFour = () => {
                     strokeLinejoin="round"
                     aria-hidden="true"
                   >
-                    <rect
-                      x="3"
-                      y="7"
-                      width="18"
-                      height="14"
-                      rx="2"
-                    />
-                    <path d="M8 7V4.5A1.5 1.5 0 0 1 9.5 3h5A1.5 1.5 0 0 1 16 4.5V7" />
-                    <path d="M3 12h18M10 12v2h4v-2" />
+                    <path d="M20 10c0 5-8 12-8 12S4 15 4 10a8 8 0 1 1 16 0Z" />
+                    <circle cx="12" cy="10" r="2.5" />
                   </svg>
+
+                  <span>{job.location}</span>
                 </div>
 
-                <span className="CareerFour__jobType">
-                  {job.type}
-                </span>
-              </div>
+                <p className="CareerFour__jobDescription">
+                  {job.description}
+                </p>
 
-              <h3 className="CareerFour__jobTitle">
-                {job.title}
-              </h3>
+                <div className="CareerFour__jobFooter">
+                  <span className="CareerFour__department">
+                    {job.department || "General"}
+                  </span>
 
-              <div className="CareerFour__jobLocation">
-                <svg
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="1.8"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  aria-hidden="true"
-                >
-                  <path d="M20 10c0 5-8 12-8 12S4 15 4 10a8 8 0 1 1 16 0Z" />
-                  <circle cx="12" cy="10" r="2.5" />
-                </svg>
-
-                <span>{job.location}</span>
-              </div>
-
-              <p className="CareerFour__jobDescription">
-                {job.description}
-              </p>
-
-              <div className="CareerFour__jobFooter">
-                <span className="CareerFour__department">
-                  {job.department}
-                </span>
-
-                <button
-                  type="button"
-                  className="CareerFour__applyButton"
-                  onClick={() => scrollToApplication(job.title)}
-                  aria-label={`Apply for ${job.title}`}
-                >
-                  <span>View &amp; Apply</span>
-
-                  <svg
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    aria-hidden="true"
+                  <button
+                    type="button"
+                    className="CareerFour__applyButton"
+                    onClick={() => scrollToApplication(job.title)}
+                    aria-label={`Apply for ${job.title}`}
                   >
-                    <path d="M5 12h14M13 6l6 6-6 6" />
-                  </svg>
-                </button>
-              </div>
-            </article>
-          ))}
-        </div>
+                    <span>View &amp; Apply</span>
+
+                    <svg
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      aria-hidden="true"
+                    >
+                      <path d="M5 12h14M13 6l6 6-6 6" />
+                    </svg>
+                  </button>
+                </div>
+              </article>
+            ))}
+          </div>
+        )}
 
         {/* SECTION 2: APPLICATION IMAGE + FORM */}
 
@@ -684,7 +739,7 @@ const CareerFour = () => {
                         Select a position
                       </option>
 
-                      {careerJobs.map((job) => (
+                      {jobs.map((job) => (
                         <option key={job.id} value={job.title}>
                           {job.title}
                         </option>
@@ -782,7 +837,7 @@ const CareerFour = () => {
                 >
                   <span>
                     {isSubmitting
-                      ? "Processing..."
+                      ? "Submitting..."
                       : "Submit Application"}
                   </span>
 
@@ -806,13 +861,15 @@ const CareerFour = () => {
                 </span>
               </div>
 
-              {successMessage && (
+              {message.text && (
                 <div
-                  className="CareerFour__message"
-                  role="status"
+                  className={`CareerFour__message ${
+                    message.type === "error" ? "CareerFour__message--error" : ""
+                  }`}
+                  role={message.type === "error" ? "alert" : "status"}
                   aria-live="polite"
                 >
-                  {successMessage}
+                  {message.text}
                 </div>
               )}
             </form>

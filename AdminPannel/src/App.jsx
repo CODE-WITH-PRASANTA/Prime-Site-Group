@@ -11,6 +11,17 @@ import Dashboard from "./Pages/Dashboard/Dashboard";
 import MainLayout from "./Layout/MainLayout/MainLayout";
 import Login from "./Components/Login/Login";
 import ProtectedRoutes from "./Components/ProtectedRoutes/ProtectedRoutes";
+import Blog from "./Pages/Blog/Blog";
+import Blogmanagement from "./Components/Blogmanagement/Blogmanagement";
+import Service from "./Pages/Service/Service";
+import Addservice from "./Components/Addservice/Addservice";
+import Addcareer from "./Components/Addcareer/Addcareer";
+import Careermanagement from "./Pages/Careermanagement/Careermanagement";
+import Contactenquairy from "./Pages/Contactenquairy/Contactenquairy";
+import Profile from "./Pages/Profile/Profile";
+import Setting from "./Pages/Setting/Setting";
+import CareerApplications from "./Components/CareerApplications/CareerApplications";
+
 
 const App = () => {
   return (
@@ -21,20 +32,31 @@ const App = () => {
         <Route path="/login" element={<Login />} />
 
         {/* PROTECTED ADMIN ROUTES */}
-        <Route element={<ProtectedRoutes/>}>
+        <Route element={<ProtectedRoutes />}>
           <Route path="/" element={<MainLayout />}>
 
-            {/* Default Route */}
+            {/* DEFAULT ROUTE */}
             <Route
               index
               element={<Navigate to="/dashboard" replace />}
             />
 
-            {/* Dashboard */}
-            <Route
-              path="dashboard"
-              element={<Dashboard />}
-            />
+            {/* DASHBOARD */}
+            <Route path="dashboard" element={<Dashboard />} />
+
+            {/* BLOG MANAGEMENT */}
+            <Route path="blog" element={<Blog/>} />
+            <Route path="blog-management" element={<Blogmanagement/>} />
+              <Route path="service-booking" element={<Service/>} />
+            <Route path="add-service" element={<Addservice/>} />
+            <Route path="add-career" element={<Addcareer/>} />
+            <Route path="career-management" element={<Careermanagement/>} />
+            <Route path="contact-enquiry" element={<Contactenquairy/>} />
+            <Route path="profile" element={<Profile/>} />
+             <Route path="Settings" element={<Setting/>} />
+            <Route path="career-applications" element={<CareerApplications />} />
+
+            
 
           </Route>
         </Route>

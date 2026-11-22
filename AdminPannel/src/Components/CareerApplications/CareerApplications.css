@@ -1,0 +1,15 @@
+.CareerApps { padding: 24px; }
+.CareerApps__header { display: flex; align-items: baseline; gap: 12px; margin-bottom: 16px; }
+.CareerApps__header h1 { margin: 0; font-size: 1.5rem; }
+.CareerApps__toolbar { display: flex; flex-wrap: wrap; gap: 12px; margin-bottom: 16px; }
+.CareerApps__toolbar form { display: flex; gap: 8px; }
+.CareerApps input, .CareerApps select { padding: 8px 10px; border: 1px solid #d0d5dd; border-radius: 8px; }
+.CareerApps button { padding: 8px 12px; border: 0; border-radius: 8px; background: #1f3a5f; color: #fff; cursor: pointer; }
+.CareerApps button:disabled { opacity: 0.5; cursor: not-allowed; }
+.CareerApps button.danger { background: #c0392b; }
+.CareerApps__tableWrap { overflow-x: auto; }
+.CareerApps__table { width: 100%; border-collapse: collapse; background: #fff; }
+.CareerApps__table th, .CareerApps__table td { padding: 12px; text-align: left; border-bottom: 1px solid #eaecf0; }
+.CareerApps__actions { display: flex; gap: 8px; }
+.CareerApps__pager { display: flex; align-items: center; justify-content: center; gap: 16px; margin-top: 16px; }
+.CareerApps__error { padding: 10px 12px; margin-bottom: 12px; background: #fdecea; color: #b42318; border-radius: 8px; }

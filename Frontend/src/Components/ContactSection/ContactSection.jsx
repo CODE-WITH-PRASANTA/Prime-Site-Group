@@ -9,6 +9,7 @@ import {
   Send,
   CheckCircle2,
 } from "lucide-react";
+import Api from '../../api/axios'
 
 import "./ContactSection.css";
 import MainLogo from "../../assets/main-logo.png";
@@ -90,35 +91,37 @@ const ContactSection = () => {
     setIsSubmitting(true);
     setStatus({ type: "", message: "" });
 
-    try {
-      // Connect your contact API here.
-      // Example:
-      // await API.post("/contact", formData);
+   try {
+  await Api.post("/contact", formData);
 
-      console.log("Contact form data:", formData);
+  setStatus({
+    type: "success",
+    message: `Thank you! Your enquiry has been received. The ${BRAND_NAME} team will get back to you shortly.`,
+  });
 
-      setStatus({
-        type: "success",
-        message: `Thank you! Your enquiry has been received. The ${BRAND_NAME} team will get back to you shortly.`,
-      });
+  setFormData({
+    name: "",
+    email: "",
+    phone: "",
+    company: "",
+    service: "",
+    enquiry: "",
+    message: "",
+  });
+} catch (error) {
+  const serverErrors = error?.response?.data?.errors;
+  const firstError = serverErrors && Object.values(serverErrors)[0];
 
-      setFormData({
-        name: "",
-        email: "",
-        phone: "",
-        company: "",
-        service: "",
-        enquiry: "",
-        message: "",
-      });
-    } catch (error) {
-      setStatus({
-        type: "error",
-        message: "Unable to submit your enquiry. Please try again.",
-      });
-    } finally {
-      setIsSubmitting(false);
-    }
+  setStatus({
+    type: "error",
+    message:
+      firstError ||
+      error?.response?.data?.message ||
+      (error?.request
+        ? "Cannot reach the server. Please check your connection."
+        : "Unable to submit your enquiry. Please try again."),
+  });
+}
   };
 
   const mapQuery = encodeURIComponent(

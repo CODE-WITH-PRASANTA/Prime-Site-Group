@@ -1,9 +1,9 @@
-import React, { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef } from "react";
 import "./AboutStandards.css";
+import { Link } from "react-router-dom";
 
 // Change the brand name here and it updates everywhere in this section.
 const BRAND_NAME = "Prime Site";
-
 const standardsPillars = [
   {
     id: 1,
@@ -121,7 +121,7 @@ const AboutStandards = () => {
           </div>
 
           <div className="AboutStandards__actionWrap">
-            <a href="/hse-policy" className="AboutStandards__linkPrimary">
+            <Link to="/career" className="AboutStandards__linkPrimary">
               <span>Explore Our HSE Approach</span>
               <svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
                 <path
@@ -130,7 +130,7 @@ const AboutStandards = () => {
                   clipRule="evenodd"
                 />
               </svg>
-            </a>
+            </Link>
           </div>
         </div>
       </div>
