@@ -81,7 +81,7 @@ const ServiceCash = () => {
 
           {/* Action Row */}
           <div className="ServiceCash__actionRow">
-            <a href="#enquire" className="ServiceCash__btnPrimary">
+            <a href="/contact" className="ServiceCash__btnPrimary">
               <span>Enquire Now[cite: 11]</span>
               <svg viewBox="0 0 20 20" fill="currentColor">
                 <path
@@ -91,7 +91,7 @@ const ServiceCash = () => {
                 />
               </svg>
             </a>
-            <a href="#careers" className="ServiceCash__btnOutline">
+            <a href="/career" className="ServiceCash__btnOutline">
               <span>Work for Us[cite: 11]</span>
             </a>
           </div>

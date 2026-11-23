@@ -25,21 +25,7 @@ const AboutOurMission = () => {
               their core growth and achieve operational excellence.
             </p>
 
-            <div className="AboutOurMission__bottom">
-              <span className="AboutOurMission__bottomText">
-                Prime Site — Your trusted partner in progress
-              </span>
-
-              <span className="AboutOurMission__bottomLine" />
-
-              <a 
-                href="#services" 
-                className="AboutOurMission__icon" 
-                aria-label="Explore Prime Site Mission & Solutions"
-              >
-                <ArrowUpRight strokeWidth={1.6} />
-              </a>
-            </div>
+          
           </div>
 
           <span

@@ -91,7 +91,7 @@ const AboutAwarness = () => {
 
           {/* Action Row */}
           <div className="AboutAwarness__actionWrap">
-            <a href="#initiatives" className="AboutAwarness__linkPrimary">
+            <a href="/blog" className="AboutAwarness__linkPrimary">
               <span>View Prime Site Initiatives</span>
               <svg viewBox="0 0 20 20" fill="currentColor">
                 <path

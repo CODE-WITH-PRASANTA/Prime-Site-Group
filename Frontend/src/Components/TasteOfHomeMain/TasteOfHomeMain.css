@@ -280,11 +280,14 @@
   background: var(--Taste-red);
   color: var(--Taste-white);
   padding: 12px 24px;
+  border: none;
   border-radius: 3px;
+  font-family: inherit;
   font-size: 12.5px;
   font-weight: 700;
   letter-spacing: 0.6px;
   text-decoration: none;
+  cursor: pointer;
   box-shadow: 0 8px 20px rgba(215, 25, 45, 0.28);
   transition: background-color 0.25s ease, transform 0.2s ease, box-shadow 0.25s ease;
   white-space: nowrap;
@@ -337,6 +340,320 @@
   height: 100%;
   background: var(--Taste-red);
   z-index: 4;
+}
+
+/* ========================================================
+   POPUP MODAL (GET IN TOUCH / CATERING PROPOSAL)
+======================================================== */
+
+.TasteOfHome__modalOverlay {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background: rgba(15, 17, 21, 0.65);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  animation: tohModalFadeIn 0.22s ease-out forwards;
+}
+
+@keyframes tohModalFadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.TasteOfHome__modalCard {
+  position: relative;
+  width: 100%;
+  max-width: 650px;
+  max-height: 92vh;
+  overflow-y: auto;
+  background: #fbfbfc;
+  background-image: radial-gradient(circle at 88% 12%, rgba(215, 25, 45, 0.045), transparent 42%);
+  border-radius: 10px;
+  padding: 32px 36px 28px;
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.28);
+  color: #1b1c1e;
+  font-family: "Inter", "Segoe UI", Arial, sans-serif;
+  animation: tohModalSlideUp 0.28s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  box-sizing: border-box;
+}
+
+.TasteOfHome__modalCard *,
+.TasteOfHome__modalCard *::before,
+.TasteOfHome__modalCard *::after {
+  box-sizing: border-box;
+}
+
+@keyframes tohModalSlideUp {
+  from {
+    opacity: 0;
+    transform: translateY(16px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* Close X Button */
+.TasteOfHome__modalClose {
+  position: absolute;
+  top: 18px;
+  right: 18px;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  background: #ffffff;
+  color: #2d3035;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+  transition: background-color 0.2s ease, color 0.2s ease, transform 0.2s ease;
+}
+
+.TasteOfHome__modalClose svg {
+  width: 13px;
+  height: 13px;
+}
+
+.TasteOfHome__modalClose:hover {
+  background: #d7192d;
+  color: #ffffff;
+  border-color: #d7192d;
+  transform: rotate(90deg);
+}
+
+/* Modal Header */
+.TasteOfHome__modalHeader {
+  margin-bottom: 20px;
+}
+
+.TasteOfHome__modalEyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 9.5px;
+  font-weight: 700;
+  letter-spacing: 1.8px;
+  color: #6b7280;
+  text-transform: uppercase;
+  margin-bottom: 6px;
+}
+
+.TasteOfHome__modalEyebrowDot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #e11d38;
+  box-shadow: 0 0 0 3px rgba(225, 29, 56, 0.14);
+}
+
+.TasteOfHome__modalTitle {
+  margin: 0 0 8px;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(26px, 3vw, 34px);
+  font-weight: 700;
+  line-height: 1.12;
+  color: #181a1f;
+  letter-spacing: -0.5px;
+}
+
+.TasteOfHome__modalTitleAccent {
+  color: #d7192d;
+}
+
+.TasteOfHome__modalSubtitle {
+  margin: 0;
+  font-size: 12.5px;
+  line-height: 1.55;
+  color: #525866;
+  max-width: 460px;
+}
+
+/* Form Grid */
+.TasteOfHome__modalGrid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px 26px;
+  margin-bottom: 16px;
+}
+
+.TasteOfHome__field {
+  display: flex;
+  flex-direction: column;
+}
+
+.TasteOfHome__field--full {
+  margin-bottom: 20px;
+}
+
+.TasteOfHome__field label {
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 12px;
+  font-weight: 700;
+  color: #1f2329;
+  margin-bottom: 4px;
+}
+
+.TasteOfHome__field label span {
+  color: #d7192d;
+}
+
+.TasteOfHome__field input,
+.TasteOfHome__field select,
+.TasteOfHome__field textarea {
+  width: 100%;
+  border: none;
+  border-bottom: 1px solid #d5d9e0;
+  background: transparent;
+  padding: 7px 2px;
+  font-family: inherit;
+  font-size: 12.5px;
+  color: #1b1c1e;
+  outline: none;
+  border-radius: 0;
+  transition: border-color 0.2s ease;
+}
+
+.TasteOfHome__field input::placeholder,
+.TasteOfHome__field textarea::placeholder {
+  color: #9ca3af;
+}
+
+.TasteOfHome__field input:focus,
+.TasteOfHome__field select:focus,
+.TasteOfHome__field textarea:focus {
+  border-bottom-color: #d7192d;
+}
+
+.TasteOfHome__selectWrap {
+  position: relative;
+}
+
+.TasteOfHome__selectWrap select {
+  appearance: none;
+  -webkit-appearance: none;
+  padding-right: 22px;
+  cursor: pointer;
+  color: #4b5563;
+}
+
+.TasteOfHome__selectWrap::after {
+  content: "";
+  position: absolute;
+  right: 4px;
+  top: 50%;
+  width: 6px;
+  height: 6px;
+  border-right: 1.5px solid #6b7280;
+  border-bottom: 1.5px solid #6b7280;
+  transform: translateY(-65%) rotate(45deg);
+  pointer-events: none;
+}
+
+.TasteOfHome__field textarea {
+  resize: vertical;
+  min-height: 46px;
+}
+
+/* Footer & Submit Button */
+.TasteOfHome__modalFooter {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.TasteOfHome__requiredNote {
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 11px;
+  color: #6b7280;
+}
+
+.TasteOfHome__requiredNote span {
+  color: #d7192d;
+}
+
+.TasteOfHome__submitBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  padding: 7px 8px 7px 20px;
+  background: linear-gradient(135deg, #e11d38 0%, #c8142b 100%);
+  color: #ffffff;
+  border: none;
+  border-radius: 6px;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 12.5px;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 8px 20px rgba(215, 25, 45, 0.28);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.TasteOfHome__submitBtn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 12px 24px rgba(215, 25, 45, 0.36);
+}
+
+.TasteOfHome__submitIconBox {
+  width: 28px;
+  height: 28px;
+  border-radius: 4px;
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  background: rgba(255, 255, 255, 0.08);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.TasteOfHome__submitIconBox svg {
+  width: 13px;
+  height: 13px;
+}
+
+/* Success State */
+.TasteOfHome__modalSuccess {
+  text-align: center;
+  padding: 28px 16px;
+}
+
+.TasteOfHome__modalSuccessIcon {
+  width: 44px;
+  height: 44px;
+  margin: 0 auto 12px;
+  border-radius: 50%;
+  background: #d7192d;
+  color: #ffffff;
+  font-size: 20px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.TasteOfHome__modalSuccess h3 {
+  margin: 0 0 6px;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 20px;
+  color: #181a1f;
+}
+
+.TasteOfHome__modalSuccess p {
+  margin: 0;
+  font-size: 13px;
+  color: #525866;
 }
 
 /* ========================================================
@@ -415,6 +732,26 @@
   }
 }
 
+@media (max-width: 580px) {
+  .TasteOfHome__modalCard {
+    padding: 24px 20px 22px;
+  }
+
+  .TasteOfHome__modalGrid {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+
+  .TasteOfHome__modalFooter {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .TasteOfHome__submitBtn {
+    justify-content: space-between;
+  }
+}
+
 @media (max-width: 520px) {
   .TasteOfHome__mediaWrap {
     height: 240px;
@@ -466,8 +803,11 @@
 @media (prefers-reduced-motion: reduce) {
   .TasteOfHome__leftPanel,
   .TasteOfHome__mediaImage,
-  .TasteOfHome__btnPrimary {
+  .TasteOfHome__btnPrimary,
+  .TasteOfHome__modalOverlay,
+  .TasteOfHome__modalCard {
     transition: none !important;
+    animation: none !important;
     transform: none !important;
     opacity: 1 !important;
   }

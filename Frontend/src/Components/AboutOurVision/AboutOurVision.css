@@ -240,58 +240,6 @@
   letter-spacing: 0.05px;
 }
 
-/* Bottom details */
-
-.AboutOurVision__bottom {
-  display: flex;
-  align-items: center;
-  gap: 14px;
-  margin-top: 27px;
-  opacity: 0;
-  transform: translateY(10px);
-  transition: opacity 0.45s ease, transform 0.45s ease;
-}
-
-.AboutOurVision:hover .AboutOurVision__bottom {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-.AboutOurVision__bottomText {
-  color: #666a71;
-  font-size: 10px;
-  letter-spacing: 0.5px;
-}
-
-.AboutOurVision__bottomLine {
-  width: 32px;
-  height: 1px;
-  background: #c4c5c8;
-}
-
-.AboutOurVision__icon {
-  display: grid;
-  width: 32px;
-  height: 32px;
-  flex-shrink: 0;
-  place-items: center;
-  color: var(--AboutOurVision-red);
-  border: 1px solid rgba(229, 30, 43, 0.25);
-  border-radius: 50%;
-  text-decoration: none;
-  transition: color 0.3s ease, background 0.3s ease, transform 0.3s ease;
-}
-
-.AboutOurVision__icon svg {
-  width: 17px;
-  height: 17px;
-}
-
-.AboutOurVision:hover .AboutOurVision__icon {
-  color: #ffffff;
-  background: var(--AboutOurVision-red);
-  transform: rotate(45deg);
-}
 
 /* Watermark */
 

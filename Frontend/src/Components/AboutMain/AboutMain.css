@@ -309,78 +309,7 @@
   line-height: 1.3;
 }
 
-/* Action CTA Buttons */
-.AboutMain__actionRow {
-  display: flex;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 16px 20px;
-}
 
-.AboutMain__btnPrimary {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 9px;
-  background: var(--AboutMain-red);
-  color: var(--AboutMain-white);
-  padding: 11px 22px;
-  border-radius: 3px;
-  font-size: 12px;
-  font-weight: 700;
-  letter-spacing: 0.6px;
-  text-decoration: none;
-  white-space: nowrap;
-  box-shadow: 0 8px 20px rgba(215, 25, 45, 0.28);
-  transition: background-color 0.25s ease, transform 0.2s ease, box-shadow 0.25s ease;
-}
-
-.AboutMain__btnPrimary svg {
-  width: 14px;
-  height: 14px;
-  flex-shrink: 0;
-  transition: transform 0.25s ease;
-}
-
-.AboutMain__btnPrimary:hover {
-  background: var(--AboutMain-red-hover);
-  transform: translateY(-2px);
-  box-shadow: 0 12px 24px rgba(215, 25, 45, 0.35);
-}
-
-.AboutMain__btnPrimary:hover svg {
-  transform: translateX(4px);
-}
-
-.AboutMain__linkSecondary {
-  font-size: 12.5px;
-  font-weight: 700;
-  color: var(--AboutMain-dark);
-  text-decoration: none;
-  position: relative;
-  padding-bottom: 3px;
-  white-space: nowrap;
-  transition: color 0.2s ease;
-}
-
-.AboutMain__linkSecondary::after {
-  content: "";
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  height: 2px;
-  background-color: var(--AboutMain-charcoal);
-  transition: background-color 0.2s ease;
-}
-
-.AboutMain__linkSecondary:hover {
-  color: var(--AboutMain-red);
-}
-
-.AboutMain__linkSecondary:hover::after {
-  background-color: var(--AboutMain-red);
-}
 
 /* Right Edge Trim */
 .AboutMain__edgeStripe {
@@ -589,11 +518,7 @@
     display: none; /* Keeps mobile layout tidy and compact */
   }
 
-  .AboutMain__actionRow {
-    flex-direction: column;
-    align-items: stretch;
-    gap: 14px;
-  }
+  
 
   .AboutMain__btnPrimary {
     width: 100%;
