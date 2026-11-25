@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from "react";
+import ServiceBookingModal from "../ServiceBookingModal/ServiceBookingModal";
 import "./ManagedServicesMain.css";
 
 const ManagedServicesMain = () => {
   const [isLoaded, setIsLoaded] = useState(false);
+  const [bookingOpen, setBookingOpen] = useState(false);
 
   useEffect(() => {
     const timer = setTimeout(() => setIsLoaded(true), 120);
@@ -10,6 +12,7 @@ const ManagedServicesMain = () => {
   }, []);
 
   return (
+    <>
     <section
       className={`ManagedServicesMain ${isLoaded ? "ManagedServicesMain--loaded" : ""}`}
       aria-label="Enterprise Managed Services and Outsourcing Solutions Overview"
@@ -80,7 +83,11 @@ const ManagedServicesMain = () => {
 
           {/* Action Row */}
           <div className="ManagedServicesMain__actionRow">
-            <a href="#managed-audit" className="ManagedServicesMain__btnPrimary">
+            <button
+              type="button"
+              onClick={() => setBookingOpen(true)}
+              className="ManagedServicesMain__btnPrimary"
+            >
               <span>Request Managed Solution</span>
               <svg viewBox="0 0 20 20" fill="currentColor">
                 <path
@@ -89,7 +96,7 @@ const ManagedServicesMain = () => {
                   clipRule="evenodd"
                 />
               </svg>
-            </a>
+            </button>
             <a href="#careers" className="ManagedServicesMain__btnOutline">
               <span>Explore MSP Careers</span>
             </a>
@@ -105,6 +112,14 @@ const ManagedServicesMain = () => {
       {/* Red Accent Trim Strip */}
       <div className="ManagedServicesMain__edgeStripe" aria-hidden="true" />
     </section>
+
+    <ServiceBookingModal
+      isOpen={bookingOpen}
+      onClose={() => setBookingOpen(false)}
+      defaultService="Managed Services"
+      modalTitle="Request Managed Solution"
+    />
+    </>
   );
 };
 

@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from "react";
+import ServiceBookingModal from "../ServiceBookingModal/ServiceBookingModal";
 import "./ManPowerServiceMain.css";
 
 const ManPowerServiceMain = () => {
   const [isLoaded, setIsLoaded] = useState(false);
+  const [bookingOpen, setBookingOpen] = useState(false);
 
   useEffect(() => {
     const timer = setTimeout(() => setIsLoaded(true), 120);
@@ -10,6 +12,7 @@ const ManPowerServiceMain = () => {
   }, []);
 
   return (
+    <>
     <section
       className={`ManPowerServiceMain ${isLoaded ? "ManPowerServiceMain--loaded" : ""}`}
       aria-label="Transguard Manpower Solutions Overview"
@@ -80,7 +83,11 @@ const ManPowerServiceMain = () => {
 
           {/* Action Row */}
           <div className="ManPowerServiceMain__actionRow">
-            <a href="#hire-talent" className="ManPowerServiceMain__btnPrimary">
+            <button
+              type="button"
+              onClick={() => setBookingOpen(true)}
+              className="ManPowerServiceMain__btnPrimary"
+            >
               <span>Request Workforce Audit</span>
               <svg viewBox="0 0 20 20" fill="currentColor">
                 <path
@@ -89,7 +96,7 @@ const ManPowerServiceMain = () => {
                   clipRule="evenodd"
                 />
               </svg>
-            </a>
+            </button>
             <a href="#careers" className="ManPowerServiceMain__btnOutline">
               <span>Join Our Workforce</span>
             </a>
@@ -105,6 +112,14 @@ const ManPowerServiceMain = () => {
       {/* Red Accent Trim Strip */}
       <div className="ManPowerServiceMain__edgeStripe" aria-hidden="true" />
     </section>
+
+    <ServiceBookingModal
+      isOpen={bookingOpen}
+      onClose={() => setBookingOpen(false)}
+      defaultService="Manpower Services"
+      modalTitle="Request Workforce Audit"
+    />
+    </>
   );
 };
 

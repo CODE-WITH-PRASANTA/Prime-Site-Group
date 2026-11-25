@@ -1,22 +1,60 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Navigate, Outlet, useLocation } from "react-router-dom";
+import API, {
+  AUTH_KEY,
+  TOKEN_KEY,
+  clearStoredAuth,
+  getStoredToken,
+} from "../../api/axios";
 
-export const AUTH_KEY = "isAdminAuthenticated";
+export { AUTH_KEY };
 
 const ProtectedRoutes = () => {
   const location = useLocation();
+  const token = getStoredToken();
+  const [status, setStatus] = useState(token ? "checking" : "unauthenticated");
 
-  const isAuthenticated =
-    sessionStorage.getItem(AUTH_KEY) === "true" ||
-    localStorage.getItem(AUTH_KEY) === "true";
+  useEffect(() => {
+    const currentToken = getStoredToken();
+    if (!currentToken) {
+      setStatus("unauthenticated");
+      return undefined;
+    }
 
-  // Keep sessionStorage synced if "Remember me" was checked previously
-  if (isAuthenticated && sessionStorage.getItem(AUTH_KEY) !== "true") {
-    sessionStorage.setItem(AUTH_KEY, "true");
+    // Keep sessionStorage synced if "Remember me" was checked previously
+    if (sessionStorage.getItem(TOKEN_KEY) !== currentToken) {
+      sessionStorage.setItem(TOKEN_KEY, currentToken);
+      sessionStorage.setItem(AUTH_KEY, "true");
+    }
+
+    let isMounted = true;
+    API.get("/auth/me")
+      .then((res) => {
+        if (!isMounted) return;
+        if (res.data?.success) {
+          setStatus("authenticated");
+        } else {
+          clearStoredAuth();
+          setStatus("unauthenticated");
+        }
+      })
+      .catch(() => {
+        if (!isMounted) return;
+        clearStoredAuth();
+        setStatus("unauthenticated");
+      });
+
+    return () => {
+      isMounted = false;
+    };
+  }, [token]);
+
+  if (status === "unauthenticated") {
+    return <Navigate to="/login" state={{ from: location }} replace />;
   }
 
-  if (!isAuthenticated) {
-    return <Navigate to="/login" state={{ from: location }} replace />;
+  if (status === "checking") {
+    return null;
   }
 
   return <Outlet />;

@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from "react";
+import ServiceBookingModal from "../ServiceBookingModal/ServiceBookingModal";
 import "./PrimeSiteDeliveryMain.css";
 
 const PrimeSiteDeliveryMain = () => {
   const [isLoaded, setIsLoaded] = useState(false);
+  const [bookingOpen, setBookingOpen] = useState(false);
 
   useEffect(() => {
     const timer = setTimeout(() => setIsLoaded(true), 120);
@@ -10,6 +12,7 @@ const PrimeSiteDeliveryMain = () => {
   }, []);
 
   return (
+    <>
     <section
       className={`PrimeSiteDelivery ${isLoaded ? "PrimeSiteDelivery--loaded" : ""}`}
       aria-label="Prime Site Last-Mile and Express Delivery Services Overview"
@@ -83,7 +86,11 @@ const PrimeSiteDeliveryMain = () => {
 
           {/* Action Row */}
           <div className="PrimeSiteDelivery__actionRow">
-            <a href="#quote" className="PrimeSiteDelivery__btnPrimary">
+            <button
+              type="button"
+              onClick={() => setBookingOpen(true)}
+              className="PrimeSiteDelivery__btnPrimary"
+            >
               <span>Get a Delivery Quote</span>
               <svg viewBox="0 0 20 20" fill="currentColor">
                 <path
@@ -92,7 +99,7 @@ const PrimeSiteDeliveryMain = () => {
                   clipRule="evenodd"
                 />
               </svg>
-            </a>
+            </button>
             <a href="#track" className="PrimeSiteDelivery__btnOutline">
               <span>Track Consignment</span>
             </a>
@@ -108,6 +115,14 @@ const PrimeSiteDeliveryMain = () => {
       {/* Red Accent Trim Strip */}
       <div className="PrimeSiteDelivery__edgeStripe" aria-hidden="true" />
     </section>
+
+    <ServiceBookingModal
+      isOpen={bookingOpen}
+      onClose={() => setBookingOpen(false)}
+      defaultService="Prime Site Delivery"
+      modalTitle="Get a Delivery Quote"
+    />
+    </>
   );
 };
 

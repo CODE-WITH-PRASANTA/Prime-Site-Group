@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 
-const STATUSES = ["New", "Read", "Replied"];
+const STATUSES = ["New", "Replied", "Pending", "Resolved", "Read"];
 
 const contactSchema = new mongoose.Schema(
   {

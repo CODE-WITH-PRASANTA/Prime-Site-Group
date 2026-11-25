@@ -75,18 +75,17 @@ const processImages = async (req, res, next) => {
           .extname(file.originalname)
           .toLowerCase();
 
-        const shouldConvert = [
-          ".jpg",
-          ".jpeg",
-          ".png",
-        ].includes(originalExt);
-
         let outputBuffer;
         let outputExt;
         let outputMime;
 
-        if (shouldConvert) {
-          // Convert JPG / JPEG / PNG to WebP
+        if (originalExt === ".svg") {
+          // Keep SVG vector format unchanged
+          outputBuffer = file.buffer;
+          outputExt = ".svg";
+          outputMime = "image/svg+xml";
+        } else {
+          // Convert all uploaded raster images (JPG, JPEG, PNG, etc.) to optimized WebP
           outputBuffer = await sharp(file.buffer)
             .rotate()
             .webp({ quality: 80 })
@@ -94,11 +93,6 @@ const processImages = async (req, res, next) => {
 
           outputExt = ".webp";
           outputMime = "image/webp";
-        } else {
-          // Keep existing WebP and SVG unchanged
-          outputBuffer = file.buffer;
-          outputExt = originalExt;
-          outputMime = file.mimetype;
         }
 
         const filename = `${generateFilename()}${outputExt}`;

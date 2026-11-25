@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
+import { Link } from "react-router-dom";
 import {
   Clock3,
   CalendarDays,
@@ -8,160 +9,59 @@ import {
   ChevronRight,
   Sparkles,
 } from "lucide-react";
+import API from "../../api/axios";
 import "./BlogSection.css";
 
 const BLOGS_PER_PAGE = 6;
 
-const blogs = [
-  {
-    id: 1,
-    category: "Electronics",
-    date: "Dec 24, 2024",
-    title: "AC Repair By Expert Home Service Business",
-    description:
-      "In today's fast-paced world, on-demand services offer convenience, efficiency, and flexibility for modern homes and businesses.",
-    image:
-      "https://images.unsplash.com/photo-1621905251189-08b45d6a269e?auto=format&fit=crop&w=1200&q=85",
-    readTime: "5 min read",
-  },
-  {
-    id: 2,
-    category: "Cleaning",
-    date: "Dec 24, 2024",
-    title: "Clean Beyond Expectations, Only with Servat.",
-    description:
-      "Discover how professional cleaning services create healthier, fresher spaces with reliable solutions tailored to your needs.",
-    image:
-      "https://images.unsplash.com/photo-1581578731548-c64695cc6952?auto=format&fit=crop&w=1000&q=85",
-    readTime: "4 min read",
-  },
-  {
-    id: 3,
-    category: "Salons & Spa",
-    date: "Dec 24, 2024",
-    title: "Get Beard Shaving Service At Low Price.",
-    description:
-      "Explore modern grooming trends and discover how expert barbers deliver a comfortable, polished, and professional experience.",
-    image:
-      "https://images.unsplash.com/photo-1503951914875-452162b0f3f1?auto=format&fit=crop&w=1000&q=85",
-    readTime: "6 min read",
-  },
-  {
-    id: 4,
-    category: "Interior Info",
-    date: "Dec 24, 2024",
-    title: "The Ultimate Guide to Hiring Interior Service Experts",
-    description:
-      "Transform your living space with thoughtful interior planning, quality craftsmanship, and professionals who understand your vision.",
-    image:
-      "https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&w=1000&q=85",
-    readTime: "7 min read",
-  },
-  {
-    id: 5,
-    category: "Carpentry",
-    date: "Dec 24, 2024",
-    title: "Top Trends in Carpentry Services for 2024",
-    description:
-      "From custom furniture to modern woodwork, explore the craftsmanship and design ideas shaping today's interiors.",
-    image:
-      "https://images.unsplash.com/photo-1504148455328-c376907d081c?auto=format&fit=crop&w=1000&q=85",
-    readTime: "5 min read",
-  },
-  {
-    id: 6,
-    category: "Construction",
-    date: "Dec 24, 2024",
-    title: "The Ultimate Guide to Hiring Experts Online",
-    description:
-      "Learn how to choose experienced professionals, compare services, and make confident decisions for your next project.",
-    image:
-      "https://images.unsplash.com/photo-1503387762-592deb58ef4e?auto=format&fit=crop&w=1000&q=85",
-    readTime: "6 min read",
-  },
-  {
-    id: 7,
-    category: "Plumbing",
-    date: "Jan 08, 2025",
-    title: "Essential Plumbing Tips Every Homeowner Should Know",
-    description:
-      "Learn practical ways to prevent leaks, maintain your plumbing system, and keep your home running smoothly.",
-    image:
-      "https://images.unsplash.com/photo-1607472586893-edb57bdc0e39?auto=format&fit=crop&w=1000&q=85",
-    readTime: "5 min read",
-  },
-  {
-    id: 8,
-    category: "Electrical",
-    date: "Jan 12, 2025",
-    title: "Choosing a Reliable Electrician for Your Home",
-    description:
-      "Understand what to look for in a qualified professional and why safe electrical work matters in every property.",
-    image:
-      "https://images.unsplash.com/photo-1621905252507-b35492cc74b4?auto=format&fit=crop&w=1000&q=85",
-    readTime: "4 min read",
-  },
-  {
-    id: 9,
-    category: "Home Care",
-    date: "Jan 16, 2025",
-    title: "Simple Home Maintenance Ideas That Save Money",
-    description:
-      "A practical maintenance routine can protect your property, reduce unexpected repairs, and improve everyday comfort.",
-    image:
-      "https://images.unsplash.com/photo-1484154218962-a197022b5858?auto=format&fit=crop&w=1000&q=85",
-    readTime: "6 min read",
-  },
-  {
-    id: 10,
-    category: "Gardening",
-    date: "Jan 20, 2025",
-    title: "Create a Beautiful Garden with Professional Care",
-    description:
-      "Discover how the right garden planning, seasonal maintenance, and expert care can transform outdoor spaces.",
-    image:
-      "https://images.unsplash.com/photo-1416879595882-3373a0480b5b?auto=format&fit=crop&w=1000&q=85",
-    readTime: "5 min read",
-  },
-  {
-    id: 11,
-    category: "Painting",
-    date: "Jan 24, 2025",
-    title: "How to Choose the Perfect Colours for Your Home",
-    description:
-      "Explore colour combinations, finishes, and professional painting tips to create a home that feels uniquely yours.",
-    image:
-      "https://images.unsplash.com/photo-1562259949-e8e7689d7828?auto=format&fit=crop&w=1000&q=85",
-    readTime: "7 min read",
-  },
-  {
-    id: 12,
-    category: "Moving",
-    date: "Jan 28, 2025",
-    title: "Make Your Next Home Move Easier and Stress-Free",
-    description:
-      "Plan a smoother relocation with practical packing advice, organised scheduling, and dependable moving services.",
-    image:
-      "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1000&q=85",
-    readTime: "5 min read",
-  },
-];
+// Fallback image helper
+const resolveImage = (img) => {
+  if (!img) {
+    return "https://images.unsplash.com/photo-1621905251189-08b45d6a269e?auto=format&fit=crop&w=1200&q=85";
+  }
+  if (img.startsWith("http://") || img.startsWith("https://") || img.startsWith("data:")) {
+    return img;
+  }
+  const baseUrl = import.meta.env.VITE_UPLOADS_URL || "http://localhost:5000/uploads/";
+  return `${baseUrl.replace(/\/+$/, "")}/${img.replace(/^\/+/, "")}`;
+};
 
 const BlogSection = () => {
   const sectionRef = useRef(null);
-  const [isVisible, setIsVisible] = useState(false);
+  const [blogs, setBlogs] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [isVisible, setIsVisible] = useState(true);
   const [currentPage, setCurrentPage] = useState(1);
 
-  const totalPages = Math.ceil(blogs.length / BLOGS_PER_PAGE);
-  const startIndex = (currentPage - 1) * BLOGS_PER_PAGE;
+  // Fetch blogs dynamically from database
+  useEffect(() => {
+    let isMounted = true;
+    API.get("/blogs?status=Published")
+      .then((res) => {
+        if (isMounted && res.data?.data) {
+          setBlogs(res.data.data);
+        }
+      })
+      .catch((err) => {
+        console.error("Failed to load published blogs:", err);
+      })
+      .finally(() => {
+        if (isMounted) setLoading(false);
+      });
+
+    return () => {
+      isMounted = false;
+    };
+  }, []);
+
+  const totalPages = Math.max(1, Math.ceil(blogs.length / BLOGS_PER_PAGE));
+  const safePage = Math.min(currentPage, totalPages);
+  const startIndex = (safePage - 1) * BLOGS_PER_PAGE;
   const currentBlogs = blogs.slice(startIndex, startIndex + BLOGS_PER_PAGE);
 
   useEffect(() => {
     const section = sectionRef.current;
-    if (!section) return undefined;
-
-    // Fallback for browsers without IntersectionObserver
-    if (typeof IntersectionObserver === "undefined") {
+    if (!section || typeof IntersectionObserver === "undefined") {
       setIsVisible(true);
       return undefined;
     }
@@ -177,211 +77,193 @@ const BlogSection = () => {
     );
 
     observer.observe(section);
-
     return () => observer.disconnect();
   }, []);
 
-  const changePage = (page) => {
-    if (page < 1 || page > totalPages || page === currentPage) return;
+  const changePage = (newPage) => {
+    const pageClamped = Math.max(1, Math.min(newPage, totalPages));
+    setCurrentPage(pageClamped);
 
-    setCurrentPage(page);
-    setIsVisible(true);
-
-    requestAnimationFrame(() => {
-      if (sectionRef.current) {
-        const top =
-          sectionRef.current.getBoundingClientRect().top +
-          window.scrollY -
-          90; // offset for sticky navbar
-
-        window.scrollTo({ top, behavior: "smooth" });
-      }
-    });
+    if (sectionRef.current) {
+      sectionRef.current.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
   };
 
   return (
     <section
       className={`BlogSection ${isVisible ? "BlogSection--visible" : ""}`}
       ref={sectionRef}
+      aria-label="Latest Articles"
     >
       <div className="BlogSection__container">
         {/* HEADER */}
         <header className="BlogSection__header">
           <div className="BlogSection__eyebrow">
             <span className="BlogSection__eyebrowLine" />
-            <span>OUR LATEST STORIES</span>
+            <span>INSIGHTS &amp; IDEAS</span>
           </div>
 
           <div className="BlogSection__headingRow">
             <div className="BlogSection__headingContent">
               <h2 className="BlogSection__title">
-                Insights &amp; <span>Inspiration</span>
+                Latest from our <span>Blog</span>
               </h2>
 
               <p className="BlogSection__intro">
-                Expert advice, fresh ideas, and practical tips to help you make
-                better decisions for your home and business.
+                Expert tips, industry trends, and practical guides to keep your
+                spaces running at their best.
               </p>
             </div>
 
             <div className="BlogSection__btnWrap">
-              <a className="BlogSection__viewAll" href="/blog">
-                <span>Explore All Articles</span>
+              <Link to="/blogs" className="BlogSection__viewAll">
+                <span>View All Articles</span>
                 <span className="BlogSection__viewAllIcon">
                   <MoveRight size={17} />
                 </span>
-              </a>
+              </Link>
             </div>
           </div>
         </header>
 
         {/* ARTICLES GRID */}
-        <div className="BlogSection__grid" key={currentPage}>
-          {currentBlogs.map((blog, index) => {
-            const isFeatured = currentPage === 1 && index === 0;
+        {loading ? (
+          <div className="BlogSection__loading">
+            <div className="BlogSection__spinner" />
+            <p>Loading latest articles...</p>
+          </div>
+        ) : blogs.length === 0 ? (
+          <div className="BlogSection__empty">
+            <h3>No articles published yet</h3>
+            <p>Check back soon for new insights and industry updates.</p>
+          </div>
+        ) : (
+          <div className="BlogSection__grid" key={safePage}>
+            {currentBlogs.map((blog, index) => {
+              const isFeatured = safePage === 1 && index === 0;
+              const link = `/blogs/${blog.slug || blog.id}`;
 
-            return (
-              <article
-                className={`BlogSection__card${
-                  isFeatured ? " BlogSection__card--featured" : ""
-                }`}
-                key={blog.id}
-                style={{ "--BlogSection-delay": `${index * 80}ms` }}
-              >
-                <a
-                  className="BlogSection__imageLink"
-                  href={`/blog/${blog.id}`}
-                  tabIndex={-1}
-                  aria-hidden="true"
+              return (
+                <article
+                  className={`BlogSection__card${
+                    isFeatured ? " BlogSection__card--featured" : ""
+                  }`}
+                  key={blog.id}
+                  style={{ "--BlogSection-delay": `${index * 80}ms` }}
                 >
-                  <span className="BlogSection__imageWrapper">
-                    <img
-                      className="BlogSection__image"
-                      src={blog.image}
-                      alt=""
-                      loading={index === 0 ? "eager" : "lazy"}
-                      decoding="async"
-                      onError={(e) => {
-                        e.currentTarget.style.visibility = "hidden";
-                      }}
-                    />
+                  <Link
+                    className="BlogSection__imageLink"
+                    to={link}
+                    tabIndex={-1}
+                    aria-hidden="true"
+                  >
+                    <span className="BlogSection__imageWrapper">
+                      <img
+                        className="BlogSection__image"
+                        src={resolveImage(blog.image)}
+                        alt={blog.title}
+                        loading={index === 0 ? "eager" : "lazy"}
+                        decoding="async"
+                        onError={(e) => {
+                          e.currentTarget.src =
+                            "https://images.unsplash.com/photo-1621905251189-08b45d6a269e?auto=format&fit=crop&w=1200&q=85";
+                        }}
+                      />
 
-                    <span className="BlogSection__imageOverlay" />
+                      <span className="BlogSection__imageOverlay" />
 
-                    <span className="BlogSection__badges">
-                      {isFeatured && (
-                        <span className="BlogSection__featuredBadge">
-                          <Sparkles size={13} />
-                          Featured
+                      <span className="BlogSection__badges">
+                        {isFeatured && (
+                          <span className="BlogSection__featuredBadge">
+                            <Sparkles size={13} />
+                            Featured
+                          </span>
+                        )}
+                        <span className="BlogSection__category">
+                          {blog.category}
                         </span>
-                      )}
-                      <span className="BlogSection__category">
-                        {blog.category}
+                      </span>
+
+                      <span className="BlogSection__imageArrow">
+                        <ArrowUpRight size={18} />
                       </span>
                     </span>
+                  </Link>
 
-                    <span className="BlogSection__imageArrow">
-                      <ArrowUpRight size={18} />
-                    </span>
-                  </span>
-                </a>
+                  <div className="BlogSection__cardBody">
+                    <div className="BlogSection__meta">
+                      <span className="BlogSection__date">
+                        <CalendarDays size={14} strokeWidth={2} />
+                        {blog.date || blog.formattedDate}
+                      </span>
 
-                <div className="BlogSection__cardBody">
-                  <div className="BlogSection__meta">
-                    <span className="BlogSection__date">
-                      <CalendarDays size={14} strokeWidth={2} />
-                      {blog.date}
-                    </span>
+                      <span className="BlogSection__readTime">
+                        <Clock3 size={12} strokeWidth={2.2} />
+                        {blog.readTime || "5 min read"}
+                      </span>
+                    </div>
 
-                    <span className="BlogSection__readTime">
-                      <Clock3 size={12} strokeWidth={2.2} />
-                      {blog.readTime}
-                    </span>
+                    <h3 className="BlogSection__cardTitle">
+                      <Link to={link}>{blog.title}</Link>
+                    </h3>
+
+                    <p className="BlogSection__description">
+                      {blog.shortDescription ||
+                        blog.description?.replace(/<[^>]*>/g, "").slice(0, 160) + "..."}
+                    </p>
+
+                    <div className="BlogSection__footerRow">
+                      <Link className="BlogSection__readMore" to={link}>
+                        <span>Read Article</span>
+                        <ArrowUpRight size={15} />
+                      </Link>
+                    </div>
                   </div>
-
-                  <h3 className="BlogSection__cardTitle">
-                    <a href={`/blog/${blog.id}`}>{blog.title}</a>
-                  </h3>
-
-                  <p className="BlogSection__description">
-                    {blog.description}
-                  </p>
-
-                  <div className="BlogSection__footerRow">
-                    <a
-                      className="BlogSection__readMore"
-                      href={`/blog/${blog.id}`}
-                    >
-                      <span>Read Article</span>
-                      <ArrowUpRight size={15} />
-                    </a>
-                  </div>
-                </div>
-              </article>
-            );
-          })}
-        </div>
+                </article>
+              );
+            })}
+          </div>
+        )}
 
         {/* PAGINATION */}
         {totalPages > 1 && (
-          <nav
-            className="BlogSection__pagination"
-            aria-label="Blog pagination"
-          >
+          <nav className="BlogSection__pagination" aria-label="Blog pagination">
             <button
               type="button"
               className="BlogSection__pageArrow"
-              onClick={() => changePage(currentPage - 1)}
-              disabled={currentPage === 1}
+              onClick={() => changePage(safePage - 1)}
+              disabled={safePage === 1}
               aria-label="Previous page"
             >
               <ChevronLeft size={18} />
             </button>
 
-            {Array.from({ length: totalPages }, (_, i) => i + 1).map(
-              (page) => (
-                <button
-                  type="button"
-                  key={page}
-                  className={`BlogSection__pageNumber ${
-                    currentPage === page
-                      ? "BlogSection__pageNumber--active"
-                      : ""
-                  }`}
-                  onClick={() => changePage(page)}
-                  aria-label={`Go to page ${page}`}
-                  aria-current={currentPage === page ? "page" : undefined}
-                >
-                  {String(page).padStart(2, "0")}
-                </button>
-              )
-            )}
+            {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
+              <button
+                type="button"
+                key={page}
+                className={`BlogSection__pageNumber ${
+                  safePage === page ? "BlogSection__pageNumber--active" : ""
+                }`}
+                onClick={() => changePage(page)}
+                aria-current={safePage === page ? "page" : undefined}
+                aria-label={`Page ${page}`}
+              >
+                {page}
+              </button>
+            ))}
 
             <button
               type="button"
               className="BlogSection__pageArrow"
-              onClick={() => changePage(currentPage + 1)}
-              disabled={currentPage === totalPages}
+              onClick={() => changePage(safePage + 1)}
+              disabled={safePage === totalPages}
               aria-label="Next page"
             >
               <ChevronRight size={18} />
             </button>
           </nav>
         )}
-
-        <div className="BlogSection__paginationInfo" aria-live="polite">
-          Showing <strong>{startIndex + 1}</strong>–
-          <strong>{Math.min(startIndex + BLOGS_PER_PAGE, blogs.length)}</strong>{" "}
-          of <strong>{blogs.length}</strong> articles
-        </div>
-
-        <div className="BlogSection__bottom">
-          <span className="BlogSection__bottomLine" />
-          <p className="BlogSection__bottomText">
-            Ideas that inspire. Knowledge that makes a difference.
-          </p>
-          <span className="BlogSection__bottomLine" />
-        </div>
       </div>
     </section>
   );

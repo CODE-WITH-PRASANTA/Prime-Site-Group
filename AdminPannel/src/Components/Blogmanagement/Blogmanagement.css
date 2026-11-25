@@ -468,6 +468,28 @@ body::-webkit-scrollbar,
   color: #b45309;
 }
 
+.blog-status.status-toggleable {
+  cursor: pointer;
+  user-select: none;
+  transition: all 0.2s ease;
+  border: 1px solid transparent;
+}
+
+.blog-status.status-toggleable:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.blog-status.published.status-toggleable:hover {
+  background: #dcfce7;
+  border-color: #86efac;
+}
+
+.blog-status.draft.status-toggleable:hover {
+  background: #fef3c7;
+  border-color: #fcd34d;
+}
+
 /* ---------- ACTION BUTTONS ---------- */
 
 .blogmanagement-actions {

@@ -1,21 +1,19 @@
 
 import React, { useRef, useState, useEffect } from "react";
+import { useNavigate, useSearchParams, useLocation, useParams } from "react-router-dom";
+import API from "../../api/axios";
 import "./AddblogMain.css";
 
-const CATEGORIES = [
-  "Food & Dining",
-  "Technology",
-  "Travel",
-  "Lifestyle",
-  "Business",
-  "Health & Fitness",
-  "Education",
-  "Entertainment",
-  "News & Updates",
-  "Other",
-];
-
 const AddblogMain = ({ onPublish }) => {
+  const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
+  const location = useLocation();
+  const params = useParams();
+
+  const editId = searchParams.get("id") || params.id || location.state?.blog?.id;
+  const isEditMode = Boolean(editId);
+  const [loadingEdit, setLoadingEdit] = useState(isEditMode);
+
   const fileInputRef = useRef(null);
   const editorRef = useRef(null);
   const formRef = useRef(null);
@@ -39,6 +37,133 @@ const AddblogMain = ({ onPublish }) => {
   const [errors, setErrors] = useState({});
   const [toast, setToast] = useState(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [categoriesList, setCategoriesList] = useState([]);
+  const [loadingCategories, setLoadingCategories] = useState(true);
+  const [tagInput, setTagInput] = useState("");
+  const [tagsList, setTagsList] = useState([]);
+
+  const handleAddTag = (e) => {
+    if (e) e.preventDefault();
+    const raw = tagInput.trim();
+    if (!raw) return;
+
+    const newTags = raw
+      .split(",")
+      .map((t) => t.trim())
+      .filter((t) => t && !tagsList.includes(t));
+
+    if (newTags.length > 0) {
+      const updated = [...tagsList, ...newTags];
+      setTagsList(updated);
+      updateField("tags", updated.join(", "));
+    }
+    setTagInput("");
+  };
+
+  const handleRemoveTag = (indexToRemove) => {
+    const updated = tagsList.filter((_, idx) => idx !== indexToRemove);
+    setTagsList(updated);
+    updateField("tags", updated.join(", "));
+  };
+
+  const handleTagKeyDown = (e) => {
+    if (e.key === "Enter") {
+      e.preventDefault();
+      handleAddTag();
+    }
+  };
+
+  useEffect(() => {
+    let isMounted = true;
+    setLoadingCategories(true);
+    API.get("/blog-categories?all=true")
+      .then((res) => {
+        if (isMounted && res.data?.data) {
+          const names = res.data.data
+            .filter((c) => c.status === "Active")
+            .map((c) => c.name);
+          setCategoriesList(names);
+        }
+      })
+      .catch((err) => {
+        console.error("Failed to fetch blog categories:", err);
+      })
+      .finally(() => {
+        if (isMounted) setLoadingCategories(false);
+      });
+    return () => {
+      isMounted = false;
+    };
+  }, []);
+
+  // Fetch blog data if in edit mode
+  useEffect(() => {
+    if (!editId) return;
+
+    let isMounted = true;
+    setLoadingEdit(true);
+
+    const loadBlog = async () => {
+      try {
+        let blog = location.state?.blog;
+
+        try {
+          const res = await API.get(`/blogs/${editId}`);
+          if (res.data?.success && res.data.data) {
+            blog = res.data.data;
+          }
+        } catch (fetchErr) {
+          if (!blog) throw fetchErr;
+        }
+
+        if (isMounted && blog) {
+          setForm({
+            title: blog.title || "",
+            category: blog.category || "",
+            shortDescription: blog.shortDescription || "",
+            tags: Array.isArray(blog.tags) ? blog.tags.join(", ") : (blog.tags || ""),
+            author: blog.author || "",
+            location: blog.location || "",
+            publishImmediately: blog.status === "Published",
+          });
+
+          const content = blog.description || "";
+          setSourceCode(content);
+          if (editorRef.current) {
+            editorRef.current.innerHTML = content;
+          }
+
+          let tList = [];
+          if (Array.isArray(blog.tags)) {
+            tList = blog.tags;
+          } else if (typeof blog.tags === "string") {
+            tList = blog.tags.split(",").map((t) => t.trim()).filter(Boolean);
+          }
+          setTagsList(tList);
+
+          if (blog.image) {
+            const baseUrl = import.meta.env.VITE_UPLOADS_URL || "http://localhost:5000/uploads/";
+            const previewUrl =
+              blog.image.startsWith("http") || blog.image.startsWith("data:")
+                ? blog.image
+                : `${baseUrl.replace(/\/+$/, "")}/${blog.image.replace(/^\/+/, "")}`;
+            setImagePreview(previewUrl);
+          }
+        }
+      } catch (err) {
+        console.error("Failed to load blog for editing:", err);
+        showToast("Failed to load blog details.", "error");
+      } finally {
+        if (isMounted) setLoadingEdit(false);
+      }
+    };
+
+    loadBlog();
+
+    return () => {
+      isMounted = false;
+    };
+  }, [editId]);
 
   const showToast = (message, type = "success") => {
     setToast({ message, type });
@@ -248,7 +373,7 @@ const AddblogMain = ({ onPublish }) => {
       newErrors.category = "Please select a category.";
     }
 
-    if (!image) {
+    if (!image && !imagePreview) {
       newErrors.image = "Please upload a blog image.";
     }
 
@@ -289,13 +414,20 @@ const AddblogMain = ({ onPublish }) => {
       ? sourceCode
       : editorRef.current?.innerHTML || "";
 
+    // Collect all tags: from tagsList and any pending tagInput
+    let finalTagsList = [...tagsList];
+    if (tagInput.trim()) {
+      const extraTags = tagInput
+        .split(",")
+        .map((t) => t.trim())
+        .filter((t) => t && !finalTagsList.includes(t));
+      finalTagsList = [...finalTagsList, ...extraTags];
+    }
+
     const blogData = {
       ...form,
       description: content,
-      tags: form.tags
-        .split(",")
-        .map((tag) => tag.trim())
-        .filter(Boolean),
+      tags: finalTagsList,
       image,
       status: form.publishImmediately ? "Published" : "Draft",
       createdAt: new Date().toISOString(),
@@ -306,18 +438,65 @@ const AddblogMain = ({ onPublish }) => {
     try {
       if (onPublish) {
         await onPublish(blogData);
+      } else if (isEditMode) {
+        const formData = new FormData();
+        formData.append("title", form.title.trim());
+        formData.append("category", form.category.trim());
+        formData.append("shortDescription", form.shortDescription.trim());
+        formData.append("description", content);
+        formData.append("tags", finalTagsList.join(", "));
+        formData.append("author", form.author.trim() || "Admin");
+        formData.append("location", form.location.trim());
+        formData.append("status", form.publishImmediately ? "Published" : "Draft");
+
+        if (image) {
+          formData.append("image", image);
+        }
+
+        await API.put(`/blogs/${editId}`, formData, {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        });
+
+        showToast("Blog updated successfully!");
+        setTimeout(() => {
+          navigate("/blog");
+        }, 1200);
+      } else {
+        const formData = new FormData();
+        formData.append("title", form.title.trim());
+        formData.append("category", form.category.trim());
+        formData.append("shortDescription", form.shortDescription.trim());
+        formData.append("description", content);
+        formData.append("tags", finalTagsList.join(", "));
+        formData.append("author", form.author.trim() || "Admin");
+        formData.append("location", form.location.trim());
+        formData.append("status", form.publishImmediately ? "Published" : "Draft");
+
+        if (image) {
+          formData.append("image", image);
+        }
+
+        await API.post("/blogs", formData, {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        });
+
+        showToast(
+          form.publishImmediately
+            ? "Blog published successfully and saved to database!"
+            : "Blog saved as draft successfully in database!"
+        );
+
+        resetForm();
       }
-
-      showToast(
-        form.publishImmediately
-          ? "Blog published successfully!"
-          : "Blog saved as draft successfully!"
-      );
-
-      resetForm();
     } catch (error) {
       showToast(
-        error?.message || "Something went wrong. Please try again.",
+        error?.response?.data?.message ||
+          error?.message ||
+          "Something went wrong. Please try again.",
         "error"
       );
     } finally {
@@ -338,6 +517,8 @@ const AddblogMain = ({ onPublish }) => {
 
     setImage(null);
     setImagePreview("");
+    setTagsList([]);
+    setTagInput("");
     setErrors({});
     setSourceMode(false);
     setSourceCode("");
@@ -450,8 +631,12 @@ const AddblogMain = ({ onPublish }) => {
           </div>
 
           <div className="addblog-header-content">
-            <h2>Add Blog</h2>
-            <p>Create and publish a new blog post</p>
+            <h2>{isEditMode ? "Edit Blog" : "Add Blog"}</h2>
+            <p>
+              {isEditMode
+                ? "Update and modify your blog post details"
+                : "Create and publish a new blog post"}
+            </p>
           </div>
         </div>
 
@@ -588,9 +773,19 @@ const AddblogMain = ({ onPublish }) => {
                       updateField("category", e.target.value)
                     }
                   >
-                    <option value="">Select Category</option>
+                    <option value="">
+                      {loadingCategories
+                        ? "Loading categories..."
+                        : categoriesList.length === 0
+                        ? "No categories found (Please add in Category Management)"
+                        : "Select Category"}
+                    </option>
 
-                    {CATEGORIES.map((category) => (
+                    {form.category && !categoriesList.includes(form.category) && (
+                      <option value={form.category}>{form.category}</option>
+                    )}
+
+                    {categoriesList.map((category) => (
                       <option key={category} value={category}>
                         {category}
                       </option>
@@ -738,19 +933,46 @@ const AddblogMain = ({ onPublish }) => {
             <div className="addblog-field">
               <label htmlFor="blog-tags">Tags</label>
 
-              <div className="addblog-input-wrap">
+              <div className="addblog-input-wrap addblog-tags-wrap">
                 <Icon name="tag" />
 
                 <input
                   id="blog-tags"
                   type="text"
                   placeholder="Enter tags (comma separated)..."
-                  value={form.tags}
-                  onChange={(e) =>
-                    updateField("tags", e.target.value)
-                  }
+                  value={tagInput}
+                  onChange={(e) => setTagInput(e.target.value)}
+                  onKeyDown={handleTagKeyDown}
                 />
+
+                <button
+                  type="button"
+                  className="addblog-tag-add-btn"
+                  onClick={handleAddTag}
+                  title="Add Tag"
+                >
+                  Add
+                </button>
               </div>
+
+              {tagsList.length > 0 && (
+                <div className="addblog-tags-list">
+                  {tagsList.map((tag, idx) => (
+                    <span key={idx} className="addblog-tag-chip">
+                      #{tag}
+                      <button
+                        type="button"
+                        className="addblog-tag-chip-remove"
+                        onClick={() => handleRemoveTag(idx)}
+                        title="Remove tag"
+                        aria-label={`Remove tag ${tag}`}
+                      >
+                        ×
+                      </button>
+                    </span>
+                  ))}
+                </div>
+              )}
             </div>
 
             {/* AUTHOR */}
@@ -823,7 +1045,7 @@ const AddblogMain = ({ onPublish }) => {
               <span className="addblog-toggle-slider" />
 
               <span className="addblog-toggle-text">
-                Publish Immediately
+                {form.publishImmediately ? "Status: Published" : "Status: Draft"}
               </span>
             </label>
 
@@ -852,9 +1074,11 @@ const AddblogMain = ({ onPublish }) => {
 
                 {isSubmitting
                   ? "Processing..."
-                  : form.publishImmediately
-                    ? "Publish Blog"
-                    : "Save Draft"}
+                  : isEditMode
+                    ? "Update Blog"
+                    : form.publishImmediately
+                      ? "Publish Blog"
+                      : "Save Draft"}
               </button>
             </div>
           </div>

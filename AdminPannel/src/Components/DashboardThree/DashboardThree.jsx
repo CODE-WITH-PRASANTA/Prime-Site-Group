@@ -1,4 +1,5 @@
 import React, { useCallback, useEffect, useId, useRef, useState } from "react";
+import { Link } from "react-router-dom";
 import "./DashboardThree.css";
 
 /* ------------------------------------------------------------------
@@ -196,6 +197,8 @@ const DashboardThree = ({
   activities = DEFAULT_ACTIVITIES,
   onViewAll,
   onViewBooking,
+  onStatusChange,
+  onDeleteBooking,
 }) => {
   const [rows, setRows] = useState(bookingsProp);
   const [openId, setOpenId] = useState(null);
@@ -212,8 +215,10 @@ const DashboardThree = ({
       onViewBooking && onViewBooking(booking);
     } else if (key === "delete") {
       setRows((r) => r.filter((x) => x.id !== booking.id));
+      onDeleteBooking && onDeleteBooking(booking);
     } else {
       setRows((r) => r.map((x) => (x.id === booking.id ? { ...x, status: key } : x)));
+      onStatusChange && onStatusChange(booking, key);
     }
   };
 
@@ -293,18 +298,38 @@ const DashboardThree = ({
           </header>
 
           <ul className="DashboardThree-list">
-            {activities.map((a, i) => (
-              <li key={a.id} className="DashboardThree-item" style={{ "--i": i }}>
-                <span className={`DashboardThree-item-icon DashboardThree-item-icon--${a.type}`}>
-                  {ACTIVITY_ICON[a.type]}
-                </span>
-                <div className="DashboardThree-item-body">
-                  <strong>{a.title}</strong>
-                  <span>{a.text}</span>
-                </div>
-                <time className="DashboardThree-item-time">{a.time}</time>
-              </li>
-            ))}
+            {activities.map((a, i) => {
+              const targetHref =
+                a.href ||
+                (a.type === "booking"
+                  ? "/service-booking"
+                  : a.type === "enquiry"
+                  ? "/enquiry"
+                  : "/blog");
+
+              return (
+                <li key={a.id} style={{ "--i": i, listStyle: "none" }}>
+                  <Link
+                    to={targetHref}
+                    className="DashboardThree-item"
+                    style={{
+                      textDecoration: "none",
+                      color: "inherit",
+                      cursor: "pointer",
+                    }}
+                  >
+                    <span className={`DashboardThree-item-icon DashboardThree-item-icon--${a.type}`}>
+                      {ACTIVITY_ICON[a.type]}
+                    </span>
+                    <div className="DashboardThree-item-body">
+                      <strong>{a.title}</strong>
+                      <span>{a.text}</span>
+                    </div>
+                    <time className="DashboardThree-item-time">{a.time}</time>
+                  </Link>
+                </li>
+              );
+            })}
           </ul>
         </aside>
       </div>

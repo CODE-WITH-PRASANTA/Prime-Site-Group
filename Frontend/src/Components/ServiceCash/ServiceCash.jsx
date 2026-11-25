@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from "react";
+import ServiceBookingModal from "../ServiceBookingModal/ServiceBookingModal";
 import "./ServiceCash.css";
 
 const ServiceCash = () => {
   const [isLoaded, setIsLoaded] = useState(false);
+  const [bookingOpen, setBookingOpen] = useState(false);
 
   useEffect(() => {
     const timer = setTimeout(() => setIsLoaded(true), 120);
@@ -10,6 +12,7 @@ const ServiceCash = () => {
   }, []);
 
   return (
+    <>
     <section
       className={`ServiceCash ${isLoaded ? "ServiceCash--loaded" : ""}`}
       aria-label="Prime site Cash Services Overview"
@@ -81,8 +84,12 @@ const ServiceCash = () => {
 
           {/* Action Row */}
           <div className="ServiceCash__actionRow">
-            <a href="/contact" className="ServiceCash__btnPrimary">
-              <span>Enquire Now[cite: 11]</span>
+            <button
+              type="button"
+              onClick={() => setBookingOpen(true)}
+              className="ServiceCash__btnPrimary"
+            >
+              <span>Enquire Now</span>
               <svg viewBox="0 0 20 20" fill="currentColor">
                 <path
                   fillRule="evenodd"
@@ -90,9 +97,9 @@ const ServiceCash = () => {
                   clipRule="evenodd"
                 />
               </svg>
-            </a>
+            </button>
             <a href="/career" className="ServiceCash__btnOutline">
-              <span>Work for Us[cite: 11]</span>
+              <span>Work for Us</span>
             </a>
           </div>
         </div>
@@ -106,6 +113,14 @@ const ServiceCash = () => {
       {/* Red Accent Trim Strip */}
       <div className="ServiceCash__edgeStripe" aria-hidden="true" />
     </section>
+
+    <ServiceBookingModal
+      isOpen={bookingOpen}
+      onClose={() => setBookingOpen(false)}
+      defaultService="Cash Services"
+      modalTitle="Cash Services Enquiry"
+    />
+    </>
   );
 };
 

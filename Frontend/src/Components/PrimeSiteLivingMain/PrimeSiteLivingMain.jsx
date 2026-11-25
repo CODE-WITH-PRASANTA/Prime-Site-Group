@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from "react";
+import ServiceBookingModal from "../ServiceBookingModal/ServiceBookingModal";
 import "./PrimeSiteLivingMain.css";
 
 const PrimeSiteLivingMain = () => {
   const [isLoaded, setIsLoaded] = useState(false);
+  const [bookingOpen, setBookingOpen] = useState(false);
 
   useEffect(() => {
     const timer = setTimeout(() => setIsLoaded(true), 120);
@@ -10,6 +12,7 @@ const PrimeSiteLivingMain = () => {
   }, []);
 
   return (
+    <>
     <section
       className={`PrimeSiteLiving ${isLoaded ? "PrimeSiteLiving--loaded" : ""}`}
       aria-label="Prime Site Living and Accommodations Overview"
@@ -84,7 +87,11 @@ const PrimeSiteLivingMain = () => {
 
           {/* Action Row */}
           <div className="PrimeSiteLiving__actionRow">
-            <a href="#enquire" className="PrimeSiteLiving__btnPrimary">
+            <button
+              type="button"
+              onClick={() => setBookingOpen(true)}
+              className="PrimeSiteLiving__btnPrimary"
+            >
               <span>Book a Consultation</span>
               <svg viewBox="0 0 20 20" fill="currentColor">
                 <path
@@ -93,7 +100,7 @@ const PrimeSiteLivingMain = () => {
                   clipRule="evenodd"
                 />
               </svg>
-            </a>
+            </button>
             <a href="#view-locations" className="PrimeSiteLiving__btnOutline">
               <span>Explore Facilities</span>
             </a>
@@ -109,6 +116,14 @@ const PrimeSiteLivingMain = () => {
       {/* Red Accent Trim Strip */}
       <div className="PrimeSiteLiving__edgeStripe" aria-hidden="true" />
     </section>
+
+    <ServiceBookingModal
+      isOpen={bookingOpen}
+      onClose={() => setBookingOpen(false)}
+      defaultService="Prime Site Living"
+      modalTitle="Book a Consultation"
+    />
+    </>
   );
 };
 

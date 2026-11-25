@@ -4,39 +4,31 @@ import React, {
   useMemo,
   useRef,
   useState,
+  useCallback,
 } from "react";
 import { createPortal } from "react-dom";
+import { useNavigate } from "react-router-dom";
+import API from "../../api/axios";
 import "./Blogmanagement.css";
 
-/* =========================================
-   LOCAL IMAGE IMPORTS
-========================================= */
-
-import blogSmartBuilding from "../../assets/blog-smart-building.jpg";
-import blogFacility from "../../assets/blog-facility.jpg";
-import blogPrimeSite from "../../assets/blog-prime-site.jpg";
-import blogCommercial from "../../assets/blog-commercial.jpg";
-import blogSustainability from "../../assets/blog-sustainability.jpg";
-import blogGreenArchitecture from "../../assets/blog-green-architecture.jpg";
-import blogWorkplace from "../../assets/blog-workplace.jpg";
-import blogCorporate from "../../assets/blog-corporate.jpg";
-import blogUrban from "../../assets/blog-urban.jpg";
-import blogTeam from "../../assets/blog-team.jpg";
-import blogInterior from "../../assets/blog-interior.jpg";
-import blogMaintenance from "../../assets/blog-maintenance.jpg";
-import blogSmartCity from "../../assets/blog-smart-city.jpg";
+/* Helper to resolve uploaded images or external URLs */
+const resolveImage = (src) => {
+  if (!src) return FALLBACK_IMG;
+  if (
+    src.startsWith("http://") ||
+    src.startsWith("https://") ||
+    src.startsWith("data:") ||
+    src.startsWith("blob:")
+  ) {
+    return src;
+  }
+  const baseUrl = import.meta.env.VITE_UPLOADS_URL || "http://localhost:5000/uploads/";
+  return `${baseUrl.replace(/\/+$/, "")}/${src.replace(/^\/+/, "")}`;
+};
 
 /* =========================================
    CONSTANTS
 ========================================= */
-
-const CATEGORIES = [
-  "Architecture",
-  "Facility Management",
-  "About Us",
-  "Commercial",
-  "Sustainability",
-];
 
 const STATUSES = ["Draft", "Published"];
 
@@ -59,203 +51,7 @@ const FALLBACK_IMG =
    INITIAL BLOG DATA
 ========================================= */
 
-const INITIAL_BLOGS = [
-  {
-    id: 1,
-    title: "Smart Building Solutions for a Better Tomorrow",
-    description:
-      "Discover how smart buildings are transforming modern infrastructure with intelligent technology and sustainable solutions.",
-    category: "Architecture",
-    author: "Rahul Sharma",
-    location: "New York",
-    status: "Published",
-    date: "2025-11-20",
-    time: "10:30 AM",
-    image: blogSmartBuilding,
-  },
-  {
-    id: 2,
-    title: "The Future of Facility Management",
-    description:
-      "Explore the trends shaping the future of facility management and workplace operations.",
-    category: "Facility Management",
-    author: "Priya Gupta",
-    location: "London",
-    status: "Published",
-    date: "2025-11-18",
-    time: "02:15 PM",
-    image: blogFacility,
-  },
-  {
-    id: 3,
-    title: "Why Choose Prime Site?",
-    description:
-      "Your trusted partner in delivering premium integrated business solutions.",
-    category: "About Us",
-    author: "Amit Verma",
-    location: "Dubai",
-    status: "Published",
-    date: "2025-11-15",
-    time: "11:20 AM",
-    image: blogPrimeSite,
-  },
-  {
-    id: 4,
-    title: "Commercial Spaces Redefined",
-    description:
-      "Modern spaces for modern businesses. Discover innovative commercial environments.",
-    category: "Commercial",
-    author: "Neha Singh",
-    location: "Singapore",
-    status: "Published",
-    date: "2025-11-12",
-    time: "04:45 PM",
-    image: blogCommercial,
-  },
-  {
-    id: 5,
-    title: "Sustainable Development for a Greener Future",
-    description:
-      "Our commitment to sustainability, green development and a better tomorrow.",
-    category: "Sustainability",
-    author: "Vikram Patel",
-    location: "India",
-    status: "Draft",
-    date: "2025-11-10",
-    time: "09:30 AM",
-    image: blogSustainability,
-  },
-  {
-    id: 6,
-    title: "Green Architecture: Building a Better Future",
-    description:
-      "Learn how green architecture is creating environmentally responsible and energy-efficient buildings.",
-    category: "Architecture",
-    author: "Ananya Das",
-    location: "Mumbai",
-    status: "Published",
-    date: "2025-11-08",
-    time: "10:15 AM",
-    image: blogGreenArchitecture,
-  },
-  {
-    id: 7,
-    title: "Creating the Perfect Modern Workplace",
-    description:
-      "Explore innovative workplace designs that improve employee productivity and comfort.",
-    category: "Commercial",
-    author: "Arjun Mehta",
-    location: "Delhi",
-    status: "Published",
-    date: "2025-11-06",
-    time: "12:30 PM",
-    image: blogWorkplace,
-  },
-  {
-    id: 8,
-    title: "Corporate Excellence Through Smart Management",
-    description:
-      "Discover the importance of professional management and integrated corporate solutions.",
-    category: "Facility Management",
-    author: "Sneha Kapoor",
-    location: "Bangalore",
-    status: "Draft",
-    date: "2025-11-04",
-    time: "03:20 PM",
-    image: blogCorporate,
-  },
-  {
-    id: 9,
-    title: "Urban Development and Modern Infrastructure",
-    description:
-      "A closer look at how modern infrastructure is shaping the cities of tomorrow.",
-    category: "Architecture",
-    author: "Rohit Kumar",
-    location: "Pune",
-    status: "Published",
-    date: "2025-11-02",
-    time: "11:45 AM",
-    image: blogUrban,
-  },
-  {
-    id: 10,
-    title: "The Power of Team Collaboration",
-    description:
-      "How effective teamwork and collaboration create stronger business environments.",
-    category: "About Us",
-    author: "Pooja Sharma",
-    location: "Hyderabad",
-    status: "Published",
-    date: "2025-10-30",
-    time: "09:15 AM",
-    image: blogTeam,
-  },
-  {
-    id: 11,
-    title: "Premium Interior Design for Commercial Spaces",
-    description:
-      "Transforming ordinary interiors into premium and functional commercial environments.",
-    category: "Commercial",
-    author: "Karan Malhotra",
-    location: "Abu Dhabi",
-    status: "Draft",
-    date: "2025-10-28",
-    time: "01:30 PM",
-    image: blogInterior,
-  },
-  {
-    id: 12,
-    title: "Why Building Maintenance Matters",
-    description:
-      "Understanding the importance of regular maintenance for safe and efficient buildings.",
-    category: "Facility Management",
-    author: "Meera Joshi",
-    location: "Chennai",
-    status: "Published",
-    date: "2025-10-25",
-    time: "04:10 PM",
-    image: blogMaintenance,
-  },
-  {
-    id: 13,
-    title: "The Rise of Smart Cities Around the World",
-    description:
-      "Discover how technology and innovation are changing the future of urban living.",
-    category: "Architecture",
-    author: "Aditya Roy",
-    location: "Singapore",
-    status: "Published",
-    date: "2025-10-22",
-    time: "10:45 AM",
-    image: blogSmartCity,
-  },
-  {
-    id: 14,
-    title: "Sustainable Office Design and Green Solutions",
-    description:
-      "Creating healthier workplaces through energy efficiency and sustainable design.",
-    category: "Sustainability",
-    author: "Riya Das",
-    location: "Kolkata",
-    status: "Draft",
-    date: "2025-10-19",
-    time: "02:30 PM",
-    image: blogGreenArchitecture,
-  },
-  {
-    id: 15,
-    title: "Innovative Business Spaces for Tomorrow",
-    description:
-      "Explore the latest ideas in commercial development and modern business environments.",
-    category: "Commercial",
-    author: "Siddharth Rao",
-    location: "Bhubaneswar",
-    status: "Published",
-    date: "2025-10-16",
-    time: "11:00 AM",
-    image: blogInterior,
-  },
-];
+const INITIAL_BLOGS = [];
 
 /* =========================================
    HELPERS
@@ -272,7 +68,7 @@ const todayISO = () => {
 const makeEmptyForm = () => ({
   title: "",
   description: "",
-  category: CATEGORIES[0],
+  category: "",
   author: "",
   location: "",
   status: "Draft",
@@ -435,7 +231,7 @@ const SafeImage = ({ src, alt, className }) => {
   return (
     <img
       className={className}
-      src={!src || failed ? FALLBACK_IMG : src}
+      src={!src || failed ? FALLBACK_IMG : resolveImage(src)}
       alt={alt}
       loading="lazy"
       onError={() => setFailed(true)}
@@ -464,14 +260,29 @@ const CategoryBadge = ({ category }) => (
   </span>
 );
 
-const StatusBadge = ({ status }) => (
-  <span
-    className={`blog-status ${status === "Published" ? "published" : "draft"}`}
-  >
-    <span className="status-dot" />
-    {status}
-  </span>
-);
+const StatusBadge = ({ status, onClick }) => {
+  const isClickable = Boolean(onClick);
+  return (
+    <span
+      role={isClickable ? "button" : undefined}
+      tabIndex={isClickable ? 0 : undefined}
+      onClick={onClick}
+      onKeyDown={(e) => {
+        if (isClickable && (e.key === "Enter" || e.key === " ")) {
+          e.preventDefault();
+          onClick();
+        }
+      }}
+      className={`blog-status ${status === "Published" ? "published" : "draft"} ${
+        isClickable ? "status-toggleable" : ""
+      }`}
+      title={isClickable ? `Click to toggle status (currently ${status})` : undefined}
+    >
+      <span className="status-dot" />
+      {status}
+    </span>
+  );
+};
 
 /* =========================================
    PREMIUM CUSTOM DROPDOWN  (prefix: cs-)
@@ -829,7 +640,9 @@ const Field = ({ id, label, required, error, full, children }) => (
 ========================================= */
 
 const Blogmanagement = () => {
-  const [blogs, setBlogs] = useState(INITIAL_BLOGS);
+  const [blogs, setBlogs] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [categoriesList, setCategoriesList] = useState([]);
 
   const [search, setSearch] = useState("");
   const [categoryFilter, setCategoryFilter] = useState("");
@@ -845,7 +658,57 @@ const Blogmanagement = () => {
   const [deleting, setDeleting] = useState(false);
   const [toast, setToast] = useState("");
 
-  const deleteTimer = useRef(null);
+  const navigate = useNavigate();
+
+  const handleToggleStatus = async (blog) => {
+    const newStatus = blog.status === "Published" ? "Draft" : "Published";
+    try {
+      const res = await API.put(`/blogs/${blog.id}`, { status: newStatus });
+      if (res.data?.success) {
+        setBlogs((prev) =>
+          prev.map((item) => (item.id === blog.id ? { ...item, status: newStatus } : item))
+        );
+        setToast(`Status toggled to ${newStatus}`);
+      }
+    } catch (err) {
+      setToast(err.response?.data?.message || "Failed to update status");
+    }
+  };
+
+  const handleEditBlog = (blog) => {
+    navigate(`/blog/add?id=${blog.id}`, { state: { blog } });
+  };
+
+  const fetchBlogs = useCallback(async () => {
+    try {
+      setLoading(true);
+      const res = await API.get("/blogs?all=true");
+      if (res.data?.success) {
+        setBlogs(res.data.data || []);
+      }
+    } catch (err) {
+      console.error("Failed to load blogs:", err);
+    } finally {
+      setLoading(false);
+    }
+  }, []);
+
+  useEffect(() => {
+    fetchBlogs();
+  }, [fetchBlogs]);
+
+  useEffect(() => {
+    API.get("/blog-categories?all=true")
+      .then((res) => {
+        if (res.data?.data && res.data.data.length > 0) {
+          const names = res.data.data
+            .filter((c) => c.status === "Active")
+            .map((c) => c.name);
+          if (names.length > 0) setCategoriesList(names);
+        }
+      })
+      .catch(() => {});
+  }, []);
 
   /* ---------- derived data ---------- */
 
@@ -993,7 +856,7 @@ const Blogmanagement = () => {
     setErrors({});
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     const found = validateForm(form);
@@ -1018,17 +881,23 @@ const Blogmanagement = () => {
       image: form.image.trim(),
     };
 
-    if (modal === "edit" && selectedBlog) {
-      setBlogs((previous) =>
-        previous.map((blog) =>
-          blog.id === selectedBlog.id ? { ...cleaned, id: blog.id } : blog
-        )
-      );
-      setToast("Blog updated successfully");
-    } else {
-      setBlogs((previous) => [{ ...cleaned, id: Date.now() }, ...previous]);
-      setCurrentPage(1);
-      setToast("Blog created successfully");
+    try {
+      if (modal === "edit" && selectedBlog) {
+        const res = await API.put(`/blogs/${selectedBlog.id}`, cleaned);
+        if (res.data?.success) {
+          setToast("Blog updated successfully");
+          fetchBlogs();
+        }
+      } else {
+        const res = await API.post("/blogs", cleaned);
+        if (res.data?.success) {
+          setToast("Blog created successfully");
+          setCurrentPage(1);
+          fetchBlogs();
+        }
+      }
+    } catch (err) {
+      setToast(err.response?.data?.message || "Failed to save blog");
     }
 
     setModal("");
@@ -1036,19 +905,25 @@ const Blogmanagement = () => {
     setErrors({});
   };
 
-  const confirmDelete = () => {
+  const confirmDelete = async () => {
     if (!selectedBlog || deleting) return;
 
     const id = selectedBlog.id;
     setDeleting(true);
 
-    deleteTimer.current = setTimeout(() => {
-      setBlogs((previous) => previous.filter((blog) => blog.id !== id));
+    try {
+      const res = await API.delete(`/blogs/${id}`);
+      if (res.data?.success) {
+        setToast("Blog deleted successfully");
+        fetchBlogs();
+      }
+    } catch (err) {
+      setToast(err.response?.data?.message || "Failed to delete blog");
+    } finally {
       setDeleting(false);
       setModal("");
       setSelectedBlog(null);
-      setToast("Blog deleted successfully");
-    }, 500);
+    }
   };
 
   /* =========================================
@@ -1107,7 +982,7 @@ const Blogmanagement = () => {
           id="bm-filter-category"
           value={categoryFilter}
           onChange={handleCategoryChange}
-          options={CATEGORIES}
+          options={categoriesList}
           placeholder="All Categories"
           label="Filter by category"
         />
@@ -1195,7 +1070,10 @@ const Blogmanagement = () => {
                   </td>
 
                   <td>
-                    <StatusBadge status={blog.status} />
+                    <StatusBadge
+                      status={blog.status}
+                      onClick={() => handleToggleStatus(blog)}
+                    />
                   </td>
 
                   <td>
@@ -1225,7 +1103,7 @@ const Blogmanagement = () => {
                         className="blog-action-btn edit"
                         title="Edit blog"
                         aria-label={`Edit ${blog.title}`}
-                        onClick={() => openEditModal(blog)}
+                        onClick={() => handleEditBlog(blog)}
                       >
                         <Icon name="edit" size={18} />
                       </button>
@@ -1395,7 +1273,7 @@ const Blogmanagement = () => {
                 id="bm-f-category"
                 value={form.category}
                 onChange={(v) => updateForm("category", v)}
-                options={CATEGORIES}
+                options={categoriesList}
                 allowEmpty={false}
                 label="Category"
                 invalid={Boolean(errors.category)}
@@ -1592,7 +1470,10 @@ const Blogmanagement = () => {
               <button
                 type="button"
                 className="bm-btn bm-btn-red"
-                onClick={() => openEditModal(selectedBlog)}
+                onClick={() => {
+                  closeModal();
+                  handleEditBlog(selectedBlog);
+                }}
               >
                 <Icon name="edit" size={16} />
                 Edit Blog

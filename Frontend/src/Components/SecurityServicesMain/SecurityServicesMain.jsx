@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from "react";
+import ServiceBookingModal from "../ServiceBookingModal/ServiceBookingModal";
 import "./SecurityServicesMain.css";
 
 const SecurityServicesMain = () => {
   const [isLoaded, setIsLoaded] = useState(false);
+  const [bookingOpen, setBookingOpen] = useState(false);
 
   useEffect(() => {
     const timer = setTimeout(() => setIsLoaded(true), 120);
@@ -10,6 +12,7 @@ const SecurityServicesMain = () => {
   }, []);
 
   return (
+    <>
     <section
       className={`SecurityServicesMain ${isLoaded ? "SecurityServicesMain--loaded" : ""}`}
       aria-label="Prime Site Security Services Overview"
@@ -80,7 +83,11 @@ const SecurityServicesMain = () => {
 
           {/* Action Row */}
           <div className="SecurityServicesMain__actionRow">
-            <a href="#enquire" className="SecurityServicesMain__btnPrimary">
+            <button
+              type="button"
+              onClick={() => setBookingOpen(true)}
+              className="SecurityServicesMain__btnPrimary"
+            >
               <span>Request Security Audit</span>
               <svg viewBox="0 0 20 20" fill="currentColor">
                 <path
@@ -89,7 +96,7 @@ const SecurityServicesMain = () => {
                   clipRule="evenodd"
                 />
               </svg>
-            </a>
+            </button>
             <a href="#careers" className="SecurityServicesMain__btnOutline">
               <span>Join Security Team</span>
             </a>
@@ -105,6 +112,14 @@ const SecurityServicesMain = () => {
       {/* Red Accent Trim Strip */}
       <div className="SecurityServicesMain__edgeStripe" aria-hidden="true" />
     </section>
+
+    <ServiceBookingModal
+      isOpen={bookingOpen}
+      onClose={() => setBookingOpen(false)}
+      defaultService="Security Services"
+      modalTitle="Request Security Audit"
+    />
+    </>
   );
 };
 

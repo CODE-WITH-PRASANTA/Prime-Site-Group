@@ -222,14 +222,21 @@ const Chart = ({ rows }) => {
   const plotH = h - PAD.top - PAD.bottom;
   const n = rows.length;
 
+  const { yMax, yTicks } = useMemo(() => {
+    const maxVal = Math.max(4, ...rows.map((r) => r.value || 0));
+    const step = Math.ceil(maxVal / 4);
+    const max = step * 4;
+    return { yMax: max, yTicks: [0, step, step * 2, step * 3, max] };
+  }, [rows]);
+
   const pts = useMemo(
     () =>
       rows.map((r, i) => ({
         ...r,
         x: PAD.left + (n === 1 ? plotW / 2 : (i * plotW) / (n - 1)),
-        y: PAD.top + plotH - (r.value / Y_MAX) * plotH,
+        y: PAD.top + plotH - ((r.value || 0) / yMax) * plotH,
       })),
-    [rows, n, plotW, plotH]
+    [rows, n, plotW, plotH, yMax]
   );
 
   const line = useMemo(() => monotonePath(pts), [pts]);
@@ -294,8 +301,8 @@ const Chart = ({ rows }) => {
         </defs>
 
         {/* grid + y labels */}
-        {Y_TICKS.map((t) => {
-          const y = PAD.top + plotH - (t / Y_MAX) * plotH;
+        {yTicks.map((t) => {
+          const y = PAD.top + plotH - (t / yMax) * plotH;
           return (
             <g key={t}>
               <line className="DashboardTwo-gridline" x1={PAD.left} x2={w - PAD.right} y1={y} y2={y} />

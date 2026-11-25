@@ -1,5 +1,6 @@
-import React, { useEffect, useId, useMemo, useRef, useState } from "react";
+import React, { useCallback, useEffect, useId, useMemo, useRef, useState } from "react";
 import { createPortal } from "react-dom";
+import API from "../../api/axios";
 import "./Servicemanagement.css";
 
 /* =========================================
@@ -7,11 +8,23 @@ import "./Servicemanagement.css";
 ========================================= */
 
 const SERVICES = [
+  "Security Services",
+  "Manpower Services",
+  "Workforce Solutions",
+  "Facilities Management",
+  "Aviation Services",
+  "Managed Services",
+  "Cash Services",
+  "Taste Of Home",
+  "Prime Site Living",
+  "Prime Site Delivery",
+  "Kitchen Maintenance Solutions",
   "Consulting",
   "Facility Management",
   "Sustainability",
   "Commercial Spaces",
   "Green Building",
+  "Other",
 ];
 
 const ENQUIRY_TYPES = [
@@ -67,78 +80,6 @@ const STATUS_CLASS = {
   "In Progress": "progress",
   Resolved: "resolved",
 };
-
-/* =========================================
-   INITIAL DATA
-========================================= */
-
-const INITIAL_SERVICES = [
-  {
-    id: 1,
-    name: "Rahul Sharma",
-    email: "rahul@gmail.com",
-    phone: "9876543210",
-    company: "ABC Pvt Ltd",
-    service: "Consulting",
-    enquiry: "General Enquiry",
-    status: "New",
-    message: "I want to know more about your consulting services.",
-    date: "2025-11-20",
-    time: "10:45 AM",
-  },
-  {
-    id: 2,
-    name: "Priya Gupta",
-    email: "priya@domain.com",
-    phone: "8765432109",
-    company: "XYZ Ltd",
-    service: "Facility Management",
-    enquiry: "Support",
-    status: "In Progress",
-    message: "Please share details about your facility management plans.",
-    date: "2025-11-19",
-    time: "04:20 PM",
-  },
-  {
-    id: 3,
-    name: "Amit Verma",
-    email: "amit@abc.com",
-    phone: "7654321098",
-    company: "Global Tech",
-    service: "Sustainability",
-    enquiry: "Proposal",
-    status: "New",
-    message: "We are interested in your services.",
-    date: "2025-11-18",
-    time: "11:15 AM",
-  },
-  {
-    id: 4,
-    name: "Neha Singh",
-    email: "neha@xyz.com",
-    phone: "6543210987",
-    company: "Dream Infra",
-    service: "Commercial Spaces",
-    enquiry: "Quotation",
-    status: "Resolved",
-    message: "Kindly share quotation for commercial space setup.",
-    date: "2025-11-17",
-    time: "03:30 PM",
-  },
-  {
-    id: 5,
-    name: "Neha Patel",
-    email: "vikram@tech.com",
-    phone: "5432109876",
-    company: "Tech Solutions",
-    service: "Green Building",
-    enquiry: "Partnership",
-    status: "In Progress",
-    message: "Let's discuss partnership opportunities.",
-    date: "2025-11-16",
-    time: "01:25 PM",
-  },
-];
 
 /* =========================================
    HELPERS
@@ -721,7 +662,8 @@ const Field = ({ id, label, required, error, full, children }) => (
 ========================================= */
 
 const Servicemanagement = () => {
-  const [items, setItems] = useState(INITIAL_SERVICES);
+  const [items, setItems] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   const [search, setSearch] = useState("");
   const [serviceFilter, setServiceFilter] = useState("");
@@ -738,6 +680,25 @@ const Servicemanagement = () => {
   const [toast, setToast] = useState("");
 
   const deleteTimer = useRef(null);
+
+  const fetchBookings = useCallback(async () => {
+    try {
+      setLoading(true);
+      const res = await API.get("/service-bookings?all=true");
+      if (res.data?.success && res.data.data) {
+        setItems(res.data.data);
+      }
+    } catch (err) {
+      console.error("Failed to fetch service bookings:", err);
+      setToast("Failed to load service bookings from database");
+    } finally {
+      setLoading(false);
+    }
+  }, []);
+
+  useEffect(() => {
+    fetchBookings();
+  }, [fetchBookings]);
 
   /* ---------- derived ---------- */
 
@@ -870,7 +831,7 @@ const Servicemanagement = () => {
     setErrors({});
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     const found = validateForm(form, modal);
@@ -883,43 +844,59 @@ const Servicemanagement = () => {
     }
 
     const cleaned = {
-      ...form,
       name: form.name.trim(),
       email: form.email.trim(),
       phone: form.phone.trim(),
       company: form.company.trim(),
+      service: form.service,
+      enquiry: form.enquiry,
+      status: form.status,
       message: form.message.trim(),
-      time: form.time.trim().toUpperCase(),
     };
 
-    if (modal === "edit" && selected) {
-      setItems((prev) =>
-        prev.map((it) => (it.id === selected.id ? { ...cleaned, id: it.id } : it))
-      );
-      setToast("Enquiry updated successfully");
-    } else {
-      setItems((prev) => [{ ...cleaned, id: Date.now() }, ...prev]);
-      setCurrentPage(1);
-      setToast("Service added successfully");
+    try {
+      if (modal === "edit" && selected) {
+        const res = await API.put(`/service-bookings/${selected.id}`, cleaned);
+        if (res.data?.success) {
+          setToast("Service booking updated successfully");
+          fetchBookings();
+        }
+      } else {
+        const res = await API.post("/service-bookings", cleaned);
+        if (res.data?.success) {
+          setCurrentPage(1);
+          setToast("Service booking added successfully");
+          fetchBookings();
+        }
+      }
+      setModal("");
+      setSelected(null);
+      setErrors({});
+    } catch (err) {
+      console.error("Failed to save service booking:", err);
+      setToast(err.response?.data?.message || "Failed to save service booking");
     }
-
-    setModal("");
-    setSelected(null);
-    setErrors({});
   };
 
-  const confirmDelete = () => {
+  const confirmDelete = async () => {
     if (!selected || deleting) return;
     const id = selected.id;
     setDeleting(true);
 
-    deleteTimer.current = setTimeout(() => {
-      setItems((prev) => prev.filter((it) => it.id !== id));
+    try {
+      const res = await API.delete(`/service-bookings/${id}`);
+      if (res.data?.success) {
+        setModal("");
+        setSelected(null);
+        setToast("Service booking deleted successfully");
+        fetchBookings();
+      }
+    } catch (err) {
+      console.error("Failed to delete service booking:", err);
+      setToast(err.response?.data?.message || "Failed to delete booking");
+    } finally {
       setDeleting(false);
-      setModal("");
-      setSelected(null);
-      setToast("Enquiry deleted successfully");
-    }, 500);
+    }
   };
 
   const isAdd = modal === "add";
@@ -1051,7 +1028,13 @@ const Servicemanagement = () => {
             </thead>
 
             <tbody>
-              {visible.length > 0 ? (
+              {loading ? (
+                <tr className="empty-row">
+                  <td colSpan={11} style={{ textAlign: "center", padding: "48px 20px", color: "#64748b" }}>
+                    Loading service bookings from database...
+                  </td>
+                </tr>
+              ) : visible.length > 0 ? (
                 visible.map((item, index) => {
                   const dp = dateParts(item.date);
                   return (

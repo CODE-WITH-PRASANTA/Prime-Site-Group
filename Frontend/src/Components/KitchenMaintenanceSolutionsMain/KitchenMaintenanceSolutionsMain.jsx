@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from "react";
+import ServiceBookingModal from "../ServiceBookingModal/ServiceBookingModal";
 import "./KitchenMaintenanceSolutionsMain.css";
 
 const KitchenMaintenanceSolutionsMain = () => {
   const [isLoaded, setIsLoaded] = useState(false);
+  const [bookingOpen, setBookingOpen] = useState(false);
 
   useEffect(() => {
     const timer = setTimeout(() => setIsLoaded(true), 120);
@@ -10,6 +12,7 @@ const KitchenMaintenanceSolutionsMain = () => {
   }, []);
 
   return (
+    <>
     <section
       className={`KitchenMaintenanceSolutionsMain ${isLoaded ? "KitchenMaintenanceSolutionsMain--loaded" : ""}`}
       aria-label="Commercial Kitchen Maintenance and Equipment Engineering Solutions Overview"
@@ -80,7 +83,11 @@ const KitchenMaintenanceSolutionsMain = () => {
 
           {/* Action Row */}
           <div className="KitchenMaintenanceSolutionsMain__actionRow">
-            <a href="#kitchen-survey" className="KitchenMaintenanceSolutionsMain__btnPrimary">
+            <button
+              type="button"
+              onClick={() => setBookingOpen(true)}
+              className="KitchenMaintenanceSolutionsMain__btnPrimary"
+            >
               <span>Book Kitchen Technical Survey</span>
               <svg viewBox="0 0 20 20" fill="currentColor">
                 <path
@@ -89,7 +96,7 @@ const KitchenMaintenanceSolutionsMain = () => {
                   clipRule="evenodd"
                 />
               </svg>
-            </a>
+            </button>
             <a href="#amc-contracts" className="KitchenMaintenanceSolutionsMain__btnOutline">
               <span>Kitchen AMC Plans</span>
             </a>
@@ -105,6 +112,14 @@ const KitchenMaintenanceSolutionsMain = () => {
       {/* Red Accent Trim Strip */}
       <div className="KitchenMaintenanceSolutionsMain__edgeStripe" aria-hidden="true" />
     </section>
+
+    <ServiceBookingModal
+      isOpen={bookingOpen}
+      onClose={() => setBookingOpen(false)}
+      defaultService="Kitchen Maintenance Solutions"
+      modalTitle="Book Kitchen Technical Survey"
+    />
+    </>
   );
 };
 

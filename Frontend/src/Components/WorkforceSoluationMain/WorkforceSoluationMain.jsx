@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from "react";
+import ServiceBookingModal from "../ServiceBookingModal/ServiceBookingModal";
 import "./WorkforceSoluationMain.css";
 
 const WorkforceSoluationMain = () => {
   const [isLoaded, setIsLoaded] = useState(false);
+  const [bookingOpen, setBookingOpen] = useState(false);
 
   useEffect(() => {
     const timer = setTimeout(() => setIsLoaded(true), 120);
@@ -10,6 +12,7 @@ const WorkforceSoluationMain = () => {
   }, []);
 
   return (
+    <>
     <section
       className={`WorkforceSoluationMain ${isLoaded ? "WorkforceSoluationMain--loaded" : ""}`}
       aria-label="Transguard Workforce Solutions Overview"
@@ -79,7 +82,11 @@ const WorkforceSoluationMain = () => {
 
           {/* Action Row */}
           <div className="WorkforceSoluationMain__actionRow">
-            <a href="#consult-workforce" className="WorkforceSoluationMain__btnPrimary">
+            <button
+              type="button"
+              onClick={() => setBookingOpen(true)}
+              className="WorkforceSoluationMain__btnPrimary"
+            >
               <span>Request Talent Strategy</span>
               <svg viewBox="0 0 20 20" fill="currentColor">
                 <path
@@ -88,7 +95,7 @@ const WorkforceSoluationMain = () => {
                   clipRule="evenodd"
                 />
               </svg>
-            </a>
+            </button>
             <a href="#careers" className="WorkforceSoluationMain__btnOutline">
               <span>Explore Open Roles</span>
             </a>
@@ -104,6 +111,14 @@ const WorkforceSoluationMain = () => {
       {/* Red Accent Trim Strip */}
       <div className="WorkforceSoluationMain__edgeStripe" aria-hidden="true" />
     </section>
+
+    <ServiceBookingModal
+      isOpen={bookingOpen}
+      onClose={() => setBookingOpen(false)}
+      defaultService="Workforce Solutions"
+      modalTitle="Request Talent Strategy"
+    />
+    </>
   );
 };
 

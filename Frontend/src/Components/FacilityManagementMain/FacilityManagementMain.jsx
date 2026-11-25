@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from "react";
+import ServiceBookingModal from "../ServiceBookingModal/ServiceBookingModal";
 import "./FacilityManagementMain.css";
 
 const FacilityManagementMain = () => {
   const [isLoaded, setIsLoaded] = useState(false);
+  const [bookingOpen, setBookingOpen] = useState(false);
 
   useEffect(() => {
     const timer = setTimeout(() => setIsLoaded(true), 120);
@@ -10,6 +12,7 @@ const FacilityManagementMain = () => {
   }, []);
 
   return (
+    <>
     <section
       className={`FacilityManagementMain ${isLoaded ? "FacilityManagementMain--loaded" : ""}`}
       aria-label="Integrated Facility Management Services Overview"
@@ -80,7 +83,11 @@ const FacilityManagementMain = () => {
 
           {/* Action Row */}
           <div className="FacilityManagementMain__actionRow">
-            <a href="#facility-audit" className="FacilityManagementMain__btnPrimary">
+            <button
+              type="button"
+              onClick={() => setBookingOpen(true)}
+              className="FacilityManagementMain__btnPrimary"
+            >
               <span>Book Facility Survey</span>
               <svg viewBox="0 0 20 20" fill="currentColor">
                 <path
@@ -89,7 +96,7 @@ const FacilityManagementMain = () => {
                   clipRule="evenodd"
                 />
               </svg>
-            </a>
+            </button>
             <a href="#careers" className="FacilityManagementMain__btnOutline">
               <span>Explore FM Careers</span>
             </a>
@@ -105,6 +112,14 @@ const FacilityManagementMain = () => {
       {/* Red Accent Trim Strip */}
       <div className="FacilityManagementMain__edgeStripe" aria-hidden="true" />
     </section>
+
+    <ServiceBookingModal
+      isOpen={bookingOpen}
+      onClose={() => setBookingOpen(false)}
+      defaultService="Facilities Management"
+      modalTitle="Book Facility Survey"
+    />
+    </>
   );
 };
 

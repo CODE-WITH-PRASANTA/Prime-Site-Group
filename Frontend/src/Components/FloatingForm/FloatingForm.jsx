@@ -10,12 +10,14 @@ import {
   FaTimes,
   FaUser,
 } from "react-icons/fa";
-
+import API from "../../api/axios";
 import "./FloatingForm.css";
 
 const FloatingForm = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
+  const [errorMsg, setErrorMsg] = useState("");
 
   const [formData, setFormData] = useState({
     name: "",
@@ -71,22 +73,46 @@ const FloatingForm = () => {
   };
 
   // SUBMIT FORM
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    if (submitting) return;
 
-    console.log("Construction Enquiry Data:", formData);
+    try {
+      setSubmitting(true);
+      setErrorMsg("");
 
-    // Connect your backend API here.
+      const payload = {
+        name: formData.name.trim(),
+        email: formData.email.trim(),
+        phone: formData.phone.trim(),
+        service: formData.service,
+        enquiry: "Construction Enquiry",
+        type: "Construction Enquiry",
+        message: formData.requirement.trim(),
+        requirement: formData.requirement.trim(),
+      };
 
-    setIsSubmitted(true);
-
-    setFormData({
-      name: "",
-      email: "",
-      phone: "",
-      service: "",
-      requirement: "",
-    });
+      const res = await API.post("/contact", payload);
+      if (res.data?.success) {
+        setIsSubmitted(true);
+        setFormData({
+          name: "",
+          email: "",
+          phone: "",
+          service: "",
+          requirement: "",
+        });
+      }
+    } catch (err) {
+      console.error("Failed to submit Let's Talk enquiry:", err);
+      setErrorMsg(
+        err.response?.data?.message ||
+        (err.response?.data?.errors && Object.values(err.response.data.errors)[0]) ||
+        "Could not submit enquiry. Please try again."
+      );
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   return (
@@ -338,12 +364,27 @@ const FloatingForm = () => {
 
               </div>
 
+              {errorMsg && (
+                <div style={{
+                  color: "#dc2626",
+                  fontSize: "13px",
+                  marginBottom: "14px",
+                  background: "#fef2f2",
+                  padding: "9px 14px",
+                  borderRadius: "6px",
+                  border: "1px solid #fecaca"
+                }}>
+                  {errorMsg}
+                </div>
+              )}
+
               {/* SUBMIT BUTTON */}
               <button
                 type="submit"
                 className="FloatingForm-submit"
+                disabled={submitting}
               >
-                Submit Enquiry
+                {submitting ? "Submitting..." : "Submit Enquiry"}
                 <FaArrowRight />
               </button>
 

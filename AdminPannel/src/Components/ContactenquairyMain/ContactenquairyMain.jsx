@@ -7,26 +7,23 @@ import React, {
   useState,
 } from "react";
 import { createPortal } from "react-dom";
+import API from "../../api/axios";
 import "./ContactenquairyMain.css";
-
-const INITIAL_DATA = [
-  { id: 1, name: "Rahul Sharma", email: "rahul@gmail.com", phone: "9876543210", type: "General Enquiry", message: "I want to know more about your services. Please share the details.", status: "New", date: "20 Nov 2025", time: "10:30 AM", photo: "https://randomuser.me/api/portraits/men/32.jpg" },
-  { id: 2, name: "Priya Gupta", email: "priya@gmail.com", phone: "8765432109", type: "Support", message: "Please help me with my booking.", status: "Replied", date: "19 Nov 2025", time: "03:20 PM", photo: "https://randomuser.me/api/portraits/women/44.jpg" },
-  { id: 3, name: "Amit Mehta", email: "amit@gmail.com", phone: "7654321098", type: "Others", message: "Can you provide more details about your packages?", status: "Pending", date: "18 Nov 2025", time: "11:15 AM", photo: "https://randomuser.me/api/portraits/men/46.jpg" },
-  { id: 4, name: "Sneha Nayak", email: "sneha@gmail.com", phone: "6543210987", type: "Career", message: "I am interested in career opportunities.", status: "Resolved", date: "17 Nov 2025", time: "04:50 PM", photo: "https://randomuser.me/api/portraits/women/68.jpg" },
-  { id: 5, name: "Vikram Kumar", email: "vikram@gmail.com", phone: "5432109876", type: "Service Booking", message: "I need to book a service for next week.", status: "Pending", date: "16 Nov 2025", time: "09:30 AM", photo: "https://randomuser.me/api/portraits/men/75.jpg" },
-];
 
 const TYPE_META = {
   "General Enquiry": { cls: "blue", icon: "briefcase" },
+  "Construction Enquiry": { cls: "blue", icon: "calendar" },
+  "Manpower Requirement": { cls: "blue", icon: "briefcase" },
+  "Business Partnership": { cls: "purple", icon: "briefcase" },
+  "Service Request": { cls: "red", icon: "calendar" },
+  Careers: { cls: "green", icon: "briefcase" },
   Support: { cls: "purple", icon: "headset" },
   Others: { cls: "green", icon: "info" },
-  Career: { cls: "blue", icon: "briefcase" },
   "Service Booking": { cls: "red", icon: "calendar" },
 };
 
 const TYPES = Object.keys(TYPE_META);
-const STATUSES = ["New", "Replied", "Pending", "Resolved"];
+const STATUSES = ["New", "Replied", "Pending", "Resolved", "Read"];
 const PAGE_SIZE = 5;
 
 /* Dropdown option lists */
@@ -419,7 +416,8 @@ function ModalShell({
 }
 
 export default function ContactenquairyMain() {
-  const [rows, setRows] = useState(INITIAL_DATA);
+  const [rows, setRows] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   const [search, setSearch] = useState("");
   const [typeFilter, setTypeFilter] = useState("");
@@ -432,6 +430,45 @@ export default function ContactenquairyMain() {
   const [errors, setErrors] = useState({});
   const [deleting, setDeleting] = useState(false);
   const [toast, setToast] = useState("");
+
+  const fetchEnquiries = useCallback(async () => {
+    try {
+      setLoading(true);
+      const res = await API.get("/contact?all=true");
+      if (res.data?.success && res.data.data) {
+        setRows(res.data.data);
+      }
+    } catch (err) {
+      console.error("Failed to fetch enquiries:", err);
+      setToast("Failed to load enquiries from database");
+    } finally {
+      setLoading(false);
+    }
+  }, []);
+
+  useEffect(() => {
+    fetchEnquiries();
+  }, [fetchEnquiries]);
+
+  const handleStatusToggle = async (row) => {
+    const statusCycle = {
+      New: "Replied",
+      Replied: "Pending",
+      Pending: "Resolved",
+      Resolved: "New",
+      Read: "Replied",
+    };
+    const nextStatus = statusCycle[row.status] || "New";
+
+    try {
+      await API.patch(`/contact/${row.id}/status`, { status: nextStatus });
+      setToast(`Status updated to ${nextStatus}`);
+      fetchEnquiries();
+    } catch (err) {
+      console.error("Failed to update status:", err);
+      setToast("Could not update status");
+    }
+  };
 
   /* Live filtering: results update as you type */
   const filtered = useMemo(() => {
@@ -563,43 +600,49 @@ export default function ContactenquairyMain() {
     return Object.keys(next).length === 0;
   };
 
-  const handleSave = (e) => {
+  const handleSave = async (e) => {
     e.preventDefault();
     if (!validate() || !selected) return;
 
-    setRows((prev) =>
-      prev.map((r) =>
-        r.id === selected.id
-          ? {
-              ...r,
-              ...form,
-              name: form.name.trim(),
-              email: form.email.trim(),
-              phone: form.phone.trim(),
-              message: form.message.trim(),
-            }
-          : r
-      )
-    );
-
-    setModal("");
-    setSelected(null);
-    setToast("Enquiry updated successfully");
+    try {
+      const payload = {
+        name: form.name.trim(),
+        email: form.email.trim(),
+        phone: form.phone.trim(),
+        type: form.type,
+        enquiry: form.type,
+        status: form.status,
+        message: form.message.trim(),
+      };
+      const res = await API.put(`/contact/${selected.id}`, payload);
+      if (res.data?.success) {
+        setToast("Enquiry updated successfully");
+        closeModal();
+        fetchEnquiries();
+      }
+    } catch (err) {
+      console.error("Failed to update enquiry:", err);
+      setToast(err.response?.data?.message || "Failed to update enquiry");
+    }
   };
 
-  const confirmDelete = () => {
+  const confirmDelete = async () => {
     if (!selected || deleting) return;
 
-    const id = selected.id;
-    setDeleting(true);
-
-    window.setTimeout(() => {
-      setRows((prev) => prev.filter((r) => r.id !== id));
+    try {
+      setDeleting(true);
+      const res = await API.delete(`/contact/${selected.id}`);
+      if (res.data?.success) {
+        setToast("Enquiry deleted successfully");
+        closeModal();
+        fetchEnquiries();
+      }
+    } catch (err) {
+      console.error("Failed to delete enquiry:", err);
+      setToast(err.response?.data?.message || "Failed to delete enquiry");
+    } finally {
       setDeleting(false);
-      setModal("");
-      setSelected(null);
-      setToast("Enquiry deleted successfully");
-    }, 250);
+    }
   };
 
   /* Escape closes the open popup */
@@ -754,7 +797,12 @@ export default function ContactenquairyMain() {
                     </td>
 
                     <td>
-                      <span className={`ce-status ${r.status.toLowerCase()}`}>
+                      <span
+                        className={`ce-status ${r.status.toLowerCase()}`}
+                        onClick={() => handleStatusToggle(r)}
+                        style={{ cursor: "pointer" }}
+                        title="Click to toggle status (New -> Replied -> Pending -> Resolved)"
+                      >
                         <i className="ce-dot" />
                         {r.status}
                       </span>
@@ -807,7 +855,15 @@ export default function ContactenquairyMain() {
                 );
               })}
 
-              {!pageRows.length && (
+              {loading ? (
+                <tr>
+                  <td colSpan="9" style={{ textAlign: "center", padding: "40px" }}>
+                    <p style={{ color: "#64748b", margin: 0, fontSize: "14px" }}>
+                      Loading enquiries from database...
+                    </p>
+                  </td>
+                </tr>
+              ) : !pageRows.length ? (
                 <tr>
                   <td colSpan="9">
                     <div className="ce-empty">
@@ -822,7 +878,7 @@ export default function ContactenquairyMain() {
                     </div>
                   </td>
                 </tr>
-              )}
+              ) : null}
             </tbody>
           </table>
         </div>
@@ -945,6 +1001,36 @@ export default function ContactenquairyMain() {
                     <strong>
                       {selected.date}, {selected.time}
                     </strong>
+                  </div>
+
+                  {selected.company && (
+                    <div className="cm-row">
+                      <span className="cm-row-label">
+                        <Icon name="briefcase" size={16} />
+                        Company
+                      </span>
+                      <strong>{selected.company}</strong>
+                    </div>
+                  )}
+
+                  {selected.service && (
+                    <div className="cm-row">
+                      <span className="cm-row-label">
+                        <Icon name="calendar" size={16} />
+                        Service
+                      </span>
+                      <strong>{selected.service}</strong>
+                    </div>
+                  )}
+
+                  <div className="cm-row" style={{ flexDirection: "column", alignItems: "flex-start", gap: "8px" }}>
+                    <span className="cm-row-label">
+                      <Icon name="mail" size={16} />
+                      Message
+                    </span>
+                    <p style={{ margin: 0, fontSize: "14px", lineHeight: "1.6", color: "#334155", background: "#f8fafc", padding: "12px", borderRadius: "8px", width: "100%", whiteSpace: "pre-wrap", border: "1px solid #e2e8f0" }}>
+                      {selected.message}
+                    </p>
                   </div>
                 </div>
               </div>

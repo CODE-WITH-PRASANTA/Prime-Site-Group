@@ -23,6 +23,7 @@ import Profile from "./Pages/Profile/Profile";
 import Setting from "./Pages/Setting/Setting";
 import CareerApplications from "./Components/CareerApplications/CareerApplications";
 import AddblogMain from "./Components/AddblogMain/AddblogMain";
+import BlogCategory from "./Components/BlogCategory/BlogCategory";
 
 const App = () => {
   return (
@@ -48,6 +49,9 @@ const App = () => {
             {/* BLOG */}
             <Route path="blog" element={<Blogmanagement />} />
             <Route path="blog/add" element={<AddblogMain />} />
+            <Route path="blog/edit/:id" element={<AddblogMain />} />
+            <Route path="blog/category" element={<BlogCategory />} />
+            <Route path="blog/categories" element={<Navigate to="/blog/category" replace />} />
 
             {/* SERVICE */}
             <Route path="service-booking" element={<Service />} />
@@ -68,6 +72,10 @@ const App = () => {
             <Route
               path="enquiry"
               element={<Contactenquairy />}
+            />
+            <Route
+              path="contact-enquiry"
+              element={<Navigate to="/enquiry" replace />}
             />
 
             {/* PROFILE */}

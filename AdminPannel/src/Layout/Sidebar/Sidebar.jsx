@@ -83,7 +83,6 @@ const menuItems = [
   { title: "Service Booking", path: "/service-booking", icon: "service" },
   { title: "Career Management", path: "/career-management", icon: "career" },
   { title: "Career Applications", path: "/career-applications", icon: "applications" },
-  { title: "Contact Enquiry", path: "/contact-enquiry", icon: "enquiry" },
   {
     key: "blog",
     title: "Blog Management",
@@ -91,6 +90,7 @@ const menuItems = [
     children: [
       { title: "Add Blog", path: "/blog/add" },
       { title: "Blog Management", path: "/blog" },
+      { title: "Category", path: "/blog/category" },
     ],
   },
   {

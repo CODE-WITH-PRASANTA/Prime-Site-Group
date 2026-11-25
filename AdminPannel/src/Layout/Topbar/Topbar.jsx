@@ -1,9 +1,8 @@
 
 import React, { useState, useEffect, useRef } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
+import API, { clearStoredAuth } from "../../api/axios";
 import "./Topbar.css";
-
-const AUTH_KEY = "isAdminAuthenticated";
 
 const pageTitles = {
   "/dashboard": "Dashboard",
@@ -59,14 +58,17 @@ const Topbar = ({ onToggle, collapsed }) => {
     };
   }, []);
 
-  const handleLogout = () => {
+  const handleLogout = async () => {
     setShowProfile(false);
     setShowNotifications(false);
 
-    // Clear both stores
-    sessionStorage.removeItem(AUTH_KEY);
-    localStorage.removeItem(AUTH_KEY);
+    try {
+      await API.post("/auth/logout");
+    } catch {
+      // Ignore network errors on logout; still clear local tokens
+    }
 
+    clearStoredAuth();
     navigate("/login", { replace: true });
   };
 

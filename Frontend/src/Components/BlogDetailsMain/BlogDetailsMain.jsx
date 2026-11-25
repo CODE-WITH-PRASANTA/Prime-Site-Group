@@ -1,5 +1,5 @@
-
-import { useEffect, useMemo, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
+import { useParams, useNavigate, Link } from "react-router-dom";
 import {
   Clock3,
   UserRound,
@@ -16,211 +16,139 @@ import {
   Globe,
   MessageCircle,
   Bookmark,
+  Sparkles,
+  ArrowLeft,
+  MapPin,
 } from "lucide-react";
+import API from "../../api/axios";
 import "./BlogDetailsMain.css";
 
+// Helper to resolve uploaded images or external URLs
+const resolveImage = (img) => {
+  if (!img) {
+    return "https://images.unsplash.com/photo-1581578731548-c64695cc6952?auto=format&fit=crop&w=1200&q=90";
+  }
+  if (img.startsWith("http://") || img.startsWith("https://") || img.startsWith("data:")) {
+    return img;
+  }
+  const baseUrl = import.meta.env.VITE_UPLOADS_URL || "http://localhost:5000/uploads/";
+  return `${baseUrl.replace(/\/+$/, "")}/${img.replace(/^\/+/, "")}`;
+};
+
 const BlogDetailsMain = () => {
+  const { slug } = useParams();
+  const navigate = useNavigate();
+
+  const [activePost, setActivePost] = useState(null);
+  const [recentPosts, setRecentPosts] = useState([]);
+  const [categories, setCategories] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
   const [searchTerm, setSearchTerm] = useState("");
-  const [activeTab, setActiveTab] = useState("Popular");
-  const [activeTag, setActiveTag] = useState("Service");
   const [activeCategory, setActiveCategory] = useState("");
   const [copied, setCopied] = useState(false);
   const [showTopButton, setShowTopButton] = useState(false);
   const [bookmarked, setBookmarked] = useState(false);
+  const [scrollProgress, setScrollProgress] = useState(0);
 
-  const categories = [
-    {
-      name: "Business Related",
-      image:
-        "https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&w=700&q=85",
-    },
-    {
-      name: "Branding Themes",
-      image:
-        "https://images.unsplash.com/photo-1531058020387-3be344556be6?auto=format&fit=crop&w=700&q=85",
-    },
-    {
-      name: "Company",
-      image:
-        "https://images.unsplash.com/photo-1497366811353-6870744d04b2?auto=format&fit=crop&w=700&q=85",
-    },
-    {
-      name: "Design",
-      image:
-        "https://images.unsplash.com/photo-1503387762-592deb58ef4e?auto=format&fit=crop&w=700&q=85",
-    },
-    {
-      name: "Artists",
-      image:
-        "https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&w=700&q=85",
-    },
-  ];
+  // Fetch active blog post by slug or ID
+  useEffect(() => {
+    let isMounted = true;
+    setLoading(true);
+    setError(null);
 
-  const posts = [
-    {
-      id: 1,
-      category: "Cleaning",
-      date: "Dec 24, 2024",
-      title: "Cleaning & Renovation Service By Our Experts",
-      image:
-        "https://images.unsplash.com/photo-1581578731548-c64695cc6952?auto=format&fit=crop&w=1200&q=90",
-      excerpt:
-        "Discover how professional cleaning and renovation services create healthier, fresher, and more productive spaces.",
-      author: "Admin",
-      readTime: "5 Min Read",
-      views: 1250,
-      tags: ["Cleaner", "Service", "Paint"],
-    },
-    {
-      id: 2,
-      category: "Electronics",
-      date: "Dec 22, 2024",
-      title: "AC Repair By Expert Home Service Business",
-      image:
-        "https://images.unsplash.com/photo-1621905251189-08b45d6a269e?auto=format&fit=crop&w=1200&q=90",
-      excerpt:
-        "Professional maintenance helps improve efficiency, extend equipment life, and keep your space comfortable.",
-      author: "Admin",
-      readTime: "4 Min Read",
-      views: 980,
-      tags: ["Electrical", "Service", "Maintenance"],
-    },
-    {
-      id: 3,
-      category: "Interior Info",
-      date: "Dec 20, 2024",
-      title: "The Ultimate Guide to Hiring Interior Service Experts",
-      image:
-        "https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&w=1200&q=90",
-      excerpt:
-        "Explore smart interior solutions that combine beautiful design, comfort, and practical functionality.",
-      author: "Admin",
-      readTime: "6 Min Read",
-      views: 1500,
-      tags: ["Creative", "Design", "Interior"],
-    },
-    {
-      id: 4,
-      category: "Carpentry",
-      date: "Dec 18, 2024",
-      title: "Top Trends in Carpentry Services for Modern Homes",
-      image:
-        "https://images.unsplash.com/photo-1504148455328-c376907d081c?auto=format&fit=crop&w=1200&q=90",
-      excerpt:
-        "Learn how skilled craftsmanship and thoughtful materials can transform everyday living spaces.",
-      author: "Admin",
-      readTime: "7 Min Read",
-      views: 760,
-      tags: ["Carpentry", "Creative", "Service"],
-    },
-    {
-      id: 5,
-      category: "Construction",
-      date: "Dec 16, 2024",
-      title: "The Ultimate Guide to Hiring Construction Experts Online",
-      image:
-        "https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&w=1200&q=90",
-      excerpt:
-        "Understand the essentials of choosing experienced professionals for reliable construction projects.",
-      author: "Admin",
-      readTime: "5 Min Read",
-      views: 1100,
-      tags: ["Construction", "Planning", "Service"],
-    },
-    {
-      id: 6,
-      category: "Salons & Spa",
-      date: "Dec 14, 2024",
-      title: "Professional Personal Care Services for Your Busy Lifestyle",
-      image:
-        "https://images.unsplash.com/photo-1521590832167-7bcbfaa6381f?auto=format&fit=crop&w=1200&q=90",
-      excerpt:
-        "Discover convenient personal care services designed to make your everyday routine easier.",
-      author: "Admin",
-      readTime: "3 Min Read",
-      views: 650,
-      tags: ["Care", "Lifestyle", "Service"],
-    },
-  ];
+    const fetchPost = async () => {
+      try {
+        let postData = null;
+        if (slug) {
+          const res = await API.get(`/blogs/${slug}`);
+          if (res.data?.success && res.data.data) {
+            postData = res.data.data;
+          }
+        } else {
+          // If no slug provided in URL, fetch the latest published post
+          const res = await API.get("/blogs?status=Published&limit=1");
+          if (res.data?.success && res.data.data?.length > 0) {
+            postData = res.data.data[0];
+          }
+        }
 
-  const sidebarPosts = {
-    Popular: [posts[2], posts[0], posts[4]],
-    Recent: [posts[0], posts[1], posts[3]],
-    Trendy: [posts[4], posts[2], posts[5]],
-  };
+        if (isMounted) {
+          if (postData) {
+            setActivePost(postData);
+          } else {
+            setError("Blog article not found.");
+          }
+        }
+      } catch (err) {
+        console.error("Failed to load blog details:", err);
+        if (isMounted) {
+          setError(
+            err.response?.data?.message || "Blog article could not be loaded."
+          );
+        }
+      } finally {
+        if (isMounted) setLoading(false);
+      }
+    };
 
-  const tags = [
-    "Electrical",
-    "Creative",
-    "Painting",
-    "Arts",
-    "Plumbing",
-    "Cleaning",
-  ];
+    fetchPost();
 
-  const filteredPosts = useMemo(() => {
-    const query = searchTerm.trim().toLowerCase();
+    return () => {
+      isMounted = false;
+    };
+  }, [slug]);
 
-    return posts.filter((post) => {
-      const matchesSearch =
-        !query ||
-        post.title.toLowerCase().includes(query) ||
-        post.category.toLowerCase().includes(query) ||
-        post.excerpt.toLowerCase().includes(query) ||
-        post.tags.some((tag) => tag.toLowerCase().includes(query));
+  // Fetch recent posts & categories for sidebar
+  useEffect(() => {
+    let isMounted = true;
 
-      const matchesCategory =
-        !activeCategory || post.category === activeCategory;
+    API.get("/blogs?status=Published&limit=6")
+      .then((res) => {
+        if (isMounted && res.data?.data) {
+          setRecentPosts(res.data.data);
+        }
+      })
+      .catch(() => {});
 
-      const matchesTag =
-        !activeTag || post.tags.includes(activeTag);
+    API.get("/blog-categories?all=true")
+      .then((res) => {
+        if (isMounted && res.data?.data) {
+          setCategories(res.data.data.filter((c) => c.status === "Active"));
+        }
+      })
+      .catch(() => {});
 
-      return matchesSearch && matchesCategory && matchesTag;
-    });
-  }, [searchTerm, activeCategory, activeTag]);
+    return () => {
+      isMounted = false;
+    };
+  }, []);
 
-  const activePost = posts[0];
-
+  // Track scroll position for reading progress bar and top button
   useEffect(() => {
     const handleScroll = () => {
+      const totalScroll = document.documentElement.scrollTop;
+      const windowHeight =
+        document.documentElement.scrollHeight - document.documentElement.clientHeight;
+      const progress = windowHeight > 0 ? (totalScroll / windowHeight) * 100 : 0;
+      setScrollProgress(Math.min(100, Math.max(0, progress)));
       setShowTopButton(window.scrollY > 350);
     };
 
     window.addEventListener("scroll", handleScroll, { passive: true });
-
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const handleSearch = (event) => {
-    event.preventDefault();
-
-    const section = document.getElementById("BlogDetailsMain-results");
-
-    if (section) {
-      section.scrollIntoView({
-        behavior: "smooth",
-        block: "start",
-      });
-    }
-  };
-
-  const handleCategory = (category) => {
-    setActiveCategory((current) =>
-      current === category ? "" : category
-    );
-    setActiveTag("");
-  };
-
-  const handleTag = (tag) => {
-    setActiveTag((current) => (current === tag ? "" : tag));
-    setActiveCategory("");
+  const handleSearch = (e) => {
+    e.preventDefault();
+    if (!searchTerm.trim()) return;
+    navigate(`/blogs?search=${encodeURIComponent(searchTerm.trim())}`);
   };
 
   const shareOn = (platform) => {
     const url = window.location.href;
-    const title = activePost.title;
+    const title = activePost?.title || "Prime Site Blog";
 
     const shareUrls = {
       Facebook: `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}`,
@@ -230,13 +158,8 @@ const BlogDetailsMain = () => {
     };
 
     const shareUrl = shareUrls[platform];
-
     if (shareUrl) {
-      window.open(
-        shareUrl,
-        "_blank",
-        "noopener,noreferrer,width=650,height=550"
-      );
+      window.open(shareUrl, "_blank", "noopener,noreferrer,width=650,height=550");
     }
   };
 
@@ -244,7 +167,7 @@ const BlogDetailsMain = () => {
     try {
       await navigator.clipboard.writeText(window.location.href);
       setCopied(true);
-      window.setTimeout(() => setCopied(false), 2000);
+      window.setTimeout(() => setCopied(false), 2500);
     } catch {
       window.prompt("Copy this article link:", window.location.href);
     }
@@ -257,539 +180,426 @@ const BlogDetailsMain = () => {
     });
   };
 
+  if (loading) {
+    return (
+      <div className="BlogDetailsMain" style={{ minHeight: "60vh", display: "flex", alignItems: "center", justifyContent: "center" }}>
+        <div style={{ textAlign: "center", padding: "80px 20px" }}>
+          <div style={{
+            width: "44px",
+            height: "44px",
+            border: "3px solid #f0e3df",
+            borderTopColor: "#f4512a",
+            borderRadius: "50%",
+            animation: "spin 0.8s linear infinite",
+            margin: "0 auto 20px"
+          }} />
+          <h2 style={{ color: "#092c49", fontSize: "20px", fontWeight: "600" }}>Loading article...</h2>
+        </div>
+      </div>
+    );
+  }
+
+  if (error || !activePost) {
+    return (
+      <div className="BlogDetailsMain" style={{ minHeight: "60vh", display: "flex", alignItems: "center", justifyContent: "center" }}>
+        <div style={{ textAlign: "center", padding: "80px 20px", maxWidth: "500px" }}>
+          <h2 style={{ color: "#092c49", fontSize: "24px", marginBottom: "12px", fontWeight: "700" }}>Article Not Found</h2>
+          <p style={{ color: "#718096", marginBottom: "24px", lineHeight: "1.6" }}>
+            {error || "The article you are looking for may have been moved or removed."}
+          </p>
+          <Link
+            to="/blogs"
+            style={{
+              display: "inline-flex",
+              alignItems: "center",
+              gap: "8px",
+              padding: "12px 24px",
+              background: "#f4512a",
+              color: "#fff",
+              borderRadius: "6px",
+              textDecoration: "none",
+              fontWeight: "600"
+            }}
+          >
+            <ArrowLeft size={16} /> Back to All Articles
+          </Link>
+        </div>
+      </div>
+    );
+  }
+
+  const tags = Array.isArray(activePost.tags)
+    ? activePost.tags
+    : typeof activePost.tags === "string"
+      ? activePost.tags.split(",").map((t) => t.trim()).filter(Boolean)
+      : [];
+
   return (
-    <section className="BlogDetailsMain">
-      <div className="BlogDetailsMain__container">
-        {/* Main article */}
-        <main className="BlogDetailsMain__article">
-          <div className="BlogDetailsMain__articleHeader">
-            <button
-              type="button"
-              className="BlogDetailsMain__categoryBadge"
-              onClick={() => handleCategory(activePost.category)}
-            >
-              {activePost.category}
-            </button>
+    <>
+      {/* Scroll Reading Progress Bar */}
+      <div
+        style={{
+          position: "fixed",
+          top: 0,
+          left: 0,
+          height: "4px",
+          width: `${scrollProgress}%`,
+          background: "linear-gradient(90deg, #f58220 0%, #cd101b 100%)",
+          zIndex: 99999,
+          transition: "width 0.1s ease-out",
+        }}
+      />
 
-            <div className="BlogDetailsMain__titleRow">
-              <h1 className="BlogDetailsMain__title">
-                {activePost.title}
-              </h1>
+      <section className="BlogDetailsMain">
+        <div className="BlogDetailsMain__container">
+          {/* Main article */}
+          <main className="BlogDetailsMain__article">
+            {/* Breadcrumb Navigation */}
+            <nav style={{ display: "flex", alignItems: "center", gap: "8px", fontSize: "13px", color: "#718096", marginBottom: "20px", flexWrap: "wrap" }}>
+              <Link to="/" style={{ color: "#718096", textDecoration: "none" }}>Home</Link>
+              <span>/</span>
+              <Link to="/blogs" style={{ color: "#718096", textDecoration: "none" }}>Blogs</Link>
+              <span>/</span>
+              <span style={{ color: "#f4512a", fontWeight: "500" }}>{activePost.category}</span>
+            </nav>
 
-              <button
-                type="button"
-                className={`BlogDetailsMain__bookmark ${
-                  bookmarked ? "is-active" : ""
-                }`}
-                onClick={() => setBookmarked((value) => !value)}
-                aria-label={
-                  bookmarked ? "Remove bookmark" : "Bookmark article"
-                }
-                title={bookmarked ? "Bookmarked" : "Save article"}
-              >
-                <Bookmark size={21} />
-              </button>
-            </div>
-
-            <div className="BlogDetailsMain__meta">
-              <span>
-                <Clock3 size={17} />
-                January 15, 2022
+            <div className="BlogDetailsMain__articleHeader">
+              <span className="BlogDetailsMain__categoryBadge">
+                {activePost.category}
               </span>
 
-              <i />
+              <div className="BlogDetailsMain__titleRow">
+                <h1 className="BlogDetailsMain__title">
+                  {activePost.title}
+                </h1>
 
-              <span>
-                <UserRound size={17} />
-                By {activePost.author}
-              </span>
-
-              <i />
-
-              <span>
-                <Eye size={18} />
-                {activePost.readTime}
-              </span>
-            </div>
-          </div>
-
-          <div className="BlogDetailsMain__heroImage">
-            <img
-              src={activePost.image}
-              alt={activePost.title}
-              fetchPriority="high"
-            />
-
-            <div className="BlogDetailsMain__imageOverlay">
-              <span>
-                <CalendarDays size={15} />
-                Professional Service Insights
-              </span>
-            </div>
-          </div>
-
-          <div className="BlogDetailsMain__articleBody">
-            <p className="BlogDetailsMain__intro">
-              In today&apos;s fast-paced world, on-demand services have
-              become an integral part of our lives, offering convenience,
-              efficiency, and flexibility. In this blog post, we explore
-              the latest trends, practical solutions, and innovations
-              shaping the service industry.
-            </p>
-
-            <p>
-              From home maintenance and professional cleaning to
-              renovation and specialist support, finding the right
-              service provider can make a meaningful difference. The
-              right team combines experience, reliable communication,
-              and attention to detail to deliver results you can trust.
-            </p>
-
-            <h2>Exploring Service Success Stories</h2>
-
-            <p>
-              Discover the expanding range of services available today,
-              from everyday household maintenance to specialist
-              commercial solutions. Modern service providers are using
-              better tools, smarter scheduling, and customer-focused
-              processes to deliver a smoother experience.
-            </p>
-
-            <div className="BlogDetailsMain__imageGrid">
-              <figure>
-                <img
-                  src="https://images.unsplash.com/photo-1581578731548-c64695cc6952?auto=format&fit=crop&w=800&q=85"
-                  alt="Professional cleaning team at work"
-                  loading="lazy"
-                />
-                <figcaption>Professional cleaning solutions</figcaption>
-              </figure>
-
-              <figure>
-                <img
-                  src="https://images.unsplash.com/photo-1524758631624-e2822e304c36?auto=format&fit=crop&w=800&q=85"
-                  alt="Clean and organised modern office"
-                  loading="lazy"
-                />
-                <figcaption>Better spaces, better experiences</figcaption>
-              </figure>
-            </div>
-
-            <p>
-              Technology also helps service providers understand
-              customer needs, improve response times, and offer more
-              personalised experiences. Choosing a professional team
-              with a clear process can save time while maintaining
-              high-quality standards.
-            </p>
-
-            <h2>Celebrating Successes in Service</h2>
-
-            <p>
-              A successful service experience begins with understanding
-              the project, setting realistic expectations, and selecting
-              experienced professionals. Whether you are improving your
-              home or maintaining a workplace, a structured approach
-              helps create lasting results.
-            </p>
-
-            <p>
-              Our goal is to make it easier to discover practical
-              solutions, compare available services, and connect with
-              professionals who value quality, reliability, and customer
-              satisfaction.
-            </p>
-          </div>
-
-          {/* Article footer */}
-          <div className="BlogDetailsMain__articleFooter">
-            <div className="BlogDetailsMain__footerTags">
-              <Tag size={19} />
-              <span className="BlogDetailsMain__footerLabel">Tags:</span>
-
-              {activePost.tags.map((tag) => (
                 <button
                   type="button"
-                  key={tag}
-                  className={`BlogDetailsMain__footerTag ${
-                    activeTag === tag ? "is-active" : ""
-                  }`}
-                  onClick={() => handleTag(tag)}
+                  className={`BlogDetailsMain__bookmark ${bookmarked ? "is-active" : ""}`}
+                  onClick={() => setBookmarked((v) => !v)}
+                  aria-label={bookmarked ? "Remove bookmark" : "Bookmark article"}
+                  title={bookmarked ? "Saved" : "Save article"}
                 >
-                  {tag}
+                  <Bookmark size={21} />
                 </button>
-              ))}
+              </div>
+
+              <div className="BlogDetailsMain__meta">
+                <span>
+                  <CalendarDays size={16} />
+                  {activePost.date || activePost.formattedDate || "Recent"}
+                </span>
+
+                <i />
+
+                <span>
+                  <UserRound size={16} />
+                  By {activePost.author || "Admin"}
+                </span>
+
+                {activePost.location && (
+                  <>
+                    <i />
+                    <span>
+                      <MapPin size={16} />
+                      {activePost.location}
+                    </span>
+                  </>
+                )}
+
+                <i />
+
+                <span>
+                  <Clock3 size={16} />
+                  {activePost.readTime || "5 min read"}
+                </span>
+
+                <i />
+
+                <span>
+                  <Eye size={17} />
+                  {activePost.views || 1} views
+                </span>
+              </div>
             </div>
 
-            <div className="BlogDetailsMain__share">
-              <span className="BlogDetailsMain__footerLabel">
-                Share:
-              </span>
-
-              <button
-                type="button"
-                className="BlogDetailsMain__socialButton"
-                onClick={() => shareOn("Facebook")}
-                aria-label="Share on Facebook"
-                title="Facebook"
-              >
-                <Globe size={16} />
-              </button>
-
-              <button
-                type="button"
-                className="BlogDetailsMain__socialButton"
-                onClick={() => shareOn("X")}
-                aria-label="Share on X"
-                title="X"
-              >
-                <span className="BlogDetailsMain__xLogo">𝕏</span>
-              </button>
-
-              <button
-                type="button"
-                className="BlogDetailsMain__socialButton"
-                onClick={() => shareOn("LinkedIn")}
-                aria-label="Share on LinkedIn"
-                title="LinkedIn"
-              >
-                <span className="BlogDetailsMain__linkedinLogo">in</span>
-              </button>
-
-              <button
-                type="button"
-                className="BlogDetailsMain__socialButton"
-                onClick={() => shareOn("WhatsApp")}
-                aria-label="Share on WhatsApp"
-                title="WhatsApp"
-              >
-                <MessageCircle size={16} />
-              </button>
-
-              <button
-                type="button"
-                className="BlogDetailsMain__socialButton BlogDetailsMain__copyButton"
-                onClick={copyArticleLink}
-                aria-label="Copy article link"
-                title="Copy link"
-              >
-                {copied ? <Check size={16} /> : <Copy size={15} />}
-              </button>
-            </div>
-          </div>
-
-          {copied && (
-            <div className="BlogDetailsMain__copyNotice">
-              <Check size={16} />
-              Article link copied successfully
-            </div>
-          )}
-        </main>
-
-        {/* Sidebar */}
-        <aside className="BlogDetailsMain__sidebar">
-          {/* Search */}
-          <section className="BlogDetailsMain__widget BlogDetailsMain__searchWidget">
-            <form
-              className="BlogDetailsMain__searchForm"
-              onSubmit={handleSearch}
-            >
-              <input
-                type="search"
-                placeholder="Search articles..."
-                aria-label="Search articles"
-                value={searchTerm}
-                onChange={(event) => setSearchTerm(event.target.value)}
+            {/* Hero Image */}
+            <div className="BlogDetailsMain__heroImage">
+              <img
+                src={resolveImage(activePost.image)}
+                alt={activePost.title}
+                fetchPriority="high"
+                onError={(e) => {
+                  e.currentTarget.src =
+                    "https://images.unsplash.com/photo-1581578731548-c64695cc6952?auto=format&fit=crop&w=1200&q=90";
+                }}
               />
 
-              <button type="submit" aria-label="Search">
-                <Search size={24} />
-              </button>
-            </form>
-          </section>
-
-          {/* Categories */}
-          <section className="BlogDetailsMain__widget">
-            <div className="BlogDetailsMain__widgetHeading">
-              <div>
-                <span className="BlogDetailsMain__eyebrow">
-                  EXPLORE
+              <div className="BlogDetailsMain__imageOverlay">
+                <span>
+                  <Sparkles size={15} />
+                  Prime Site Insights &bull; {activePost.category}
                 </span>
-                <h2>Categories</h2>
               </div>
-              <span className="BlogDetailsMain__headingIcon">
-                <Tag size={20} />
-              </span>
             </div>
 
-            <div className="BlogDetailsMain__categoryList">
-              {categories.map((category) => (
+            {/* Article Content */}
+            <div className="BlogDetailsMain__articleBody">
+              {activePost.shortDescription && (
+                <p className="BlogDetailsMain__intro">
+                  {activePost.shortDescription}
+                </p>
+              )}
+
+              {/* Dynamic HTML Content */}
+              {activePost.description?.includes("<") ? (
+                <div
+                  className="BlogDetailsMain__richContent"
+                  dangerouslySetInnerHTML={{ __html: activePost.description }}
+                />
+              ) : (
+                activePost.description?.split("\n\n").map((para, idx) => (
+                  <p key={idx}>{para}</p>
+                ))
+              )}
+            </div>
+
+            {/* Article footer */}
+            <div className="BlogDetailsMain__articleFooter">
+              {tags.length > 0 && (
+                <div className="BlogDetailsMain__footerTags">
+                  <Tag size={18} />
+                  <span className="BlogDetailsMain__footerLabel">Tags:</span>
+
+                  {tags.map((tag) => (
+                    <span key={tag} className="BlogDetailsMain__footerTag">
+                      #{tag}
+                    </span>
+                  ))}
+                </div>
+              )}
+
+              <div className="BlogDetailsMain__share">
+                <span className="BlogDetailsMain__footerLabel">Share:</span>
+
                 <button
                   type="button"
-                  key={category.name}
-                  className={`BlogDetailsMain__categoryItem ${
-                    activeCategory === category.name ? "is-active" : ""
-                  }`}
-                  style={{ "--category-image": `url("${category.image}")` }}
-                  onClick={() => handleCategory(category.name)}
+                  className="BlogDetailsMain__socialButton"
+                  onClick={() => shareOn("Facebook")}
+                  aria-label="Share on Facebook"
+                  title="Share on Facebook"
                 >
-                  <span>{category.name}</span>
-                  <ChevronRight size={20} />
+                  <Globe size={16} />
                 </button>
-              ))}
+
+                <button
+                  type="button"
+                  className="BlogDetailsMain__socialButton"
+                  onClick={() => shareOn("X")}
+                  aria-label="Share on X"
+                  title="Share on X (Twitter)"
+                >
+                  <span className="BlogDetailsMain__xLogo">&#120143;</span>
+                </button>
+
+                <button
+                  type="button"
+                  className="BlogDetailsMain__socialButton"
+                  onClick={() => shareOn("LinkedIn")}
+                  aria-label="Share on LinkedIn"
+                  title="Share on LinkedIn"
+                >
+                  <span className="BlogDetailsMain__linkedinLogo">in</span>
+                </button>
+
+                <button
+                  type="button"
+                  className="BlogDetailsMain__socialButton"
+                  onClick={() => shareOn("WhatsApp")}
+                  aria-label="Share on WhatsApp"
+                  title="Share on WhatsApp"
+                >
+                  <MessageCircle size={16} />
+                </button>
+
+                <button
+                  type="button"
+                  className="BlogDetailsMain__socialButton BlogDetailsMain__copyButton"
+                  onClick={copyArticleLink}
+                  aria-label="Copy article link"
+                  title="Copy link"
+                >
+                  {copied ? <Check size={16} color="#16a34a" /> : <Copy size={15} />}
+                </button>
+              </div>
             </div>
 
-            {activeCategory && (
-              <button
-                type="button"
-                className="BlogDetailsMain__clearFilter"
-                onClick={() => setActiveCategory("")}
-              >
-                Clear category filter
-              </button>
+            {copied && (
+              <div className="BlogDetailsMain__copyNotice">
+                <Check size={16} />
+                Article link copied to clipboard!
+              </div>
             )}
-          </section>
 
-          {/* Popular / Recent / Trendy */}
-          <section className="BlogDetailsMain__widget">
-            <div className="BlogDetailsMain__tabs" role="tablist">
-              {["Popular", "Recent", "Trendy"].map((tab) => (
-                <button
-                  type="button"
-                  role="tab"
-                  aria-selected={activeTab === tab}
-                  key={tab}
-                  className={activeTab === tab ? "is-active" : ""}
-                  onClick={() => setActiveTab(tab)}
-                >
-                  {tab}
-                </button>
-              ))}
-            </div>
-
-            <div className="BlogDetailsMain__popularList">
-              {sidebarPosts[activeTab].map((post) => (
-                <button
-                  type="button"
-                  key={post.id}
-                  className="BlogDetailsMain__popularItem"
-                  onClick={() => {
-                    setSearchTerm(post.title);
-                    setActiveCategory("");
-                    setActiveTag("");
-                    document
-                      .getElementById("BlogDetailsMain-results")
-                      ?.scrollIntoView({ behavior: "smooth" });
-                  }}
-                >
-                  <img src={post.image} alt="" loading="lazy" />
-
-                  <span className="BlogDetailsMain__popularContent">
-                    <span className="BlogDetailsMain__popularDate">
-                      <Clock3 size={14} />
-                      {post.date}
-                    </span>
-                    <strong>{post.title}</strong>
-                    <span className="BlogDetailsMain__popularRead">
-                      {post.readTime}
-                      <ChevronRight size={14} />
-                    </span>
-                  </span>
-                </button>
-              ))}
-            </div>
-          </section>
-
-          {/* Tag cloud */}
-          <section className="BlogDetailsMain__widget">
-            <div className="BlogDetailsMain__widgetHeading">
+            {/* Author Profile Box */}
+            <div style={{
+              display: "flex",
+              alignItems: "center",
+              gap: "20px",
+              padding: "24px",
+              background: "#fff8f7",
+              borderRadius: "12px",
+              marginTop: "36px",
+              border: "1px solid #f0e3df"
+            }}>
+              <div style={{
+                width: "56px",
+                height: "56px",
+                borderRadius: "50%",
+                background: "linear-gradient(135deg, #f4512a, #092c49)",
+                color: "#fff",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                fontSize: "22px",
+                fontWeight: "700",
+                flexShrink: 0
+              }}>
+                {(activePost.author || "A").charAt(0).toUpperCase()}
+              </div>
               <div>
-                <span className="BlogDetailsMain__eyebrow">
-                  FIND YOUR INTEREST
-                </span>
-                <h2>Tag Cloud</h2>
+                <h4 style={{ margin: "0 0 4px", fontSize: "17px", color: "#092c49", fontWeight: "700" }}>
+                  Published by {activePost.author || "Admin"}
+                </h4>
+                <p style={{ margin: 0, fontSize: "14px", color: "#718096", lineHeight: "1.5" }}>
+                  Contributing author and specialist at Prime Site Group. Sharing industry insights, project updates, and practical management solutions.
+                </p>
               </div>
             </div>
+          </main>
 
-            <div className="BlogDetailsMain__tagCloud">
-              {tags.map((tag) => (
-                <button
-                  type="button"
-                  key={tag}
-                  className={activeTag === tag ? "is-active" : ""}
-                  onClick={() => handleTag(tag)}
-                >
-                  {tag}
+          {/* Sidebar */}
+          <aside className="BlogDetailsMain__sidebar">
+            {/* Search */}
+            <section className="BlogDetailsMain__widget BlogDetailsMain__searchWidget">
+              <form className="BlogDetailsMain__searchForm" onSubmit={handleSearch}>
+                <input
+                  type="search"
+                  placeholder="Search articles..."
+                  aria-label="Search articles"
+                  value={searchTerm}
+                  onChange={(e) => setSearchTerm(e.target.value)}
+                />
+                <button type="submit" aria-label="Search">
+                  <Search size={18} />
                 </button>
-              ))}
-            </div>
+              </form>
+            </section>
 
-            {(activeTag || activeCategory) && (
-              <button
-                type="button"
-                className="BlogDetailsMain__clearFilter"
-                onClick={() => {
-                  setActiveTag("");
-                  setActiveCategory("");
+            {/* Categories */}
+            {categories.length > 0 && (
+              <section className="BlogDetailsMain__widget BlogDetailsMain__categoryWidget">
+                <h3 className="BlogDetailsMain__widgetTitle">Categories</h3>
+                <ul className="BlogDetailsMain__categoryList" style={{ listStyle: "none", margin: 0, padding: 0 }}>
+                  {categories.map((cat) => (
+                    <li key={cat.id || cat.name} style={{ listStyle: "none", margin: 0, padding: 0 }}>
+                      <Link
+                        to={`/blogs?category=${encodeURIComponent(cat.name)}`}
+                        className="BlogDetailsMain__categoryItem"
+                      >
+                        <span>{cat.name}</span>
+                        <ChevronRight size={16} />
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </section>
+            )}
+
+            {/* Recent Posts */}
+            <section className="BlogDetailsMain__widget BlogDetailsMain__recentWidget">
+              <h3 className="BlogDetailsMain__widgetTitle">Recent Articles</h3>
+              <div className="BlogDetailsMain__recentList">
+                {recentPosts
+                  .filter((p) => p.id !== activePost.id)
+                  .slice(0, 4)
+                  .map((post) => (
+                    <Link
+                      key={post.id}
+                      to={`/blogs/${post.slug || post.id}`}
+                      className="BlogDetailsMain__recentCard"
+                      style={{ textDecoration: "none" }}
+                    >
+                      <div className="BlogDetailsMain__recentThumb">
+                        <img
+                          src={resolveImage(post.image)}
+                          alt={post.title}
+                          loading="lazy"
+                        />
+                      </div>
+                      <div className="BlogDetailsMain__recentBody">
+                        <span className="BlogDetailsMain__recentDate">
+                          <CalendarDays size={13} />
+                          {post.date || post.formattedDate}
+                        </span>
+                        <h4 className="BlogDetailsMain__recentTitle">
+                          {post.title}
+                        </h4>
+                      </div>
+                    </Link>
+                  ))}
+              </div>
+            </section>
+
+            {/* Contact Support Banner */}
+            <section className="BlogDetailsMain__widget" style={{
+              background: "linear-gradient(135deg, #092c49 0%, #0e3b61 100%)",
+              color: "#fff",
+              borderRadius: "12px",
+              padding: "28px 24px",
+              textAlign: "center"
+            }}>
+              <h3 style={{ margin: "0 0 10px", fontSize: "19px", color: "#fff", fontWeight: "700" }}>
+                Need Tailored Services?
+              </h3>
+              <p style={{ margin: "0 0 18px", fontSize: "14px", color: "rgba(255, 255, 255, 0.8)", lineHeight: "1.5" }}>
+                Contact our expert workforce and facility teams for custom enterprise solutions.
+              </p>
+              <Link
+                to="/contact"
+                style={{
+                  display: "inline-flex",
+                  alignItems: "center",
+                  gap: "8px",
+                  padding: "10px 20px",
+                  background: "#f4512a",
+                  color: "#fff",
+                  borderRadius: "6px",
+                  textDecoration: "none",
+                  fontWeight: "600",
+                  fontSize: "14px"
                 }}
               >
-                Clear all filters
-              </button>
-            )}
-          </section>
-
-          {/* Newsletter */}
-          <section className="BlogDetailsMain__newsletter">
-            <span className="BlogDetailsMain__newsletterIcon">
-              <Share2 size={23} />
-            </span>
-
-            <span className="BlogDetailsMain__eyebrow">
-              STAY INFORMED
-            </span>
-
-            <h2>Ideas worth sharing.</h2>
-
-            <p>
-              Explore practical tips, industry insights, and ideas for
-              better everyday services.
-            </p>
-
-            <button
-              type="button"
-              onClick={() => {
-                document
-                  .getElementById("BlogDetailsMain-results")
-                  ?.scrollIntoView({ behavior: "smooth" });
-              }}
-            >
-              Explore articles
-              <ChevronRight size={18} />
-            </button>
-          </section>
-        </aside>
-      </div>
-
-      {/* Search and filtered article results */}
-      <section
-        className="BlogDetailsMain__results"
-        id="BlogDetailsMain-results"
-      >
-        <div className="BlogDetailsMain__resultsHeading">
-          <div>
-            <span className="BlogDetailsMain__eyebrow">
-              DISCOVER MORE
-            </span>
-            <h2>
-              {searchTerm
-                ? "Search Results"
-                : activeCategory
-                  ? activeCategory
-                  : activeTag
-                    ? `${activeTag} Articles`
-                    : "More From Our Blog"}
-            </h2>
-          </div>
-
-          <span className="BlogDetailsMain__resultCount">
-            {filteredPosts.length}{" "}
-            {filteredPosts.length === 1 ? "article" : "articles"}
-          </span>
+                Contact Us <ArrowUpRight size={15} />
+              </Link>
+            </section>
+          </aside>
         </div>
 
-        {(searchTerm || activeCategory || activeTag) && (
-          <div className="BlogDetailsMain__filterStatus">
-            <span>
-              Showing filtered articles
-              {searchTerm ? ` for “${searchTerm}”` : ""}
-            </span>
-
-            <button
-              type="button"
-              onClick={() => {
-                setSearchTerm("");
-                setActiveCategory("");
-                setActiveTag("");
-              }}
-            >
-              Clear filters
-            </button>
-          </div>
-        )}
-
-        {filteredPosts.length > 0 ? (
-          <div className="BlogDetailsMain__resultsGrid">
-            {filteredPosts.map((post) => (
-              <article
-                className="BlogDetailsMain__resultCard"
-                key={post.id}
-              >
-                <div className="BlogDetailsMain__resultImage">
-                  <img src={post.image} alt={post.title} loading="lazy" />
-                  <span>{post.category}</span>
-                </div>
-
-                <div className="BlogDetailsMain__resultContent">
-                  <span className="BlogDetailsMain__resultDate">
-                    <CalendarDays size={15} />
-                    {post.date}
-                  </span>
-
-                  <h3>{post.title}</h3>
-                  <p>{post.excerpt}</p>
-
-                  <button
-                    type="button"
-                    onClick={() => {
-                      setSearchTerm(post.title);
-                      setActiveCategory("");
-                      setActiveTag("");
-                      window.scrollTo({ top: 0, behavior: "smooth" });
-                    }}
-                  >
-                    Read article
-                    <ArrowUpRight size={17} />
-                  </button>
-                </div>
-              </article>
-            ))}
-          </div>
-        ) : (
-          <div className="BlogDetailsMain__emptyState">
-            <Search size={32} />
-            <h3>No articles found</h3>
-            <p>
-              Try another keyword or clear the filters to see all articles.
-            </p>
-            <button
-              type="button"
-              onClick={() => {
-                setSearchTerm("");
-                setActiveCategory("");
-                setActiveTag("");
-              }}
-            >
-              Show all articles
-            </button>
-          </div>
+        {/* Scroll To Top Button */}
+        {showTopButton && (
+          <button
+            type="button"
+            className="BlogDetailsMain__scrollTop"
+            onClick={scrollToTop}
+            aria-label="Scroll to top"
+            title="Back to top"
+          >
+            <ArrowUp size={20} />
+          </button>
         )}
       </section>
-
-      {/* Floating Go To Top */}
-      <button
-        type="button"
-        className={`BlogDetailsMain__backToTop ${
-          showTopButton ? "is-visible" : ""
-        }`}
-        onClick={scrollToTop}
-        aria-label="Go to top"
-        title="Go to top"
-      >
-        <span className="BlogDetailsMain__topLine" />
-        <ArrowUp size={18} />
-        <span>Go To Top</span>
-      </button>
-    </section>
+    </>
   );
 };
 

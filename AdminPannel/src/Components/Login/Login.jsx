@@ -15,22 +15,11 @@ import {
 
 import { FaUser } from "react-icons/fa";
 
+import API, { AUTH_KEY, TOKEN_KEY, getStoredToken } from "../../api/axios";
 import "./Login.css";
 import brandLogo from "../../assets/primecarer.png";
 
-const AUTH_KEY = "isAdminAuthenticated";
-const DEMO_USER = "Prime";
-const DEMO_PASS = "12345";
 const BRAND_NAME = "Prime Site Group";
-
-const authenticate = async (identifier, password) => {
-  await new Promise((resolve) => setTimeout(resolve, 600));
-
-  return (
-    identifier.trim().toLowerCase() === DEMO_USER.toLowerCase() &&
-    password === DEMO_PASS
-  );
-};
 
 const Login = () => {
   const [formData, setFormData] = useState({
@@ -42,6 +31,7 @@ const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
+  const [adminName, setAdminName] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const [infoMessage, setInfoMessage] = useState("");
 
@@ -55,15 +45,12 @@ const Login = () => {
       ? location.state.from.pathname
       : "/dashboard";
 
-  // Check existing authentication
+  // Check existing JWT authentication
   useEffect(() => {
-    const remembered = localStorage.getItem(AUTH_KEY) === "true";
-
-    if (remembered) {
+    const token = getStoredToken();
+    if (token) {
+      sessionStorage.setItem(TOKEN_KEY, token);
       sessionStorage.setItem(AUTH_KEY, "true");
-    }
-
-    if (sessionStorage.getItem(AUTH_KEY) === "true") {
       navigate(destination, { replace: true });
     }
   }, [navigate, destination]);
@@ -94,34 +81,40 @@ const Login = () => {
     setInfoMessage("");
 
     try {
-      const ok = await authenticate(
-        formData.identifier,
-        formData.password
-      );
+      const res = await API.post("/auth/login", {
+        identifier: formData.identifier.trim(),
+        password: formData.password,
+      });
 
-      if (!ok) {
+      if (!res.data?.success || !res.data?.token) {
         setErrorMessage(
-          "Incorrect username or password. Please try again."
+          res.data?.message || "Incorrect username or password. Please try again."
         );
         return;
       }
 
+      const token = res.data.token;
+      sessionStorage.setItem(TOKEN_KEY, token);
       sessionStorage.setItem(AUTH_KEY, "true");
 
       if (formData.rememberMe) {
+        localStorage.setItem(TOKEN_KEY, token);
         localStorage.setItem(AUTH_KEY, "true");
       } else {
+        localStorage.removeItem(TOKEN_KEY);
         localStorage.removeItem(AUTH_KEY);
       }
 
+      setAdminName(res.data.admin?.userId || formData.identifier.trim() || "Admin");
       setIsSuccess(true);
 
       redirectTimer.current = setTimeout(() => {
         navigate(destination, { replace: true });
-      }, 1200);
+      }, 950);
     } catch (err) {
       setErrorMessage(
-        "Something went wrong. Please try again."
+        err.response?.data?.message ||
+          "Incorrect username or password. Please try again."
       );
     } finally {
       setIsLoading(false);
@@ -157,7 +150,7 @@ const Login = () => {
             </div>
 
             <h2 className="Login-success-title">
-              Welcome back, {DEMO_USER}
+              Welcome back, {adminName || "Admin"}
             </h2>
 
             <p className="Login-success-subtitle">

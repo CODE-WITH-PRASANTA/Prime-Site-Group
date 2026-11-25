@@ -1,0 +1,263 @@
+.ServiceBookingModal__backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 99999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  background: rgba(15, 23, 42, 0.58);
+  backdrop-filter: blur(4px);
+  animation: sbmFadeIn 0.2s ease-out;
+}
+
+@keyframes sbmFadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.ServiceBookingModal__card {
+  width: 100%;
+  max-width: 680px;
+  max-height: 92vh;
+  overflow-y: auto;
+  background: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0 24px 60px rgba(9, 44, 73, 0.25);
+  border: 1px solid #e5e7eb;
+  animation: sbmSlideUp 0.25s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+@keyframes sbmSlideUp {
+  from {
+    opacity: 0;
+    transform: translateY(18px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.ServiceBookingModal__header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 22px 26px 18px;
+  border-bottom: 1px solid #f1f5f9;
+  background: linear-gradient(135deg, #fff9f8 0%, #ffffff 100%);
+}
+
+.ServiceBookingModal__badge {
+  display: inline-block;
+  padding: 4px 10px;
+  margin-bottom: 8px;
+  border-radius: 999px;
+  background: rgba(225, 29, 42, 0.1);
+  color: #e11d2a;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+}
+
+.ServiceBookingModal__title {
+  margin: 0 0 4px;
+  font-size: 21px;
+  font-weight: 700;
+  color: #092c49;
+}
+
+.ServiceBookingModal__subtitle {
+  margin: 0;
+  font-size: 13.5px;
+  color: #64748b;
+}
+
+.ServiceBookingModal__close {
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  border: 1px solid #e2e8f0;
+  border-radius: 50%;
+  background: #ffffff;
+  color: #475569;
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: all 0.2s ease;
+}
+
+.ServiceBookingModal__close:hover {
+  background: #fef2f2;
+  border-color: #fecaca;
+  color: #e11d2a;
+}
+
+.ServiceBookingModal__body {
+  padding: 22px 26px;
+}
+
+.ServiceBookingModal__serverError {
+  margin-bottom: 16px;
+  padding: 10px 14px;
+  border-radius: 8px;
+  background: #fef2f2;
+  border: 1px solid #fecaca;
+  color: #dc2626;
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.ServiceBookingModal__grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px 18px;
+  margin-bottom: 16px;
+}
+
+.ServiceBookingModal__field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.ServiceBookingModal__field label {
+  font-size: 13.5px;
+  font-weight: 700;
+  color: #1e293b;
+}
+
+.ServiceBookingModal__field label span {
+  color: #e11d2a;
+}
+
+.ServiceBookingModal__field input,
+.ServiceBookingModal__field select,
+.ServiceBookingModal__field textarea {
+  width: 100%;
+  padding: 11px 14px;
+  border: 1px solid #e2e8f0;
+  border-radius: 10px;
+  background: #ffffff;
+  color: #0f172a;
+  font-size: 14px;
+  font-family: inherit;
+  outline: none;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  box-sizing: border-box;
+}
+
+.ServiceBookingModal__field input:focus,
+.ServiceBookingModal__field select:focus,
+.ServiceBookingModal__field textarea:focus {
+  border-color: #e11d2a;
+  box-shadow: 0 0 0 3px rgba(225, 29, 42, 0.12);
+}
+
+.ServiceBookingModal__field input.has-error,
+.ServiceBookingModal__field select.has-error,
+.ServiceBookingModal__field textarea.has-error {
+  border-color: #dc2626;
+}
+
+.ServiceBookingModal__field small {
+  color: #dc2626;
+  font-size: 12px;
+}
+
+.ServiceBookingModal__footer {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 12px;
+  padding: 16px 26px 22px;
+  border-top: 1px solid #f1f5f9;
+}
+
+.ServiceBookingModal__btnCancel {
+  padding: 10px 20px;
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+  background: #ffffff;
+  color: #0f172a;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.ServiceBookingModal__btnCancel:hover {
+  background: #f8fafc;
+}
+
+.ServiceBookingModal__btnPrimary {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 11px 22px;
+  border: none;
+  border-radius: 8px;
+  background: #e11d2a;
+  color: #ffffff;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 6px 18px rgba(225, 29, 42, 0.28);
+  transition: all 0.2s ease;
+}
+
+.ServiceBookingModal__btnPrimary:hover:not(:disabled) {
+  background: #c81622;
+  transform: translateY(-1px);
+}
+
+.ServiceBookingModal__btnPrimary:disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
+}
+
+.ServiceBookingModal__success {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 44px 28px;
+}
+
+.ServiceBookingModal__successIcon {
+  display: grid;
+  place-items: center;
+  width: 76px;
+  height: 76px;
+  margin-bottom: 18px;
+  border-radius: 50%;
+  background: #ecfdf5;
+  color: #16a34a;
+}
+
+.ServiceBookingModal__success h3 {
+  margin: 0 0 8px;
+  font-size: 22px;
+  font-weight: 700;
+  color: #092c49;
+}
+
+.ServiceBookingModal__success p {
+  margin: 0 0 24px;
+  max-width: 420px;
+  color: #64748b;
+  font-size: 14.5px;
+  line-height: 1.6;
+}
+
+@media (max-width: 600px) {
+  .ServiceBookingModal__grid {
+    grid-template-columns: 1fr;
+  }
+}
